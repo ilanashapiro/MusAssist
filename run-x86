@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# This command will download and run an x86-compatible version of the Docker image
+docker run --rm -ti --platform=linux/amd64 -v"`pwd`":/workspaces/hw4 harveymudd/cs132:4 /bin/zsh
