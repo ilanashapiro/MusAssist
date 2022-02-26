@@ -111,7 +111,7 @@ main = do
               "\t\t</score-part>",
             "\t</part-list>",
             "\t<part id=\"P1\">",
-            "\t<measure number=\"1\" width=\"321.37\">",
+            "\t<measure number=\"1\">",
             "\t<print>",
                   "\t\t<system-layout>",
                   "\t\t<system-margins>",
