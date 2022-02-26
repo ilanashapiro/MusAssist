@@ -8,14 +8,14 @@ where
 --------------------------------------------------------------------------------
 
 data NoteName = 
-     C 
-     | D 
-     | E 
-     | F 
-     | G 
-     | A 
-     | B
-  deriving (Eq, Show)
+    F
+    | C
+    | G 
+    | D 
+    | E 
+    | A 
+    | B
+  deriving (Eq, Ord, Show) -- the notes are ordered in the order of sharps. reverse for order of flats
 
 data Accidental = 
      Natural 
@@ -51,31 +51,51 @@ data ChordType =
      | Seventh
   deriving (Eq, Show)
 
+-- | Custom collection of notes
+data CustomChord = 
+     EmptyChord 
+     | ChordNotes Note CustomChord
+  deriving (Eq, Show)
+
+data NoteWithKey = Key Note Quality -- quality is major/minor ONLY
+  deriving (Eq, Show)
+
 --------------------------------------------------------------------------------
 -- Tokens that get translated from user input
 --------------------------------------------------------------------------------
 data Note = 
      Note NoteName Accidental Octave Duration 
-     | Rest
-  deriving (Eq, Show)
-
--- | Custom collection of notes
-data CustomChord = 
-     EmptyChord 
-     | Notes Note CustomChord
+     | Rest Duration
   deriving (Eq, Show)
 
 -- | Predefined chords: these all happen in root position
-data Chord = Chord Note Quality ChordType Inversion -- note cannot be a rest
+data Chord = 
+  Chord Note Quality ChordType Inversion -- note cannot be a rest
+  | CustomChord
   deriving (Eq, Show)
 
+data MusicState = 
+  TimeSignature Int Duration -- number of beats, beat value 
+  | KeySignature NoteName Quality
+  | NewMeasure
+
+-- all resulting chords in root position
 data Cadence = 
-     PerfAuth NoteName Quality 
-     | ImperfAuth NoteName Quality 
-     | Plagal NoteName Quality 
-     | HalfCad NoteName Quality 
-     | Deceptive NoteName Quality 
+     PerfAuth NoteWithKey
+     | ImperfAuth NoteWithKey
+     | Plagal NoteWithKey
+     | HalfCad NoteWithKey
+     | Deceptive NoteWithKey
   deriving (Eq, Show)
+
+-- all resulting chords in root position
+data HarmonicSequence = 
+     AscFifths NoteWithKey Int |
+     DescFifths NoteWithKey Int |
+     Asc56 NoteWithKey Int |
+     Desc56 NoteWithKey Int
+  deriving (Eq, Show)
+
 
 
 -- Chord example
