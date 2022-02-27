@@ -83,7 +83,7 @@
           <alter>1</alter>
           <octave>5</octave>
           </pitch>
-        <duration>1</duration>
+        <duration>1.0</duration>
         <voice>1</voice>
         <type>quarter</type>
         <stem>down</stem>

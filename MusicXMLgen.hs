@@ -14,7 +14,7 @@ type BeatCounter = Data.IORef.IORef Float
 type MeasureCounter = Data.IORef.IORef Int32
 type NoteDuration = Float 
 type CumulativeDuration = Float 
-type TimeSignature = Float -- whole = 4, quarter = 1, eighth = 0.5, etc. absolute time per measure
+type TimePerMeasure = Float -- whole = 4, quarter = 1, eighth = 0.5, etc. absolute time per measure
 type KeySignature = (Maybe MusAST.NoteName, Maybe MusAST.NoteName) -- last sharp in key sig, last flat in key sig (one should always be Nothing!)
 
 -- IN CONCLUSION
@@ -40,7 +40,7 @@ type State = (BeatCounter, MeasureCounter)
 ---------------------------------------------
 
 -- | Update where we're at in a measure and handle new measures
-updateBeat :: NoteDuration -> TimeSignature -> State -> (State, [CodeLine])
+updateBeat :: NoteDuration -> TimePerMeasure -> State -> [CodeLine]
 updateBeat noteDuration timePerMeasure (currBeatCt, measureCt) = do
   currentBeatCount <- Data.IORef.readIORef currBeatCt
   let updatedBeatCount = currentBeatCount + noteDuration 
@@ -50,10 +50,10 @@ updateBeat noteDuration timePerMeasure (currBeatCt, measureCt) = do
       let newMeasureCode = ["\t\t</measure>", "\t\t<measure number=\"" ++ measureNum ++ " width=\"165.43\">"]
       Data.IORef.writeIORef currBeatCt 0.0                    -- reset beats to 0 bc we're in a new measure
       Data.IORef.writeIORef measureCt (measureNum + 1)    -- increment the measure count
-      return (state, newMeasureCode)
+      return newMeasureCode
     else 
       Data.IORef.writeIORef currBeatCt updatedBeat
-      return (state, [])
+      return []
 
 convertDurationToFloat :: MusAST.DURATION -> Float
 convertDurationToFloat duration =
@@ -69,24 +69,88 @@ convertDurationToFloat duration =
 
 convertAccidentalToString :: MusAST.ACCIDENTAL -> Float
 
+generateTiedMeasures :: Int -> [CodeLine]
+generateTiedMeasures 1  = 
+                  [ "<measure number=\"" ++ show measureNum ++ "\" width=\"232.96\">",
+                    "<note>",
+                      "<rest measure=\"yes\"/>",
+                      "<duration>" ++ show duration ++ "</duration>",
+                      "<tie type=\"stop\"/>",
+                      "<tie type=\"start\"/>",
+                      "<voice>1</voice>",
+                      "<type>whole</type>",
+                      "<notations>",
+                        "<tied type=\"stop\"/>",
+                        "<tied type=\"start\"/>",
+                        "</notations>",
+                      "</note>",
+                    "</measure>"]
+               generateTiedMeasures ms = 
 
 -----------------------------------------------------------------------------------------
 -- Code Generation for Notes
 -----------------------------------------------------------------------------------------
 
 -- | Returns machine code that writes the given note into musicXML
-transNote :: MusAST.Note -> State -> IO [CodeLine]
+transNote :: MusAST.Note -> TimePerMeasure -> State -> IO [CodeLine]
 
 ------------------------------------------------
 -- Rests
 ------------------------------------------------
-transNote (MusAST.REST duration) (currBeatCt, measureCt) = do
+transNote (MusAST.REST duration) timePerMeasure (currBeatCt, measureCt) = do
+  measureNum <- Data.IORef.readIORef measureCt
+  currentBeatCount <- Data.IORef.readIORef currBeatCt
   let noteDuration = convertDurationToFloat duration
-      fullMeasuresInDuration = noteDuration / 2 -- ETC, NOT DONE
+      initialNoteCode = [
+        "<note>",
+        "<rest/>",
+        "<duration>" ++ show noteDuration ++ "</duration>",
+        "<voice>1</voice>",
+        "<type>" ++ toLower (show duration) ++ "</type>",
+        "</note>"] 
+      remainingTimeInMeasure = timePerMeasure - currentBeatCount
+  if noteDuration <= remainingTimeInMeasure 
+    then do 
+      let newMeasureCode = updateBeat noteDuration timePerMeasure (currBeatCt, measureCt)
+      return newMeasureCode ++ initialNoteCode
+  else let fullMeasuresInDuration = floor (noteDuration / timePerMeasure)
+
+-- cases :
+-- 1) note fits in the current measure = DONE 
+-- 2) note doesn't fit in current measure, but fits in the next measure 
+-- 3) note doesn't fit in current measure, but fits precisely in an exact number of additional measures
+-- 4) note doesn't fit in current measure, spills over 1+ additional measure, and then partially spills over a final measure
+
+  continuingTieCode = if currentBeatCount == 0 then ["<tie type=\"stop\"/>"] else []
+  if fullMeasuresInDuration > 0
+      then let generateTiedMeasures 1  = 
+                  [ "<measure number=\"" ++ show measureNum ++ "\" width=\"232.96\">",
+                    "<note>",
+                      "<rest measure=\"yes\"/>",
+                      "<duration>" ++ show duration ++ "</duration>",
+                      "<tie type=\"stop\"/>",
+                      "<tie type=\"start\"/>",
+                      "<voice>1</voice>",
+                      "<type>whole</type>",
+                      "<notations>",
+                        "<tied type=\"stop\"/>",
+                        "<tied type=\"start\"/>",
+                        "</notations>",
+                      "</note>",
+                    "</measure>"]
+               generateTiedMeasures ms = 
+                 ["<note>",
+                  "<rest measure=\"yes\"/>",
+                  "<duration>" ++ show noteDuration ++ "</duration>",
+                  "<voice>1</voice>",
+                  "</note>"]
+                  ++ generateTiedMeasures (ms - 1)
+
   return ["<note>",
           "<rest measure=\"yes\"/>",
           "<duration>" ++ show noteDuration ++ "</duration>",
           "<voice>1</voice>",
+           "<type>" ++ toLower (show duration) ++ "</type>",
           "</note>"]  
 
 ------------------------------------------------
