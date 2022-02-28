@@ -4,7 +4,7 @@ module MusAssistAST
 )
 where
 --------------------------------------------------------------------------------
--- Data that is never used alone (they are used to create the tokens down below)
+-- Sub-pieces of musical objects
 --------------------------------------------------------------------------------
 
 data NoteName = 
@@ -26,6 +26,10 @@ data Accidental =
 type Octave = Int -- range is [1,8]
 
 type Inversion = Int -- range is [1,4]
+
+type Length = Int -- range is [1,4]
+
+type Label = String -- for saving sequences of notes/chords
 
 data Duration = 
      Whole 
@@ -51,52 +55,52 @@ data ChordType =
      | Seventh
   deriving (Eq, Show)
 
--- | Custom collection of notes
-data CustomChord = 
-     EmptyChord 
-     | ChordNotes Note CustomChord
-  deriving (Eq, Show)
-
 data NoteWithKey = Key Note Quality -- quality is major/minor ONLY
   deriving (Eq, Show)
 
 --------------------------------------------------------------------------------
--- Tokens that get translated from user input
+-- Musical Objects
 --------------------------------------------------------------------------------
 data Note = 
-     Note NoteName Accidental Octave Duration 
-     | Rest Duration
+  Note NoteName Accidental Octave 
+  | Rest
   deriving (Eq, Show)
 
 -- | Predefined chords: these all happen in root position
 data Chord = 
-  Chord Note Quality ChordType Inversion -- note cannot be a rest
-  | CustomChord
+  PredefinedChord Note Quality ChordType Inversion -- note cannot be a rest
+  | CustomChord [Note]
   deriving (Eq, Show)
 
-data MusicState = 
+data MusState = 
   TimeSignature Int Duration -- number of beats, beat value 
   | KeySignature NoteName Quality
   | NewMeasure
 
 -- all resulting chords in root position
-data Cadence = 
-     PerfAuth NoteWithKey
-     | ImperfAuth NoteWithKey
-     | Plagal NoteWithKey
-     | HalfCad NoteWithKey
-     | Deceptive NoteWithKey
+data CadenceType = 
+     PerfAuth 
+     | ImperfAuth
+     | Plagal
+     | HalfCad
+     | Deceptive
   deriving (Eq, Show)
 
 -- all resulting chords in root position
-data HarmonicSequence = 
-     AscFifths NoteWithKey Int |
-     DescFifths NoteWithKey Int |
-     Asc56 NoteWithKey Int |
-     Desc56 NoteWithKey Int
+data HarmonicSequenceType = 
+  AscFifths
+  | DescFifths
+  | Asc56 
+  | Desc56
   deriving (Eq, Show)
 
-
-
--- Chord example
--- Notes ((Note C Natural 4 Quarter) (Notes (Note E Natural 4 Quarter) (Notes (Note G Natural 4 Quarter) EmptyChord)))
+data Expr = 
+  Note Note Duration
+  | Chord Chord Duration
+  | Cadence CadenceType Note Quality -- quality is major/minor ONLY. det the start note and key of the cadence
+  | HarmonicSequence HarmonicSequenceType Note Quality Length -- quality is major/minor ONLY. det the start note and key of the seq
+  
+data Instr = 
+  Set MusState
+  | ASSIGN Label Expr -- save a chunk of music to a label
+  | WRITE Expr

@@ -21,6 +21,7 @@ import           Data.Char          (isSpace)
 import           Data.IORef
 import           Data.List          (dropWhileEnd)
 import qualified MusAssistAST
+import qualified MusicXMLgen
 import           System.Environment (getArgs)
 import           System.FilePath    (replaceExtension, takeExtension)
 
@@ -51,10 +52,11 @@ main = do
 
   -- Translate MusAssistAST code to musicXML code
   putStrLn "Generating musicXML code..."
-  let code = [""]
-  --code <- translate ast
+  beatCt        <- Data.IORef.newIORef 0
+  measureCt     <- Data.IORef.newIORef 0
+  let code = MusicXMLgen.translate ast
 
-    -- wrap the JVM code into the body of public static void main
+    -- header code for musicXML file
   let headerCode =
         [ "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
             "<!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 3.1 Partwise//EN\" \"http://www.musicxml.org/dtds/partwise.dtd\">",

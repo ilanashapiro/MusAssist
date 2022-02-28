@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore 3.6.0</software>
-      <encoding-date>2022-02-26</encoding-date>
+      <encoding-date>2022-02-27</encoding-date>
       <supports element="accidental" type="yes"/>
       <supports element="beam" type="yes"/>
       <supports element="print" attribute="new-page" type="no"/>
@@ -53,7 +53,7 @@
       </score-part>
     </part-list>
   <part id="P1">
-    <measure number="1" width="482.87">
+    <measure number="1">
       <print>
         <system-layout>
           <system-margins>
@@ -77,18 +77,29 @@
           <line>2</line>
           </clef>
         </attributes>
-      <note default-x="113.48" default-y="-15.00">
+      <note>
         <pitch>
           <step>C</step>
           <alter>1</alter>
           <octave>5</octave>
           </pitch>
-        <duration>1.0</duration>
+        <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
         <stem>down</stem>
         </note>
-      <note default-x="187.00" default-y="-10.00">
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+          </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <stem>down</stem>
+        </note>
+      <note>
+        <chord/>
         <pitch>
           <step>D</step>
           <alter>1</alter>
@@ -100,7 +111,7 @@
         <accidental>sharp</accidental>
         <stem>down</stem>
         </note>
-      <note default-x="260.52" default-y="-10.00">
+      <note>
         <pitch>
           <step>D</step>
           <alter>1</alter>
@@ -111,19 +122,7 @@
         <type>quarter</type>
         <stem>down</stem>
         </note>
-      <note default-x="334.03" default-y="-5.00">
-        <pitch>
-          <step>E</step>
-          <alter>1</alter>
-          <octave>5</octave>
-          </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <accidental>sharp</accidental>
-        <stem>down</stem>
-        </note>
-      <note default-x="407.55" default-y="-5.00">
+      <note>
         <pitch>
           <step>E</step>
           <alter>1</alter>
@@ -133,14 +132,15 @@
         <tie type="start"/>
         <voice>1</voice>
         <type>quarter</type>
+        <accidental>sharp</accidental>
         <stem>down</stem>
         <notations>
           <tied type="start"/>
           </notations>
         </note>
       </measure>
-    <measure number="2" width="232.96">
-      <note default-x="13.96" default-y="-5.00">
+    <measure number="2">
+      <note>
         <pitch>
           <step>E</step>
           <alter>1</alter>
@@ -157,8 +157,8 @@
           </notations>
         </note>
       </measure>
-    <measure number="3" width="263.20">
-      <note default-x="13.00" default-y="-5.00">
+    <measure number="3">
+      <note>
         <pitch>
           <step>E</step>
           <alter>1</alter>
