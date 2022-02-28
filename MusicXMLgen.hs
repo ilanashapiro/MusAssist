@@ -238,13 +238,15 @@ xStmt _ stmt = do
 -- Code Generation for Fragments
 -----------------------------------------------------------------------------------------
 
--- | Turns an NT Fragment into the equivalent A.Fragment by just doing
---   instruction-selection on the code parts
-transPiece :: BeatCounter -> MeasureCounter -> MusAST.Instr -> IO [CodeLine]
-xFrag measureCt = do
-  notes <- transNote 
-  transNote :: MusAST.Note -> TimePerMeasure -> State -> IO [CodeLine]
-  return $ A.FragCode l instrs
+-- | Turn list of MusAssist AST abstract syntax into musicXML code
+transInstr :: State -> MusAST.Instr -> IO [CodeLine]
+transInstr (MusAST.SET musicState) state = undefined
+transInstr (MusAST.ASSIGN label expr) state = undefined
+transInstr (MusAST.WRITE expr) state = do
+  notes <- transExpr 
+  return 
 
-xFrags :: Counter -> [NT.Fragment] -> IO [A.Fragment]
-xFrags ct = mapM (xFrag ct)
+transInstr :: State -> [MusAST.Instr] -> IO [CodeLine]
+transInstr instrs state = do
+  instrSeqs <- mapM (transInstr state) instrs
+  return $ concat instrSeqs

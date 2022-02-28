@@ -72,18 +72,18 @@ data Chord =
   | CustomChord [Note]
   deriving (Eq, Show)
 
-data MusState = 
+data MusicState = 
   TimeSignature Int Duration -- number of beats, beat value 
   | KeySignature NoteName Quality
   | NewMeasure
 
 -- all resulting chords in root position
 data CadenceType = 
-     PerfAuth 
-     | ImperfAuth
-     | Plagal
-     | HalfCad
-     | Deceptive
+  PerfAuth 
+  | ImperfAuth
+  | Plagal
+  | HalfCad
+  | Deceptive
   deriving (Eq, Show)
 
 -- all resulting chords in root position
@@ -99,8 +99,10 @@ data Expr =
   | Chord Chord Duration
   | Cadence CadenceType Note Quality -- quality is major/minor ONLY. det the start note and key of the cadence
   | HarmonicSequence HarmonicSequenceType Note Quality Length -- quality is major/minor ONLY. det the start note and key of the seq
+    deriving (Eq, Show)
   
 data Instr = 
-  Set MusState
+  Set MusicState
   | ASSIGN Label Expr -- save a chunk of music to a label
   | WRITE Expr
+  deriving (Eq, Show)
