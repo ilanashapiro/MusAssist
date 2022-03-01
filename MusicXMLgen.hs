@@ -29,7 +29,7 @@ type KeySignature = (Maybe MusAST.NoteName, Maybe MusAST.NoteName) -- last sharp
 -- resets to empty at start of each measure
 ----type SharpsFlatsAccInMeas = ([NotePrimitive], [NotePrimitive])
 
-type State = (BeatCounter, MeasureCounter)
+type State = (BeatCounter, MeasureCounter, TimePerMeasure, KeySignature)
 
 
 
@@ -97,7 +97,7 @@ transNote :: MusAST.Note -> TimePerMeasure -> State -> IO [CodeLine]
 ------------------------------------------------
 -- Rests
 ------------------------------------------------
-transNote (MusAST.REST duration) timePerMeasure (currBeatCt, measureCt) = do
+transNote (MusAST.REST duration) (currBeatCt, measureCt, timePerMeasure, keySignature) = do
   measureNum <- Data.IORef.readIORef measureCt
   currentBeatCount <- Data.IORef.readIORef currBeatCt
 
@@ -221,9 +221,9 @@ transChord :: MusAST.Chord -> State -> IO [CodeLine]
 
 transChord MusAST.EmptyChord _ = return []
 
-transChord (MusAST.ChordNotes note customChord) (beatCt, measureCt) = undefined
+transChord (MusAST.ChordNotes note customChord) (beatCt, measureCt, timePerMeasure, keySignature) = undefined
 
-transChord (MusAST.Chord note quality chordType inversion) (beatCt, measureCt) = undefined
+transChord (MusAST.Chord note quality chordType inversion) (beatCt, measureCt, timePerMeasure, keySignature) = undefined
 
 ------------------------------------------------
 -- Anything that remains untranslated prints a warning message
@@ -240,13 +240,13 @@ xStmt _ stmt = do
 
 -- | Turn list of MusAssist AST abstract syntax into musicXML code
 transInstr :: State -> MusAST.Instr -> IO [CodeLine]
-transInstr (MusAST.SET musicState) state = undefined
-transInstr (MusAST.ASSIGN label expr) state = undefined
-transInstr (MusAST.WRITE expr) state = do
+transInstr state (MusAST.SET musicState) = undefined
+transInstr state (MusAST.ASSIGN label expr) = undefined
+transInstr state (MusAST.WRITE expr) = do
   notes <- transExpr 
   return 
 
-transInstr :: State -> [MusAST.Instr] -> IO [CodeLine]
-transInstr instrs state = do
+transInstrs :: State -> [MusAST.Instr] -> IO [CodeLine]
+transInstrs instrs state = do
   instrSeqs <- mapM (transInstr state) instrs
   return $ concat instrSeqs

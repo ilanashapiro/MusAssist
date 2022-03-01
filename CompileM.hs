@@ -54,7 +54,9 @@ main = do
   putStrLn "Generating musicXML code..."
   beatCt        <- Data.IORef.newIORef 0
   measureCt     <- Data.IORef.newIORef 0
-  let code = MusicXMLgen.translate ast
+  let defaultTimePerMeas = 4 -- default time signature is 4/4, which has time of 4
+      defaultKeySig = (Nothing, Nothing) -- CM/am is default, no sharps/flats
+      code = MusicXMLgen.transInstrs (beatCt, measureCt, defaultTimePerMeas, defaultKeySig) ast
 
     -- header code for musicXML file
   let headerCode =
