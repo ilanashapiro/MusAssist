@@ -4,14 +4,15 @@ Description  : The x86 code emitter for the compiler -- part of the backend
 Maintainer   : CS 132
 -}
 
-module ToMusicXML where
+module MusicXMLgen where
 
 import qualified MusAssistAST    as MusAST
---import Control.Monad 
+-- import Control.Monad 
+import           Data.IORef
 
 type CodeLine = String                    -- ^ A line of musicXML code
 type BeatCounter = Data.IORef.IORef Float
-type MeasureCounter = Data.IORef.IORef Int32
+type MeasureCounter = Data.IORef.IORef Int
 type NoteDuration = Float 
 type CumulativeDuration = Float 
 type TimePerMeasure = Float -- whole = 4, quarter = 1, eighth = 0.5, etc. absolute time per measure
@@ -40,32 +41,32 @@ type State = (BeatCounter, MeasureCounter, TimePerMeasure, KeySignature)
 ---------------------------------------------
 
 -- | Update where we're at in a measure and handle new measures
-updateBeat :: NoteDuration -> TimePerMeasure -> State -> [CodeLine]
-updateBeat noteDuration timePerMeasure (currBeatCt, measureCt) = do
+updateBeat :: NoteDuration -> State -> IO [CodeLine]
+updateBeat noteDuration (currBeatCt, measureCt, timePerMeas, _) = do
   currentBeatCount <- Data.IORef.readIORef currBeatCt
   let updatedBeatCount = currentBeatCount + noteDuration 
-  if updatedBeatCount == timePerMeasure 
+  if updatedBeatCount == timePerMeas 
     then do
       measureNum <- Data.IORef.readIORef measureCt
-      let newMeasureCode = ["\t\t</measure>", "\t\t<measure number=\"" ++ measureNum ++ ">"]
       Data.IORef.writeIORef currBeatCt 0.0                    -- reset beats to 0 bc we're in a new measure
       Data.IORef.writeIORef measureCt (measureNum + 1)    -- increment the measure count
+      let newMeasureCode = ["\t\t</measure>", "\t\t<measure number=\"" ++ show measureNum ++ "\">"]
       return newMeasureCode
-    else 
-      Data.IORef.writeIORef currBeatCt updatedBeat
+    else do
+      Data.IORef.writeIORef currBeatCt updatedBeatCount
       return []
 
-convertDurationToFloat :: MusAST.DURATION -> Float
+convertDurationToFloat :: MusAST.Duration -> Float
 convertDurationToFloat duration =
   case duration of
-    Whole         -> 4
-    DottedHalf    -> 3
-    Half          -> 2
-    DottedQuarter -> 1.5
-    Quarter       -> 1
-    DottedEighth  -> 0.75
-    Eighth        -> 0.5
-    Sixteenth     -> 0.25
+    MusAST.Whole         -> 4
+    MusAST.DottedHalf    -> 3
+    MusAST.Half          -> 2
+    MusAST.DottedQuarter -> 1.5
+    MusAST.Quarter       -> 1
+    MusAST.DottedEighth  -> 0.75
+    MusAST.Eighth        -> 0.5
+    MusAST.Sixteenth     -> 0.25
 
 -- convertAccidentalToString :: MusAST.ACCIDENTAL -> Float
 
@@ -92,12 +93,12 @@ convertDurationToFloat duration =
 -----------------------------------------------------------------------------------------
 
 -- | Returns machine code that writes the given note into musicXML
-transNote :: MusAST.Note -> TimePerMeasure -> State -> IO [CodeLine]
+transExpr :: State -> MusAST.Expr -> IO [CodeLine]
 
 ------------------------------------------------
 -- Rests
 ------------------------------------------------
-transNote (MusAST.REST duration) (currBeatCt, measureCt, timePerMeasure, keySignature) = do
+transExpr (currBeatCt, measureCt, timePerMeasure, keySignature) (MusAST.Rest duration) = do
   measureNum <- Data.IORef.readIORef measureCt
   currentBeatCount <- Data.IORef.readIORef currBeatCt
 
@@ -106,7 +107,7 @@ transNote (MusAST.REST duration) (currBeatCt, measureCt, timePerMeasure, keySign
 
   if noteDuration <= remainingTimeInMeasure -- case 1: note fits in measure
     then do 
-      updateBeat noteDuration timePerMeasure (currBeatCt, measureCt) -- update the beat, but there's no new measure code
+      updateBeat noteDuration (currBeatCt, measureCt, timePerMeasure, keySignature) -- update the beat, but there's no new measure code
       return [ -- the code for the note that fits in the current measure
         "\t\t\t<note>",
         "\t\t\t\t<rest/>",
@@ -115,7 +116,7 @@ transNote (MusAST.REST duration) (currBeatCt, measureCt, timePerMeasure, keySign
         -- "<type>" ++ toLower (show duration) ++ "</type>",
         "\t\t\t</note>"] 
 
-  else 
+  else do
     let fullMeasuresInDuration = floor (noteDuration / timePerMeasure)
         initialNoteCode = -- the code for the note that fits in the current measure
           ["\t\t\t<note>",
@@ -127,24 +128,26 @@ transNote (MusAST.REST duration) (currBeatCt, measureCt, timePerMeasure, keySign
             --   "\t\t\t\t\t<tie type=\"start\"/>",
             -- "\t\t\t\t</notations>",
           "\t\t\t</note>"] 
+    newMeasureCode <- updateBeat remainingTimeInMeasure (currBeatCt, measureCt, timePerMeasure, keySignature)
 
-        generateTiedMeasures remainingNoteLength 
-          | remainingNoteLength <= timePerMeasure = newMeasureCode ++ noteCode ++ generateTiedMeasures (remainingNoteLength - timePerMeasure)
+    let generateTiedMeasures remainingNoteLength 
+          | remainingNoteLength <= timePerMeasure = return
             ["\t\t\t<note>",
               "\t\t\t\t<rest/>",
               "\t\t\t\t<duration>" ++ show remainingNoteLength ++ "</duration>", -- the duration of this note is all the time that's left in the measure, since the note doesn't fit in the measure
-              "\t\t\t\t<tie type=\"stop\"/>", -- last note of ties has end tie only
+              -- "\t\t\t\t<tie type=\"stop\"/>", -- last note of ties has end tie only
               "\t\t\t\t<voice>1</voice>",
               -- "\t\t\t\t<notations>",
               --   "\t\t\t\t\t<tie type=\"stop\"/>",
               -- "\t\t\t\t</notations>",
             "\t\t\t</note>"] 
             -- no more tied measures, and so remainingNoteLength fits in this measure
-          | otherwise = newMeasureCode ++ noteCode ++ generateTiedMeasures (remainingNoteLength - timePerMeasure)
-            where newMeasureCode = updateBeat remainingTimeInMeasure timePerMeasure (currBeatCt, measureCt)
-                  noteCode = 
+          | otherwise = do
+              newMeasureCode <- updateBeat remainingTimeInMeasure (currBeatCt, measureCt, timePerMeasure, keySignature)
+              tiedMeasures <- generateTiedMeasures (remainingNoteLength - timePerMeasure)
+              let noteCode = 
                     ["\t\t\t<note>",
-                      "\t\t\t\t<rest measure=\"yes\"/>",,
+                      "\t\t\t\t<rest measure=\"yes\"/>",
                       "\t\t\t\t<duration>" ++ show timePerMeasure ++ "</duration>", -- the duration of this note is all the time that's left in the measure, since the note doesn't fit in the measure
                       -- "\t\t\t\t<tie type=\"start\"/>", -- note in middle of tie has both start and stop ties
                       -- "\t\t\t\t<tie type=\"stop\"/>", 
@@ -154,7 +157,18 @@ transNote (MusAST.REST duration) (currBeatCt, measureCt, timePerMeasure, keySign
                       --   "\t\t\t\t\t<tie type=\"stop\"/>",
                       -- "\t\t\t\t</notations>",
                     "\t\t\t</note>"] 
+              return $ newMeasureCode ++ noteCode ++ tiedMeasures
+    tiedMeasuresCode <- generateTiedMeasures (noteDuration - remainingTimeInMeasure)
+    return $ initialNoteCode ++ newMeasureCode ++ tiedMeasuresCode
             
+------------------------------------------------
+-- Anything that remains untranslated prints a warning message
+-- When you think you're done, this should probably be replaced
+-- by a call to error.
+------------------------------------------------
+transExpr _ _ = do
+  putStrLn "  unknown MusAST expr "
+  return []
 
 -- cases :
 -- 1) note fits in the current measure = DONE 
@@ -197,10 +211,10 @@ transNote (MusAST.REST duration) (currBeatCt, measureCt, timePerMeasure, keySign
 ------------------------------------------------
 -- General notes
 ------------------------------------------------
-transNote (MusAST.Note noteName accidental octave duration) (currBeatCt, measureCt) = do
-  let noteDuration = convertDurationToFloat duration
-  if octave < 1 || octave > 9 then return error "Octave must be between 1 and 8"
-  else return [] 
+-- transNote (MusAST.Note noteName accidental octave duration) (currBeatCt, measureCt) = do
+--   let noteDuration = convertDurationToFloat duration
+--   if octave < 1 || octave > 9 then return error "Octave must be between 1 and 8"
+--   else return [] 
   -- ["<note>",
   --           "<pitch>",
   --             "<step>" ++ show noteName ++ "</step>",
@@ -217,22 +231,15 @@ transNote (MusAST.Note noteName accidental octave duration) (currBeatCt, measure
 -----------------------------------------------------------------------------------------
 
 -- | Returns machine code that writes the given chord (i.e. a certain collection of notes) into musicXML
-transChord :: MusAST.Chord -> State -> IO [CodeLine]
+-- transChord :: MusAST.Chord -> State -> IO [CodeLine]
 
-transChord MusAST.EmptyChord _ = return []
+-- transChord MusAST.EmptyChord _ = return []
 
-transChord (MusAST.ChordNotes note customChord) (beatCt, measureCt, timePerMeasure, keySignature) = undefined
+-- transChord (MusAST.ChordNotes note customChord) (beatCt, measureCt, timePerMeasure, keySignature) = undefined
 
-transChord (MusAST.Chord note quality chordType inversion) (beatCt, measureCt, timePerMeasure, keySignature) = undefined
+-- transChord (MusAST.Chord note quality chordType inversion) (beatCt, measureCt, timePerMeasure, keySignature) = undefined
 
-------------------------------------------------
--- Anything that remains untranslated prints a warning message
--- When you think you're done, this should probably be replaced
--- by a call to error.
-------------------------------------------------
-xStmt _ stmt = do
-  putStrLn ("  unknown xStmt " ++ show stmt)
-  return []
+
 
 -----------------------------------------------------------------------------------------
 -- Code Generation for Fragments
@@ -240,13 +247,12 @@ xStmt _ stmt = do
 
 -- | Turn list of MusAssist AST abstract syntax into musicXML code
 transInstr :: State -> MusAST.Instr -> IO [CodeLine]
-transInstr state (MusAST.SET musicState) = undefined
-transInstr state (MusAST.ASSIGN label expr) = undefined
-transInstr state (MusAST.WRITE expr) = do
-  notes <- transExpr 
-  return 
+transInstr state (MusAST.Set musicState) = undefined
+transInstr state (MusAST.Assign label expr) = undefined
+transInstr state (MusAST.Write expr) = transExpr state expr
+transInstr state MusAST.NewMeasure = undefined
 
 transInstrs :: State -> [MusAST.Instr] -> IO [CodeLine]
-transInstrs instrs state = do
+transInstrs state instrs = do
   instrSeqs <- mapM (transInstr state) instrs
   return $ concat instrSeqs

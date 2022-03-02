@@ -53,7 +53,7 @@
 		</score-part>
 	</part-list>
 	<part id="P1">
-	<measure number="1" width="321.37">
+	<measure number="1">
 	<print>
 		<system-layout>
 		<system-margins>
@@ -66,7 +66,32 @@
 		<staff-distance>65.00</staff-distance>
 		</staff-layout>
 	</print>
-
+	<attributes>
+		<divisions>1</divisions>
+		<key>
+			<fifths>3</fifths>
+		</key>
+		<time>
+			<beats>4</beats>
+			<beat-type>4</beat-type>
+		</time>
+		<clef>
+			<sign>G</sign>
+			<line>2</line>
+		</clef>
+	</attributes>
+			<note>
+				<rest/>
+				<duration>3.0</duration>
+				<voice>1</voice>
+			</note>
+		</measure>
+		<measure number="1">
+			<note>
+				<rest/>
+				<duration>1.0</duration>
+				<voice>1</voice>
+			</note>
 			<barline location="right">
 					<bar-style>light-heavy</bar-style>
 			</barline>

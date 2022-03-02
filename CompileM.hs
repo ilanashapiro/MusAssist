@@ -20,7 +20,7 @@ module Main where
 import           Data.Char          (isSpace)
 import           Data.IORef
 import           Data.List          (dropWhileEnd)
-import qualified MusAssistAST
+import qualified MusAssistAST       as MusAST
 import qualified MusicXMLgen
 import           System.Environment (getArgs)
 import           System.FilePath    (replaceExtension, takeExtension)
@@ -47,16 +47,18 @@ main = do
   ast <- case takeExtension fileName of -- REPLACE THIS WITH PARSE RESULT ONCE I IMPLEMENT PARSING
     ".ast" -> do
       text <- readFile fileName
-      return (strip text)
+      let input = strip text
+      print input
+      return (read input :: [MusAST.Instr])
     ext -> error $ "unexpected extension " ++ show ext
 
   -- Translate MusAssistAST code to musicXML code
   putStrLn "Generating musicXML code..."
   beatCt        <- Data.IORef.newIORef 0
-  measureCt     <- Data.IORef.newIORef 0
-  let defaultTimePerMeas = 4 -- default time signature is 4/4, which has time of 4
+  measureCt     <- Data.IORef.newIORef 1
+  let defaultTimePerMeas = 3 -- default time signature is 4/4, which has time of 4
       defaultKeySig = (Nothing, Nothing) -- CM/am is default, no sharps/flats
-      code = MusicXMLgen.transInstrs (beatCt, measureCt, defaultTimePerMeas, defaultKeySig) ast
+  code <- MusicXMLgen.transInstrs (beatCt, measureCt, defaultTimePerMeas, defaultKeySig) ast
 
     -- header code for musicXML file
   let headerCode =
@@ -127,7 +129,23 @@ main = do
                   "\t\t<staff-layout number=\"2\">",
                   "\t\t<staff-distance>65.00</staff-distance>",
                   "\t\t</staff-layout>",
-            "\t</print>"]
+            "\t</print>",
+            
+            -------------- MOVE THIS TO GEN FILE TO TAKE PARAMS FOR USER DEFINED KEY AND TIME SIG
+            "\t<attributes>",
+        "\t\t<divisions>1</divisions>",
+        "\t\t<key>",
+          "\t\t\t<fifths>3</fifths>",
+          "\t\t</key>",
+        "\t\t<time>",
+          "\t\t\t<beats>4</beats>",
+          "\t\t\t<beat-type>4</beat-type>",
+          "\t\t</time>",
+        "\t\t<clef>",
+          "\t\t\t<sign>G</sign>",
+          "\t\t\t<line>2</line>",
+          "\t\t</clef>",
+        "\t</attributes>"]
 
       trailerCode = [
             "\t\t\t<barline location=\"right\">",

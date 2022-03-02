@@ -17,13 +17,13 @@ data NoteName =
     | E 
     | A 
     | B
-  deriving (Eq, Ord, Show) -- the notes are ordered in the order of sharps. reverse for order of flats
+  deriving (Eq, Ord, Show, Read) -- the notes are ordered in the order of sharps. reverse for order of flats
 
 data Accidental = 
      Natural 
      | Sharp 
      | Flat
-  deriving (Eq, Show)
+  deriving (Eq, Show, Read)
 
 type Octave = Int -- range is [1,8]
 
@@ -42,7 +42,7 @@ data Duration =
      | DottedEighth 
      | Eighth 
      | Sixteenth
-  deriving (Eq, Show)
+  deriving (Eq, Show, Read)
 
 data Quality = 
      Major 
@@ -50,22 +50,23 @@ data Quality =
      | Augmented      -- chords only
      | Diminished     -- chords only
      | HalfDiminished -- seventh chords only
-  deriving (Eq, Show)
+  deriving (Eq, Show, Read)
 
 data ChordType = 
      Triad 
      | Seventh
-  deriving (Eq, Show)
+  deriving (Eq, Show, Read)
 --------------------------------------------------------------------------------
 -- Musical Objects
 --------------------------------------------------------------------------------
 data Tone = Tone NoteName Accidental Octave 
-  deriving (Eq, Show)
+  deriving (Eq, Show, Read)
 
 data MusicState = 
   TimeSignature Int Duration -- number of beats, beat value 
   | KeySignature NoteName Quality
-
+    deriving (Eq, Show, Read)
+    
 -- all resulting chords in root position
 data CadenceType = 
   PerfAuth 
@@ -73,7 +74,7 @@ data CadenceType =
   | Plagal
   | HalfCad
   | Deceptive
-  deriving (Eq, Show)
+  deriving (Eq, Show, Read)
 
 -- all resulting chords in root position
 data HarmonicSequenceType = 
@@ -81,7 +82,7 @@ data HarmonicSequenceType =
   | DescFifths
   | Asc56 
   | Desc56
-  deriving (Eq, Show)
+  deriving (Eq, Show, Read)
 
 -- templates to get expanded
  -- plan: translate from one intermediate representation to another. in my case, I can maybe do this intermediate
@@ -92,6 +93,7 @@ data IntermediateExpr =
   ChordTemplate Tone Quality ChordType Inversion Duration -- Predefined chords: these all happen in root position
   | Cadence CadenceType Tone Quality -- quality is major/minor ONLY. det the start note and key of the cadence
   | HarmonicSequence HarmonicSequenceType Tone Quality Length -- quality is major/minor ONLY. det the start note and key of the seq
+    deriving (Eq, Show, Read)
 
 data Expr = 
   Note Tone Duration
@@ -104,11 +106,11 @@ data Expr =
   -- then why recover it. we want to take advantage of the props of the DSL!
   -- analogy: in a GPL, keep the loop as long as possible before converting to JUMP
   | Chord [Tone] Duration 
-      deriving (Eq, Show)
+    deriving (Eq, Show, Read)
 
 data Instr = 
   Set MusicState
-  | NEW_MEASURE
-  | ASSIGN Label Expr -- save a chunk of music to a label
-  | WRITE Expr
-    deriving (Eq, Show)
+  | NewMeasure
+  | Assign Label Expr -- save a chunk of music to a label
+  | Write Expr
+    deriving (Eq, Show, Read)
