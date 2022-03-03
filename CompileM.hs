@@ -132,7 +132,7 @@ main = do
             
             -------------- MOVE THIS TO GEN FILE TO TAKE PARAMS FOR USER DEFINED KEY SIG
             "\t<attributes>",
-        "\t\t<divisions>1</divisions>",
+        "\t\t<divisions>4</divisions>", -- 4 divisions because the smallest note is 1/16
         "\t\t<key>",
           "\t\t\t<fifths>3</fifths>",
           "\t\t</key>",

@@ -12,10 +12,9 @@ import           Data.IORef
 import           Data.Char
 
 type CodeLine = String                    -- ^ A line of musicXML code
-type BeatCounter = Data.IORef.IORef Float
+type BeatCounter = Data.IORef.IORef Int
 type MeasureCounter = Data.IORef.IORef Int
-type NoteDuration = Float 
-type CumulativeDuration = Float 
+type NoteDuration = Int
 type KeySignature = (Maybe MusAST.NoteName, Maybe MusAST.NoteName) -- last sharp in key sig, last flat in key sig (one should always be Nothing!)
 
 -- IN CONCLUSION
@@ -32,8 +31,8 @@ type KeySignature = (Maybe MusAST.NoteName, Maybe MusAST.NoteName) -- last sharp
 
 type State = (BeatCounter, MeasureCounter, KeySignature)
 
-timePerMeasure :: Float
-timePerMeasure = 4 -- whole = 4, quarter = 1, eighth = 0.5, etc. absolute time per measure is set at 4, from common time
+timePerMeasure :: Int
+timePerMeasure = 16 -- whole = 16, quarter = 4, eighth = 2, etc. absolute time per measure is set at 16, from common time
 ---------------------------------------------
 -- Beats: to handle measures --
 ---------------------------------------------
@@ -46,7 +45,7 @@ updateBeat noteDuration (currBeatCt, measureCt, _) = do
   if updatedBeatCount == timePerMeasure 
     then do
       measureNum <- Data.IORef.readIORef measureCt
-      Data.IORef.writeIORef currBeatCt 0.0                    -- reset beats to 0 bc we're in a new measure
+      Data.IORef.writeIORef currBeatCt 0                    -- reset beats to 0 bc we're in a new measure
       let incMeasNum = measureNum + 1
       Data.IORef.writeIORef measureCt incMeasNum    -- increment the measure count
       let newMeasureCode = ["\t\t</measure>", "\t\t<measure number=\"" ++ show incMeasNum ++ "\">"]
@@ -55,17 +54,17 @@ updateBeat noteDuration (currBeatCt, measureCt, _) = do
       Data.IORef.writeIORef currBeatCt updatedBeatCount
       return []
 
-convertDurationToFloat :: MusAST.Duration -> Float
-convertDurationToFloat duration =
+convertDurationToInt :: MusAST.Duration -> Int
+convertDurationToInt duration =
   case duration of
-    MusAST.Whole         -> 4
-    MusAST.DottedHalf    -> 3
-    MusAST.Half          -> 2
-    MusAST.DottedQuarter -> 1.5
-    MusAST.Quarter       -> 1
-    MusAST.DottedEighth  -> 0.75
-    MusAST.Eighth        -> 0.5
-    MusAST.Sixteenth     -> 0.25
+    MusAST.Whole         -> 16
+    MusAST.DottedHalf    -> 12
+    MusAST.Half          -> 8
+    MusAST.DottedQuarter -> 6
+    MusAST.Quarter       -> 4
+    MusAST.DottedEighth  -> 3
+    MusAST.Eighth        -> 2
+    MusAST.Sixteenth     -> 1
 
 convertDurationToNoteType :: MusAST.Duration -> [CodeLine]
 convertDurationToNoteType duration = case duration of
@@ -93,9 +92,9 @@ transExpr state (MusAST.Rest duration) = do
   measureNum <- Data.IORef.readIORef measureCt
   currentBeatCount <- Data.IORef.readIORef currBeatCt
 
-  let noteDuration = convertDurationToFloat duration
+  let noteDuration = convertDurationToInt duration
       remainingTimeInMeasure = timePerMeasure - currentBeatCount
-      noteTypeCode = convertDurationToNoteType duration
+      noteTypeCode = if noteDuration == remainingTimeInMeasure then [] else convertDurationToNoteType duration -- for rests ONLY
 
   if noteDuration <= remainingTimeInMeasure -- case 1: note fits in measure
     then do 
@@ -103,7 +102,7 @@ transExpr state (MusAST.Rest duration) = do
       return $
         [ -- the code for the note that fits in the current measure
         "\t\t\t<note>",
-        "\t\t\t\t<rest/>",
+        "\t\t\t\t<rest " ++ (if noteDuration == remainingTimeInMeasure then "measure=\"yes\"" else "") ++ "/>",
         "\t\t\t\t<duration>" ++ show noteDuration ++ "</duration>",
         "\t\t\t\t<voice>1</voice>"
         -- "<type>" ++ toLower (show duration) ++ "</type>",
@@ -111,7 +110,7 @@ transExpr state (MusAST.Rest duration) = do
         ["\t\t\t</note>"]
 
   else do
-    let fullMeasuresInDuration = floor (noteDuration / timePerMeasure)
+    let fullMeasuresInDuration = noteDuration `div` timePerMeasure
         initialNoteCode = -- the code for the note that fits in the current measure
           ["\t\t\t<note>",
             "\t\t\t\t<rest/>",

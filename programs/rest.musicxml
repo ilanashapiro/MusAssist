@@ -67,7 +67,7 @@
 		</staff-layout>
 	</print>
 	<attributes>
-		<divisions>1</divisions>
+		<divisions>4</divisions>
 		<key>
 			<fifths>3</fifths>
 		</key>
@@ -81,10 +81,9 @@
 		</clef>
 	</attributes>
 			<note>
-				<rest/>
-				<duration>4.0</duration>
+				<rest measure="yes"/>
+				<duration>16</duration>
 				<voice>1</voice>
-				<type>whole</type>
 			</note>
 			<barline location="right">
 					<bar-style>light-heavy</bar-style>
