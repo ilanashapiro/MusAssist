@@ -61,11 +61,6 @@ data ChordType =
 --------------------------------------------------------------------------------
 data Tone = Tone NoteName Accidental Octave 
   deriving (Eq, Show, Read)
-
-data MusicState = 
-  TimeSignature Int Duration -- number of beats, beat value 
-  | KeySignature NoteName Quality
-    deriving (Eq, Show, Read)
     
 -- all resulting chords in root position
 data CadenceType = 
@@ -93,6 +88,7 @@ data IntermediateExpr =
   ChordTemplate Tone Quality ChordType Inversion Duration -- Predefined chords: these all happen in root position
   | Cadence CadenceType Tone Quality -- quality is major/minor ONLY. det the start note and key of the cadence
   | HarmonicSequence HarmonicSequenceType Tone Quality Length -- quality is major/minor ONLY. det the start note and key of the seq
+  | SetKeySignature NoteName Quality
     deriving (Eq, Show, Read)
 
 data Expr = 
@@ -109,7 +105,7 @@ data Expr =
     deriving (Eq, Show, Read)
 
 data Instr = 
-  Set MusicState
+  KeySignature Int Int -- number of sharps, number of flats. one of them should be zero!
   | NewMeasure
   | Assign Label Expr -- save a chunk of music to a label
   | Write Expr

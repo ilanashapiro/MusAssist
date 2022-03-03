@@ -82,15 +82,9 @@
 	</attributes>
 			<note>
 				<rest/>
-				<duration>3.0</duration>
+				<duration>4.0</duration>
 				<voice>1</voice>
-			</note>
-		</measure>
-		<measure number="1">
-			<note>
-				<rest/>
-				<duration>1.0</duration>
-				<voice>1</voice>
+				<type>whole</type>
 			</note>
 			<barline location="right">
 					<bar-style>light-heavy</bar-style>
