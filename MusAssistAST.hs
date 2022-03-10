@@ -87,7 +87,7 @@ data HarmonicSequenceType =
 data IntermediateExpr = 
   ChordTemplate Tone Quality ChordType Inversion Duration -- Predefined chords: these all happen in root position
   | Cadence CadenceType Tone Quality -- quality is major/minor ONLY. det the start note and key of the cadence
-  | HarmonicSequence HarmonicSequenceType Tone Quality Length -- quality is major/minor ONLY. det the start note and key of the seq
+  | HarmonicSequence HarmonicSequenceType Tone Quality Duration Length -- quality is major/minor ONLY. det the start note and key of the seq
   | SetKeySignature NoteName Quality
     deriving (Eq, Show, Read)
 
@@ -106,7 +106,7 @@ data Expr =
 
 data Instr = 
   KeySignature Int Int -- number of sharps, number of flats. one of them should be zero!
-  | NewMeasure
+  -- | NewMeasure -- this gets to be somewhat more complicated due to having to break up the remaining rest appropriately... stretch feature?
   | Assign Label Expr -- save a chunk of music to a label
   | Write Expr
     deriving (Eq, Show, Read)
