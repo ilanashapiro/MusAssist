@@ -18,6 +18,7 @@ data NoteName =
     | A 
     | B
   deriving (Eq, Ord, Show, Read) -- the notes are ordered in the order of sharps. reverse for order of flats
+  -- earlier constructors in the datatype declaration count as smaller than later ones
 
 data Accidental = 
      Natural 
@@ -34,15 +35,15 @@ type Length = Int -- range is [1,4]
 type Label = String -- for saving sequences of notes/chords
 
 data Duration = 
-     Whole 
-     | DottedHalf 
-     | Half 
-     | DottedQuarter 
-     | Quarter 
-     | DottedEighth 
-     | Eighth 
-     | Sixteenth
-  deriving (Eq, Show, Read)
+    Sixteenth
+    | Eighth 
+    | DottedEighth 
+    | Quarter 
+    | DottedQuarter 
+    | DottedHalf 
+    | Half 
+    | Whole 
+  deriving (Eq, Show, Ord, Read)
 
 data Quality = 
      Major 
@@ -106,7 +107,7 @@ data Expr =
 
 data Instr = 
   KeySignature Int Int -- number of sharps, number of flats. one of them should be zero!
-  -- | NewMeasure -- this gets to be somewhat more complicated due to having to break up the remaining rest appropriately... stretch feature?
+  | NewMeasure 
   | Assign Label Expr -- save a chunk of music to a label
-  | Write Expr
+  | Write [Expr]
     deriving (Eq, Show, Read)

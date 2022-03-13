@@ -33,6 +33,6 @@ executable MusAssist
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
-    build-depends:    base ^>=4.14.3.0, bimap >=0.4.0
+    build-depends:    base ^>=4.14.3.0, bimap >=0.4.0, extra >=1.7.10
     hs-source-dirs:   app
     default-language: Haskell2010

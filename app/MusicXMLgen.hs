@@ -6,15 +6,15 @@ Maintainer   : CS 132
 
 module MusicXMLgen where
 
-import qualified MusAssistAST    as MusAST
--- import Control.Monad 
-import           Data.IORef
+import qualified MusAssistAST         as MusAST
+import           Data.IORef           as IORef
 import           Data.Char
-import           Data.Bimap
+import           Data.Bimap           as Bimap
+import           Control.Monad.Extra
 
 type CodeLine = String                    -- ^ A line of musicXML code
-type BeatCounter = Data.IORef.IORef Int
-type MeasureCounter = Data.IORef.IORef Int
+type BeatCounter = IORef.IORef Int
+type MeasureCounter = IORef.IORef Int
 type NoteDuration = Int
 type KeySignature = (Maybe MusAST.NoteName, Maybe MusAST.NoteName) -- last sharp in key sig, last flat in key sig (one should always be Nothing!)
 
@@ -34,9 +34,6 @@ type State = (BeatCounter, MeasureCounter, KeySignature)
 
 globalTimePerMeasure :: Int
 globalTimePerMeasure = 16 -- whole = 16, quarter = 4, eighth = 2, etc. absolute time per measure is set at 16, from common time
-
-globalNoteValsList :: [Int] -> Bimap
-globalNoteValsList = undefined -- [16, 12, 8, 6, 4, 3, 2, 1]-- whole = 16, quarter = 4, eighth = 2, etc. 
 ---------------------------------------------
 -- Beats: to handle measures --
 ---------------------------------------------
@@ -44,33 +41,33 @@ globalNoteValsList = undefined -- [16, 12, 8, 6, 4, 3, 2, 1]-- whole = 16, quart
 -- | Update where we're at in a measure and handle new measures
 updateBeat :: NoteDuration -> State -> IO [CodeLine]
 updateBeat noteDuration (currBeatCt, measureCt, _) = do
-  currentBeatCount <- Data.IORef.readIORef currBeatCt
+  currentBeatCount <- IORef.readIORef currBeatCt
   let updatedBeatCount = currentBeatCount + noteDuration 
   if updatedBeatCount == globalTimePerMeasure 
     then do
-      measureNum <- Data.IORef.readIORef measureCt
-      Data.IORef.writeIORef currBeatCt 0                    -- reset beats to 0 bc we're in a new measure
+      measureNum <- IORef.readIORef measureCt
+      IORef.writeIORef currBeatCt 0                    -- reset beats to 0 bc we're in a new measure
       let incMeasNum = measureNum + 1
-      Data.IORef.writeIORef measureCt incMeasNum    -- increment the measure count
+      IORef.writeIORef measureCt incMeasNum    -- increment the measure count
       let newMeasureCode = ["\t\t</measure>", "\t\t<measure number=\"" ++ show incMeasNum ++ "\">"]
       return newMeasureCode
     else do
-      Data.IORef.writeIORef currBeatCt updatedBeatCount
+      IORef.writeIORef currBeatCt updatedBeatCount
       return []
 
 globalDurationIntBimap :: Bimap MusAST.Duration Int
-globalDurationIntBimap duration =
-  [(MusAST.Whole, 16),
-  (MusAST.DottedHalf, 12),
-  (MusAST.Half, 8),
-  (MusAST.DottedQuarter, 6),
-  (MusAST.Quarter, 4),
-  (MusAST.DottedEighth, 3),
+globalDurationIntBimap = Bimap.fromList 
+  [(MusAST.Sixteenth, 1),
   (MusAST.Eighth, 2),
-  (MusAST.Sixteenth, 1)]
+  (MusAST.DottedEighth, 3),
+  (MusAST.Quarter, 4),
+  (MusAST.DottedQuarter, 6),
+  (MusAST.Half, 8),
+  (MusAST.DottedHalf, 12),
+  (MusAST.Whole, 16)]
 
-convertDurationToNoteType :: MusAST.Duration -> [CodeLine]
-convertDurationToNoteType duration = case duration of
+durationToNoteTypeCode :: MusAST.Duration -> [CodeLine]
+durationToNoteTypeCode duration = case duration of
   MusAST.DottedHalf    -> ["\t\t\t\t<type>half</type>", "<dot/>"]
   MusAST.DottedQuarter -> ["\t\t\t\t<type>quarter</type>", "<dot/>"]
   MusAST.DottedEighth  -> ["\t\t\t\t<type>eighth</type>", "<dot/>"]
@@ -79,14 +76,29 @@ convertDurationToNoteType duration = case duration of
                             where durationStr = show duration
 
 -- go through all the note vals possible (there's only 8), and generate rest types greedily via the largest notes that fit in the measure
-generateMeasurePadding :: Int -> [Int] -> [CodeLine]
-generateMeasurePadding 0 _                                       = []
-generateMeasurePadding _ []                                      = [] -- this case should never get entered
+generateMeasurePadding :: Int -> [Int] -> IO [CodeLine]
+generateMeasurePadding 0 _                                       = return []
+generateMeasurePadding _ []                                      = return $ error "cannot generate accurate measure padding"
 generateMeasurePadding remainingTimeInMeasure (noteVal:noteVals) =
-  if noteVal <= remainingTimeInMeasure then 
-    let noteDuration = lookupR globalDurationIntBimap noteVal
-    in generateMeasurePadding (remainingTimeInMeasure - noteVal) noteVals ++ convertDurationToNoteType noteDuration
-  else generateMeasurePadding remainingTimeInMeasure noteVals
+  if noteVal <= remainingTimeInMeasure then do
+    -- print noteVal
+    -- print noteVals
+    -- print ""
+    noteDuration <- lookupR noteVal globalDurationIntBimap 
+    let noteTypeCode = durationToNoteTypeCode noteDuration
+        restCode = ["\t\t\t<note>",
+                "\t\t\t\t<rest/>",
+                "\t\t\t\t<duration>" ++ show noteVal ++ "</duration>",
+                "\t\t\t\t<voice>1</voice>"]
+              ++ noteTypeCode ++
+              ["\t\t\t</note>"] 
+    remainingPadding <- generateMeasurePadding (remainingTimeInMeasure - noteVal) noteVals 
+    return $ remainingPadding ++ restCode -- rest order is shortest to longest in the measusre
+  else do
+    print noteVal
+    print noteVals
+    print remainingTimeInMeasure
+    generateMeasurePadding remainingTimeInMeasure noteVals
 
 -- convertAccidentalToString :: MusAST.ACCIDENTAL -> Float
 
@@ -102,21 +114,21 @@ transExpr :: State -> MusAST.Expr -> IO [CodeLine]
 ------------------------------------------------
 transExpr state (MusAST.Rest duration) = do
   let (currBeatCt, measureCt, keySignature) = state
-  measureNum <- Data.IORef.readIORef measureCt
-  currentBeatCount <- Data.IORef.readIORef currBeatCt
+  measureNum <- IORef.readIORef measureCt
+  currentBeatCount <- IORef.readIORef currBeatCt
 
-  noteDuration <- Data.Bimap.lookup globalDurationIntBimap duration
+  noteDurationVal <- Bimap.lookup duration globalDurationIntBimap 
   let remainingTimeInMeasure = globalTimePerMeasure - currentBeatCount
-  noteTypeCode <- if noteDuration == remainingTimeInMeasure then return [] 
-                  else Data.Bimap.lookup globalDurationIntBimap duration -- for rests ONLY
+      noteTypeCode = if noteDurationVal == remainingTimeInMeasure then [] 
+                      else durationToNoteTypeCode duration -- for rests ONLY
 
-  if noteDuration <= remainingTimeInMeasure -- case 1: note fits in measure
+  if noteDurationVal <= remainingTimeInMeasure -- case 1: note fits in measure
     then do 
-      updateBeat noteDuration state -- update the beat, but there's no new measure code
+      updateBeat noteDurationVal state -- update the beat, but there's no new measure code
       return $ -- the code for the note that fits in the current measure
         ["\t\t\t<note>",
-        "\t\t\t\t<rest " ++ (if noteDuration == remainingTimeInMeasure then "measure=\"yes\"" else "") ++ "/>",
-        "\t\t\t\t<duration>" ++ show noteDuration ++ "</duration>",
+        "\t\t\t\t<rest " ++ (if noteDurationVal == remainingTimeInMeasure then "measure=\"yes\"" else "") ++ "/>",
+        "\t\t\t\t<duration>" ++ show noteDurationVal ++ "</duration>",
         "\t\t\t\t<voice>1</voice>"]
         ++ noteTypeCode ++
         ["\t\t\t</note>"]
@@ -134,7 +146,7 @@ transExpr state (MusAST.Rest duration) = do
           ] ++ noteTypeCode ++
           ["\t\t\t</note>"] 
     newMeasureCode <- updateBeat remainingTimeInMeasure state
-    let remainingNoteLength = noteDuration - remainingTimeInMeasure
+    let remainingNoteLength = noteDurationVal - remainingTimeInMeasure
         tiedNoteCode =
           ["\t\t\t<note>",
             "\t\t\t\t<rest/>",
@@ -145,6 +157,7 @@ transExpr state (MusAST.Rest duration) = do
             --   "\t\t\t\t\t<tie type=\"stop\"/>",
             -- "\t\t\t\t</notations>",
           "\t\t\t</note>"] 
+
     return $ initialNoteCode ++ newMeasureCode ++ tiedNoteCode
             
 ------------------------------------------------
@@ -203,26 +216,25 @@ transExpr _ _ = do
 transInstr :: State -> MusAST.Instr -> IO [CodeLine]
 transInstr state (MusAST.KeySignature numSharps numFlats) = undefined
 transInstr state (MusAST.Assign label expr) = undefined
-transInstr state (MusAST.Write expr) = do 
-  let (currBeatCt, _, _) = state
-  code <- transExpr state expr
-  finalBeatCount <- Data.IORef.readIORef currBeatCt
-  print finalBeatCount
-  let finalMeasFill = 
-          if finalBeatCount < globalTimePerMeasure && finalBeatCount > 0 -- i.e. we're in the middle of a measure
-            then let remainingTimeInMeasure = globalTimePerMeasure - finalBeatCount
-                    --  noteTypeCode = convertDurationToNoteType duration
-              in ["\t\t\t<note>",
-                  "\t\t\t\t<rest/>",
-                  "\t\t\t\t<duration>" ++ show remainingTimeInMeasure ++ "</duration>",
-                  "\t\t\t\t<voice>1</voice>",
-                -- ++ noteTypeCode ++
-                "\t\t\t</note>"] 
-          else []
-  return $ code ++ finalMeasFill 
-  
-  
--- transInstr state MusAST.NewMeasure = undefined
+transInstr state (MusAST.Write exprs)
+  | exprs == [] = return[]
+  | otherwise = do 
+      let (currBeatCt, _, _) = state
+      code <- concatMapM (transExpr state) exprs
+      finalBeatCount <- IORef.readIORef currBeatCt
+      finalMeasFill <- if finalBeatCount > 0 -- i.e. we're in the middle of a measure
+                then let remainingTimeInMeasure = globalTimePerMeasure - finalBeatCount
+                    in generateMeasurePadding remainingTimeInMeasure (reverse $ elems globalDurationIntBimap) -- we want the note vals in desc order, biggest to smallest
+              else return []
+      return $ code ++ finalMeasFill 
+
+transInstr (currBeatCt, _, _) MusAST.NewMeasure = 
+  currentBeatCount = IORef.readIORef currBeatCt
+  if currentBeatCount > 0 -- i.e. we're in the middle of a measure
+    then let remainingTimeInMeasure = globalTimePerMeasure - currentBeatCount
+             measurePadding = generateMeasurePadding remainingTimeInMeasure (reverse $ elems globalDurationIntBimap)
+        in generateMeasurePadding remainingTimeInMeasure (reverse $ elems globalDurationIntBimap) -- we want the note vals in desc order, biggest to smallest
+  else updateBeat
 
 transInstrs :: State -> [MusAST.Instr] -> IO [CodeLine]
 transInstrs state instrs = do

@@ -134,7 +134,7 @@ main = do
             "\t<attributes>",
         "\t\t<divisions>4</divisions>", -- 4 divisions because the smallest note is 1/16
         "\t\t<key>",
-          "\t\t\t<fifths>3</fifths>",
+          "\t\t\t<fifths>0</fifths>",
           "\t\t</key>",
         "\t\t<time>",
           "\t\t\t<beats>4</beats>",

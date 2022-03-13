@@ -69,7 +69,7 @@
 	<attributes>
 		<divisions>4</divisions>
 		<key>
-			<fifths>3</fifths>
+			<fifths>0</fifths>
 		</key>
 		<time>
 			<beats>4</beats>
@@ -81,9 +81,34 @@
 		</clef>
 	</attributes>
 			<note>
-				<rest measure="yes"/>
-				<duration>16</duration>
+				<rest />
+				<duration>8</duration>
 				<voice>1</voice>
+				<type>half</type>
+			</note>
+			<note>
+				<rest />
+				<duration>1</duration>
+				<voice>1</voice>
+				<type>16th</type>
+			</note>
+			<note>
+				<rest />
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<rest/>
+				<duration>1</duration>
+				<voice>1</voice>
+				<type>16th</type>
+			</note>
+			<note>
+				<rest/>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
 			</note>
 			<barline location="right">
 					<bar-style>light-heavy</bar-style>
