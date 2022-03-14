@@ -154,16 +154,28 @@
 				<type>16th</type>
 			</note>
 			<note>
-				<rest/>
+				<rest />
 				<duration>1</duration>
 				<voice>1</voice>
 				<type>16th</type>
 			</note>
 			<note>
-				<rest/>
+				<rest />
 				<duration>8</duration>
 				<voice>1</voice>
 				<type>half</type>
+			</note>
+		</measure>
+		<measure number="3">
+	<attributes>
+		<key>
+			<fifths>3</fifths>
+		</key>
+	</attributes>
+			<note>
+				<rest measure="yes"/>
+				<duration>16</duration>
+				<voice>1</voice>
 			</note>
 			<barline location="right">
 					<bar-style>light-heavy</bar-style>

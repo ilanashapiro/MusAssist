@@ -100,13 +100,6 @@ breakUpNoteValRationally [] _ _                                     = return $ e
 breakUpNoteValRationally (noteVal:noteVals) remainingTimeInMeasure isFromMeasStart =
   if noteVal <= remainingTimeInMeasure then do
     noteDuration <- lookupR noteVal globalDurationIntBimap 
-    -- let noteTypeCode = durationToNoteTypeCode noteDuration
-    --     restCode = ["\t\t\t<note>",
-    --             "\t\t\t\t<rest/>",
-    --             "\t\t\t\t<duration>" ++ show noteVal ++ "</duration>",
-    --             "\t\t\t\t<voice>1</voice>"]
-    --           ++ noteTypeCode ++
-    --           ["\t\t\t</note>"] 
     remainingPadding <- breakUpNoteValRationally noteVals (remainingTimeInMeasure - noteVal) isFromMeasStart
     -- breaking up note at beginning of measure, want note/rest length from longest -> shortest
     -- or, if it's end of measure padding, want note/rest  length from shortest -> longest
@@ -119,9 +112,11 @@ generateNoteValueRationalDivisions = breakUpNoteValRationally (reverse $ elems g
 generateRestsFromDivisions :: [(MusAST.Duration, Int)] -> IO [CodeLine]
 generateRestsFromDivisions restDurationValPairs = return $ 
   Prelude.concatMap (\(restDuration, restVal) ->
-    let restTypeCode = durationToNoteTypeCode restDuration
+    let isMeasureRest = restVal == globalTimePerMeasure
+        restTypeCode = if isMeasureRest then [] 
+                       else durationToNoteTypeCode restDuration
     in ["\t\t\t<note>",
-          "\t\t\t\t<rest/>",
+           "\t\t\t\t<rest " ++ (if isMeasureRest then "measure=\"yes\"" else "") ++ "/>",
           "\t\t\t\t<duration>" ++ show restVal ++ "</duration>",
           "\t\t\t\t<voice>1</voice>"]
         ++ restTypeCode ++
@@ -323,8 +318,7 @@ transInstr state (MusAST.KeySignature numSharps numFlats) =
               "\t</attributes>"]
 
     return $ measurePadding ++ newMeasureCode ++ newKeySigCode
-
-  
+ 
 transInstr state (MusAST.Assign label expr) = undefined
 
 transInstr state (MusAST.Write exprs)
@@ -344,9 +338,11 @@ transInstrs :: State -> [MusAST.Instr] -> IO [CodeLine]
 transInstrs state instrs = do
   instrSeqs <- mapM (transInstr state) instrs
   let (currBeatCt, _, _) = state
+      lastInstrSeq = last instrSeqs
+      lastCodeLine = last lastInstrSeq
   finalBeatCount <- IORef.readIORef currBeatCt
   finalInstrs <-
-    if finalBeatCount > 0 -- i.e. we're in the middle of a measure
+    if finalBeatCount > 0 || lastCodeLine == "\t</attributes>" -- we're in the middle of a measure, or we just did a key change
       then do 
         let remainingTimeInMeasure = globalTimePerMeasure - finalBeatCount
         restPaddingDivisions <- generateNoteValueRationalDivisions remainingTimeInMeasure False
@@ -354,6 +350,5 @@ transInstrs state instrs = do
         return $ instrSeqs ++ [finalMeasureFill]
       else do
         let finalizedCode = init instrSeqs
-            lastInstrSeq = last instrSeqs
         return $ finalizedCode ++ [take ((length lastInstrSeq) - 2) lastInstrSeq] -- remove the hanging new measure code since we do not want it
   return $ Prelude.concat finalInstrs
