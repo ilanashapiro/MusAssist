@@ -94,28 +94,27 @@ durationToNoteTypeCode duration = case duration of
 
 -- go through all the note vals possible (there's only 8), and generate rest types greedily via the largest notes that fit in the measure
 -- note: does NOT update the beat
-breakUpNoteValRaionally :: [Int] -> Int -> Bool -> IO [CodeLine]
-breakUpNoteValRaionally _ 0 _                                      = return []
-breakUpNoteValRaionally [] _ _                                       = return $ error "cannot generate accurate note divisions" 
-breakUpNoteValRaionally (noteVal:noteVals) remainingTimeInMeasure isTiedFromMeasStart =
+breakUpNoteValRationally :: [Int] -> Int -> Bool -> IO [CodeLine]
+breakUpNoteValRationally _ 0 _                                      = return []
+breakUpNoteValRationally [] _ _                                       = return $ error "cannot generate accurate note divisions" 
+breakUpNoteValRationally (noteVal:noteVals) remainingTimeInMeasure isFromMeasStart =
   if noteVal <= remainingTimeInMeasure then do
     noteDuration <- lookupR noteVal globalDurationIntBimap 
-    let noteTypeCode = if noteVal == remainingTimeInMeasure then [] 
-                      else durationToNoteTypeCode noteDuration -- for rests ONLY
+    let noteTypeCode = durationToNoteTypeCode noteDuration
         restCode = ["\t\t\t<note>",
                 "\t\t\t\t<rest/>",
                 "\t\t\t\t<duration>" ++ show noteVal ++ "</duration>",
                 "\t\t\t\t<voice>1</voice>"]
               ++ noteTypeCode ++
               ["\t\t\t</note>"] 
-    remainingPadding <- breakUpNoteValRaionally noteVals (remainingTimeInMeasure - noteVal) isTiedFromMeasStart
+    remainingPadding <- breakUpNoteValRationally noteVals (remainingTimeInMeasure - noteVal) isFromMeasStart
     -- breaking up note at beginning of measure, want note/rest length from longest -> shortest
     -- or, if it's end of measure padding, want note/rest  length from shortest -> longest
-    return $ if isTiedFromMeasStart then restCode ++ remainingPadding else remainingPadding ++ restCode 
-  else breakUpNoteValRaionally noteVals remainingTimeInMeasure isTiedFromMeasStart
+    return $ if isFromMeasStart then restCode ++ remainingPadding else remainingPadding ++ restCode 
+  else breakUpNoteValRationally noteVals remainingTimeInMeasure isFromMeasStart
 
 generateNoteValueRationalDivisions :: Int -> Bool -> IO [CodeLine]
-generateNoteValueRationalDivisions = breakUpNoteValRaionally (reverse $ elems globalDurationIntBimap) -- we want the note vals in desc order, biggest to smallest
+generateNoteValueRationalDivisions = breakUpNoteValRationally (reverse $ elems globalDurationIntBimap) -- we want the note vals in desc order, biggest to smallest, in order for the greedy prop to work
 -----------------------------------------------------------------------------------------
 -- Code Generation for Musical Expressions
 -----------------------------------------------------------------------------------------

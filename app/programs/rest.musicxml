@@ -108,6 +108,8 @@
 				<rest/>
 				<duration>3</duration>
 				<voice>1</voice>
+				<type>eighth</type>
+				<dot/>
 			</note>
 		</measure>
 		<measure number="2">
@@ -121,11 +123,14 @@
 				<rest/>
 				<duration>1</duration>
 				<voice>1</voice>
+				<type>16th</type>
 			</note>
 			<note>
 				<rest/>
 				<duration>3</duration>
 				<voice>1</voice>
+				<type>eighth</type>
+				<dot/>
 			</note>
 			<note>
 				<rest/>
@@ -136,14 +141,14 @@
 		</measure>
 		<measure number="3">
 			<note>
-				<rest/>
+				<rest measure="yes"/>
 				<duration>16</duration>
 				<voice>1</voice>
 			</note>
 		</measure>
 		<measure number="4">
 			<note>
-				<rest/>
+				<rest measure="yes"/>
 				<duration>16</duration>
 				<voice>1</voice>
 			</note>
