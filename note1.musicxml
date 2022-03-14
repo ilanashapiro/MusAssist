@@ -4,7 +4,7 @@
   <identification>
     <encoding>
       <software>MuseScore 3.6.0</software>
-      <encoding-date>2022-03-03</encoding-date>
+      <encoding-date>2022-03-13</encoding-date>
       <supports element="accidental" type="yes"/>
       <supports element="beam" type="yes"/>
       <supports element="print" attribute="new-page" type="no"/>
@@ -53,7 +53,7 @@
       </score-part>
     </part-list>
   <part id="P1">
-    <measure number="1" width="296.96">
+    <measure number="1" width="329.45">
       <print>
         <system-layout>
           <system-margins>
@@ -88,7 +88,7 @@
         <type>quarter</type>
         <stem>down</stem>
         </note>
-      <note default-x="158.90" default-y="-20.00">
+      <note default-x="167.02" default-y="-20.00">
         <pitch>
           <step>B</step>
           <octave>4</octave>
@@ -98,7 +98,7 @@
         <type>quarter</type>
         <stem>down</stem>
         </note>
-      <note default-x="158.90" default-y="-10.00">
+      <note default-x="167.02" default-y="-10.00">
         <chord/>
         <pitch>
           <step>D</step>
@@ -108,13 +108,11 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <accidental>sharp</accidental>
         <stem>down</stem>
         </note>
-      <note default-x="204.32" default-y="-10.00">
+      <note default-x="220.56" default-y="-10.00">
         <pitch>
           <step>D</step>
-          <alter>1</alter>
           <octave>5</octave>
           </pitch>
         <duration>4</duration>
@@ -122,7 +120,7 @@
         <type>quarter</type>
         <stem>down</stem>
         </note>
-      <note default-x="249.74" default-y="-5.00">
+      <note default-x="274.11" default-y="-5.00">
         <pitch>
           <step>E</step>
           <alter>1</alter>
@@ -139,11 +137,15 @@
           </notations>
         </note>
       </measure>
-    <measure number="2" width="115.18">
-      <note default-x="13.96" default-y="-5.00">
+    <measure number="2" width="138.66">
+      <attributes>
+        <key>
+          <fifths>-1</fifths>
+          </key>
+        </attributes>
+      <note default-x="23.12" default-y="-5.00">
         <pitch>
           <step>E</step>
-          <alter>1</alter>
           <octave>5</octave>
           </pitch>
         <duration>16</duration>
@@ -157,7 +159,7 @@
           </notations>
         </note>
       </measure>
-    <measure number="3" width="136.58">
+    <measure number="3" width="155.22">
       <note default-x="13.00" default-y="-5.00">
         <pitch>
           <step>E</step>
@@ -181,7 +183,7 @@
         <type>quarter</type>
         </note>
       </measure>
-    <measure number="4" width="198.69">
+    <measure number="4" width="217.34">
       <note default-x="13.02" default-y="-5.00">
         <pitch>
           <step>E</step>
@@ -198,7 +200,7 @@
         <voice>1</voice>
         <type>16th</type>
         </note>
-      <note default-x="49.08" default-y="-5.00">
+      <note default-x="52.73" default-y="-5.00">
         <pitch>
           <step>E</step>
           <octave>5</octave>
@@ -227,11 +229,19 @@
         <type>quarter</type>
         </note>
       </measure>
-    <measure number="5" width="114.99">
-      <note>
-        <rest measure="yes"/>
+    <measure number="5" width="138.36">
+      <note default-x="13.96" default-y="-5.00">
+        <pitch>
+          <step>E</step>
+          <octave>5</octave>
+          </pitch>
         <duration>16</duration>
         <voice>1</voice>
+        <type>whole</type>
         </note>
+      <barline location="right">
+        <bar-style>light-heavy</bar-style>
+        </barline>
       </measure>
-    <measure number="6" width="116.63">
+    </part>
+  </score-partwise>

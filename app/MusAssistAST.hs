@@ -106,7 +106,7 @@ data Expr =
     deriving (Eq, Show, Read)
 
 data Instr = 
-  KeySignature Int Int -- number of sharps, number of flats. one of them should be zero!
+  KeySignature Int Int -- num sharps (0-7), num flats (0-7). One of these should be zero!
   | NewMeasure 
   | Assign Label Expr -- save a chunk of music to a label
   | Write [Expr]

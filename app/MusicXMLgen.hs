@@ -34,6 +34,9 @@ type State = (BeatCounter, MeasureCounter, KeySignature)
 
 globalTimePerMeasure :: Int
 globalTimePerMeasure = 16 -- whole = 16, quarter = 4, eighth = 2, etc. absolute time per measure is set at 16, from common time
+
+globalOrderOfSharps :: [MusAST.NoteName]
+globalTimePerMeasure = [F, C, G, D, A, E, B]
 ---------------------------------------------
 -- Beats: to handle measures --
 ---------------------------------------------
@@ -108,16 +111,16 @@ transExpr :: State -> MusAST.Expr -> IO [CodeLine]
 -- Rests
 ------------------------------------------------
 transExpr state (MusAST.Rest duration) = do
-  let (currBeatCt, measureCt, keySignature) = state
-  measureNum <- IORef.readIORef measureCt
-  currentBeatCount <- IORef.readIORef currBeatCt
+  let (currBeatCt, measureCt, keySig) = state
+  measureNum            <- IORef.readIORef measureCt
+  currentBeatCount      <- IORef.readIORef currBeatCt
 
   noteDurationVal <- Bimap.lookup duration globalDurationIntBimap 
   let remainingTimeInMeasure = globalTimePerMeasure - currentBeatCount
       noteTypeCode = if noteDurationVal == remainingTimeInMeasure then [] 
                       else durationToNoteTypeCode duration -- for rests ONLY
 
-  if noteDurationVal <= remainingTimeInMeasure -- case 1: note fits in measure
+  if noteDurationVal <= remainingTimeInMeasure -- note fits in measure
     then do 
       updateBeat noteDurationVal state -- update the beat, but there's no new measure code
       return $ -- the code for the note that fits in the current measure
@@ -128,16 +131,12 @@ transExpr state (MusAST.Rest duration) = do
         ++ noteTypeCode ++
         ["\t\t\t</note>"]
 
-  else do
+  else do -- note does not fit in measure
     let initialNoteCode = -- the code for the note that fits in the current measure
           ["\t\t\t<note>",
             "\t\t\t\t<rest/>",
             "\t\t\t\t<duration>" ++ show remainingTimeInMeasure ++ "</duration>", -- the duration of this note is all the time that's left in the measure, since the note doesn't fit in the measure
-            -- "\t\t\t\t<tie type=\"start\"/>", -- the note doesn't fit in the measure, so we tie
             "\t\t\t\t<voice>1</voice>"
-            -- "\t\t\t\t<notations>",
-            --   "\t\t\t\t\t<tie type=\"start\"/>",
-            -- "\t\t\t\t</notations>",
           ] ++ noteTypeCode ++
           ["\t\t\t</note>"] 
     newMeasureCode <- updateBeat remainingTimeInMeasure state
@@ -146,16 +145,76 @@ transExpr state (MusAST.Rest duration) = do
           ["\t\t\t<note>",
             "\t\t\t\t<rest/>",
             "\t\t\t\t<duration>" ++ show remainingNoteLength ++ "</duration>", -- the duration of this note is all the time that's left in the measure, since the note doesn't fit in the measure
-            -- "\t\t\t\t<tie type=\"stop\"/>", -- last note of ties has end tie only
             "\t\t\t\t<voice>1</voice>",
-            -- "\t\t\t\t<notations>",
-            --   "\t\t\t\t\t<tie type=\"stop\"/>",
-            -- "\t\t\t\t</notations>",
           "\t\t\t</note>"] 
     updateBeat remainingNoteLength state -- note: with current time sig/note length setup, cannot have a tied note that fills the next measure, so no new measure code should get generated here
 
     return $ initialNoteCode ++ newMeasureCode ++ tiedNoteCode
-            
+
+------------------------------------------------
+-- Sounding Notes
+------------------------------------------------
+ transExpr state (MusAST.Note (MusAST.Tone noteName accidental octave) duration) = do
+  if octave < 1 || octave > 8 then return $ error "octave must be between 1 and 8 inclusive" else
+  let (currBeatCt, measureCt, keySignature) = state
+  measureNum            <- IORef.readIORef measureCt
+  currentBeatCount      <- IORef.readIORef currBeatCt
+  (numSharps, numFlats) <- IORef.readIORef keySig
+  noteDurationVal       <- Bimap.lookup duration globalDurationIntBimap 
+  
+  let alterValue =
+    if numSharps > 0 then 
+      lastSharpInKeySig = globalOrderOfSharps !! numSharps
+      noteName > 
+  -- [1,2,3]!!1
+
+
+  let noteTypeCode = durationToNoteTypeCode duration 
+      pitchCode = 
+        ["\t\t\t\t<pitch>",
+        "\t\t\t\t\t<step>" ++ show noteName ++ "</step>",
+        "\t\t\t\t\t<alter>" ++ 1 ++ "</alter>"
+        "\t\t\t\t\t<octave>" ++ show octave ++ "</octave>",
+        "\t\t\t\t</pitch>"]
+
+  if noteDurationVal <= remainingTimeInMeasure -- note fits in measure
+    then do 
+      updateBeat noteDurationVal state -- update the beat, but there's no new measure code
+      return $ -- the code for the note that fits in the current measure
+        ["\t\t\t<note>"]
+        ++ pitchCode ++
+        ["\t\t\t\t<duration>" ++ show noteDurationVal ++ "</duration>",
+        "\t\t\t\t<voice>1</voice>"]
+        ++ noteTypeCode ++
+        ["\t\t\t</note>"]
+
+  else do -- note does not fit in measure
+    let initialNoteCode = -- the code for the note that fits in the current measure
+          ["\t\t\t<note>"]
+            ++ pitchCode ++
+            ["\t\t\t\t<duration>" ++ show remainingTimeInMeasure ++ "</duration>", -- the duration of this note is all the time that's left in the measure, since the note doesn't fit in the measure
+            "\t\t\t\t<tie type=\"start\"/>", -- the note doesn't fit in the measure, so we tie
+            "\t\t\t\t<voice>1</voice>"
+            "\t\t\t\t<notations>",
+              "\t\t\t\t\t<tie type=\"start\"/>",
+            "\t\t\t\t</notations>",
+          ] ++ noteTypeCode ++
+          ["\t\t\t</note>"] 
+    newMeasureCode <- updateBeat remainingTimeInMeasure state
+    let remainingNoteLength = noteDurationVal - remainingTimeInMeasure
+        tiedNoteCode =
+          ["\t\t\t<note>"]
+           ++ pitchCode ++
+            ["\t\t\t\t<duration>" ++ show remainingNoteLength ++ "</duration>", -- the duration of this note is all the time that's left in the measure, since the note doesn't fit in the measure
+            "\t\t\t\t<tie type=\"stop\"/>", -- last note of ties has end tie only
+            "\t\t\t\t<voice>1</voice>",
+            "\t\t\t\t<notations>",
+              "\t\t\t\t\t<tie type=\"stop\"/>",
+            "\t\t\t\t</notations>",
+          "\t\t\t</note>"] 
+    updateBeat remainingNoteLength state -- note: with current time sig/note length setup, cannot have a tied note that fills the next measure, so no new measure code should get generated here
+
+    return $ initialNoteCode ++ newMeasureCode ++ tiedNoteCode           
 ------------------------------------------------
 -- Anything that remains untranslated prints a warning message
 -- When you think you're done, this should probably be replaced
@@ -164,12 +223,6 @@ transExpr state (MusAST.Rest duration) = do
 transExpr _ _ = do
   putStrLn "  unknown MusAST expr "
   return []
-
--- cases :
--- 1) note fits in the current measure = DONE 
--- 2) note doesn't fit in current measure, but fits in the next measure 
--- 3) note doesn't fit in current measure, but fits precisely in an exact number of additional measures
--- 4) note doesn't fit in current measure, spills over 1+ additional measure, and then partially spills over a final measure
 
 ------------------------------------------------
 -- General notes
@@ -205,14 +258,38 @@ transExpr _ _ = do
 
 
 -----------------------------------------------------------------------------------------
--- Code Generation for Fragments
+-- Code Generation for Instructions
 -----------------------------------------------------------------------------------------
 
 -- | Turn list of MusAssist AST abstract syntax into musicXML code
 transInstr :: State -> MusAST.Instr -> IO [CodeLine]
 
-transInstr state (MusAST.KeySignature numSharps numFlats) = undefined
+-- type KeySignature = (Maybe MusAST.NoteName, Maybe MusAST.NoteName) -- last sharp in key sig, last flat in key sig (one should always be Nothing!)
+transInstr state (MusAST.KeySignature numSharps numFlats) = 
+  if numSharps < 0 || numFlats < 0 
+    || numSharps > 7 || numFlats > 7
+    || numSharps > 0 && numFlats > 0
+  return $ error "key sig must have 0-7 sharps OR flats, not both!" else
 
+  let (currBeatCt, _, keySig) = state
+  if numSharps > 0 ----- NEED TO CONVERT TO LAST SHARP AND FLAT NAMES, FROM THE NUMBERS
+  IORef.writeIORef keySig (lastSharp, lastFlat)
+  currentBeatCount <- IORef.readIORef currBeatCt
+  let remainingTimeInMeasure = globalTimePerMeasure - currentBeatCount
+  measurePadding <- generateMeasurePadding remainingTimeInMeasure (reverse $ elems globalDurationIntBimap)  -- we want the note vals in desc order, biggest to smallest
+  newMeasureCode <- updateBeat remainingTimeInMeasure state
+
+  let keySigFifthsVal = if numSharps > 0 then numSharps else -numFlats
+    newKeySigCode = 
+    ["\t<attributes>",
+        "\t\t<key>",
+          "\t\t\t<fifths>" ++ show keySigFifthsVal ++ "</fifths>",
+          "\t\t</key>",
+        "\t</attributes>"]
+
+  return $ measurePadding ++ newMeasureCode ++ newKeySigCode
+
+  
 transInstr state (MusAST.Assign label expr) = undefined
 
 transInstr state (MusAST.Write exprs)
