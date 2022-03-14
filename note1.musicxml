@@ -53,7 +53,7 @@
       </score-part>
     </part-list>
   <part id="P1">
-    <measure number="1" width="324.99">
+    <measure number="1" width="321.17">
       <print>
         <system-layout>
           <system-margins>
@@ -88,7 +88,7 @@
         <type>quarter</type>
         <stem>down</stem>
         </note>
-      <note default-x="165.91" default-y="-20.00">
+      <note default-x="164.95" default-y="-20.00">
         <pitch>
           <step>B</step>
           <octave>4</octave>
@@ -98,7 +98,7 @@
         <type>quarter</type>
         <stem>down</stem>
         </note>
-      <note default-x="165.91" default-y="-10.00">
+      <note default-x="164.95" default-y="-10.00">
         <chord/>
         <pitch>
           <step>D</step>
@@ -111,7 +111,7 @@
         <accidental>sharp</accidental>
         <stem>down</stem>
         </note>
-      <note default-x="218.34" default-y="-10.00">
+      <note default-x="216.42" default-y="-10.00">
         <pitch>
           <step>D</step>
           <octave>5</octave>
@@ -122,7 +122,7 @@
         <accidental>natural</accidental>
         <stem>down</stem>
         </note>
-      <note default-x="270.77" default-y="-5.00">
+      <note default-x="267.89" default-y="-5.00">
         <pitch>
           <step>E</step>
           <alter>1</alter>
@@ -139,7 +139,7 @@
           </notations>
         </note>
       </measure>
-    <measure number="2" width="134.21">
+    <measure number="2" width="130.38">
       <attributes>
         <key>
           <fifths>-1</fifths>
@@ -148,18 +148,21 @@
       <note default-x="23.12" default-y="-5.00">
         <pitch>
           <step>E</step>
+          <alter>1</alter>
           <octave>5</octave>
           </pitch>
         <duration>16</duration>
+        <tie type="stop"/>
         <tie type="start"/>
         <voice>1</voice>
         <type>whole</type>
         <notations>
+          <tied type="stop"/>
           <tied type="start"/>
           </notations>
         </note>
       </measure>
-    <measure number="3" width="150.77">
+    <measure number="3" width="146.94">
       <note default-x="13.00" default-y="-5.00">
         <pitch>
           <step>E</step>
@@ -183,20 +186,18 @@
         <type>quarter</type>
         </note>
       </measure>
-    <measure number="4" width="235.15">
-      <note default-x="13.02" default-y="-5.00">
+    <measure number="4" width="250.47">
+      <note default-x="20.96" default-y="-5.00">
         <pitch>
           <step>E</step>
+          <alter>1</alter>
           <octave>5</octave>
           </pitch>
         <duration>1</duration>
-        <tie type="stop"/>
         <voice>1</voice>
         <type>16th</type>
+        <accidental>sharp</accidental>
         <stem>down</stem>
-        <notations>
-          <tied type="stop"/>
-          </notations>
         </note>
       <note>
         <rest/>
@@ -204,7 +205,7 @@
         <voice>1</voice>
         <type>16th</type>
         </note>
-      <note default-x="56.22" default-y="-5.00">
+      <note default-x="68.07" default-y="-5.00">
         <pitch>
           <step>E</step>
           <octave>5</octave>
@@ -212,6 +213,7 @@
         <duration>2</duration>
         <voice>1</voice>
         <type>eighth</type>
+        <accidental>natural</accidental>
         <stem>down</stem>
         </note>
       <note>
@@ -220,7 +222,7 @@
         <voice>1</voice>
         <type>quarter</type>
         </note>
-      <note default-x="138.31" default-y="-20.00">
+      <note default-x="151.76" default-y="-20.00">
         <pitch>
           <step>B</step>
           <octave>4</octave>
@@ -231,7 +233,7 @@
         <accidental>natural</accidental>
         <stem>down</stem>
         </note>
-      <note default-x="185.83" default-y="-20.00">
+      <note default-x="200.22" default-y="-20.00">
         <pitch>
           <step>B</step>
           <alter>-1</alter>
@@ -244,7 +246,7 @@
         <stem>down</stem>
         </note>
       </measure>
-    <measure number="5" width="133.90">
+    <measure number="5" width="130.07">
       <note default-x="13.96" default-y="-5.00">
         <pitch>
           <step>E</step>

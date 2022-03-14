@@ -92,33 +92,64 @@ durationToNoteTypeCode duration = case duration of
   _                    -> ["\t\t\t\t<type>" ++ (toLower (head durationStr):tail durationStr) ++ "</type>"]
                             where durationStr = show duration
 
--- go through all the note vals possible (there's only 8), and generate rest types greedily via the largest notes that fit in the measure
--- note: does NOT update the beat
-breakUpNoteValRationally :: [Int] -> Int -> Bool -> IO [CodeLine]
+-- go through all the note vals possible (there's only 8), and generate note durations greedily via the largest notes that fit in the measure
+-- note: does NOT update the beat, assumes that the note DOES fit in the measure
+breakUpNoteValRationally :: [Int] -> Int -> Bool -> IO [(MusAST.Duration, Int)]
 breakUpNoteValRationally _ 0 _                                      = return []
-breakUpNoteValRationally [] _ _                                       = return $ error "cannot generate accurate note divisions" 
+breakUpNoteValRationally [] _ _                                     = return $ error "cannot generate accurate note divisions" 
 breakUpNoteValRationally (noteVal:noteVals) remainingTimeInMeasure isFromMeasStart =
   if noteVal <= remainingTimeInMeasure then do
     noteDuration <- lookupR noteVal globalDurationIntBimap 
-    let noteTypeCode = durationToNoteTypeCode noteDuration
-        restCode = ["\t\t\t<note>",
-                "\t\t\t\t<rest/>",
-                "\t\t\t\t<duration>" ++ show noteVal ++ "</duration>",
-                "\t\t\t\t<voice>1</voice>"]
-              ++ noteTypeCode ++
-              ["\t\t\t</note>"] 
+    -- let noteTypeCode = durationToNoteTypeCode noteDuration
+    --     restCode = ["\t\t\t<note>",
+    --             "\t\t\t\t<rest/>",
+    --             "\t\t\t\t<duration>" ++ show noteVal ++ "</duration>",
+    --             "\t\t\t\t<voice>1</voice>"]
+    --           ++ noteTypeCode ++
+    --           ["\t\t\t</note>"] 
     remainingPadding <- breakUpNoteValRationally noteVals (remainingTimeInMeasure - noteVal) isFromMeasStart
     -- breaking up note at beginning of measure, want note/rest length from longest -> shortest
     -- or, if it's end of measure padding, want note/rest  length from shortest -> longest
-    return $ if isFromMeasStart then restCode ++ remainingPadding else remainingPadding ++ restCode 
+    return $ if isFromMeasStart then (noteDuration, noteVal):remainingPadding else remainingPadding ++ [(noteDuration, noteVal)]
   else breakUpNoteValRationally noteVals remainingTimeInMeasure isFromMeasStart
 
-generateNoteValueRationalDivisions :: Int -> Bool -> IO [CodeLine]
+generateNoteValueRationalDivisions :: Int -> Bool -> IO [(MusAST.Duration, Int)]
 generateNoteValueRationalDivisions = breakUpNoteValRationally (reverse $ elems globalDurationIntBimap) -- we want the note vals in desc order, biggest to smallest, in order for the greedy prop to work
+
+generateRestsFromDivisions :: [(MusAST.Duration, Int)] -> IO [CodeLine]
+generateRestsFromDivisions restDurationValPairs = return $ 
+  Prelude.concatMap (\(restDuration, restVal) ->
+    let restTypeCode = durationToNoteTypeCode restDuration
+    in ["\t\t\t<note>",
+          "\t\t\t\t<rest/>",
+          "\t\t\t\t<duration>" ++ show restVal ++ "</duration>",
+          "\t\t\t\t<voice>1</voice>"]
+        ++ restTypeCode ++
+        ["\t\t\t</note>"])
+  restDurationValPairs
+
+-- all these notes will be tied BOTH WAYS
+generateTiedNotesFromDivisions :: [CodeLine] -> [(MusAST.Duration, Int)] -> IO [CodeLine]
+generateTiedNotesFromDivisions pitchCode noteDurationValPairs = return $ 
+    Prelude.concatMap (\(noteDuration, noteVal) ->
+      let noteTypeCode = durationToNoteTypeCode noteDuration
+      in ["\t\t\t<note>"]
+              ++ pitchCode ++
+              ["\t\t\t\t<duration>" ++ show noteVal ++ "</duration>", -- the duration of this note is all the time that's left in the measure, since the note doesn't fit in the measure
+              "\t\t\t\t<tie type=\"start\"/>",
+              "\t\t\t\t<tie type=\"stop\"/>",
+              "\t\t\t\t<voice>1</voice>"]
+              ++ noteTypeCode ++
+              ["\t\t\t\t<notations>",
+                "\t\t\t\t\t<tied type=\"start\"/>",
+                "\t\t\t\t\t<tied type=\"stop\"/>",
+              "\t\t\t\t</notations>",
+            "\t\t\t</note>"])
+    noteDurationValPairs
+
 -----------------------------------------------------------------------------------------
 -- Code Generation for Musical Expressions
 -----------------------------------------------------------------------------------------
-
 transExpr :: State -> MusAST.Expr -> IO [CodeLine]
 
 ------------------------------------------------
@@ -129,32 +160,37 @@ transExpr state (MusAST.Rest duration) = do
   measureNum            <- IORef.readIORef measureCt
   currentBeatCount      <- IORef.readIORef currBeatCt
 
-  noteDurationVal <- Bimap.lookup duration globalDurationIntBimap 
+  restDurationVal <- Bimap.lookup duration globalDurationIntBimap 
   let remainingTimeInMeasure = globalTimePerMeasure - currentBeatCount
-      noteTypeCode = if noteDurationVal == remainingTimeInMeasure then [] 
+      restTypeCode = if restDurationVal == remainingTimeInMeasure then [] 
                       else durationToNoteTypeCode duration -- for rests ONLY
 
-  if noteDurationVal <= remainingTimeInMeasure -- note fits in measure
+  if restDurationVal <= remainingTimeInMeasure -- rest fits in measure
     then do 
-      updateBeat noteDurationVal state -- update the beat, but there's no new measure code
-      return $ -- the code for the note that fits in the current measure
+      updateBeat restDurationVal state -- update the beat, but there's no new measure code
+      return $ -- the code for the rest that fits in the current measure
         ["\t\t\t<note>",
-        "\t\t\t\t<rest " ++ (if noteDurationVal == remainingTimeInMeasure then "measure=\"yes\"" else "") ++ "/>",
-        "\t\t\t\t<duration>" ++ show noteDurationVal ++ "</duration>",
+        "\t\t\t\t<rest " ++ (if restDurationVal == remainingTimeInMeasure then "measure=\"yes\"" else "") ++ "/>",
+        "\t\t\t\t<duration>" ++ show restDurationVal ++ "</duration>",
         "\t\t\t\t<voice>1</voice>"]
-        ++ noteTypeCode ++
+        ++ restTypeCode ++
         ["\t\t\t</note>"]
 
-  else do -- note does not fit in measure
-    -- the code for the note that fits in the current measure
-    initialNoteCode <- generateNoteValueRationalDivisions remainingTimeInMeasure False
+  else do -- rest does not fit in measure
+    -- the code for the rest that fits in the current measure
+    initialRestDivisions <- generateNoteValueRationalDivisions remainingTimeInMeasure False
+    initialRestCode <- generateRestsFromDivisions initialRestDivisions
+        
     newMeasureCode <- updateBeat remainingTimeInMeasure state
     
-    let remainingNoteLength = noteDurationVal - remainingTimeInMeasure
-    tiedNoteCode <- generateNoteValueRationalDivisions remainingNoteLength True
-    updateBeat remainingNoteLength state -- note: with current time sig/note length setup, cannot have a tied note that fills the next measure, so no new measure code should get generated here
+    -- the code for the rest that spills into the next measure
+    let remainingRestLength = restDurationVal - remainingTimeInMeasure
+    spilledRestDivisions <- generateNoteValueRationalDivisions remainingRestLength True
+    spilledRestCode <- generateRestsFromDivisions spilledRestDivisions
 
-    return $ initialNoteCode ++ newMeasureCode ++ tiedNoteCode
+    updateBeat remainingRestLength state -- with current time sig/note length setup, cannot have a tied note that fills the next measure, so NO new measure code should get generated here
+
+    return $ initialRestCode ++ newMeasureCode ++ spilledRestCode
 
 ------------------------------------------------
 -- Sounding Notes
@@ -193,35 +229,51 @@ transExpr state (MusAST.Note (MusAST.Tone noteName accidental octave) duration) 
         ["\t\t\t</note>"]
 
   else do -- note does not fit in measure
-    let initialNoteCode = -- the code for the note that fits in the current measure
+    -- the code for note rest that fits in the current measure
+    initialNoteDivisions <- generateNoteValueRationalDivisions remainingTimeInMeasure False
+    let (firstNoteDuration, firstNoteVal) = head initialNoteDivisions -- the first note of the tie only gets tied one way, from the right
+        firstNoteTypeCode                 = durationToNoteTypeCode firstNoteDuration
+        firstInitialNoteCode              = -- handle the first note of the tie sequence, which has a start tie ONLY
           ["\t\t\t<note>"]
             ++ pitchCode ++
-            ["\t\t\t\t<duration>" ++ show remainingTimeInMeasure ++ "</duration>", -- the duration of this note is all the time that's left in the measure, since the note doesn't fit in the measure
+            ["\t\t\t\t<duration>" ++ show firstNoteVal ++ "</duration>", -- the duration of this note is all the time that's left in the measure, since the note doesn't fit in the measure
             "\t\t\t\t<tie type=\"start\"/>", -- the note doesn't fit in the measure, so we tie
-            "\t\t\t\t<voice>1</voice>",
-            "\t\t\t\t<notations>",
-              "\t\t\t\t\t<tie type=\"start\"/>",
-            "\t\t\t\t</notations>"]
-          ++ noteTypeCode ++ -- NO THIS IS WRONG
-          ["\t\t\t</note>"] 
-    newMeasureCode <- updateBeat remainingTimeInMeasure state
+            "\t\t\t\t<voice>1</voice>"]
+            ++ firstNoteTypeCode ++
+            ["\t\t\t\t<notations>",
+              "\t\t\t\t\t<tied type=\"start\"/>",
+            "\t\t\t\t</notations>",
+          "\t\t\t</note>"]
+        remainingInitialNoteDivisions = tail initialNoteDivisions
+    remainingInitialNoteCode <- generateTiedNotesFromDivisions pitchCode remainingInitialNoteDivisions -- generating the remaining tied notes that fit in this measure (each note is tied both ways)
     
-    let remainingNoteLength = noteDurationVal - remainingTimeInMeasure
-    tiedNoteDuration <- lookupR remainingNoteLength globalDurationIntBimap
-    let tiedNoteCode =
-          ["\t\t\t<note>"]
-           ++ pitchCode ++
-            ["\t\t\t\t<duration>" ++ show remainingNoteLength ++ "</duration>", -- the duration of this note is all the time that's left in the measure, since the note doesn't fit in the measure
-            "\t\t\t\t<tie type=\"stop\"/>", -- last note of ties has end tie only
-            "\t\t\t\t<voice>1</voice>",
-            "\t\t\t\t<notations>",
-              "\t\t\t\t\t<tie type=\"stop\"/>",
-            "\t\t\t\t</notations>"]
-            ++ durationToNoteTypeCode tiedNoteDuration ++
-          ["\t\t\t</note>"] 
-    updateBeat remainingNoteLength state -- note: with current time sig/note length setup, cannot have a tied note that fills the next measure, so no new measure code should get generated here
+    newMeasureCode <- updateBeat remainingTimeInMeasure state
 
-    return $ initialNoteCode ++ newMeasureCode ++ tiedNoteCode      
+    -- the code for the rest that spills into the next measure
+    let remainingNoteLength = noteDurationVal - remainingTimeInMeasure
+
+    -- generating the remaining tied notes that fit in this measure (each note is tied both ways)
+    -- True bc start of measure, so we want rests from greatest -> least
+    spilledNoteDivisions <- generateNoteValueRationalDivisions remainingNoteLength True 
+    let (lastNoteDuration, lastNoteVal) = last spilledNoteDivisions -- the last note of the tie only gets tied one way, from the left
+        lastNoteTypeCode              = durationToNoteTypeCode lastNoteDuration
+        finalSpilledNoteCode           =  -- handle the final note of the tie sequence, which has a stop tie ONLY
+          ["\t\t\t<note>"]
+            ++ pitchCode ++
+            ["\t\t\t\t<duration>" ++ show lastNoteVal ++ "</duration>", -- the duration of this note is all the time that's left in the measure, since the note doesn't fit in the measure
+            "\t\t\t\t<tie type=\"stop\"/>", -- the note doesn't fit in the measure, so we tie
+            "\t\t\t\t<voice>1</voice>"]
+            ++ lastNoteTypeCode ++
+            ["\t\t\t\t<notations>",
+              "\t\t\t\t\t<tied type=\"stop\"/>",
+            "\t\t\t\t</notations>",
+          "\t\t\t</note>"]
+        remainingSpilledNoteDivisions = tail spilledNoteDivisions 
+    remainingSpilledNoteCode <- generateTiedNotesFromDivisions pitchCode remainingSpilledNoteDivisions
+
+    updateBeat remainingNoteLength state -- with current time sig/note length setup, cannot have a tied note that fills the next measure, so NO new measure code should get generated here
+
+    return $ firstInitialNoteCode ++ remainingInitialNoteCode ++ newMeasureCode ++ remainingSpilledNoteCode ++ finalSpilledNoteCode    
 
 ------------------------------------------------
 -- Anything that remains untranslated prints a warning message
@@ -258,7 +310,8 @@ transInstr state (MusAST.KeySignature numSharps numFlats) =
 
     currentBeatCount <- IORef.readIORef currBeatCt
     let remainingTimeInMeasure = globalTimePerMeasure - currentBeatCount
-    measurePadding <- generateNoteValueRationalDivisions remainingTimeInMeasure False
+    restPaddingDivisions <- generateNoteValueRationalDivisions remainingTimeInMeasure False
+    measurePadding <- generateRestsFromDivisions restPaddingDivisions
     newMeasureCode <- updateBeat remainingTimeInMeasure state
 
     let keySigFifthsVal = if numSharps > 0 then numSharps else -numFlats
@@ -282,7 +335,8 @@ transInstr state MusAST.NewMeasure = do
   let (currBeatCt, _, _) = state
   currentBeatCount <- IORef.readIORef currBeatCt
   let remainingTimeInMeasure = globalTimePerMeasure - currentBeatCount
-  measurePadding <- generateNoteValueRationalDivisions remainingTimeInMeasure False
+  restPaddingDivisions <- generateNoteValueRationalDivisions remainingTimeInMeasure False
+  measurePadding <- generateRestsFromDivisions restPaddingDivisions
   newMeasureCode <- updateBeat remainingTimeInMeasure state
   return $ measurePadding ++ newMeasureCode
 
@@ -295,7 +349,8 @@ transInstrs state instrs = do
     if finalBeatCount > 0 -- i.e. we're in the middle of a measure
       then do 
         let remainingTimeInMeasure = globalTimePerMeasure - finalBeatCount
-        finalMeasureFill <- generateNoteValueRationalDivisions remainingTimeInMeasure False
+        restPaddingDivisions <- generateNoteValueRationalDivisions remainingTimeInMeasure False
+        finalMeasureFill <- generateRestsFromDivisions restPaddingDivisions
         return $ instrSeqs ++ [finalMeasureFill]
       else do
         let finalizedCode = init instrSeqs
