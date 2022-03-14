@@ -94,10 +94,10 @@ durationToNoteTypeCode duration = case duration of
 
 -- go through all the note vals possible (there's only 8), and generate rest types greedily via the largest notes that fit in the measure
 -- note: does NOT update the beat
-generateMeasurePadding :: Int -> [Int] -> IO [CodeLine]
-generateMeasurePadding 0 _                                       = return []
-generateMeasurePadding _ []                                      = return $ error "cannot generate accurate measure padding"
-generateMeasurePadding remainingTimeInMeasure (noteVal:noteVals) =
+breakUpNoteValRaionally :: [Int] -> Int -> Bool -> IO [CodeLine]
+breakUpNoteValRaionally _ 0 _                                      = return []
+breakUpNoteValRaionally [] _ _                                       = return $ error "cannot generate accurate note divisions" 
+breakUpNoteValRaionally (noteVal:noteVals) remainingTimeInMeasure isTiedFromMeasStart =
   if noteVal <= remainingTimeInMeasure then do
     noteDuration <- lookupR noteVal globalDurationIntBimap 
     let noteTypeCode = if noteVal == remainingTimeInMeasure then [] 
@@ -108,10 +108,14 @@ generateMeasurePadding remainingTimeInMeasure (noteVal:noteVals) =
                 "\t\t\t\t<voice>1</voice>"]
               ++ noteTypeCode ++
               ["\t\t\t</note>"] 
-    remainingPadding <- generateMeasurePadding (remainingTimeInMeasure - noteVal) noteVals 
-    return $ remainingPadding ++ restCode -- rest order is shortest to longest in the measusre
-  else generateMeasurePadding remainingTimeInMeasure noteVals
+    remainingPadding <- breakUpNoteValRaionally noteVals (remainingTimeInMeasure - noteVal) isTiedFromMeasStart
+    -- breaking up note at beginning of measure, want note/rest length from longest -> shortest
+    -- or, if it's end of measure padding, want note/rest  length from shortest -> longest
+    return $ if isTiedFromMeasStart then restCode ++ remainingPadding else remainingPadding ++ restCode 
+  else breakUpNoteValRaionally noteVals remainingTimeInMeasure isTiedFromMeasStart
 
+generateNoteValueRationalDivisions :: Int -> Bool -> IO [CodeLine]
+generateNoteValueRationalDivisions = breakUpNoteValRaionally (reverse $ elems globalDurationIntBimap) -- we want the note vals in desc order, biggest to smallest
 -----------------------------------------------------------------------------------------
 -- Code Generation for Musical Expressions
 -----------------------------------------------------------------------------------------
@@ -143,24 +147,12 @@ transExpr state (MusAST.Rest duration) = do
         ["\t\t\t</note>"]
 
   else do -- note does not fit in measure
-    let initialNoteCode = -- the code for the note that fits in the current measure
-          ["\t\t\t<note>",
-            "\t\t\t\t<rest/>",
-            "\t\t\t\t<duration>" ++ show remainingTimeInMeasure ++ "</duration>", -- the duration of this note is all the time that's left in the measure, since the note doesn't fit in the measure
-            "\t\t\t\t<voice>1</voice>"
-          ] ++ noteTypeCode ++
-          ["\t\t\t</note>"] 
+    -- the code for the note that fits in the current measure
+    initialNoteCode <- generateNoteValueRationalDivisions remainingTimeInMeasure False
     newMeasureCode <- updateBeat remainingTimeInMeasure state
     
     let remainingNoteLength = noteDurationVal - remainingTimeInMeasure
-    tiedNoteDuration <- lookupR remainingNoteLength globalDurationIntBimap
-    let tiedNoteCode =
-          ["\t\t\t<note>",
-            "\t\t\t\t<rest/>",
-            "\t\t\t\t<duration>" ++ show remainingNoteLength ++ "</duration>", -- the duration of this note is all the time that's left in the measure, since the note doesn't fit in the measure
-            "\t\t\t\t<voice>1</voice>"]
-          ++ durationToNoteTypeCode tiedNoteDuration ++
-         ["\t\t\t</note>"] 
+    tiedNoteCode <- generateNoteValueRationalDivisions remainingNoteLength True
     updateBeat remainingNoteLength state -- note: with current time sig/note length setup, cannot have a tied note that fills the next measure, so no new measure code should get generated here
 
     return $ initialNoteCode ++ newMeasureCode ++ tiedNoteCode
@@ -267,7 +259,7 @@ transInstr state (MusAST.KeySignature numSharps numFlats) =
 
     currentBeatCount <- IORef.readIORef currBeatCt
     let remainingTimeInMeasure = globalTimePerMeasure - currentBeatCount
-    measurePadding <- generateMeasurePadding remainingTimeInMeasure (reverse $ elems globalDurationIntBimap)  -- we want the note vals in desc order, biggest to smallest
+    measurePadding <- generateNoteValueRationalDivisions remainingTimeInMeasure False
     newMeasureCode <- updateBeat remainingTimeInMeasure state
 
     let keySigFifthsVal = if numSharps > 0 then numSharps else -numFlats
@@ -291,7 +283,7 @@ transInstr state MusAST.NewMeasure = do
   let (currBeatCt, _, _) = state
   currentBeatCount <- IORef.readIORef currBeatCt
   let remainingTimeInMeasure = globalTimePerMeasure - currentBeatCount
-  measurePadding <- generateMeasurePadding remainingTimeInMeasure (reverse $ elems globalDurationIntBimap)  -- we want the note vals in desc order, biggest to smallest
+  measurePadding <- generateNoteValueRationalDivisions remainingTimeInMeasure False
   newMeasureCode <- updateBeat remainingTimeInMeasure state
   return $ measurePadding ++ newMeasureCode
 
@@ -304,7 +296,7 @@ transInstrs state instrs = do
     if finalBeatCount > 0 -- i.e. we're in the middle of a measure
       then do 
         let remainingTimeInMeasure = globalTimePerMeasure - finalBeatCount
-        finalMeasureFill <- generateMeasurePadding remainingTimeInMeasure (reverse $ elems globalDurationIntBimap) -- we want the note vals in desc order, biggest to smallest
+        finalMeasureFill <- generateNoteValueRationalDivisions remainingTimeInMeasure False
         return $ instrSeqs ++ [finalMeasureFill]
       else do
         let finalizedCode = init instrSeqs
