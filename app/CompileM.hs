@@ -56,7 +56,8 @@ main = do
   putStrLn "Generating musicXML code..."
   beatCt        <- Data.IORef.newIORef 0
   measureCt     <- Data.IORef.newIORef 1
-  let defaultKeySig = (Nothing, Nothing) -- CM/am is default, no sharps/flats
+  defaultKeySig <- Data.IORef.newIORef (Nothing, Nothing) -- no sharps, no flats
+  -- noteAlterMap  <- Data.IORef.newIORef MusicXMLgen.globalDefaultNoteAlterMap
   code <- MusicXMLgen.transInstrs (beatCt, measureCt, defaultKeySig) ast
 
     -- header code for musicXML file
