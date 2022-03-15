@@ -41,6 +41,23 @@ globalTimePerMeasure = 16 -- whole = 16, quarter = 4, eighth = 2, etc. absolute 
 globalOrderOfSharps :: [MusAST.NoteName]
 globalOrderOfSharps = [MusAST.F, MusAST.C, MusAST.G, MusAST.D, MusAST.A, MusAST.E, MusAST.B]
 
+globalHeaderCode :: Int -> IO [CodeLine]
+globalHeaderCode fifths = return $ 
+  ["\t<attributes>",
+  "\t\t<divisions>4</divisions>", -- 4 divisions because the smallest note is 1/16
+  "\t\t<key>",
+    "\t\t\t<fifths>" ++ show fifths ++ "</fifths>",
+    "\t\t</key>",
+  "\t\t<time>",
+    "\t\t\t<beats>4</beats>",
+    "\t\t\t<beat-type>4</beat-type>",
+    "\t\t</time>",
+  "\t\t<clef>",
+    "\t\t\t<sign>G</sign>",
+    "\t\t\t<line>2</line>",
+    "\t\t</clef>",
+  "\t</attributes>"] 
+
 -- globalDefaultNoteAlterMap :: Map MusAST.NoteName Int
 -- globalDefaultNoteAlterMap = Map.fromList
 --   [(MusAST.F, 0), 
@@ -195,7 +212,6 @@ transExpr state (MusAST.Rest duration) = do
 transExpr state (MusAST.Note (MusAST.Tone noteName accidental octave) duration) =
     transExpr state (MusAST.Chord [MusAST.Tone noteName accidental octave] duration) -- MOVE THIS TO IR FILE 
 
-
 ------------------------------------------------
 -- Chords
 ------------------------------------------------
@@ -287,15 +303,6 @@ transExpr state (MusAST.Chord tones duration) = do
 
     return $ firstInitialNoteCode ++ remainingInitialNoteCode ++ newMeasureCode ++ remainingSpilledNoteCode ++ finalSpilledNoteCode   
 
-------------------------------------------------
--- Anything that remains untranslated prints a warning message
--- When you think you're done, this should probably be replaced
--- by a call to error.
-------------------------------------------------
--- transExpr _ _ = do
---   putStrLn "  unknown MusAST expr "
---   return []
-
 -----------------------------------------------------------------------------------------
 -- Code Generation for Instructions
 -----------------------------------------------------------------------------------------
@@ -303,36 +310,40 @@ transExpr state (MusAST.Chord tones duration) = do
 -- | Turn list of MusAssist AST abstract syntax into musicXML code
 transInstr :: State -> MusAST.Instr -> IO [CodeLine]
 
--- type KeySignature = (Maybe MusAST.NoteName, Maybe MusAST.NoteName) -- last sharp in key sig, last flat in key sig (one should always be Nothing!)
-transInstr state (MusAST.KeySignature numSharps numFlats) = 
-  -- if numSharps < 0 || numFlats < 0 
-  --   || numSharps > 7 || numFlats > 7
-  --   || numSharps > 0 && numFlats > 0
-  -- then return $ error "key sig must have 0-7 sharps OR flats, not both!" 
-  -- else 
-    do
-    let (currBeatCt, _, keySig) = state
-        lastSharp = 
+transInstr state (MusAST.KeySignature numSharps numFlats) =
+  if numSharps < 0 || numFlats < 0 
+    || numSharps > 7 || numFlats > 7
+    || numSharps > 0 && numFlats > 0
+  then return $ error "key sig must have 0-7 sharps OR flats, not both!" 
+  else do
+    let (currBeatCt, measNum, keySig) = state
+        lastSharp =  
           if numSharps > 0 then Just (globalOrderOfSharps !! (numSharps - 1)) -- zero indexing
           else Nothing
-        lastFlat = 
+        lastFlat =  
           if numFlats > 0 then Just (globalOrderOfSharps !! (length globalOrderOfSharps - numSharps))
           else Nothing
-    IORef.writeIORef keySig (lastSharp, lastFlat)
-
+        
     currentBeatCount <- IORef.readIORef currBeatCt
+    measureNum <- IORef.readIORef measNum
+    IORef.writeIORef keySig (lastSharp, lastFlat)
     let remainingTimeInMeasure = globalTimePerMeasure - currentBeatCount
-    restPaddingDivisions <- generateNoteValueRationalDivisions remainingTimeInMeasure False
-    measurePadding <- generateRestsFromDivisions restPaddingDivisions
-    newMeasureCode <- updateBeat remainingTimeInMeasure state
+        isStartFirstMeasure    = currentBeatCount == 0 && measureNum == 1
+        keySigFifthsVal = if numSharps > 0 then numSharps else -numFlats
 
-    let keySigFifthsVal = if numSharps > 0 then numSharps else -numFlats
-        newKeySigCode = 
+    -- if the key sig is set at beginning of piece, don't go to the next measure to do it
+    -- in fact, this is the rest of the header code for the file (see CompileM.hs)
+    if isStartFirstMeasure then globalHeaderCode keySigFifthsVal else do 
+    
+    let newKeySigCode = 
           ["\t<attributes>",
-              "\t\t<key>",
-                "\t\t\t<fifths>" ++ show keySigFifthsVal ++ "</fifths>",
-                "\t\t</key>",
-              "\t</attributes>"]
+            "\t\t<key>",
+              "\t\t\t<fifths>" ++ show keySigFifthsVal ++ "</fifths>",
+              "\t\t</key>",
+            "\t</attributes>"]
+    restPaddingDivisions <- generateNoteValueRationalDivisions remainingTimeInMeasure False
+    measurePadding       <- generateRestsFromDivisions restPaddingDivisions
+    newMeasureCode       <- updateBeat remainingTimeInMeasure state
 
     return $ measurePadding ++ newMeasureCode ++ newKeySigCode
  
@@ -355,8 +366,16 @@ transInstrs :: State -> [MusAST.Instr] -> IO [CodeLine]
 transInstrs state instrs = do
   instrSeqs <- mapM (transInstr state) instrs
   let (currBeatCt, _, _) = state
-      lastInstrSeq = last instrSeqs
-      lastCodeLine = last lastInstrSeq
+      firstInstrSeq = head instrSeqs
+      firstCodeLine = head firstInstrSeq
+      lastInstrSeq  = last instrSeqs
+      lastCodeLine  = last lastInstrSeq
+  
+  -- this is the remaining header code for the MusicXML file that was started in CompileM.hs
+  -- we set it here to have key sig of no sharps and flats, if the user's first instruction 
+  -- was not to set a custom key sig for the start of the piece
+  remainingHeaderCode <- if firstCodeLine /= "\t<attributes>" then globalHeaderCode 0 else return []
+
   finalBeatCount <- IORef.readIORef currBeatCt
   finalInstrs <-
     if finalBeatCount > 0 || lastCodeLine == "\t</attributes>" -- we're in the middle of a measure, or we just did a key change
@@ -368,4 +387,5 @@ transInstrs state instrs = do
       else do
         let finalizedCode = init instrSeqs
         return $ finalizedCode ++ [take ((length lastInstrSeq) - 2) lastInstrSeq] -- remove the hanging new measure code since we do not want it
+
   return $ Prelude.concat finalInstrs

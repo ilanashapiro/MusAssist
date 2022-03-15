@@ -48,7 +48,6 @@ main = do
     ".ast" -> do
       text <- readFile fileName
       let input = strip text
-      print input
       return (read input :: [MusAST.Instr])
     ext -> error $ "unexpected extension " ++ show ext
 
