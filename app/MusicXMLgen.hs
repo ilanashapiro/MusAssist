@@ -304,6 +304,7 @@ transInstr state (MusAST.KeySignature numSharps numFlats) =
         keySigFifthsVal = if numSharps > 0 then numSharps else -numFlats
 
     -- if the key sig is set at beginning of piece, don't go to the next measure to do it
+    -- if the user consecutively sets a bunch of key sigs at the beginning, this thus takes the last one before a different command
     -- in fact, this is the rest of the header code for the file (see CompileM.hs)
     if isStartFirstMeasure then globalHeaderCode keySigFifthsVal else do 
     

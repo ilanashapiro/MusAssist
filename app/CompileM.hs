@@ -46,12 +46,13 @@ main = do
   -- Read in the .ast file containing Haskell code
   --   for a list of MusAssistAST values from the parse result
   unprocessedAST <- case takeExtension fileName of -- REPLACE THIS WITH PARSE RESULT ONCE I IMPLEMENT PARSING
-    ".ast" -> do
+    ".irast" -> do
       text <- readFile fileName
       let input = strip text
       return (read input :: [MusAST.IntermediateInstr])
     ext -> error $ "unexpected extension " ++ show ext
   processedAST <- IRConversion.expandIntermediateInstrs unprocessedAST
+  print processedAST
 
   -- Translate MusAssistAST code to musicXML code
   putStrLn "Generating musicXML code..."

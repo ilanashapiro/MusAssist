@@ -17,13 +17,38 @@ data NoteName =
     | E 
     | A 
     | B
-  deriving (Eq, Bounded, Enum, Show, Read) -- the notes are ordered in the order of sharps. reverse for order of flats
+  deriving (Eq, Ord, Show, Read) -- the notes are ordered in the order of sharps. reverse for order of flats
   -- btw, for Ord (no longer using): earlier constructors in the datatype declaration count as smaller than later ones
 
-cyclicPred :: (Bounded a, Eq a, Enum a) => a -> a
-cyclicPred n
-  | n == minBound = maxBound
-  | otherwise = succ n
+-- https://stackoverflow.com/questions/58761160/why-isnt-enum-typeclass-a-subclass-of-ord-typeclass
+-- https://stackoverflow.com/questions/5684049/is-there-some-way-to-define-an-enum-in-haskell-that-wraps-around
+instance Enum NoteName where
+    toEnum n = case n `mod` 7 of
+                  0 -> C
+                  1 -> D
+                  2 -> E
+                  3 -> F
+                  4 -> G
+                  5 -> A
+                  _ -> B
+                  -- x -> toEnum (x `mod` 6) -- this makes pred and succ circular ??
+    fromEnum C = 0
+    fromEnum D = 1
+    fromEnum E = 2
+    fromEnum F = 3
+    fromEnum G = 4
+    fromEnum A = 5
+    fromEnum B = 6
+
+-- cyclicPred :: (Bounded a, Eq a, Enum a) => a -> a
+-- cyclicPred n
+--   | n == minBound = maxBound
+--   | otherwise = pred n
+
+-- cyclicSucc :: (Bounded a, Eq a, Enum a) => a -> a
+-- cyclicSucc n
+--   | n == maxBound = minBound
+--   | otherwise = succ n
 
 data Accidental = 
      Natural 
