@@ -18,8 +18,7 @@ type CodeLine = String                    -- ^ A line of musicXML code
 type NoteDuration = Int
 type BeatCounter = IORef.IORef Int
 type MeasureCounter = IORef.IORef Int
-type KeySignature = IORef.IORef (Maybe MusAST.NoteName, Maybe MusAST.NoteName) -- last sharp in key sig, last flat in key sig (at least one should always be Nothing!)
--- type NoteAlterMap = IORef.IORef (Map MusAST.NoteName Int) -- maps note names to alter pitch vals: -1, 0, or 1. default is 0
+type KeySignature = IORef.IORef (Int, Int) -- num sharps, num flats. at least one must be 0! 
 
 -- IN CONCLUSION
 -- The user will always explicitly say whether something is sharp or flat
@@ -33,13 +32,10 @@ type KeySignature = IORef.IORef (Maybe MusAST.NoteName, Maybe MusAST.NoteName) -
 -- resets to empty at start of each measure
 ----type SharpsFlatsAccInMeas = ([NotePrimitive], [NotePrimitive])
 
-type State = (BeatCounter, MeasureCounter, KeySignature)--, NoteAlterMap)
+type State = (BeatCounter, MeasureCounter, KeySignature)
 
 globalTimePerMeasure :: Int
 globalTimePerMeasure = 16 -- whole = 16, quarter = 4, eighth = 2, etc. absolute time per measure is set at 16, from common time
-
-globalOrderOfSharps :: [MusAST.NoteName]
-globalOrderOfSharps = [MusAST.F, MusAST.C, MusAST.G, MusAST.D, MusAST.A, MusAST.E, MusAST.B]
 
 globalHeaderCode :: Int -> IO [CodeLine]
 globalHeaderCode fifths = return $ 
@@ -58,15 +54,6 @@ globalHeaderCode fifths = return $
     "\t\t</clef>",
   "\t</attributes>"] 
 
--- globalDefaultNoteAlterMap :: Map MusAST.NoteName Int
--- globalDefaultNoteAlterMap = Map.fromList
---   [(MusAST.F, 0), 
---   (MusAST.C, 0), 
---   (MusAST.G, 0), 
---   (MusAST.D, 0), 
---   (MusAST.A, 0),
---   (MusAST.E, 0),
---   (MusAST.B, 0)]
 ---------------------------------------------
 -- Beats: to handle measures --
 ---------------------------------------------
@@ -82,7 +69,6 @@ updateBeat noteDuration (currBeatCt, measureCt, _) = do
       IORef.writeIORef currBeatCt 0                    -- reset beats to 0 bc we're in a new measure
       let incMeasNum = measureNum + 1
       IORef.writeIORef measureCt incMeasNum    -- increment the measure count
-      -- IORef.writeIORef noteAlterMap globalDefaultNoteAlterMap -- reset all accidentals per measure to default (i.e. none)
       let newMeasureCode = ["\t\t</measure>", "\t\t<measure number=\"" ++ show incMeasNum ++ "\">"]
       return newMeasureCode
     else do
@@ -170,7 +156,7 @@ transExpr :: State -> MusAST.Expr -> IO [CodeLine]
 -- Rests
 ------------------------------------------------
 transExpr state (MusAST.Rest duration) = do
-  let (currBeatCt, measureCt, keySig) = state
+  let (currBeatCt, measureCt, _) = state
   measureNum            <- IORef.readIORef measureCt
   currentBeatCount      <- IORef.readIORef currBeatCt
 
@@ -216,10 +202,9 @@ transExpr state (MusAST.Note (MusAST.Tone noteName accidental octave) duration) 
 -- Chords
 ------------------------------------------------
 transExpr state (MusAST.Chord tones duration) = do 
-  let (currBeatCt, measureCt, keySig) = state
+  let (currBeatCt, measureCt, _) = state
   measureNum                      <- IORef.readIORef measureCt
   currentBeatCount                <- IORef.readIORef currBeatCt
-  (lastSharpMaybe, lastFlatMaybe) <- IORef.readIORef keySig
   noteDurationVal                 <- Bimap.lookup duration globalDurationIntBimap 
   let remainingTimeInMeasure = globalTimePerMeasure - currentBeatCount
       noteTypeCode = durationToNoteTypeCode duration 
@@ -315,18 +300,11 @@ transInstr state (MusAST.KeySignature numSharps numFlats) =
     || numSharps > 7 || numFlats > 7
     || numSharps > 0 && numFlats > 0
   then return $ error "key sig must have 0-7 sharps OR flats, not both!" 
-  else do
-    let (currBeatCt, measNum, keySig) = state
-        lastSharp =  
-          if numSharps > 0 then Just (globalOrderOfSharps !! (numSharps - 1)) -- zero indexing
-          else Nothing
-        lastFlat =  
-          if numFlats > 0 then Just (globalOrderOfSharps !! (length globalOrderOfSharps - numSharps))
-          else Nothing
-        
+  else do   
+    let (currBeatCt, measNum, keySig) = state 
     currentBeatCount <- IORef.readIORef currBeatCt
     measureNum <- IORef.readIORef measNum
-    IORef.writeIORef keySig (lastSharp, lastFlat)
+    IORef.writeIORef keySig (numSharps, numFlats)
     let remainingTimeInMeasure = globalTimePerMeasure - currentBeatCount
         isStartFirstMeasure    = currentBeatCount == 0 && measureNum == 1
         keySigFifthsVal = if numSharps > 0 then numSharps else -numFlats
