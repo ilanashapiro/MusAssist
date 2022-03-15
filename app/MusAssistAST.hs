@@ -107,6 +107,11 @@ data IntermediateExpr =
   | ChordTemplate Tone Quality ChordType Inversion Duration -- Predefined chords: these all happen in root position
   | Cadence CadenceType Tone Quality -- quality is major/minor ONLY. det the start note and key of the cadence
   | HarmonicSequence HarmonicSequenceType Tone Quality Duration Length -- quality is major/minor ONLY. det the start note and key of the seq
-  | SetKeySignature NoteName Quality
-  | FinalInstr Instr
+  | FinalExpr Expr
+   deriving (Eq, Show, Read)
+
+data IntermediateInstr = 
+  SetKeySignature NoteName Quality
+  | CreateNewMeasure
+  | IRWrite [IntermediateExpr]
     deriving (Eq, Show, Read)

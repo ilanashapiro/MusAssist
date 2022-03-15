@@ -11,25 +11,38 @@ import qualified MusAssistAST         as MusAST
 -----------------------------------------------------------------------------------------
 -- Expand Individual Intermediate Expressions
 -----------------------------------------------------------------------------------------
-expandIntermediateExpr :: MusAST.IntermediateExpr -> IO MusAST.Instr
+expandIntermediateExpr :: MusAST.IntermediateExpr -> IO MusAST.Expr
 
-expandIntermediateExpr (MusAST.FinalInstr instr) = return instr
-
+-- | Notes get expanded to become single-element chords
 expandIntermediateExpr (MusAST.Note tone duration) = return $ Write ??? MusAST.Chord [tone] duration
 
 -- | Predefined chords: these all happen in root position
 expandIntermediateExpr (MusAST.ChordTemplate tone quality chordType inversion duration) = undefined
 
--- | Quality is major/minor ONLY. det the start note and key of the cadence
+-- | Quality is major/minor ONLY. determines the start note and key of the cadence
 expandIntermediateExpr (MusAST.Cadence cadenceType tone quality) = undefined
 
--- | Quality is major/minor ONLY. det the start note and key of the sequence
+-- | Quality is major/minor ONLY. determines the start note and key of the harmseq
 expandIntermediateExpr (MusAST.HarmonicSequence harmSeqType tone quality duration length) = undefined
 
-expandIntermediateExpr (MusAST.SetKeySignature noteName quality) = undefined
+expandIntermediateExpr (MusAST.FinalExpr expr) = return expr
 
 -----------------------------------------------------------------------------------------
--- Expand All the Intermediate Expressions
+-- Expand Individual Intermediate Instructions
 -----------------------------------------------------------------------------------------
-expandIntermediateExprs :: [MusAST.IntermediateExpr] -> IO [MusAST.Instr]
-expandIntermediateExprs intermediateExprs = mapM expandIntermediateExpr intermediateExprs
+expandIntermediateInstr :: MusAST.IntermediateInstr -> IO MusAST.Instr
+
+-- | Quality is major/minor ONLY
+expandIntermediateInstr (MusAST.SetKeySignature noteName quality) = undefined
+
+expandIntermediateInstr MusAST.CreateNewMeasure = return MusAST.NewMeasure
+
+expandIntermediateInstr [MusAST.IRWrite IRExprs] = do
+    exprs <- mapM expandIntermediateExpr IRExprs
+    return $ MusAST.Write exprs
+
+-----------------------------------------------------------------------------------------
+-- Expand All the Intermediate Instructions
+-----------------------------------------------------------------------------------------
+expandIntermediateInstrs :: [MusAST.IntermediateInstr] -> IO [MusAST.Instr]
+expandIntermediateInstrs intermediateInstrs = mapM expandIntermediateExpr intermediateInstrs
