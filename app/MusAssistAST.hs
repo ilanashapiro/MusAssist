@@ -17,8 +17,13 @@ data NoteName =
     | E 
     | A 
     | B
-  deriving (Eq, Ord, Show, Read) -- the notes are ordered in the order of sharps. reverse for order of flats
-  -- earlier constructors in the datatype declaration count as smaller than later ones
+  deriving (Eq, Bounded, Enum, Show, Read) -- the notes are ordered in the order of sharps. reverse for order of flats
+  -- btw, for Ord (no longer using): earlier constructors in the datatype declaration count as smaller than later ones
+
+cyclicPred :: (Bounded a, Eq a, Enum a) => a -> a
+cyclicPred n
+  | n == minBound = maxBound
+  | otherwise = succ n
 
 data Accidental = 
      Natural 
@@ -111,7 +116,7 @@ data IntermediateExpr =
    deriving (Eq, Show, Read)
 
 data IntermediateInstr = 
-  SetKeySignature NoteName Quality
+  SetKeySignature NoteName Accidental Quality
   | CreateNewMeasure
   | IRWrite [IntermediateExpr]
     deriving (Eq, Show, Read)

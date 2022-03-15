@@ -7,6 +7,7 @@ Maintainer   : Ilana Shapiro
 module MusicXMLgen where
 
 import qualified MusAssistAST         as MusAST
+import           Data.Char
 import           Data.IORef           as IORef
 import           Data.Bimap           as Bimap
 import           Control.Monad.Extra

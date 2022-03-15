@@ -49,9 +49,9 @@ main = do
     ".ast" -> do
       text <- readFile fileName
       let input = strip text
-      return (read input :: [MusAST.Instr])
+      return (read input :: [MusAST.IntermediateInstr])
     ext -> error $ "unexpected extension " ++ show ext
-  processedAST <- IRConversion.expandIntermediateExprs unprocessedAST
+  processedAST <- IRConversion.expandIntermediateInstrs unprocessedAST
 
   -- Translate MusAssistAST code to musicXML code
   putStrLn "Generating musicXML code..."
