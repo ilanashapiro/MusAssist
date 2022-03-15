@@ -1,14 +1,13 @@
 {-|
-Module       : X86gen
-Description  : The x86 code emitter for the compiler -- part of the backend
-Maintainer   : CS 132
+Module       : MusicXMLgen
+Description  : The MusicXML code emitter for the compiler -- part of the backend
+Maintainer   : Ilana Shapiro
 -}
 
 module MusicXMLgen where
 
 import qualified MusAssistAST         as MusAST
 import           Data.IORef           as IORef
-import           Data.Char
 import           Data.Bimap           as Bimap
 import           Control.Monad.Extra
 import           Data.Map(Map)
@@ -192,15 +191,9 @@ transExpr state (MusAST.Rest duration) = do
 
     return $ initialRestCode ++ newMeasureCode ++ spilledRestCode
 
-------------------------------------------------
--- Sounding Notes
-------------------------------------------------
-transExpr state (MusAST.Note (MusAST.Tone noteName accidental octave) duration) =
-    transExpr state (MusAST.Chord [MusAST.Tone noteName accidental octave] duration) -- MOVE THIS TO IR FILE 
-
-------------------------------------------------
--- Chords
-------------------------------------------------
+------------------------------------------------------------------------------------------------
+-- Chords (a Note is a single-element Chord)
+------------------------------------------------------------------------------------------------
 transExpr state (MusAST.Chord tones duration) = do 
   let (currBeatCt, measureCt, _) = state
   measureNum                      <- IORef.readIORef measureCt
@@ -289,7 +282,7 @@ transExpr state (MusAST.Chord tones duration) = do
     return $ firstInitialNoteCode ++ remainingInitialNoteCode ++ newMeasureCode ++ remainingSpilledNoteCode ++ finalSpilledNoteCode   
 
 -----------------------------------------------------------------------------------------
--- Code Generation for Instructions
+-- Code Generation for Individual Instructions
 -----------------------------------------------------------------------------------------
 
 -- | Turn list of MusAssist AST abstract syntax into musicXML code
@@ -324,8 +317,6 @@ transInstr state (MusAST.KeySignature numSharps numFlats) =
     newMeasureCode       <- updateBeat remainingTimeInMeasure state
 
     return $ measurePadding ++ newMeasureCode ++ newKeySigCode
- 
-transInstr state (MusAST.Assign label expr) = undefined
 
 transInstr state (MusAST.Write exprs)
   | exprs == [] = return []
@@ -339,6 +330,10 @@ transInstr state MusAST.NewMeasure = do
   measurePadding <- generateRestsFromDivisions restPaddingDivisions
   newMeasureCode <- updateBeat remainingTimeInMeasure state
   return $ measurePadding ++ newMeasureCode
+
+-----------------------------------------------------------------------------------------
+-- Code Generation for All the Instructions
+-----------------------------------------------------------------------------------------
 
 transInstrs :: State -> [MusAST.Instr] -> IO [CodeLine]
 transInstrs state instrs = do

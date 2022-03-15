@@ -80,21 +80,8 @@ data HarmonicSequenceType =
   | Desc56
   deriving (Eq, Show, Read)
 
--- templates to get expanded
- -- plan: translate from one intermediate representation to another. in my case, I can maybe do this intermediate
-    -- translation in which I lower these things (Chord, Cadence, HarmSeq) into their simplified form (i.e. CustomChords)
-    -- and then the code generation is just for NOTES, rests ,and custom chords
-
-data IntermediateExpr = 
-  ChordTemplate Tone Quality ChordType Inversion Duration -- Predefined chords: these all happen in root position
-  | Cadence CadenceType Tone Quality -- quality is major/minor ONLY. det the start note and key of the cadence
-  | HarmonicSequence HarmonicSequenceType Tone Quality Duration Length -- quality is major/minor ONLY. det the start note and key of the seq
-  | SetKeySignature NoteName Quality
-    deriving (Eq, Show, Read)
-
 data Expr = 
-  Note Tone Duration
-  | Rest Duration
+  Rest Duration
   -- can keep this and predefined chords, bc if I just had custom chord, it's harder to work with
   -- with DSLs, keep the domain specific information for as long as possible for expanding the generation
   -- if I didn't, all I had is custom chord, then I give the user the ability to use the nice template, but
@@ -102,12 +89,24 @@ data Expr =
   -- granted, I could def recover it by reconstructing custom chord, but if the user is already giving this, 
   -- then why recover it. we want to take advantage of the props of the DSL!
   -- analogy: in a GPL, keep the loop as long as possible before converting to JUMP
-  | Chord [Tone] Duration 
+  | Chord [Tone] Duration -- notes are single-element chords
     deriving (Eq, Show, Read)
 
 data Instr = 
   KeySignature Int Int -- num sharps (0-7), num flats (0-7). One of these should be zero!
   | NewMeasure 
-  | Assign Label Expr -- save a chunk of music to a label
   | Write [Expr]
+    deriving (Eq, Show, Read)
+
+-- templates to get expanded: these are the direct results of the parse
+ -- plan: translate from one intermediate representation to another. in my case, I can maybe do this intermediate
+    -- translation in which I lower these things (Chord, Cadence, HarmSeq) into their simplified form (i.e. CustomChords)
+    -- and then the code generation is just for NOTES, rests ,and custom chords
+data IntermediateExpr = 
+  Note Tone Duration -- these get expanded to become single-element chords
+  | ChordTemplate Tone Quality ChordType Inversion Duration -- Predefined chords: these all happen in root position
+  | Cadence CadenceType Tone Quality -- quality is major/minor ONLY. det the start note and key of the cadence
+  | HarmonicSequence HarmonicSequenceType Tone Quality Duration Length -- quality is major/minor ONLY. det the start note and key of the seq
+  | SetKeySignature NoteName Quality
+  | FinalInstr Instr
     deriving (Eq, Show, Read)

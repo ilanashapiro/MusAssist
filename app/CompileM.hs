@@ -45,21 +45,20 @@ main = do
 
   -- Read in the .ast file containing Haskell code
   --   for a list of MusAssistAST values from the parse result
-  ast <- case takeExtension fileName of -- REPLACE THIS WITH PARSE RESULT ONCE I IMPLEMENT PARSING
+  unprocessedAST <- case takeExtension fileName of -- REPLACE THIS WITH PARSE RESULT ONCE I IMPLEMENT PARSING
     ".ast" -> do
       text <- readFile fileName
       let input = strip text
       return (read input :: [MusAST.Instr])
     ext -> error $ "unexpected extension " ++ show ext
-  -- processedAST <- IRConversion.transInstrs (beatCt, measureCt, defaultKeySig) processedAST
+  processedAST <- IRConversion.expandIntermediateExprs unprocessedAST
 
   -- Translate MusAssistAST code to musicXML code
   putStrLn "Generating musicXML code..."
   beatCt        <- Data.IORef.newIORef 0
   measureCt     <- Data.IORef.newIORef 1
   defaultKeySig <- Data.IORef.newIORef (0, 0) -- no sharps, no flats
-  -- noteAlterMap  <- Data.IORef.newIORef MusicXMLgen.globalDefaultNoteAlterMap
-  code <- MusicXMLgen.transInstrs (beatCt, measureCt, defaultKeySig) ast
+  code <- MusicXMLgen.transInstrs (beatCt, measureCt, defaultKeySig) processedAST
 
     -- header code for musicXML file
   let headerCode =
