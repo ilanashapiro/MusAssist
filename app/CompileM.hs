@@ -128,23 +128,7 @@ main = do
                   "\t\t<staff-layout number=\"2\">",
                   "\t\t<staff-distance>65.00</staff-distance>",
                   "\t\t</staff-layout>",
-            "\t</print>",
-            
-            -------------- MOVE THIS TO GEN FILE TO TAKE PARAMS FOR USER DEFINED KEY SIG
-            "\t<attributes>",
-        "\t\t<divisions>4</divisions>", -- 4 divisions because the smallest note is 1/16
-        "\t\t<key>",
-          "\t\t\t<fifths>0</fifths>",
-          "\t\t</key>",
-        "\t\t<time>",
-          "\t\t\t<beats>4</beats>",
-          "\t\t\t<beat-type>4</beat-type>",
-          "\t\t</time>",
-        "\t\t<clef>",
-          "\t\t\t<sign>G</sign>",
-          "\t\t\t<line>2</line>",
-          "\t\t</clef>",
-        "\t</attributes>"]
+            "\t</print>"]
 
       trailerCode = [
             "\t\t\t<barline location=\"right\">",
