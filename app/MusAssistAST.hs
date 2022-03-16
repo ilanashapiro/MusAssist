@@ -40,29 +40,25 @@ instance Enum NoteName where
     fromEnum A = 5
     fromEnum B = 6
 
--- cyclicPred :: (Bounded a, Eq a, Enum a) => a -> a
--- cyclicPred n
---   | n == minBound = maxBound
---   | otherwise = pred n
-
--- cyclicSucc :: (Bounded a, Eq a, Enum a) => a -> a
--- cyclicSucc n
---   | n == maxBound = minBound
---   | otherwise = succ n
-
 data Accidental = 
-     Natural 
-     | Sharp 
+     DoubleFlat 
+     | Flat 
+     | Natural
+     | Sharp
      | DoubleSharp
-     | Flat
-     | DoubleFlat
-  deriving (Eq, Show, Read)
+  deriving (Eq, Enum, Bounded, Show, Read)
 
 type Octave = Int -- range is [1,8]
 
-type Inversion = Int -- range is [1,4]
+data Inversion = 
+  Root 
+  | First 
+  | Second 
+  | Third 
+  | Fourth -- seventh chords only
+  deriving (Eq, Show, Read)
 
-type Length = Int -- range is [1,4]
+type Length = Int
 
 type Label = String -- for saving sequences of notes/chords
 
