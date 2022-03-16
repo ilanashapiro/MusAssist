@@ -25,17 +25,6 @@ convertInversionToInt inversion =
         MusAST.Second -> 2
         MusAST.Third  -> 3
 
--- pred, succ for enums with custom error message
-cyclicAccidentalPred :: MusAST.Accidental -> Either MusAST.Accidental String
-cyclicAccidentalPred n
-  | n == minBound = Right "Cannot lower a double flat"
-  | otherwise = Left (pred n)
-
-cyclicAccidentalSucc :: MusAST.Accidental -> Either MusAST.Accidental String
-cyclicAccidentalSucc n
-  | n == maxBound = Right "Cannot lift a double sharp"
-  | otherwise = Left (succ n)
-
 -- https://stackoverflow.com/questions/30729326/perform-a-function-on-first-elements-of-list
 incrementFirstNElems :: Int -> [Int] -> [Int]
 incrementFirstNElems n l = map succ left ++ right
@@ -53,11 +42,11 @@ expandIntermediateExpr (MusAST.Note tone duration) = return $ MusAST.Chord [tone
 expandIntermediateExpr (MusAST.ChordTemplate (MusAST.Tone rootNoteName rootAccidental rootOctave) quality chordType inversion duration) = 
     if rootAccidental == MusAST.DoubleFlat || rootAccidental == MusAST.DoubleSharp then return $ error "Cannot build chord on a double flat or sharp" 
     else if chordType == MusAST.Triad && quality == MusAST.HalfDiminished then return $ error "Cannot have a half diminished triad" else do
-    let generateMinorThirdAccidental noteName accidental = case accidental of
-            MusAST.Natural -> Left (if noteName >= MusAST.D then MusAST.Natural else MusAST.Flat)
-            MusAST.Sharp   -> Left (if noteName >= MusAST.D then MusAST.Sharp else MusAST.Natural)
-            MusAST.Flat    -> Left (if noteName >= MusAST.D then MusAST.Flat else MusAST.DoubleFlat)
-            _              -> Right "Chord cannot have a triple flat or sharp, or multiple double flat or sharp"
+    let generateIntervalAccidental noteName accidental cutoffNote = case accidental of
+            MusAST.Flat    -> Left (if noteName >= cutoffNote then MusAST.Flat else MusAST.DoubleFlat)
+            MusAST.Natural -> Left (if noteName >= cutoffNote then MusAST.Natural else MusAST.Flat)
+            MusAST.Sharp   -> Left (if noteName >= cutoffNote then MusAST.Sharp else MusAST.Natural)
+            _              -> Right "Cannot build interval from double flat or sharp"
 
         thirdOctave           = if rootNoteName `elem` [MusAST.A, MusAST.B] then rootOctave + 1 else rootOctave
         thirdNoteName         = applyN succ rootNoteName 2
@@ -65,21 +54,15 @@ expandIntermediateExpr (MusAST.ChordTemplate (MusAST.Tone rootNoteName rootAccid
             if quality `elem` [MusAST.Minor, MusAST.Diminished, MusAST.HalfDiminished] 
             then minorThirdAccidentalFromRoot
             else case minorThirdAccidentalFromRoot of -- Major and Augmented have major third root-third interval
-                (Left accidental) -> cyclicAccidentalSucc accidental
+                (Left accidental) -> Left (succ accidental)
                 (Right error)     -> Right error
-            where minorThirdAccidentalFromRoot = generateMinorThirdAccidental rootNoteName rootAccidental
+            where minorThirdAccidentalFromRoot = generateIntervalAccidental rootNoteName rootAccidental MusAST.D
 
     if isRight thirdAccidentalEither then return $ error (fromRight "Cannot generate chordal third accidental" thirdAccidentalEither) else do 
     let thirdAccidental       = head (lefts [thirdAccidentalEither]) 
         fifthOctave           = if rootNoteName `elem` [MusAST.C, MusAST.D, MusAST.E] then rootOctave else rootOctave + 1
         fifthNoteName         = applyN succ thirdNoteName 2
-        fifthAccidentalEither = 
-            if quality `elem` [MusAST.Major, MusAST.Diminished, MusAST.HalfDiminished] 
-            then minorThirdAccidentalFromThird
-            else case minorThirdAccidentalFromThird of -- Minor and Augmented have major third third-fifth interval
-                (Left accidental) -> cyclicAccidentalSucc accidental
-                (Right error)     -> Right error
-            where minorThirdAccidentalFromThird = generateMinorThirdAccidental thirdNoteName thirdAccidental
+        fifthAccidentalEither = if rootNoteName == MusAST.B then Left rootAccidental else Left (succ rootAccidental)
     if isRight fifthAccidentalEither then return $ error (fromRight "Cannot generate chordal fifth accidental" fifthAccidentalEither) else do 
     let fifthAccidental  = head (lefts [fifthAccidentalEither]) 
         triadNoteNames   = [rootNoteName, thirdNoteName, fifthNoteName]
@@ -98,17 +81,13 @@ expandIntermediateExpr (MusAST.ChordTemplate (MusAST.Tone rootNoteName rootAccid
     let seventhOctave           = if rootNoteName `elem` [MusAST.C, MusAST.D, MusAST.E] then rootOctave else rootOctave + 1
         seventhNoteName         = applyN succ fifthNoteName 2
         seventhAccidentalEither = 
-            if quality `elem` [MusAST.Minor, MusAST.Diminished] 
-            then minorThirdAccidentalFromFifth
-            else if quality == MusAST.Augmented then 
-            case minorThirdAccidentalFromFifth of -- Augmented seventh has major second fifth-seventh interval  
-                (Left accidental) -> cyclicAccidentalPred accidental
+            if quality `elem` [MusAST.Augmented, MusAST.Minor, MusAST.Diminished] 
+            then minorSeventhAccidentalFromRoot
+            else case minorSeventhAccidentalFromRoot of -- Major and Half-Dim seventh have major seventh root-seventh interval
+                (Left accidental) -> Left (succ accidental)
                 (Right error)     -> Right error
-            else case minorThirdAccidentalFromFifth of -- Major and Half-Dim seventh have major third fifth-seventh interval
-                (Left accidental) -> cyclicAccidentalSucc accidental
-                (Right error)     -> Right error
-            where minorThirdAccidentalFromFifth = generateMinorThirdAccidental fifthNoteName fifthAccidental
-    
+            where minorSeventhAccidentalFromRoot = generateIntervalAccidental rootNoteName rootAccidental MusAST.G
+
     if isRight seventhAccidentalEither then return $ error (fromRight "Cannot generate chordal seventh accidental" seventhAccidentalEither) else do 
     let seventhAccidental      = head (lefts [seventhAccidentalEither]) 
         invertedSeventhOctaves = incrementFirstNElems inversionVal (triadOctaves ++ [seventhOctave])
@@ -138,10 +117,10 @@ expandIntermediateInstr :: MusAST.IntermediateInstr -> IO MusAST.Instr
 expandIntermediateInstr (MusAST.SetKeySignature noteName accidental quality) 
     | quality == MusAST.Major = 
         let convertSharpKeySig noteName = 
-                    let numSharpsMaybe = elemIndex (pred noteName) globalOrderOfSharps 
-                    in case numSharpsMaybe of
-                        Just numSharps -> return $ MusAST.KeySignature (numSharps + 1) 0 -- account for zero-indexing
-                        Nothing -> return $ error "Cannot convert sharp key sig template"
+                let numSharpsMaybe = elemIndex (pred noteName) globalOrderOfSharps 
+                in case numSharpsMaybe of
+                    Just numSharps -> return $ MusAST.KeySignature (numSharps + 1) 0 -- account for zero-indexing
+                    Nothing -> return $ error "Cannot convert sharp key sig template"
         in case accidental of 
             MusAST.Flat -> 
                 if noteName >= MusAST.C
