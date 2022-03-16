@@ -167,7 +167,7 @@ transExpr state (MusAST.Rest duration) = do
 
   if restDurationVal <= remainingTimeInMeasure -- rest fits in measure
     then do 
-      newMeasureCode <- updateBeat restDurationVal state -- new measure code gets generated if noteDurationVal == remainingTimeInMeasure
+      newMeasureCode <- updateBeat restDurationVal state -- new measure code gets generated if restDurationVal == remainingTimeInMeasure
       return $ -- the code for the rest that fits in the current measure
         ["\t\t\t<note>",
         "\t\t\t\t<rest " ++ (if restDurationVal == remainingTimeInMeasure then "measure=\"yes\"" else "") ++ "/>",

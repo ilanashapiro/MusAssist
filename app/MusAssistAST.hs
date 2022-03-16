@@ -54,8 +54,7 @@ data Inversion =
   Root 
   | First 
   | Second 
-  | Third 
-  | Fourth -- seventh chords only
+  | Third -- seventh chords only
   deriving (Eq, Show, Read)
 
 type Length = Int
