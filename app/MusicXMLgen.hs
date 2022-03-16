@@ -206,9 +206,11 @@ transExpr state (MusAST.Chord tones duration) = do
         (\index (MusAST.Tone noteName accidental octave) ->
           if octave < 1 || octave > 8 then return $ error "octave must be between 1 and 8 inclusive" else
             let alterValue = case accidental of
-                  MusAST.Sharp -> 1
-                  MusAST.Flat -> -1
-                  MusAST.Natural -> 0
+                  MusAST.Sharp       -> 1
+                  MusAST.DoubleSharp -> 2
+                  MusAST.Flat        -> -1
+                  MusAST.DoubleFlat  -> -2
+                  MusAST.Natural     -> 0
                 chordCode = if index > 0 then ["\t\t\t\t<chord/>"] else []
             in return $ 
             chordCode ++

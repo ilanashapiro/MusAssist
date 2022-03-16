@@ -53,7 +53,9 @@ instance Enum NoteName where
 data Accidental = 
      Natural 
      | Sharp 
+     | DoubleSharp
      | Flat
+     | DoubleFlat
   deriving (Eq, Show, Read)
 
 type Octave = Int -- range is [1,8]

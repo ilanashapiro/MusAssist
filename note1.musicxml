@@ -102,7 +102,7 @@
         <chord/>
         <pitch>
           <step>D</step>
-          <alter>1</alter>
+          <alter>2</alter>
           <octave>5</octave>
           </pitch>
         <duration>4</duration>
