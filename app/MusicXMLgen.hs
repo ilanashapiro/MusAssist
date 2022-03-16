@@ -162,15 +162,15 @@ transExpr state (MusAST.Rest duration) = do
 
   restDurationVal <- Bimap.lookup duration globalDurationIntBimap 
   let remainingTimeInMeasure = globalTimePerMeasure - currentBeatCount
-      restTypeCode = if restDurationVal == remainingTimeInMeasure then [] 
-                      else durationToNoteTypeCode duration -- for rests ONLY
+      isMeasureRest          = restDurationVal == remainingTimeInMeasure && currentBeatCount == 0
+      restTypeCode           = if isMeasureRest then [] else durationToNoteTypeCode duration 
 
   if restDurationVal <= remainingTimeInMeasure -- rest fits in measure
     then do 
       newMeasureCode <- updateBeat restDurationVal state -- new measure code gets generated if restDurationVal == remainingTimeInMeasure
       return $ -- the code for the rest that fits in the current measure
         ["\t\t\t<note>",
-        "\t\t\t\t<rest " ++ (if restDurationVal == remainingTimeInMeasure then "measure=\"yes\"" else "") ++ "/>",
+        "\t\t\t\t<rest " ++ (if isMeasureRest then "measure=\"yes\"" else "") ++ "/>",
         "\t\t\t\t<duration>" ++ show restDurationVal ++ "</duration>",
         "\t\t\t\t<voice>1</voice>"]
         ++ restTypeCode ++
