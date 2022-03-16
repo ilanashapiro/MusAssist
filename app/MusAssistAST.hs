@@ -132,7 +132,7 @@ data Instr =
 data IntermediateExpr = 
   Note Tone Duration -- these get expanded to become single-element chords
   | ChordTemplate Tone Quality ChordType Inversion Duration -- Predefined chords: these all happen in root position
-  | Cadence CadenceType Tone Quality -- quality is major/minor ONLY. det the start note and key of the cadence
+  | Cadence CadenceType Tone Quality Duration -- quality is major/minor ONLY. det the start note and key of the cadence
   | HarmonicSequence HarmonicSequenceType Tone Quality Duration Length -- quality is major/minor ONLY. det the start note and key of the seq
   | FinalExpr Expr
    deriving (Eq, Show, Read)

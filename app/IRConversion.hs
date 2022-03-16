@@ -9,6 +9,7 @@ module IRConversion where
 import qualified MusAssistAST         as MusAST
 import           Data.List
 import           Data.Either
+import           Control.Monad.Extra
 
 globalOrderOfSharps :: [MusAST.NoteName]
 globalOrderOfSharps = [MusAST.F, MusAST.C, MusAST.G, MusAST.D, MusAST.A, MusAST.E, MusAST.B]
@@ -30,34 +31,27 @@ incrementFirstNElems :: Int -> [Int] -> [Int]
 incrementFirstNElems n l = map succ left ++ right
                            where (left,right) = splitAt n l
 
-generateMinorIntervalAccidental :: MusAST.NoteName -> MusAST.Accidental -> MusAST.NoteName -> MusAST.Accidental
-generateMinorIntervalAccidental noteName accidental cutoffNote = case accidental of
-    MusAST.Flat    -> if noteName >= cutoffNote then MusAST.Flat else MusAST.DoubleFlat
-    MusAST.Natural -> if noteName >= cutoffNote then MusAST.Natural else MusAST.Flat
-    MusAST.Sharp   -> if noteName >= cutoffNote then MusAST.Sharp else MusAST.Natural
-    _              -> error "Cannot build interval from double flat or sharp"
-
 -----------------------------------------------------------------------------------------
 -- Expand Individual Intermediate Expressions
 -----------------------------------------------------------------------------------------
-expandIntermediateExpr :: MusAST.IntermediateExpr -> IO MusAST.Expr
+expandIntermediateExpr :: MusAST.IntermediateExpr -> IO [MusAST.Expr]
 
 -- | Notes get expanded to become single-element chords
-expandIntermediateExpr (MusAST.Note tone duration) = return $ MusAST.Chord [tone] duration
+expandIntermediateExpr (MusAST.Note tone duration) = return [MusAST.Chord [tone] duration]
 
 -- | Predefined chords
 expandIntermediateExpr (MusAST.ChordTemplate (MusAST.Tone rootNoteName rootAccidental rootOctave) quality chordType inversion duration) = 
-    if rootAccidental == MusAST.DoubleFlat || rootAccidental == MusAST.DoubleSharp then return $ error "Cannot build chord on a double flat or sharp" 
-    else if chordType == MusAST.Triad && quality == MusAST.HalfDiminished then return $ error "Cannot have a half diminished triad" else do
-    let thirdOctave     = if rootNoteName `elem` [MusAST.A, MusAST.B] then rootOctave + 1 else rootOctave
+    if rootAccidental == MusAST.DoubleFlat || rootAccidental == MusAST.DoubleSharp then return [error "Cannot build chord on a double flat or sharp"]
+    else if chordType == MusAST.Triad && quality == MusAST.HalfDiminished then return [error "Cannot have a half diminished triad"] else do
+    let thirdOctave     = if rootNoteName `elem` [MusAST.A, MusAST.B] then succ rootOctave else rootOctave
         thirdNoteName   = applyN succ rootNoteName 2
         thirdAccidental = 
             if quality `elem` [MusAST.Major, MusAST.Augmented] 
                 then succ minorThirdAccidentalFromRoot
             else minorThirdAccidentalFromRoot  -- Minor, Diminished, and Half-Diminished chords have minor third root-third interval
-            where minorThirdAccidentalFromRoot = generateMinorIntervalAccidental rootNoteName rootAccidental MusAST.D
+            where minorThirdAccidentalFromRoot = if rootNoteName `elem` [MusAST.F, MusAST.C, MusAST.G] then pred rootAccidental else rootAccidental
         
-        fifthOctave     = if rootNoteName `elem` [MusAST.C, MusAST.D, MusAST.E] then rootOctave else rootOctave + 1
+        fifthOctave     = if rootNoteName `elem` [MusAST.C, MusAST.D, MusAST.E] then rootOctave else succ rootOctave
         fifthNoteName   = applyN succ thirdNoteName 2
         fifthAccidental = case quality of
             MusAST.Augmented  -> succ perfectFifthAccidentalFromRoot 
@@ -70,20 +64,20 @@ expandIntermediateExpr (MusAST.ChordTemplate (MusAST.Tone rootNoteName rootAccid
         inversionVal     = convertInversionToInt inversion
         
     if chordType == MusAST.Triad 
-        then if inversionVal > 2 then return $ error "Cannot have third inversion triad" else 
+        then if inversionVal > 2 then return [error "Cannot have third inversion triad"] else 
             let invertedTriadOctaves = incrementFirstNElems inversionVal triadOctaves
                  -- NOTE: musescore doesn't care which note is on "top" of the chord in the musicXML: only that the correct notes are in the chord
                  -- thus, we don't need to rotate the array of triad tones to fit the inversion in the musicXML code
                 invertedTriadTones = zipWith3 (\noteName accidental octave -> MusAST.Tone noteName accidental octave) triadNoteNames triadAccidentals invertedTriadOctaves
-             in return $ MusAST.Chord invertedTriadTones duration
+             in return [MusAST.Chord invertedTriadTones duration]
     else do
-    let seventhOctave           = if rootNoteName `elem` [MusAST.C, MusAST.D, MusAST.E] then rootOctave else rootOctave + 1
+    let seventhOctave           = if rootNoteName `elem` [MusAST.C, MusAST.D, MusAST.E] then rootOctave else succ rootOctave
         seventhNoteName         = applyN succ fifthNoteName 2
         seventhAccidental = case quality of
             MusAST.Diminished -> pred minorSeventhAccidentalFromRoot
             MusAST.Major      -> succ minorSeventhAccidentalFromRoot
             _                 -> minorSeventhAccidentalFromRoot 
-            where minorSeventhAccidentalFromRoot = generateMinorIntervalAccidental rootNoteName rootAccidental MusAST.G
+            where minorSeventhAccidentalFromRoot = if rootNoteName `elem` [MusAST.F, MusAST.C] then pred rootAccidental else rootAccidental
 
         invertedSeventhOctaves = incrementFirstNElems inversionVal (triadOctaves ++ [seventhOctave])
         invertedSeventhTones   = 
@@ -92,21 +86,32 @@ expandIntermediateExpr (MusAST.ChordTemplate (MusAST.Tone rootNoteName rootAccid
                 (triadAccidentals ++ [seventhAccidental])
                 invertedSeventhOctaves
 
-    return $ MusAST.Chord invertedSeventhTones duration
+    return [MusAST.Chord invertedSeventhTones duration]
        
 -- | Quality is major/minor ONLY. tone+quality determines the start note and key of the cadence
-expandIntermediateExpr (MusAST.Cadence cadenceType (MusAST.Tone rootNoteName rootAccidental rootOctave) quality) = undefined
-    -- let thirdAccidental       = head (lefts [thirdAccidentalEither]) 
-    --     fifthOctave           = if rootNoteName `elem` [MusAST.C, MusAST.D, MusAST.E] then rootOctave else rootOctave + 1
-    --     fifthNoteName         = applyN succ thirdNoteName 2
-    --     fifthAccidentalEither = if rootNoteName == MusAST.B then Left rootAccidental else Left (succ rootAccidental)
+expandIntermediateExpr (MusAST.Cadence cadenceType (MusAST.Tone tonicNoteName tonicAccidental tonicOctave) quality duration) = undefined
+    -- if quality `notElem` [MusAST.Major, MusAST.Minor] then return $ error "Cadence quality must be major or minor only" else do
+    -- let predominantRootNoteName   = applyN succ keyNoteName 4
+    --     predominantRootAccidental = if keyNoteName == MusAST.F then pred keyAccidental else keyAccidental
+    --     predominantOctave = if keyNoteName `elem` [MusAST.G, MusAST.A, MusAST.B] then succ landingOctave else landingOctave
+    --     predominantRootTone = MusAST.Tone predominantRootNoteName predominantRootAccidental predominantOctave
+    --     predominantSecondInvChord = expandIntermediateExpr (MusAST.ChordTemplate predominantRootTone quality MusAST.Triad MusAST.Root duration)
+
+    --     tonicRootTone = MusAST.Tone predominantRootNoteName predominantRootAccidental predominantOctave
+    --     tonicRootChord = expandIntermediateExpr (MusAST.ChordTemplate predominantRootTone quality MusAST.Triad MusAST.Root duration)
+
+    --     if cadenceType == MusAST.Plagal then return $ [predominantRootChord]
+
+    --     tonicFirstInvChord = expandIntermediateExpr (MusAST.ChordTemplate predominantRootTone MusAST.Major MusAST.Triad MusAST.First duration)
+            
+    --         expandIntermediateExpr (MusAST.ChordTemplate (MusAST.Tone rootNoteName rootAccidental rootOctave) quality chordType inversion duration)
 
 -- | Quality is major/minor ONLY. tone+quality determines the start note and key of the harmseq
 --   Duration is length of each chord, length is number of chords in the sequence
 --   The seq chords all happen in root position
 expandIntermediateExpr (MusAST.HarmonicSequence harmSeqType tone quality duration length) = undefined
 
-expandIntermediateExpr (MusAST.FinalExpr expr) = return expr
+expandIntermediateExpr (MusAST.FinalExpr expr) = return [expr]
 
 -----------------------------------------------------------------------------------------
 -- Expand Individual Intermediate Instructions
@@ -119,7 +124,7 @@ expandIntermediateInstr (MusAST.SetKeySignature noteName accidental quality)
         let convertSharpKeySig noteName = 
                 let numSharpsMaybe = elemIndex (pred noteName) globalOrderOfSharps 
                 in case numSharpsMaybe of
-                    Just numSharps -> return $ MusAST.KeySignature (numSharps + 1) 0 -- account for zero-indexing
+                    Just numSharps -> return $ MusAST.KeySignature (succ numSharps) 0 -- account for zero-indexing
                     Nothing -> return $ error "Cannot convert sharp key sig template"
         in case accidental of 
             MusAST.Flat -> 
@@ -162,7 +167,7 @@ expandIntermediateInstr (MusAST.SetKeySignature noteName accidental quality)
 expandIntermediateInstr MusAST.CreateNewMeasure = return MusAST.NewMeasure
 
 expandIntermediateInstr (MusAST.IRWrite intermediateExprs) = do
-    exprs <- mapM expandIntermediateExpr intermediateExprs
+    exprs <- concatMapM expandIntermediateExpr intermediateExprs
     return $ MusAST.Write exprs
 
 -----------------------------------------------------------------------------------------
