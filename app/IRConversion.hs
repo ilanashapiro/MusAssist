@@ -61,7 +61,7 @@ expandIntermediateExpr (MusAST.ChordTemplate (MusAST.Tone rootNoteName rootAccid
             MusAST.Natural -> Left (if noteName >= MusAST.D then MusAST.Natural else MusAST.Flat)
             MusAST.Sharp   -> Left (if noteName >= MusAST.D then MusAST.Sharp else MusAST.Natural)
             MusAST.Flat    -> Left (if noteName >= MusAST.D then MusAST.Flat else MusAST.DoubleFlat)
-            _              -> Right "Cannot build chord on a double flat or sharp"
+            _              -> Right "Cannot build minor third on a double flat or sharp"
 
         thirdOctave           = if rootNoteName `elem` [MusAST.A, MusAST.B] then rootOctave + 1 else rootOctave
         thirdNoteName         = applyN succ rootNoteName 2

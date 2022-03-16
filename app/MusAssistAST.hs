@@ -74,11 +74,11 @@ data Duration =
   deriving (Eq, Show, Ord, Read)
 
 data Quality = 
-     Major 
-     | Minor
-     | Augmented      -- chords only
-     | Diminished     -- chords only
-     | HalfDiminished -- seventh chords only
+    Major 
+    | Minor
+    | Augmented      -- chords only
+    | Diminished     -- chords only
+    | HalfDiminished -- seventh chords only
   deriving (Eq, Show, Read)
 
 data ChordType = 

@@ -212,26 +212,26 @@ transExpr state (MusAST.Chord tones duration) = do
                   MusAST.DoubleFlat  -> -2
                   MusAST.Natural     -> 0
                 chordCode = if index > 0 then ["\t\t\t\t<chord/>"] else []
-            in return $ 
-            chordCode ++
-            ["\t\t\t\t<pitch>",
-            "\t\t\t\t\t<step>" ++ show noteName ++ "</step>",
-            "\t\t\t\t\t<alter>" ++ show alterValue ++ "</alter>", --- REPLACE THIS WITH THE ACTUAL WHEN FIXED
-            "\t\t\t\t\t<octave>" ++ show octave ++ "</octave>",
-            "\t\t\t\t</pitch>"]) [0..] tones)
+            in return $ chordCode ++
+              ["\t\t\t\t<pitch>",
+              "\t\t\t\t\t<step>" ++ show noteName ++ "</step>",
+              "\t\t\t\t\t<alter>" ++ show alterValue ++ "</alter>", --- REPLACE THIS WITH THE ACTUAL WHEN FIXED
+              "\t\t\t\t\t<octave>" ++ show octave ++ "</octave>",
+              "\t\t\t\t</pitch>"]) [0..] tones)
 
   if noteDurationVal <= remainingTimeInMeasure -- note fits in measure
     then do 
-      updateBeat noteDurationVal state -- update the beat, but there's no new measure code
-      return $ -- the code for the note that fits in the current measure
-        Prelude.concatMap 
+      newMeasureCode <- updateBeat noteDurationVal state -- new measure code gets generated if noteDurationVal == remainingTimeInMeasure
+      return $ 
+        (Prelude.concatMap -- the code for the note that fits in the current measure
           (\pitchCode ->
             ["\t\t\t<note>"]
             ++ pitchCode ++
             ["\t\t\t\t<duration>" ++ show noteDurationVal ++ "</duration>",
             "\t\t\t\t<voice>1</voice>"]
             ++ noteTypeCode ++
-            ["\t\t\t</note>"]) pitchesCode
+            ["\t\t\t</note>"]) pitchesCode)
+        ++ newMeasureCode
 
   else do -- note does not fit in measure
     -- the code for note rest that fits in the current measure
