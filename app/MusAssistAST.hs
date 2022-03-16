@@ -31,7 +31,7 @@ instance Enum NoteName where
                   4 -> G
                   5 -> A
                   _ -> B
-                  -- x -> toEnum (x `mod` 6) -- this makes pred and succ circular ??
+
     fromEnum C = 0
     fromEnum D = 1
     fromEnum E = 2
@@ -39,6 +39,16 @@ instance Enum NoteName where
     fromEnum G = 4
     fromEnum A = 5
     fromEnum B = 6
+
+    -- The generated definitions don't handle wrapping, so we need to do it ourselves
+    -- source for this part: https://stackoverflow.com/questions/58761160/why-isnt-enum-typeclass-a-subclass-of-ord-typeclass
+    enumFromTo n1 n2
+            | n1 == n2 = [n1]
+    enumFromTo n1 n2 = n1 : enumFromTo (succ n1) n2
+    enumFromThenTo n1 n2 n3
+            | n2 == n3 = [n1, n2]
+    enumFromThenTo n1 n2 n3 = n1 : enumFromThenTo n2 (toEnum $ (2 * fromEnum n2) - (fromEnum n1)) n3
+
 
 data Accidental = 
      DoubleFlat 
