@@ -91,7 +91,7 @@
 				<chord/>
 				<pitch>
 					<step>G</step>
-					<alter>2</alter>
+					<alter>1</alter>
 					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
@@ -145,7 +145,7 @@
 				<chord/>
 				<pitch>
 					<step>A</step>
-					<alter>1</alter>
+					<alter>0</alter>
 					<octave>4</octave>
 				</pitch>
 				<duration>4</duration>
@@ -177,7 +177,7 @@
 				<chord/>
 				<pitch>
 					<step>A</step>
-					<alter>0</alter>
+					<alter>-1</alter>
 					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
