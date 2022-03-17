@@ -114,7 +114,7 @@ data HarmonicSequenceType =
   AscFifths
   | DescFifths
   | Asc56 
-  | DescThirds
+  | Desc56
   deriving (Eq, Show, Read)
 
 data Expr = 
