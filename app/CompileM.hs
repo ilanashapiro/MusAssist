@@ -52,7 +52,6 @@ main = do
       return (read input :: [MusAST.IntermediateInstr])
     ext -> error $ "unexpected extension " ++ show ext
   processedAST <- IRConversion.expandIntermediateInstrs unprocessedAST
-  print processedAST
 
   -- Translate MusAssistAST code to musicXML code
   putStrLn "Generating musicXML code..."

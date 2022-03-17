@@ -149,14 +149,12 @@ expandIntermediateExpr (MusAST.Cadence cadenceType (MusAST.Tone tonicNoteName to
     tonicRootTriadList <- expandIntermediateExpr (MusAST.ChordTemplate tonicRootTone quality MusAST.Triad MusAST.Root duration)
     let tonicRootTriad = head tonicRootTriadList
         generateTriad = generateTriadWithinScale tonicRootTone quality duration
-        fourthTriadTemplateFunc = generateTriad 3 (enumFromTo MusAST.C MusAST.F) pred
-    fourthSecondInvTriad <- fourthTriadTemplateFunc MusAST.Second
+    fourthSecondInvTriad <- generateTriad 3 (enumFromTo MusAST.C MusAST.F) pred MusAST.Second
 
     if cadenceType == MusAST.Plagal then return $ [fourthSecondInvTriad, tonicRootTriad] else do
     
-    fourthRootTriad <- fourthTriadTemplateFunc MusAST.Root
-    let fifthTriadTemplateFunc = generateTriad 4 (enumFromTo MusAST.F MusAST.B) succ
-    fifthRootTriad <- fifthTriadTemplateFunc MusAST.Root
+    fourthRootTriad <- generateTriad 3 (enumFromTo MusAST.G MusAST.B) succ MusAST.Root
+    fifthRootTriad <- generateTriad 4 (enumFromTo MusAST.F MusAST.B) succ MusAST.Root
     let tonicDoubledRootChord = MusAST.Chord (tonicRootTriadTones ++ doubledRootTone) duration
                 where (MusAST.Chord tonicRootTriadTones _) = tonicRootTriad
                       doubledRootTone = [MusAST.Tone tonicNoteName tonicAccidental (succ tonicOctave)]
@@ -164,13 +162,15 @@ expandIntermediateExpr (MusAST.Cadence cadenceType (MusAST.Tone tonicNoteName to
     if cadenceType == MusAST.PerfAuth then return $ [fourthRootTriad, fifthRootTriad, tonicDoubledRootChord] else do
     
     tonicFirstInvTriadList <- expandIntermediateExpr (MusAST.ChordTemplate tonicRootTone quality MusAST.Triad MusAST.First duration)
-    let tonicFirstInvTriad         = head tonicFirstInvTriadList
+    let tonicFirstInvTriad = head tonicFirstInvTriadList
     majSeventhSecondInvDimTriad <- generateTriadWithinScale tonicRootTone MusAST.Major duration 6 [MusAST.C] pred MusAST.Second -- we want major seventh whether or not key is maj or min
         
     if cadenceType == MusAST.ImperfAuth then return $ [fourthRootTriad, majSeventhSecondInvDimTriad, tonicFirstInvTriad] else do
     
     sixthSecondInvTriad <- generateTriad 5 [MusAST.C, MusAST.D] pred MusAST.Second 
-    fifthSecondInvTriad  <- fifthTriadTemplateFunc MusAST.Second 
+
+    -- For this to work, we want scale deg 5 BELOW scale deg one. Hence, lower octaves of fifths with tonic C thru E
+    fifthSecondInvTriad <- generateTriad 4 (enumFromTo MusAST.C MusAST.E) pred MusAST.Second 
 
     if cadenceType == MusAST.Deceptive then return $ [fourthRootTriad, fifthSecondInvTriad, sixthSecondInvTriad] else do
     secondFirstInvTriad <- generateTriad 1 [MusAST.B] succ MusAST.First
