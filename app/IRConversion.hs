@@ -181,12 +181,14 @@ expandIntermediateExpr (MusAST.Cadence cadenceType (MusAST.Tone tonicNoteName to
 -- | Quality is major/minor ONLY. tone+quality determines the start note and key of the harmseq
 --   Duration is length of each chord, length is number of chords in the sequence
 --   The seq chords all happen in root position
-expandIntermediateExpr (MusAST.HarmonicSequence harmSeqType tone quality duration length) = undefined
-    -- if quality `notElem` globalValidKeyQualities then return $ error "Harmonic Seq quality must be major or minor only" else do 
-
-    -- let startChord = Mus
-    -- case harmSeqType of
-    --     Asc56 -> 
+expandIntermediateExpr (MusAST.HarmonicSequence harmSeqType tone quality duration length) = 
+    if quality `notElem` globalValidKeyQualities then return $ error "Harmonic Seq quality must be major or minor only" else do 
+    tonicRootTriadList <- expandIntermediateExpr (MusAST.ChordTemplate tone quality MusAST.Triad MusAST.Root duration)
+    let tonicRootTriad = head tonicRootTriadList
+        generateAscFifths 0 _ = []
+        generateAscFifths n chordRoot = 
+            | n `mod` 2 == 0 = generateTriadWithinScale
+            | otherwise =
 
 
 expandIntermediateExpr (MusAST.FinalExpr expr) = return [expr]
