@@ -424,7 +424,7 @@
 			<note>
 				<pitch>
 					<step>F</step>
-					<alter>1</alter>
+					<alter>0</alter>
 					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
@@ -435,7 +435,7 @@
 				<chord/>
 				<pitch>
 					<step>A</step>
-					<alter>1</alter>
+					<alter>0</alter>
 					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
@@ -446,7 +446,7 @@
 				<chord/>
 				<pitch>
 					<step>C</step>
-					<alter>1</alter>
+					<alter>0</alter>
 					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
@@ -518,7 +518,7 @@
 				<chord/>
 				<pitch>
 					<step>D</step>
-					<alter>0</alter>
+					<alter>1</alter>
 					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
