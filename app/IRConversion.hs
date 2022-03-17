@@ -33,29 +33,31 @@ incrementFirstNElems :: Int -> [Int] -> [Int]
 incrementFirstNElems n l = map succ left ++ right
                            where (left,right) = splitAt n l
 
+-- Map numStepsFromTonic ([notes that are special cases for this interval], 
+                        -- function to alter accidental for special case notes, 
+                        -- quality that this function is valid for, for special case notes)
+-- stepsFromTonicToSpecialAccCasesMap :: Map Int ([MusAST.NoteName], MusAST.Accidental -> MusAST.Accidental, MusAST.Accidental)
+-- stepsFromTonicToSpecialAccCasesMap = Map.fromList
+--     [(1, (drop 5 globalOrderOfSharps, succ, )), -- second chords
+--      (2, (take 3 globalOrderOfSharps, succ, )), -- third chords
+--      (3, ([MusAST.F], MusAST.Natural, pred, )), -- fourth chords
+--      (4, ([MusAST.B], MusAST.Natural, succ, )), -- fifth chords
+--      (5, (drop 4 globalOrderOfSharps, succ, )), -- sixth chords
+--      (6, (take 2 globalOrderOfSharps, pred, ))] -- seventh chords
 
-stepsFromTonicToSpecialAccCasesMap :: Map Int [MusAST.NoteName]
-stepsFromTonicToSpecialAccCasesMap = Map.fromList
-    [(1, drop 5 globalOrderOfSharps), -- second chords
-     (2, take 3 globalOrderOfSharps), -- third chords
-     (3, [MusAST.F]),                 -- fourth chords
-     (4, [MusAST.B]),                 -- fifth chords
-     (5, drop 4 globalOrderOfSharps), -- sixth chords
-     (6, take 2 globalOrderOfSharps)] -- seventh chords
+-- getAccFuncForChordInKey :: MusAST.Quality -> Int -> (MusAST.Accidental -> MusAST.Accidental)
+-- getChordQualityInKey keyQuality stepsFromTonic tonicNoteName tonicAccidental = 
+--     case stepsFromTonic of 
+--         1 -> 
+--         2 -> 
+--         3 -> 
+--         4 -> 
+--         5 -> 
+--         6 -> 
+--         _ ->
 
-getAccFuncForChordInKey :: MusAST.Quality -> Int -> (MusAST.Accidental -> MusAST.Accidental)
-getChordQualityInKey keyQuality stepsFromTonic tonicNoteName tonicAccidental = 
-    case stepsFromTonic of 
-        1 -> 
-        2 -> 
-        3 -> 
-        4 -> 
-        5 -> 
-        6 -> 
-        _ ->
-
-fourthRootTriad <- generateTriad 3 [MusAST.F] (enumFromTo MusAST.G MusAST.B) pred succ MusAST.Root False
-    fifthRootTriad  <- generateTriad 4 [MusAST.B] (enumFromTo MusAST.F MusAST.B) succ succ MusAST.Root False
+-- fourthRootTriad <- generateTriad 3 [MusAST.F] (enumFromTo MusAST.G MusAST.B) pred succ MusAST.Root False
+--     fifthRootTriad  <- generateTriad 4 [MusAST.B] (enumFromTo MusAST.F MusAST.B) succ succ MusAST.Root False
 
 generateTriadWithinScale :: MusAST.Tone -> MusAST.Quality -> MusAST.Duration -> Int -> [MusAST.NoteName] -> [MusAST.NoteName] -> (MusAST.Accidental -> MusAST.Accidental) -> (MusAST.Octave -> MusAST.Octave) -> MusAST.Inversion -> Bool -> IO MusAST.Expr
 generateTriadWithinScale tonicTone tonicQuality duration intervalVal specialAccidentalCases specialOctaveCases accFunc octFunc inversion minorSeventhRaised = 
@@ -75,7 +77,11 @@ generateTriadWithinScale tonicTone tonicQuality duration intervalVal specialAcci
                 _           -> error "Can't generate triad in invalid scale quality (i.e. not major or minor)"
         noteName   = applyN succ tonicNoteName intervalVal
         accidental = if tonicNoteName `elem` specialAccidentalCases then accFunc tonicAccidental else tonicAccidental
-        octave     = if tonicNoteName `elem` specialOctaveCases then octFunc tonicOctave else tonicOctave
+    print specialAccidentalCases
+    print tonicAccidental
+    print accidental
+    print ""
+    let octave     = if tonicNoteName `elem` specialOctaveCases then octFunc tonicOctave else tonicOctave
         tone       = MusAST.Tone noteName accidental octave
     triadList <- expandIntermediateExpr (MusAST.ChordTemplate tone quality MusAST.Triad inversion duration)
     return $ head triadList
@@ -165,8 +171,8 @@ expandIntermediateExpr (MusAST.Cadence cadenceType (MusAST.Tone tonicNoteName to
     let sixthAccFunc = if quality == MusAST.Major then succ else pred
         sixthSpecialAccCases = (if quality == MusAST.Major then drop else take) 2 globalOrderOfSharps
     sixthSecondInvTriad <- generateTriad 5 sixthSpecialAccCases [MusAST.C, MusAST.D] sixthAccFunc pred MusAST.Second False
-    
-    if cadenceType == MusAST.Deceptive then return $ [fourthRootTriad, fifthRootTriad, sixthSecondInvTriad] else do
+    fifthSecondInvTriad  <- generateTriad 4 [MusAST.B] (enumFromTo MusAST.F MusAST.B) succ succ MusAST.Second False -- FIX THIS
+    if cadenceType == MusAST.Deceptive then return $ [fourthRootTriad, fifthSecondInvTriad, sixthSecondInvTriad] else do
     secondFirstInvTriad <- generateTriad 1 [MusAST.E, MusAST.B] [MusAST.B] succ succ MusAST.First False
     
     -- Half Cadence
