@@ -91,59 +91,46 @@ expandIntermediateExpr (MusAST.ChordTemplate (MusAST.Tone rootNoteName rootAccid
 -- | Quality is major/minor ONLY. tone+quality determines the start note and key of the cadence
 expandIntermediateExpr (MusAST.Cadence cadenceType (MusAST.Tone tonicNoteName tonicAccidental tonicOctave) quality duration) = 
     if quality `notElem` [MusAST.Major, MusAST.Minor] then return $ error "Cadence quality must be major or minor only" else do
-    let tonicRootTone  = MusAST.Tone tonicNoteName tonicAccidental tonicOctave
+    let generateTriad invervalVal specialAccidentalCases specialOctaveCases accFunc octFunc quality inversion = do
+            let noteName   = applyN succ tonicNoteName invervalVal
+                accidental = if tonicNoteName `elem` specialAccidentalCases then accFunc tonicAccidental else tonicAccidental
+                adjustedAccidental = 
+                    if invervalVal == 5 && quality == MusAST.Major -- i.e. we want a major six chord
+                        then succ accidental 
+                        else accidental
+                octave         = if tonicNoteName `elem` specialOctaveCases then octFunc tonicOctave else tonicOctave
+                tone       = MusAST.Tone noteName accidental octave
+            triadList <- expandIntermediateExpr (MusAST.ChordTemplate tone quality MusAST.Triad inversion duration)
+            return $ head triadList
+        
+        tonicRootTone  = MusAST.Tone tonicNoteName tonicAccidental tonicOctave
     tonicRootTriadList <- expandIntermediateExpr (MusAST.ChordTemplate tonicRootTone quality MusAST.Triad MusAST.Root duration)
     let tonicRootTriad = head tonicRootTriadList
-        fourthRootNoteName   = applyN succ tonicNoteName 3
-        fourthRootAccidental = if tonicNoteName == MusAST.F then pred tonicAccidental else tonicAccidental
-        fourthRootOctave         = if tonicNoteName `elem` (enumFromTo MusAST.G MusAST.B) then succ tonicOctave else tonicOctave
-        fourthRootTone       = MusAST.Tone fourthRootNoteName fourthRootAccidental fourthRootOctave
-        fourthFirstInvTone       = MusAST.Tone fourthRootNoteName fourthRootAccidental (pred fourthRootOctave)
-    fourthSecondInvTriadList <- expandIntermediateExpr (MusAST.ChordTemplate fourthFirstInvTone quality MusAST.Triad MusAST.Second duration)
-    let fourthSecondInvTriad = head fourthSecondInvTriadList
+    fourthSecondInvTriad <- generateTriad 3 [MusAST.F] (enumFromTo MusAST.C MusAST.F) pred pred quality MusAST.Second
 
     if cadenceType == MusAST.Plagal then return $ [fourthSecondInvTriad, tonicRootTriad] else do
-    fourthRootTriadList <- expandIntermediateExpr (MusAST.ChordTemplate fourthRootTone quality MusAST.Triad MusAST.Root duration)
-    let fourthRootTriad = head fourthRootTriadList
-        fifthRootNoteName = applyN succ tonicNoteName 4
-        fifthRootAccidental   = if tonicNoteName == MusAST.B then succ tonicAccidental else tonicAccidental
-        fifthOctave       = if tonicNoteName `elem` (enumFromTo MusAST.F MusAST.B) then succ tonicOctave else tonicOctave
-        fifthRootTone     = MusAST.Tone fifthRootNoteName fifthRootAccidental fifthOctave
-    fifthRootTriadList <- expandIntermediateExpr (MusAST.ChordTemplate fifthRootTone MusAST.Major MusAST.Triad MusAST.Root duration) -- Five chord is always major in cadence
-    let fifthRootTriad = head fifthRootTriadList
-        tonicDoubledRootChord = MusAST.Chord (tonicRootTriadTones ++ doubledRootTone) duration
+    fourthRootTriad <- generateTriad 3 [MusAST.F] (enumFromTo MusAST.G MusAST.B) pred succ quality MusAST.Root
+    fifthRootTriad  <- generateTriad 4 [MusAST.B] (enumFromTo MusAST.F MusAST.B) succ succ MusAST.Major MusAST.Root -- Five chord is always major in cadence
+    
+    let tonicDoubledRootChord = MusAST.Chord (tonicRootTriadTones ++ doubledRootTone) duration
                 where (MusAST.Chord tonicRootTriadTones _) = tonicRootTriad
                       doubledRootTone = [MusAST.Tone tonicNoteName tonicAccidental (succ tonicOctave)]
              
     if cadenceType == MusAST.PerfAuth then return $ [fourthRootTriad, fifthRootTriad, tonicDoubledRootChord] else do
     tonicFirstInvTriadList <- expandIntermediateExpr (MusAST.ChordTemplate tonicRootTone quality MusAST.Triad MusAST.First duration)
     let tonicFirstInvTriad         = head tonicFirstInvTriadList
-        majSeventhRootNoteName     = applyN succ tonicNoteName 6
-        majSeventhRootAccidental   = if tonicNoteName `elem` [MusAST.F, MusAST.C] then tonicAccidental else succ tonicAccidental
-        majSeventhOctave           = if tonicNoteName == MusAST.C then pred tonicOctave else tonicOctave
-        majSeventhRootTone         = MusAST.Tone majSeventhRootNoteName majSeventhRootAccidental majSeventhOctave
-    majSeventhSecondInvDimTriadList <- expandIntermediateExpr (MusAST.ChordTemplate majSeventhRootTone MusAST.Diminished MusAST.Triad MusAST.Second duration) -- Five chord is always major in cadence
-    let majSeventhSecondInvDimTriad = head majSeventhSecondInvDimTriadList
-    
+
+    majSeventhSecondInvDimTriad <- generateTriad 6 (drop 2 globalOrderOfSharps) [MusAST.C] succ pred MusAST.Diminished MusAST.Second
+        
     if cadenceType == MusAST.ImperfAuth then return $ [fourthRootTriad, majSeventhSecondInvDimTriad, tonicFirstInvTriad] else do
-    let sixthRootNoteName      = applyN succ tonicNoteName 5
-        minSixthRootAccidental = if tonicNoteName `elem` [MusAST.F, MusAST.C] then pred tonicAccidental else tonicAccidental
-        sixthRootAccidental    = if quality == MusAST.Major then succ minSixthRootAccidental else minSixthRootAccidental
-        sixthOctave            = if tonicNoteName `elem` (enumFromTo MusAST.E MusAST.B) then tonicOctave else pred tonicOctave
-        sixthRootTone          = MusAST.Tone sixthRootNoteName sixthRootAccidental sixthOctave
+    let sixthAccFunc = if quality == MusAST.Major then succ else pred
+        sixthSpecialAccCases = (if quality == MusAST.Major then drop else take) 2 globalOrderOfSharps
         sixthQuality           = if quality == MusAST.Major then MusAST.Minor else MusAST.Major
-    sixthSecondInvTriadList <- expandIntermediateExpr (MusAST.ChordTemplate sixthRootTone sixthQuality MusAST.Triad MusAST.Second duration) 
-    let sixthSecondInvTriad = head sixthSecondInvTriadList
-        majSeventhSecondInvDimTriad = head sixthSecondInvTriadList
+    sixthSecondInvTriad <- generateTriad 5 sixthSpecialAccCases [MusAST.C, MusAST.D] sixthAccFunc pred sixthQuality MusAST.Second
     
     if cadenceType == MusAST.Deceptive then return $ [fourthRootTriad, fifthRootTriad, sixthSecondInvTriad] else do
-    let secondRootNoteName      = succ tonicNoteName 
-        secondRootAccidental    = if tonicNoteName `elem` [MusAST.E, MusAST.B] then succ tonicAccidental else tonicAccidental
-        secondOctave            = if tonicNoteName == MusAST.B then succ tonicOctave else tonicOctave
-        secondRootTone          = MusAST.Tone secondRootNoteName secondRootAccidental secondOctave
-        secondQuality           = if quality == MusAST.Major then MusAST.Minor else MusAST.Diminished
-    secondFirstInvTriadList <- expandIntermediateExpr (MusAST.ChordTemplate secondRootTone secondQuality MusAST.Triad MusAST.First duration) 
-    let secondFirstInvTriad = head secondFirstInvTriadList
+    let secondQuality           = if quality == MusAST.Major then MusAST.Minor else MusAST.Diminished
+    secondFirstInvTriad <- generateTriad 1 [MusAST.E, MusAST.B] [MusAST.B] succ succ secondQuality MusAST.First
     
     -- Half Cadence
     return $ [fourthRootTriad, secondFirstInvTriad, fifthRootTriad] 
