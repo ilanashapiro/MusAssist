@@ -1,1 +1,1 @@
-[IRWrite [HarmonicSequence Asc56 (Tone B Natural 3) Major Quarter 29]]
+[IRWrite [HarmonicSequence DescFifths (Tone D Natural 6) Major Quarter 30], CreateNewMeasure, IRWrite [HarmonicSequence Asc56 (Tone D Flat 4) Major Quarter 30]]
