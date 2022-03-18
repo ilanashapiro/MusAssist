@@ -19,16 +19,6 @@ globalValidKeyQualities = [MusAST.Major, MusAST.Minor]
 globalOrderOfSharps :: [MusAST.NoteName]
 globalOrderOfSharps = [MusAST.F, MusAST.C, MusAST.G, MusAST.D, MusAST.A, MusAST.E, MusAST.B]
 
--- globalDistancesAboveC :: Map MusAST.NoteName Int
--- globalDistancesAboveC = Map.fromList 
---     [(MusAST.C, 0),
---     (MusAST.D, 1),
---     (MusAST.E, 2),
---     (MusAST.F, 3),
---     (MusAST.G, 4),
---     (MusAST.A, 5),
---     (MusAST.B, 6)]
-
 applyN :: (a -> a) -> a -> Int -> a
 applyN f x 0 = x
 applyN f x n = f (applyN f x (n-1)) 
@@ -69,7 +59,7 @@ generateToneWithinScale tonicTone tonicQuality intervalVal specialOctaveCases oc
             case (Map.lookup intervalVal globalStepsFromTonicToAccInfoMap) of 
                 Just accInfo -> accInfo 
                 Nothing      -> error "Invalid inverval for tone within scale generation"
-    let computedAcc = if tonicNoteName `elem` specialAccidentalCases then accFunc tonicAccidental else tonicAccidental
+        computedAcc = if tonicNoteName `elem` specialAccidentalCases then accFunc tonicAccidental else tonicAccidental
         accAdjustedForKey = case accFuncValidQuality of 
             Nothing             -> computedAcc
             Just MusAST.Major   -> 
@@ -79,7 +69,6 @@ generateToneWithinScale tonicTone tonicQuality intervalVal specialOctaveCases oc
                 if tonicQuality == MusAST.Minor then computedAcc 
                 else succ computedAcc -- i.e if valid quality is minor, and we want major, go up half step
         octave     = if tonicNoteName `elem` specialOctaveCases then octFunc tonicOctave else tonicOctave
-    print (tonicTone, specialOctaveCases, octave, tonicOctave, tonicNoteName `elem` specialOctaveCases, octFunc 0)
     return $ MusAST.Tone noteName accAdjustedForKey octave
 
 generateTriadWithinScale :: MusAST.Tone -> MusAST.Quality -> MusAST.Duration -> Int -> [MusAST.NoteName] -> (MusAST.Octave -> MusAST.Octave) -> MusAST.Inversion -> IO MusAST.Expr
@@ -94,12 +83,8 @@ generateTriadWithinScale tonicTone tonicQuality duration intervalVal specialOcta
                 else if intervalVal `elem` [2,5,6] then MusAST.Major
                 else MusAST.Minor
             _           -> error "Can't generate triad in invalid scale quality (i.e. not major or minor)"
-    print "BEFORE"
     tone <- generateToneWithinScale tonicTone tonicQuality intervalVal specialOctaveCases octFunc 
-    print "AFTER"
-    print (tonicTone, tone, specialOctaveCases, octFunc 0)
     triadList <- expandIntermediateExpr (MusAST.ChordTemplate tone quality MusAST.Triad inversion duration)
-    print triadList
     return $ head triadList
 
 -----------------------------------------------------------------------------------------
@@ -119,9 +104,7 @@ expandIntermediateExpr (MusAST.ChordTemplate (MusAST.Tone rootNoteName rootAccid
             MusAST.Major     -> MusAST.Major
             MusAST.Augmented -> MusAST.Major
             _                -> MusAST.Minor
-    -- print tonicTone
-    let generateToneFromTonic = generateToneWithinScale tonicTone toneQualityWithinScale
-    print ("TONIC", tonicTone)
+        generateToneFromTonic = generateToneWithinScale tonicTone toneQualityWithinScale
     
     (MusAST.Tone thirdNoteName thirdAccidental thirdOctave) <- generateToneFromTonic 2 [MusAST.A, MusAST.B] succ
     (MusAST.Tone fifthNoteName fifthAccidental fifthOctave) <- generateToneFromTonic 4 (enumFromTo MusAST.F MusAST.B) succ 
@@ -216,19 +199,7 @@ expandIntermediateExpr (MusAST.HarmonicSequence harmSeqType tonicTone tonicQuali
                 
                 intervalFromTonic = (previousIntervalFromTonic + (if n `mod` 2 == 0 then 5 else -4)) `mod` 7
                 inversion = if n `mod` 2 == 0 then MusAST.First else MusAST.Root
-                -- distanceAboveC = case Map.lookup globalDistancesAboveC tonicNoteName of
-                --     Just tonicDistanceAboveC -> (tonicDistanceAboveC + intervalFromTonic) `mod` 7
-                --     Nothing                  -> error "Cannot compute distance of " ++ show noteName ++ " above C in octave determination"
-                -- Asc56 repeats after 14 chords
-                -- evenSeqDescIndices = take 7 [14,12..]
-                -- oddSeqDescIndices = take 7 [13,11..]
-                -- (seqIndicesOfSpecialOctCases, octFunc) =
-                --     if even distanceAboveC 
-                --         then ((take distanceAboveC evenSeqDescIndices), succ)
-                --     else if distanceAboveC < 2 
-                --         then (if distanceAboveC == 0 then [3,1] else [1], pred)
-                --     else ((take (distanceAboveC - 2) oddSeqDescIndices), succ)
-                -- if nextIndexInSeq `elem` seqIndicesOfSpecialOctCases then case 
+
                 cMajScaleNotesDesc = reverse (enumFromTo MusAST.C MusAST.B)
                 (specialOctaveTonicCasesForIndex, octFunc) = -- the logic of this is quite complicated and was worked out on paper
                     if even nextIndexInSeq 
@@ -239,15 +210,11 @@ expandIntermediateExpr (MusAST.HarmonicSequence harmSeqType tonicTone tonicQuali
                         then ((take (if nextIndexInSeq == 1 then 2 else 1) [MusAST.C, MusAST.D]), pred)
                     else ([], const nextTonicOctave) -- const nextTonicOctave is placeholder for no oct func to apply for the fifth chord in the seq, since this is just the tonic chord again
                 
-            -- print (nextIndexInSeq, specialOctaveTonicCasesForIndex, tonicNoteName, nextTonicTone, "-----", octFunc 5)
-            -- print tonicTone
             triad <- generateTriadWithinScale nextTonicTone tonicQuality duration intervalFromTonic specialOctaveTonicCasesForIndex octFunc inversion 
             return $ (remainingSeq ++ [triad], intervalFromTonic, nextIndexInSeq, nextTonicOctave) -- the seq cycles after 14 chords, but an octave up
     (finalSeq, _, _, _) <- generateAsc56 length
     return finalSeq
                  
--- generateTriadWithinScale tonicTone tonicQuality duration intervalVal specialOctaveCases octFunc inversion
-
 expandIntermediateExpr (MusAST.FinalExpr expr) = return [expr]
 
 -----------------------------------------------------------------------------------------
