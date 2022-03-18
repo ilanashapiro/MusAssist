@@ -51,10 +51,11 @@ stepsFromTonicToAccInfoMap = Map.fromList
 
 generateToneWithinScale :: MusAST.Tone -> MusAST.Quality -> Int -> [MusAST.NoteName] -> (MusAST.Octave -> MusAST.Octave) -> IO MusAST.Tone
 generateToneWithinScale tonicTone tonicQuality intervalVal specialOctaveCases octFunc  = 
-    if intervalVal < 1 || intervalVal > 6 then return $ error "Can't generate tone outside single scale range" else 
+    if intervalVal < 0 || intervalVal > 6 then return $ error "Can't generate tone outside single scale range" else 
     if tonicQuality `notElem` globalValidKeyQualities then return $ error "Can't generate tone given invalid key quality (not major or minor)" else do
     let (MusAST.Tone tonicNoteName tonicAccidental tonicOctave) = tonicTone
-        noteName   = applyN succ tonicNoteName intervalVal
+    if intervalVal == 0 then return tonicTone else do
+    let noteName   = applyN succ tonicNoteName intervalVal
         (specialAccidentalCases, accFunc, accFuncValidQuality) = 
             case (Map.lookup intervalVal stepsFromTonicToAccInfoMap) of 
                 Just accInfo -> accInfo 
@@ -181,15 +182,25 @@ expandIntermediateExpr (MusAST.Cadence cadenceType (MusAST.Tone tonicNoteName to
 -- | Quality is major/minor ONLY. tone+quality determines the start note and key of the harmseq
 --   Duration is length of each chord, length is number of chords in the sequence
 --   The seq chords all happen in root position
-expandIntermediateExpr (MusAST.HarmonicSequence harmSeqType tone quality duration length) = 
-    if quality `notElem` globalValidKeyQualities then return $ error "Harmonic Seq quality must be major or minor only" else do 
-    tonicRootTriadList <- expandIntermediateExpr (MusAST.ChordTemplate tone quality MusAST.Triad MusAST.Root duration)
+expandIntermediateExpr (MusAST.HarmonicSequence harmSeqType tonicTone tonicQuality duration length) = 
+    if tonicQuality `notElem` globalValidKeyQualities then return $ error "Harmonic Seq quality must be major or minor only" else 
+    if length < 1 then return $ error "Harmonic Seq must have length at least 1 " else do 
+    tonicRootTriadList <- expandIntermediateExpr (MusAST.ChordTemplate tonicTone tonicQuality MusAST.Triad MusAST.Root duration)
     let tonicRootTriad = head tonicRootTriadList
-        generateAscFifths 0 _ = []
-        generateAscFifths n chordRoot = 
-            | n `mod` 2 == 0 = generateTriadWithinScale
-            | otherwise =
-
+        generateAsc56 1 = return ([tonicRootTriad], 1) -- 0 == initial interval from tonic
+        generateAsc56 n = do
+            (remainingSeq, previousIntervalFromTonic) <- generateAsc56 (n-1) 
+            let intervalFromTonic = (previousIntervalFromTonic + (if n `mod` 2 == 0 then 5 else -4)) `mod` 7
+                inversion = if n `mod` 2 == 0 then MusAST.First else MusAST.Root
+            print n
+            print (previousIntervalFromTonic, intervalFromTonic)
+            triad <- generateTriadWithinScale tonicTone tonicQuality duration intervalFromTonic [] succ inversion -- [], succ are wrong!!
+            return $ (remainingSeq ++ [triad], intervalFromTonic)
+        -- initialIntervalFromTonic = if n `mod` 2 == 0 then -4 else 5
+    (finalSeq, _) <- generateAsc56 length
+    return finalSeq
+                 
+-- generateTriadWithinScale tonicTone tonicQuality duration intervalVal specialOctaveCases octFunc inversion
 
 expandIntermediateExpr (MusAST.FinalExpr expr) = return [expr]
 
