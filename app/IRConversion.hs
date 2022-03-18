@@ -71,13 +71,15 @@ generateToneWithinScale tonicTone tonicQuality intervalVal specialOctaveCases oc
                 Nothing      -> error "Invalid inverval for tone within scale generation"
     let computedAcc = if tonicNoteName `elem` specialAccidentalCases then accFunc tonicAccidental else tonicAccidental
         accAdjustedForKey = case accFuncValidQuality of 
-                Nothing             -> computedAcc
-                Just MusAST.Major   -> if tonicQuality == MusAST.Major then computedAcc 
-                                        else pred computedAcc -- i.e if valid quality is major, and we want minor, go down half step
-                Just MusAST.Minor   -> if tonicQuality == MusAST.Minor then computedAcc 
-                                        else succ computedAcc -- i.e if valid quality is minor, and we want major, go up half step
+            Nothing             -> computedAcc
+            Just MusAST.Major   -> 
+                if tonicQuality == MusAST.Major then computedAcc 
+                 else pred computedAcc -- i.e if valid quality is major, and we want minor, go down half step
+            Just MusAST.Minor   -> 
+                if tonicQuality == MusAST.Minor then computedAcc 
+                else succ computedAcc -- i.e if valid quality is minor, and we want major, go up half step
         octave     = if tonicNoteName `elem` specialOctaveCases then octFunc tonicOctave else tonicOctave
-    print (tonicTone, specialOctaveCases, octave, tonicOctave, tonicNoteName `elem` specialOctaveCases)
+    print (tonicTone, specialOctaveCases, octave, tonicOctave, tonicNoteName `elem` specialOctaveCases, octFunc 0)
     return $ MusAST.Tone noteName accAdjustedForKey octave
 
 generateTriadWithinScale :: MusAST.Tone -> MusAST.Quality -> MusAST.Duration -> Int -> [MusAST.NoteName] -> (MusAST.Octave -> MusAST.Octave) -> MusAST.Inversion -> IO MusAST.Expr
@@ -92,9 +94,12 @@ generateTriadWithinScale tonicTone tonicQuality duration intervalVal specialOcta
                 else if intervalVal `elem` [2,5,6] then MusAST.Major
                 else MusAST.Minor
             _           -> error "Can't generate triad in invalid scale quality (i.e. not major or minor)"
+    print "BEFORE"
     tone <- generateToneWithinScale tonicTone tonicQuality intervalVal specialOctaveCases octFunc 
-    -- print (tone, specialOctaveCases)
+    print "AFTER"
+    print (tonicTone, tone, specialOctaveCases, octFunc 0)
     triadList <- expandIntermediateExpr (MusAST.ChordTemplate tone quality MusAST.Triad inversion duration)
+    print triadList
     return $ head triadList
 
 -----------------------------------------------------------------------------------------
@@ -116,6 +121,7 @@ expandIntermediateExpr (MusAST.ChordTemplate (MusAST.Tone rootNoteName rootAccid
             _                -> MusAST.Minor
     -- print tonicTone
     let generateToneFromTonic = generateToneWithinScale tonicTone toneQualityWithinScale
+    print ("TONIC", tonicTone)
     
     (MusAST.Tone thirdNoteName thirdAccidental thirdOctave) <- generateToneFromTonic 2 [MusAST.A, MusAST.B] succ
     (MusAST.Tone fifthNoteName fifthAccidental fifthOctave) <- generateToneFromTonic 4 (enumFromTo MusAST.F MusAST.B) succ 
@@ -233,10 +239,9 @@ expandIntermediateExpr (MusAST.HarmonicSequence harmSeqType tonicTone tonicQuali
                         then ((take (if nextIndexInSeq == 1 then 2 else 1) [MusAST.C, MusAST.D]), pred)
                     else ([], const nextTonicOctave) -- const nextTonicOctave is placeholder for no oct func to apply for the fifth chord in the seq, since this is just the tonic chord again
                 
-                specialOctaveCase = if tonicNoteName `elem` specialOctaveTonicCasesForIndex then [applyN succ tonicNoteName intervalFromTonic] else []
-            print (nextIndexInSeq, specialOctaveTonicCasesForIndex, tonicNoteName, specialOctaveCase, nextTonicTone, "-----", octFunc 5)
+            -- print (nextIndexInSeq, specialOctaveTonicCasesForIndex, tonicNoteName, nextTonicTone, "-----", octFunc 5)
             -- print tonicTone
-            triad <- generateTriadWithinScale nextTonicTone tonicQuality duration intervalFromTonic specialOctaveCase octFunc inversion 
+            triad <- generateTriadWithinScale nextTonicTone tonicQuality duration intervalFromTonic specialOctaveTonicCasesForIndex octFunc inversion 
             return $ (remainingSeq ++ [triad], intervalFromTonic, nextIndexInSeq, nextTonicOctave) -- the seq cycles after 14 chords, but an octave up
     (finalSeq, _, _, _) <- generateAsc56 length
     return finalSeq
