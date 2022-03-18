@@ -187,7 +187,7 @@ expandIntermediateExpr (MusAST.HarmonicSequence harmSeqType tonicTone tonicQuali
     if length < 1 then return $ error "Harmonic Seq must have length at least 1 " else do 
     tonicRootTriadList <- expandIntermediateExpr (MusAST.ChordTemplate tonicTone tonicQuality MusAST.Triad MusAST.Root duration)
     let tonicRootTriad = head tonicRootTriadList
-        generateAsc56 1 = return ([tonicRootTriad], 1) -- 0 == initial interval from tonic
+        generateAsc56 1 = return ([tonicRootTriad], 0) -- 0 == initial interval from tonic
         generateAsc56 n = do
             (remainingSeq, previousIntervalFromTonic) <- generateAsc56 (n-1) 
             let intervalFromTonic = (previousIntervalFromTonic + (if n `mod` 2 == 0 then 5 else -4)) `mod` 7
@@ -195,8 +195,8 @@ expandIntermediateExpr (MusAST.HarmonicSequence harmSeqType tonicTone tonicQuali
             print n
             print (previousIntervalFromTonic, intervalFromTonic)
             triad <- generateTriadWithinScale tonicTone tonicQuality duration intervalFromTonic [] succ inversion -- [], succ are wrong!!
+            print triad
             return $ (remainingSeq ++ [triad], intervalFromTonic)
-        -- initialIntervalFromTonic = if n `mod` 2 == 0 then -4 else 5
     (finalSeq, _) <- generateAsc56 length
     return finalSeq
                  
