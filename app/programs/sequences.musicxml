@@ -340,7 +340,7 @@
 				<chord/>
 				<pitch>
 					<step>B</step>
-					<alter>0</alter>
+					<alter>-1</alter>
 					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
@@ -502,7 +502,7 @@
 				<chord/>
 				<pitch>
 					<step>B</step>
-					<alter>0</alter>
+					<alter>-1</alter>
 					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
@@ -794,7 +794,7 @@
 				<chord/>
 				<pitch>
 					<step>B</step>
-					<alter>0</alter>
+					<alter>-1</alter>
 					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
@@ -956,7 +956,7 @@
 				<chord/>
 				<pitch>
 					<step>B</step>
-					<alter>0</alter>
+					<alter>-1</alter>
 					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>

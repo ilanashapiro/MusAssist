@@ -19,6 +19,16 @@ globalValidKeyQualities = [MusAST.Major, MusAST.Minor]
 globalOrderOfSharps :: [MusAST.NoteName]
 globalOrderOfSharps = [MusAST.F, MusAST.C, MusAST.G, MusAST.D, MusAST.A, MusAST.E, MusAST.B]
 
+-- globalDistancesAboveC :: Map MusAST.NoteName Int
+-- globalDistancesAboveC = Map.fromList 
+--     [(MusAST.C, 0),
+--     (MusAST.D, 1),
+--     (MusAST.E, 2),
+--     (MusAST.F, 3),
+--     (MusAST.G, 4),
+--     (MusAST.A, 5),
+--     (MusAST.B, 6)]
+
 applyN :: (a -> a) -> a -> Int -> a
 applyN f x 0 = x
 applyN f x n = f (applyN f x (n-1)) 
@@ -50,7 +60,7 @@ stepsFromTonicToAccInfoMap = Map.fromList
      (6, (take 2 globalOrderOfSharps, pred, Just MusAST.Minor))]   -- sevenths
 
 generateToneWithinScale :: MusAST.Tone -> MusAST.Quality -> Int -> [MusAST.NoteName] -> (MusAST.Octave -> MusAST.Octave) -> IO MusAST.Tone
-generateToneWithinScale tonicTone tonicQuality intervalVal specialOctaveCases octFunc  = 
+generateToneWithinScale tonicTone tonicQuality intervalVal specialOctaveCases octFunc = 
     if intervalVal < 0 || intervalVal > 6 then return $ error "Can't generate tone outside single scale range" else 
     if tonicQuality `notElem` globalValidKeyQualities then return $ error "Can't generate tone given invalid key quality (not major or minor)" else do
     let (MusAST.Tone tonicNoteName tonicAccidental tonicOctave) = tonicTone
@@ -80,7 +90,7 @@ generateTriadWithinScale tonicTone tonicQuality duration intervalVal specialOcta
                 else MusAST.Major
             MusAST.Minor -> 
                 if intervalVal == 1 then MusAST.Diminished 
-                else if intervalVal `elem` [2,4,5,6] then MusAST.Major
+                else if intervalVal `elem` [2,5,6] then MusAST.Major
                 else MusAST.Minor
             _           -> error "Can't generate triad in invalid scale quality (i.e. not major or minor)"
     tone <- generateToneWithinScale tonicTone tonicQuality intervalVal specialOctaveCases octFunc 
@@ -155,7 +165,8 @@ expandIntermediateExpr (MusAST.Cadence cadenceType (MusAST.Tone tonicNoteName to
     if cadenceType == MusAST.Plagal then return $ [fourthSecondInvTriad, tonicRootTriad] else do
     
     fourthRootTriad <- generateTriad 3 (enumFromTo MusAST.G MusAST.B) succ MusAST.Root
-    fifthRootTriad <- generateTriad 4 (enumFromTo MusAST.F MusAST.B) succ MusAST.Root
+    fifthRootTriad <- generateTriadWithinScale tonicRootTone MusAST.Major duration 4 (enumFromTo MusAST.F MusAST.B) succ MusAST.Root -- can't use generateTriad since V chord is always major no matter the key, in a cadence
+
     let tonicDoubledRootChord = MusAST.Chord (tonicRootTriadTones ++ doubledRootTone) duration
                 where (MusAST.Chord tonicRootTriadTones _) = tonicRootTriad
                       doubledRootTone = [MusAST.Tone tonicNoteName tonicAccidental (succ tonicOctave)]
@@ -186,18 +197,41 @@ expandIntermediateExpr (MusAST.HarmonicSequence harmSeqType tonicTone tonicQuali
     if tonicQuality `notElem` globalValidKeyQualities then return $ error "Harmonic Seq quality must be major or minor only" else 
     if length < 1 then return $ error "Harmonic Seq must have length at least 1 " else do 
     tonicRootTriadList <- expandIntermediateExpr (MusAST.ChordTemplate tonicTone tonicQuality MusAST.Triad MusAST.Root duration)
+    
     let tonicRootTriad = head tonicRootTriadList
-        generateAsc56 1 = return ([tonicRootTriad], 0) -- 0 == initial interval from tonic
+        (MusAST.Tone tonicNoteName tonicAcc tonicOctave) = tonicTone
+        
+        
+        generateAsc56 1 = return ([tonicRootTriad], 0, 0) -- ([first chord], first interval from tonic, starting index in seq w/ 0-indexing)
         generateAsc56 n = do
-            (remainingSeq, previousIntervalFromTonic) <- generateAsc56 (n-1) 
+            (remainingSeq, previousIntervalFromTonic, indexInSeq) <- generateAsc56 (n-1) 
             let intervalFromTonic = (previousIntervalFromTonic + (if n `mod` 2 == 0 then 5 else -4)) `mod` 7
                 inversion = if n `mod` 2 == 0 then MusAST.First else MusAST.Root
-            print n
-            print (previousIntervalFromTonic, intervalFromTonic)
+                distanceAboveC = case Map.lookup globalDistancesAboveC tonicNoteName of
+                    Just tonicDistanceAboveC -> (tonicDistanceAboveC + intervalFromTonic) `mod` 7
+                    Nothing                  -> error "Cannot compute distance of " ++ show noteName ++ " above C in octave determination"
+                -- Asc56 repeats after 14 chords
+                -- evenSeqDescIndices = take 7 [14,12..]
+                -- oddSeqDescIndices = take 7 [13,11..]
+                -- (seqIndicesOfSpecialOctCases, octFunc) =
+                --     if even distanceAboveC 
+                --         then ((take distanceAboveC evenSeqDescIndices), succ)
+                --     else if distanceAboveC < 2 
+                --         then (if distanceAboveC == 2 then [3,1] else [1], pred)
+                --     else ((take (distanceAboveC - 2) oddSeqDescIndices), succ)
+                -- if indexInSeq `elem` seqIndicesOfSpecialOctCases then case 
+                cMajScaleNotesAsc = enumFromTo MusAST.C MusAST.B
+                (seqIndicesOfSpecialOctCases, octFunc) =
+                    if even indexInSeq 
+                        then (take (cMajScaleNotesAsc `div` 2) cMajScaleNotesAsc, succ)
+                    else if indexInSeq >= 3 then 
+                        then (if distanceAboveC <= 0 then [3,1] else [1], pred)
+                    else ((take (distanceAboveC - 2) oddSeqDescIndices), succ)
+                if indexInSeq `elem` seqIndicesOfSpecialOctCases then case 
+
             triad <- generateTriadWithinScale tonicTone tonicQuality duration intervalFromTonic [] succ inversion -- [], succ are wrong!!
-            print triad
-            return $ (remainingSeq ++ [triad], intervalFromTonic)
-    (finalSeq, _) <- generateAsc56 length
+            return $ (remainingSeq ++ [triad], intervalFromTonic, (indexInSeq + 1) `mod` 14) -- the seq cycles after 14 chords, but an octave up
+    (finalSeq, _, _) <- generateAsc56 length
     return finalSeq
                  
 -- generateTriadWithinScale tonicTone tonicQuality duration intervalVal specialOctaveCases octFunc inversion
