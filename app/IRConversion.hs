@@ -190,124 +190,81 @@ expandIntermediateExpr (MusAST.HarmonicSequence harmSeqType tonicTone tonicQuali
     tonicRootTriadList <- expandIntermediateExpr (MusAST.ChordTemplate tonicTone tonicQuality MusAST.Triad MusAST.Root duration)
     tonicSecondInvTriadList <- expandIntermediateExpr (MusAST.ChordTemplate tonicTone tonicQuality MusAST.Triad MusAST.Second duration)
 
-    let tonicRootTriad = head tonicRootTriadList
+    let (MusAST.Tone tonicNoteName tonicAcc initialTonicOctave) = tonicTone
+        tonicRootTriad = head tonicRootTriadList
         tonicSecondInvTriad = head tonicSecondInvTriadList
-        (MusAST.Tone tonicNoteName tonicAcc initialTonicOctave) = tonicTone
-    
-    case harmSeqType of 
-        MusAST.Asc56 -> do
-            let generateAsc56 1 = return ([tonicRootTriad], 0, 0, initialTonicOctave) -- ([first chord], first interval from tonic, starting index in seq w/ 0-indexing, initial tonic octave)
-                generateAsc56 n = do
-                    (remainingSeq, previousIntervalFromTonic, previousIndexInSeq, previousTonicOctave) <- generateAsc56 (n-1) 
-                    let nextIndexInSeq = (previousIndexInSeq + 1) `mod` 14 -- the Asc56 seq is 14 chords long
-                        nextTonicOctave = if nextIndexInSeq == 0 then previousTonicOctave + 1 else previousTonicOctave -- increments every cycle of the seq
-                        nextTonicTone = (MusAST.Tone tonicNoteName tonicAcc nextTonicOctave)
-                        
-                        intervalFromTonic = (previousIntervalFromTonic + (if n `mod` 2 == 0 then 5 else -4)) `mod` 7
-                        inversion = if n `mod` 2 == 0 then MusAST.First else MusAST.Root
+        
+        cMajScaleNotesAsc = enumFromTo MusAST.C MusAST.B
+        cMajScaleNotesDesc = reverse cMajScaleNotesAsc
 
-                        cMajScaleNotesAsc = enumFromTo MusAST.C MusAST.B
-                        cMajScaleNotesDesc = reverse cMajScaleNotesAsc
-                        (specialOctaveCasesForIndex, octFunc) = -- the logic of this is quite complicated and was worked out on paper
-                            if even nextIndexInSeq 
-                                then (take (nextIndexInSeq `div` 2) cMajScaleNotesDesc, succ)
-                                -- then (drop (7 - (nextIndexInSeq `div` 2)) cMajScaleNotesAsc, succ)
-                            else if nextIndexInSeq >= 7  
-                                then (take ((nextIndexInSeq - 5) `div` 2) cMajScaleNotesDesc, succ)
-                                -- then (drop (7 - ((nextIndexInSeq - 5) `div` 2)) cMajScaleNotesAsc, succ)
-                            else if nextIndexInSeq <= 3 
-                                then (take (if nextIndexInSeq == 1 then 2 else 1) cMajScaleNotesAsc, pred)
-                                -- then (drop ((nextIndexInSeq - 1) `div` 2 + 5) cMajScaleNotesDesc, pred)
-                            -- const nextTonicOctave is placeholder for no oct func to apply for the index 5 chord in the seq (since this is just the tonic again)
-                            else ([], const nextTonicOctave) 
-                        
-                    triad <- generateTriadWithinScale nextTonicTone tonicQuality duration intervalFromTonic specialOctaveCasesForIndex octFunc inversion 
-                    return $ (remainingSeq ++ [triad], intervalFromTonic, nextIndexInSeq, nextTonicOctave) -- the seq cycles after 14 chords, but an octave up
-            (finalSeq, _, _, _) <- generateAsc56 length
-            return finalSeq
-        MusAST.DescFifths -> do
-            let generateDescFifths 1 = return ([tonicRootTriad], 0, 0, initialTonicOctave) -- ([first chord], first interval from tonic, starting index in seq w/ 0-indexing, initial tonic octave)
-                generateDescFifths n = do
-                    (remainingSeq, previousIntervalFromTonic, previousIndexInSeq, previousTonicOctave) <- generateDescFifths (n-1) 
-                    let nextIndexInSeq = (previousIndexInSeq + 1) `mod` 14 -- the Desc Fifths seq is 14 chords long
-                        nextTonicOctave = if nextIndexInSeq == 0 then previousTonicOctave - 1 else previousTonicOctave 
-                        nextTonicTone = (MusAST.Tone tonicNoteName tonicAcc nextTonicOctave)
-                        
-                        intervalFromTonic = (previousIntervalFromTonic + (if n `mod` 2 == 0 then -4 else 3)) `mod` 7
-                        inversion = if n `mod` 2 == 0 then MusAST.Second else MusAST.Root
+        succ2 = succ . succ
+        pred2 = pred . pred
 
-                        cMajScaleNotesAsc = enumFromTo MusAST.C MusAST.B
-                        cMajScaleNotesDesc = reverse cMajScaleNotesAsc
-                        pred2 = pred . pred
-                        (specialOctaveCasesForIndex, octFunc) = -- the logic of this is quite complicated and was worked out on paper
-                            if even nextIndexInSeq 
-                                then (take (nextIndexInSeq `div` 2) cMajScaleNotesAsc, pred)
-                            else if nextIndexInSeq <= 5
-                                then (take ((nextIndexInSeq + 7) `div` 2) cMajScaleNotesAsc, pred)
-                            else 
-                                let (pred2Cases, predCases) = splitAt ((nextIndexInSeq - 7) `div` 2) cMajScaleNotesAsc
+        -- the logic of this is quite complicated and was worked out on paper
+        specialOctCasesFunc nextIndexInSeq nextTonicOctave = case harmSeqType of 
+            MusAST.Asc56      ->
+                if even nextIndexInSeq 
+                    then (take (nextIndexInSeq `div` 2) cMajScaleNotesDesc, succ)
+                else if nextIndexInSeq >= 7  
+                    then (take ((nextIndexInSeq - 5) `div` 2) cMajScaleNotesDesc, succ)
+                else if nextIndexInSeq <= 3 
+                    then (take (if nextIndexInSeq == 1 then 2 else 1) cMajScaleNotesAsc, pred)
+                -- const nextTonicOctave is placeholder for no oct func to apply for the index 5 chord in the seq (since this is just the tonic again)
+                else ([], const nextTonicOctave)  
+            MusAST.Desc56     ->
+                if even nextIndexInSeq 
+                    then if nextIndexInSeq <= 6 then (take nextIndexInSeq cMajScaleNotesAsc, pred)
+                            else let (pred2Cases, predCases) = splitAt (nextIndexInSeq - 7) cMajScaleNotesAsc
                                 in if tonicNoteName `elem` pred2Cases then (pred2Cases, pred2) else (predCases, pred)
-                    triad <- generateTriadWithinScale nextTonicTone tonicQuality duration intervalFromTonic specialOctaveCasesForIndex octFunc inversion 
-                    return $ (remainingSeq ++ [triad], intervalFromTonic, nextIndexInSeq, nextTonicOctave) -- the seq cycles after 14 chords, but an octave up
-            (finalSeq, _, _, _) <- generateDescFifths length
-            return finalSeq
-        MusAST.Desc56 -> do
-            let generateDesc56 1 = return ([tonicSecondInvTriad], 0, 0, initialTonicOctave) -- ([first chord], first interval from tonic, starting index in seq w/ 0-indexing, initial tonic octave)
-                generateDesc56 n = do
-                    (remainingSeq, previousIntervalFromTonic, previousIndexInSeq, previousTonicOctave) <- generateDesc56 (n-1) 
-                    let nextIndexInSeq = (previousIndexInSeq + 1) `mod` 14 -- the Desc 56 seq is 14 chords long
-                        nextTonicOctave = if nextIndexInSeq == 0 then previousTonicOctave - 2 else previousTonicOctave 
-                        nextTonicTone = (MusAST.Tone tonicNoteName tonicAcc nextTonicOctave)
-                        
-                        intervalFromTonic = (previousIntervalFromTonic + (if n `mod` 2 == 0 then -3 else 1)) `mod` 7
-                        inversion = if n `mod` 2 == 0 then MusAST.Root else MusAST.Second
+                else if nextIndexInSeq == 13
+                        then let (pred2Cases, predCases) = splitAt 1 cMajScaleNotesAsc
+                            in if tonicNoteName `elem` pred2Cases then (pred2Cases, pred2) else (predCases, pred)
+                else if nextIndexInSeq >= 7
+                    then (take (nextIndexInSeq - 5) cMajScaleNotesAsc, pred)
+                else if nextIndexInSeq <= 3
+                    then (drop (nextIndexInSeq + 2) cMajScaleNotesAsc, succ)
+                -- const nextTonicOctave is placeholder for no oct func to apply for the index 5 chord in the seq (since this is just the tonic again)
+                else ([], const nextTonicOctave) 
+            MusAST.AscFifths  ->
+                if even nextIndexInSeq 
+                    then (take (nextIndexInSeq `div` 2) cMajScaleNotesDesc, succ)
+                else if nextIndexInSeq <= 7
+                        then (take ((nextIndexInSeq - 1) `div` 2 + 4) cMajScaleNotesDesc, succ)
+                else let (succ2Cases, succCases) = splitAt ((nextIndexInSeq - 7) `div` 2) cMajScaleNotesDesc
+                        in if tonicNoteName `elem` succ2Cases then (succ2Cases, succ2) else (succCases, succ)
+            MusAST.DescFifths ->
+                if even nextIndexInSeq 
+                    then (take (nextIndexInSeq `div` 2) cMajScaleNotesAsc, pred)
+                else if nextIndexInSeq <= 5
+                    then (take ((nextIndexInSeq + 7) `div` 2) cMajScaleNotesAsc, pred)
+                else 
+                    let (pred2Cases, predCases) = splitAt ((nextIndexInSeq - 7) `div` 2) cMajScaleNotesAsc
+                    in if tonicNoteName `elem` pred2Cases then (pred2Cases, pred2) else (predCases, pred)
+        
+        -- the "index interval changes" tell you how to get to the next chord in the seq, from the current chord, via the interval separating them
+        (tonicTriad, octIncVal, evenIndexIntervalChange, oddIndexIntervalChange, evenIndexInv, oddIndexInv) = case harmSeqType of 
+            MusAST.Asc56      -> (tonicRootTriad, 1, 5, -4, MusAST.First, MusAST.Root)
+            MusAST.Desc56     -> (tonicSecondInvTriad, -2, -3, 1, MusAST.Root, MusAST.Second)
+            MusAST.AscFifths  -> (tonicSecondInvTriad, 1, 4, -3, MusAST.Root, MusAST.Second)
+            MusAST.DescFifths -> (tonicRootTriad, -1, -4, 3, MusAST.Second, MusAST.Root)
+ 
+        generateSeq 1 = return ([tonicTriad], 0, 0, initialTonicOctave) -- ([first chord], first interval from tonic, starting index in seq w/ 0-indexing, initial tonic octave)
+        generateSeq n = do
+            (remainingSeq, previousIntervalFromTonic, previousIndexInSeq, previousTonicOctave) <- generateSeq (n-1) 
+            let nextIndexInSeq = (previousIndexInSeq + 1) `mod` 14 -- All sequences are 14 chords long
+                nextTonicOctave = if nextIndexInSeq == 0 then previousTonicOctave + octIncVal else previousTonicOctave -- the octave changes every cycle of the seq
+                nextTonicTone = (MusAST.Tone tonicNoteName tonicAcc nextTonicOctave)
+                
+                intervalFromTonic = (previousIntervalFromTonic + (if n `mod` 2 == 0 then evenIndexIntervalChange else oddIndexIntervalChange)) `mod` 7
+                inversion = if n `mod` 2 == 0 then evenIndexInv else oddIndexInv
+                
+                (specialOctCasesForIndex, octFunc) = specialOctCasesFunc nextIndexInSeq nextTonicOctave
 
-                        cMajScaleNotesAsc = enumFromTo MusAST.C MusAST.B
-                        cMajScaleNotesDesc = reverse cMajScaleNotesAsc
-                        pred2 = pred . pred
-                        (specialOctaveCasesForIndex, octFunc) = -- the logic of this is quite complicated and was worked out on paper
-                            if even nextIndexInSeq 
-                                then if nextIndexInSeq <= 6 then (take nextIndexInSeq cMajScaleNotesAsc, pred)
-                                     else let (pred2Cases, predCases) = splitAt (nextIndexInSeq - 7) cMajScaleNotesAsc
-                                          in if tonicNoteName `elem` pred2Cases then (pred2Cases, pred2) else (predCases, pred)
-                            else if nextIndexInSeq == 13
-                                 then let (pred2Cases, predCases) = splitAt 1 cMajScaleNotesAsc
-                                      in if tonicNoteName `elem` pred2Cases then (pred2Cases, pred2) else (predCases, pred)
-                            else if nextIndexInSeq >= 7
-                                then (take (nextIndexInSeq - 5) cMajScaleNotesAsc, pred)
-                            else if nextIndexInSeq <= 3
-                                then (drop (nextIndexInSeq + 2) cMajScaleNotesAsc, succ)
-                            -- const nextTonicOctave is placeholder for no oct func to apply for the index 5 chord in the seq (since this is just the tonic again)
-                            else ([], const nextTonicOctave) 
-                    triad <- generateTriadWithinScale nextTonicTone tonicQuality duration intervalFromTonic specialOctaveCasesForIndex octFunc inversion 
-                    return $ (remainingSeq ++ [triad], intervalFromTonic, nextIndexInSeq, nextTonicOctave) -- the seq cycles after 14 chords, but an octave up
-            (finalSeq, _, _, _) <- generateDesc56 length
-            return finalSeq
-        MusAST.AscFifths -> do
-            let generateAscFifths 1 = return ([tonicSecondInvTriad], 0, 0, initialTonicOctave) -- ([first chord], first interval from tonic, starting index in seq w/ 0-indexing, initial tonic octave)
-                generateAscFifths n = do
-                    (remainingSeq, previousIntervalFromTonic, previousIndexInSeq, previousTonicOctave) <- generateAscFifths (n-1) 
-                    let nextIndexInSeq = (previousIndexInSeq + 1) `mod` 14 -- the Desc 56 seq is 14 chords long
-                        nextTonicOctave = if nextIndexInSeq == 0 then previousTonicOctave + 1 else previousTonicOctave 
-                        nextTonicTone = (MusAST.Tone tonicNoteName tonicAcc nextTonicOctave)
-                        
-                        intervalFromTonic = (previousIntervalFromTonic + (if n `mod` 2 == 0 then 4 else  -3)) `mod` 7
-                        inversion = if n `mod` 2 == 0 then MusAST.Root else MusAST.Second
-
-                        cMajScaleNotesAsc = enumFromTo MusAST.C MusAST.B
-                        cMajScaleNotesDesc = reverse cMajScaleNotesAsc
-                        succ2 = (succ . succ)
-                        (specialOctaveCasesForIndex, octFunc) = -- the logic of this is quite complicated and was worked out on paper
-                            if even nextIndexInSeq 
-                                then (take (nextIndexInSeq `div` 2) cMajScaleNotesDesc, succ)
-                            else if nextIndexInSeq <= 7
-                                 then (take ((nextIndexInSeq - 1) `div` 2 + 4) cMajScaleNotesDesc, succ)
-                            else let (succ2Cases, succCases) = splitAt ((nextIndexInSeq - 7) `div` 2) cMajScaleNotesDesc
-                                 in if tonicNoteName `elem` succ2Cases then (succ2Cases, succ2) else (succCases, succ)
-                    triad <- generateTriadWithinScale nextTonicTone tonicQuality duration intervalFromTonic specialOctaveCasesForIndex octFunc inversion 
-                    return $ (remainingSeq ++ [triad], intervalFromTonic, nextIndexInSeq, nextTonicOctave) -- the seq cycles after 14 chords, but an octave up
-            (finalSeq, _, _, _) <- generateAscFifths length
-            return finalSeq
+            triad <- generateTriadWithinScale nextTonicTone tonicQuality duration intervalFromTonic specialOctCasesForIndex octFunc inversion 
+            return $ (remainingSeq ++ [triad], intervalFromTonic, nextIndexInSeq, nextTonicOctave) -- the seq cycles after 14 chords, but an octave up
+        
+    (finalSeq, _, _, _) <- generateSeq length
+    return finalSeq
                  
 expandIntermediateExpr (MusAST.FinalExpr expr) = return [expr]
 
