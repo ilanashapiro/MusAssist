@@ -1,1 +1,1 @@
-[IRWrite [HarmonicSequence DescFifths (Tone D Natural 6) Major Quarter 30], CreateNewMeasure, IRWrite [HarmonicSequence Asc56 (Tone D Flat 4) Major Quarter 30]]
+[IRWrite [HarmonicSequence DescFifths (Tone B Natural 5) Major Quarter 30], CreateNewMeasure, IRWrite [HarmonicSequence Asc56 (Tone D Flat 4) Major Quarter 30], CreateNewMeasure, IRWrite [HarmonicSequence Desc56 (Tone A Natural 5) Major Quarter 30], CreateNewMeasure, IRWrite [HarmonicSequence AscFifths (Tone B Natural 4) Major Quarter 30]]
