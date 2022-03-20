@@ -148,7 +148,7 @@ data IntermediateExpr =
    deriving (Eq, Show, Read)
 
 data IntermediateInstr = 
-  SetKeySignature NoteName Accidental Quality
-  | CreateNewMeasure
+  IRKeySignature NoteName Accidental Quality
+  | IRNewMeasure
   | IRWrite [IntermediateExpr]
     deriving (Eq, Show, Read)

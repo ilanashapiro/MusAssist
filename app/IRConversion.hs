@@ -274,7 +274,7 @@ expandIntermediateExpr (MusAST.FinalExpr expr) = return [expr]
 expandIntermediateInstr :: MusAST.IntermediateInstr -> IO MusAST.Instr
 
 -- | Quality is major/minor ONLY
-expandIntermediateInstr (MusAST.SetKeySignature noteName accidental quality) 
+expandIntermediateInstr (MusAST.IRKeySignature noteName accidental quality) 
     | quality == MusAST.Major = 
         let convertSharpKeySig noteName = 
                 let numSharpsMaybe = elemIndex (pred noteName) globalOrderOfSharps 
@@ -315,11 +315,11 @@ expandIntermediateInstr (MusAST.SetKeySignature noteName accidental quality)
                         if noteName >= MusAST.D then Just MusAST.Natural
                         else Just MusAST.Flat
         in case majAccidentalMaybe of 
-            Just majAccidental -> expandIntermediateInstr (MusAST.SetKeySignature majKeyNoteName majAccidental MusAST.Major)
+            Just majAccidental -> expandIntermediateInstr (MusAST.IRKeySignature majKeyNoteName majAccidental MusAST.Major)
             Nothing            -> return $ error "Cannot convert minor to major key sig due to double flats" 
     | otherwise = return $ error "Key signature quality can only be major or minor"
 
-expandIntermediateInstr MusAST.CreateNewMeasure = return MusAST.NewMeasure
+expandIntermediateInstr MusAST.IRNewMeasure = return MusAST.NewMeasure
 
 expandIntermediateInstr (MusAST.IRWrite intermediateExprs) = do
     exprs <- concatMapM expandIntermediateExpr intermediateExprs
