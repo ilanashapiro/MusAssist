@@ -1,0 +1,202 @@
+\documentclass{report}
+\usepackage{geometry}
+\usepackage{fancyvrb}
+\usepackage{titling}
+\usepackage{ragged2e}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{natbib}
+\usepackage{usebib} 
+\usepackage{hyperref} 
+\usepackage[nameinlink]{cleveref} 
+ \usepackage{setspace}
+
+\title{MusAssist: A Domain Specific Language for Music }
+\author{Ilana Shapiro}
+
+\postauthor{\end{tabular}\par\end{center}\vspace{-10pt}\centering\large \texttt{issa2018@mymail.pomona.edu}\vskip 0em} 
+\newcommand\citetitle[1]{\usebibentry{#1}{title}}
+\newcommand\citeparen[1]{(\cite{#1})}
+\setcounter{tocdepth}{1}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+ 
+\chapter{Introduction}
+Domain specific languages, or DSLs, are programming languages tailored towards a specific application. Formally, a DSL is defined as ``a computer programming language of limited expressiveness focused on a particular domain." This definition encompasses four critical features: (1) the computer programming language (PL) itself, (2) a ``language nature" (i.e. a sense of fluency from the way individual expressions can be combined), (3) limited expressiveness (since the purpose of a DSL is to be used in an particular domain, it should not have the complexity of a general purpose language, or GPL), and (4) domain focus (the motivation to create the DSL in the first place). Note that domain focus is  simply a consequence of the limited expressiveness of the DSL \citeparen{fowler_parsons_2011}.
+
+DSLs can generally be placed into three categories: external DSLs, internal DSLs, and language workbenches. An $external$ $DSL$ is a PL that is separated  from the primary PL of its application. It normally uses a custom syntax, but sometimes borrows the syntax of an existing PL (an example of this is XML). The code for an external DSL is conventionally parsed by code of the host application using text parsing methods. Besides XML, common external DSLs include regular expressions, SQL, and Awk  \citeparen{fowler_parsons_2011}.
+
+
+An $internal$ $DSL$ is embedded in an already existing GPL, making use  of its  syntax and semantics. A program written in an internal DSL is already valid code in the host GPL, but only makes use of a small subset of the GPL's powerful expressive features in order to handle a specific aspect of the domain. Thus, a ``custom feel" is achieved using the GPL. Lisp is the hallmark GPL for creating internal DSLs, but Ruby is also common. Rails, one of Ruby's best-known frameworks, is frequently considered to be a collection of internal DSLs   \citeparen{fowler_parsons_2011}.
+
+Finally, a $ language$ $workbench$ is a customized IDE for building and defining DSLs \citeparen{fowler_parsons_2011}. In this paper, language workbenches are not discussed; the emphasis is purely on external and internal DSLs.
+
+DSLs for music have not been studied as extensively as other application domains, but are a fascinating area of inquiry that explores the expressive power of languages and pushes the boundaries of computational creativity. The era of music DSLs began in 2008  with Ge Wang's invention of the ChucK audio processing language. ChucK is actually a GPL, though one broadly tailored towards music. With ChucK, Wang developed a language that is "expressive and easy to write and read with respect to time and parallelism," thus providing users with a "platform for precise audio synthesis/analysis and rapid experimentation in computer music." \citeparen{wang_2008}
+
+ Music itself has a highly structured framework, and a musical score itself can be thought of as having many of the formal features of a PL. With the increased flexibility afforded to  a DSL via its limited expressiveness, it can be much  more effectively tailored to the application (i.e. music) than an GPL could be. Depending on the goals of the programmer, a DSL can be used to target a particular aspect of music, whether that be notation, algorithmic composition, signal processing, or live coding with music performance.  For instance, as will be discussed in \Cref{chap:background}, \Cref{subsec:comp_counterpt_marks},  Computational Counterpoint Marks is a music DSL designed by Juan Carlos Martinez to enhance Western music notation. The ``counterpoints marks" of Martinez's DSL are seen below the  ``source code" of the music itself -- here, Steve Reich's  \textit{Piano Phase} -- in the following example:
+
+\begin{figure}[h!]
+
+\centering
+  \includegraphics[width=0.5\textwidth]{piano_phase}
+\caption{Computational Counterpoint Marks and Steve Reich's \textit{Piano Phase}}
+\label{piano_phase}
+\end{figure}
+\newpage
+
+Figure \ref{piano_phase} demonstrates how Computational Counterpoint Marks help to reinterpret  Western music notation  computationally, thus creating an augmented version of the performance by delineating a complicated computer-music interaction that is  comprehensible by both human  and  machine \citeparen{martinez_2021}. This task is  something that a GPL would be hard-pressed to achieve  in an elegant, efficient way. The limited expressiveness of Computational Counterpoint Marks thus allows it to be highly specialized. 
+
+A multitude of programming paradigms have been used for music DSLs, including declarative programming, functional programming, object-oriented programming, synchronous programming, and subcategories of synchronous programming called strong-timed programming and mostly-strongly-timed programming. The choice of programming paradigm for a music DSL depends on the specific musical subdomain the language targets. For instance, a DSL intended to handle musical signal processing or live coding (i.e. applications that have to do with the time dimension of music) would benefit from using one of the synchronous programming paradigms. 
+
+Notably, though, the choice to make a DSL external or internal is not related to the choice of programming paradigm. In general, according to Cuadrado, Izquierdo, and Molina, internal DSLs are preferred over external DSLs when there  is  no significant tradeoff in performance, the runtime infrastructure of the parent language is easily reused, and the target audience is comfortable using  the parent language. Otherwise, an external DSL would most likely be a better choice. These same considerations apply when designing a DSL for music.
+\citeparen{cuadrado_izquierdo_molina_2012}.
+
+
+\chapter{Background}
+\label{chap:background}
+
+This chapter serves as a review of the existing literature on the better-known DSLs for music. The chapter is organized as follows. \Cref{sec:prog_paradigms} examines the programming paradigms commonly utilized in  DSLs for music. \Cref{sec:external} is a review of some common external DSLs for music, and \Cref{sec:internal} looks at examples of existing internal  DSLs for music. Finally, Sections \ref{sec:alg_comp} and \Cref{sec:hci} consider applications of  music DSLs in the fields of algorithmic composition and human-computer  interaction (HCI), respectively.
+
+\section{Programming Paradigms Used  in Music  DSLs}
+\label{sec:prog_paradigms}
+
+\subsection{Declarative Programming}
+In contrast to the more commonly encountered paradigm of imperative programming, declarative programming is a programming model that eliminates control flow in favor of simply stating, or declaring, what the desired action or result is. Declarative programming is commonly used by DSLs in database management, and relies on pre-existing language features to execute the desired action without relying on control flow structures such as conditional logic and loops. In other words, declarative programming emphasizes $what$ the final result is, while imperative programming focuses on $how$ to get there. As an analogy, if someone hails a taxi, they $declare$ to the driver where they wish to go -- they do not give him turn-by-turn (i.e. imperative) directions. \citeparen{bertram_2021}
+
+Musical markup languages such as Michael Good's MusicXML and LilyPond fall under this category. 
+
+\subsection{Functional Programming}
+\textit{Functional programming} is a programming paradigm centered around  building functions for immutable values. It emphasizes $pure$ $functions$, or functions that never alter variables  but instead produce new  ones as output. Pure functions  can also be thought of as functions without $side$ $effects$, or when the function neither relies on nor modifies anything outside of its parameters. The GPL Haskell is perhaps the most famous example of a functional PL \citeparen{joury_2020}.
+
+Du Bois and Ribeiro describe HMusic, a DSL for music programming and live coding that is embedded in Haskell (thus giving HMusic the power  of functional programming). HMusic provides abstractions for patterns and tracks, defined inductively. The inspiration behind HMusic was to let artists express  themselves through software. The abstractions for patterns and  tracks in HMusic greatly resemble grids from sequencers, drum  machines, and digital audio workstations \citeparen{bois_ribeiro_1970}.
+
+\subsection{Object-Oriented Programming}
+Rather  than functions, object-oriented programming (or OOP) is centered around the objects that the developers want to create and  use. The  building blocks  of OOP  are  classes (blueprints for  objects),  objects (instances  of classes with custom-defined data),  methods that describe an object's behavior,  and  attributes that reflect the state of the  object. OOP's main  principles are encapsulation  (i.e. data-hiding -- all important information  is  hidden within  an  object with  only the  most  important data  exposed),  abstraction  (objects only  expose internal mechanisms  that are  useful and  generalizable for other  objects), inheritance (in which classes reuse  code  from other classes),  and polymorphism (in which objects  can  share behaviors and assume many forms) \citeparen{gillis_lewis_2021}.
+
+Nishino et al describe LC, an  external DSL with dynamic and strong typing for computer music. LC is  an object-oriented PL and is $prototyped-based$ (as opposed  to  class-based) \citeparen{nishino_osaka_nakatsu_2013}. In a prototype-based language, ``each object defines its own behavior and has a shape of its own." This is in contrast to class-based languages like Java, where ``each object is an instance of a specific class." In particular, prototype-based languages allow for $slots$ (i.e. fields/methods)  to be  added  to an  object  dynamically, after it  has been  created. Prototype-based languages therefore open up large amounts of flexibility and tolerance  in relation to the dynamic modification of the system at runtime. LC adopts prototype-based programming at the levels of compositional algorithms  and sound synthesis (specifically, the user can build and modify a unit-generator graph dynamically) \citeparen{nishino_osaka_nakatsu_2014}.
+
+\subsection{Synchronous Programming}
+Synchronous  programming is a programming paradigm in which operations take  place  sequentially, or linearly, as opposed to asychnronous programming,  where operations  occur in parallel. This means that in synchronous programming, long-running operations can be ``blocking" -- i.e. the program cannot proceed to the next operation until the current operation has completed and returned some outcome \citeparen{deepsource}. Synchronous PLs are often aimed towards programming reactive systems \citeparen{petit_serrano_2020}.
+
+Petit and Serrano describe Skini, a programing methalodogy and execution environment  they created  for ``interactive structured music," where the composer would  program their scores in the HipHop.js synchronous reactive  language. The scores are then executed (i.e.  played) live, and  involve audience interaction. The purpose of Skini is to help composers create  a balance  between the  precise determinism of written composition and the nondeterminism of social interaction. Skini uses synchronous DSLs rather than GPLs as the ``temporal constructs" of synchronous PLs (parallelism, sequence, synchronization, and preemption) can directly represent musical scores, and their relative flexibility allows  composers to easily try  out different ideas \citeparen{petit_serrano_2020}.
+
+\subsection{Strongly-Timed Programming}
+Strongly-timed programming is a type of synchronous programming first introduced by Ge Wang in 2008 in his development of the ChucK audio programming language. He defines it as ``well-defined separation of synchronous logical time from real-time" which helps the user to debug, specify, and reason about programs  written in the language. Thus, one can create  programs without having to consider external  factors like ``machine speed, portability and timing behavior across different systems." The powerful deterministic  concurrency offered by this  model allows for extremely tightly woven control and audio computation, thus giving rise to a DSL that allows the programming to transition seamlessly from digital signal processing, at the sample level, to more ``gestural levels of control." \citeparen{wang_2008}.
+
+Nishimo et al. build upon Wang's work in strongly-timed programming. They further refine the definition of strongly-timed programming to be a variation of synchronous programming  integrating explicit control of logical synchronous time into an imperative PL in order to achieve precise timing behavior that is predicated on the ``ideal synchronous hypothesis," in which  that ``all computation and communications are assumed to take zero time (that is, all temporal scopes are executed instantaneously)." Nishimo  et al.'s DSL LCSynth, the parent language of  their object-oriented DSL LC, uses strongly-timed programming address the issue of imprecise  timing behavior in microsound synthesis \citeparen{nishino_2012}.
+
+Nishino et al. go on to introduce yet another paradigm called  \textit{mostly-strongly-timed programming} that is an extension of strongly-time programming. In mostly-strongly-timed programming, in addition to the principles of strongly-timed-programming, there is also support for  explicit  context  switching  between synchronous (i.e. non-preemptive) behavior and asynchronous (i.e. preemptive) behavior whose execution can be suspended at any arbitrary  time. Nishino et al.'s object-oriented DSL LC makes use of mostly-strongly-timed programming \citeparen{nishino_2012}.
+
+\section{Survey of External DSLs for Music}
+\label{sec:external}
+
+\subsection{LilyPond}
+
+\subsection{PyTabs}
+Simic et al. present  PyTabs, a  DSL  they designed and  created  for  simplified musical notation. PyTabs allows the user  to describe a composition comprising many  sequences that  can  be  provided in tablature or chord notation. PyTabs also provides functionality for playing a piece written in it. The authors propose a solution via PyTabs to problems in  simplified  music notation (specifically,  the  visual problem of  tablature  notation, and the lack of  standardization of how  to specify note duration in tablature notation) by  standardizing these issues into a formal language. They used Python to  implement  PyTabs, but PyTabs is not  embedded  in  Python;  it is an external  DSL \citeparen{simic_bal_dejanovic_vaderna}.
+
+In PyTabs, the  logic for parsing tablature  notation is extracted into a  generic parser, and then per-instrument parsing is defined  later in the concrete implementation. Chord construction consists  of one of the 12 semitones, a number representing  octave, and a decoration (i.e. major, minor) that indicates the quality of the  chord.  In the future, the authors plan to add support for more instruments, as  well as the ability to generated standard musical notation from PyTabs,  and  vice versa \citeparen{simic_bal_dejanovic_vaderna}.
+
+\subsection{LCSynth}
+Recall from Section 2.4 the DSL LSynth, created by Nishimo et al, that was inspired by Wang's strongly-timed DSL ChucK. 
+In  the background information to LSynth, Nishimo discusses the unit-generator concept, a  software module from 1960  that uses ``conceptually similar functions to standard electronic equipment used for electronic sound synthesis." He also talks about microsound  synthesis techniques, which differs from the traditional unit-generator concept in that it does not  originate in electronic sound synthesis where  the signal is a function  of time. Instead, microsound synthesis involves many short sound particles (microsounds) that overlap to create the total sound. The  current issue with microsound synthesis is that most  computer music PLs are not  capable of handling the precise  timing behavior required  (for  instance,  most general purpose PLs  cannot do this) \citeparen{nishino_2012}.
+
+Nishimo et al. came up with a novel  abstraction of the sound synthesis framework, as well  as a new programming concept for computer music. Nishimo et al. also consider the difficulty of microsound synthesis to be an issue in the abstraction  of the underlying  sound synthesis software framework in the PL's design, i.e. an incompatibility between the abstractions and the user's understanding of the domain, which they call   the ``usability problem." \citeparen{nishino_2012}.
+
+LCSynth integrates \textit{counterpart entities} to  the  user's perception of microsound synthesis techniques.  This helps remove the  \textit{structural misfits} between the representations  implemented in the design of currently used  music DSLs and the user's individual understanding of microsound synthesis techniques. However, LCSynth  is  not  a stand-alone  PL  and works  solely in the sound-synthesis domain. This is where Nishimo et al.'s DSL LC comes in. It fully integrates LCSynth into its design.   
+ \citeparen{nishino_2012}.
+
+\subsection{LC}
+Nishino et al describe LC, a strongly-timed prototype-based language of dynamic and strong typing that was originally intended to be  a  control language for LCSynth. LC supports lexical closure, lightweight concurrency (i.e. lexically scoped name binding in a PL with first-class functions),  and live computer  music. These  features enhance dynamism in the language, such as through live coding  and  rapid prototyping,  in order to assist the  artistic endeavors of the user. Live coding is ``a computational arts practice that involves the real-time creation of generative audio-visual software for interactive multimedia performance." Interpreted scripting languages are preferable for live coding, but  DSLs specific to music are often even  better \citeparen{nishino_osaka_nakatsu_2013}.
+
+Nishino et al. discusses the static-typing vs dynamic-typing issue for such DSLs. Dynamic typing is preferred as it is ``ideally suited for prototyping systems with changing or unknown requirements” and ``indispensable for dealing with truly dynamic program behaviors." Nishimo et al. also chose to make LC strongly,  rather than  weakly, typed, in order to avoid random  bugs arising from  implicit type casting. Recall  from Section 2.2 that LC is also an object-oriented PL and is $prototyped-based$ (as opposed  to  class-based). LC  is also $duck-typed$ -- i.e. it features a framework for  ``truer polymorphic designs based on what an object can support rather than that object’s inheritance hierarchy”). Furthermore,  LC supports lightweight concurrency, which enables features  such as  quick creation/destruction of threads and less memory usage \citeparen{nishino_osaka_nakatsu_2013}.
+
+LC performs sound synthesis and program execution in logical synchronous time as strongly-typed programs in a single virtual machine. This allows for precise timing behavior. In  addition, LC allows for a great amount  of flexibility for  runtime modification, which makes it suited for applications  like live-coding performances on laptops \citeparen{nishino_osaka_nakatsu_2013}.
+
+Through LC, Nishino et al. also successfully address three current issues in music DSL design: (a) lack of support for  dynamic modification of a computer music program, (b) lack of  support  for  precise  timing behavior and other time-related features, and (c) the difficulty in microsound synthesis  programming. These  issues  will correspond to the three core features of  LC: (1) prototype based programming, both for algorithmic composition and for sound synthesis, (2) the use of the ``mostly-strongly-timed programming" concept, and  (3)  the integration of objects and  functions that represent microsounds  with the corresponding operations for microsound synthesis. The  first two of these features were discussed in Sections 2.2 and 2.4. The third feature utilizes algorithmic scheduling of microsound objects for  its microsound synthesis framework. Every sample within a  microsound  object can  be  accessed  directly, and utility methods are provided in order to manipulate   multiple samples simultaneously. Unlike  previous work with microsound synthesis, LC's microsound synthesis does not depend on the unit-generator concept, and  it  also provides a generalized programming paradigm for real-time interactive computer music DSLs \citeparen{nishino_osaka_nakatsu_2014}.
+
+
+\subsection{mimium}
+
+Matsuura and  Jo  describe a  novel full-stack DSL called  $mimium$ (an acronym for $\textbf{mi}nimal-\textbf{m}usical-med\textbf{ium}$) that  combines temporal-discrete control  and signal processing in a  single  PL. It  can describe everything from low-level signal processing, all the way to discrete  event processing  in unified semantics. $mimium$ is  user-friendly;  it has  intuitive  imperative  syntax and supports stateful functions as  Unit  Generators just  as one  would  normally define  and apply functions. The  LLVM compiler infrastructure is used so that the runtime performance equals  that of lower-level languages. $mimium$ adds the least possible  number of features related  to sound, and  it also implements a general purpose  functional PL. Thus, compiler implementation is simplified, and language self-extensibility is increased \citeparen{matsuura_jo_2021}.
+
+Though $mimium$ is an external DSL, its syntax  is modeled  after that of  Rust  due  to  the shorter reserved words (suitable for fields) that can perform fast prototyping  like  music. The  basic syntax  includes function definitions and calls as well as  conditionals (if-else statements). $mimium$ also uses the functional model. For instance, a single  $if$ statement can be  used as an expression that can  directly  return  a value \citeparen{matsuura_jo_2021}.
+
+The architecture of  $mimium$'s  compiler resembles that of a general purpose  functional language. It is based  on the $mincaml$ compiler and  is  implemented  in C++. Recall  that the  compiler uses the LLVM infrastructure. In $mimium$, the only compiled functions of the LLVM intermediate representation that depend on  the runtime system are one for task registration, and one for getting the internal time. Essentially all other code is compiled  on memory and subsequently  executed.Thus,  $mimium$ can achieve similar execution speed to low-level  languages  like C \citeparen{matsuura_jo_2021}.
+
+Two essential features of $mimium$  allow the description of continuous  signal processing as well as discrete control processing in unified semantics. The first is the syntax for deterministic task scheduling  at the sample level, as well as  the implementation of the schedule. For instance, $mimium$'s  @ operator  can specify the time at which to execute a  function. In mimium, @ is combined with the \textit{temporal recursion design pattern} that describes repetitive event processing as a function that calls itself recursively with a time delay. @ is used to increase readability in the implementation of temporal recursion.  The second feature is a  description of the semantics that are utilized to define the Unit Generator for signal processing.  This is achieved  by hiding state  variables   and   combining only feedback connections  and limited built-in functions  with states \citeparen{matsuura_jo_2021}.
+
+\section{Survey of Internal DSLs for Music}
+\label{sec:internal}
+
+\subsection{MusicXML}
+MusicXML 
+
+\subsection{HMusic}
+Recall the DSL HMusic, embedded in the functional PL Haskell, that was first introduced in Section 2.1. On a  more  technical level, HMusic is an algebra (i.e. a set and its associated functions) for creating music  patterns. The set of  all possible patterns is defined  inductively as an ADT (algebraic data  type) in Haskell. The user can write recursive  Haskell functions to operate on patterns, as patterns  themselves are a recursive datatype in HMusic. HMusic also defines the ADT Track, which associates an instrument to a pattern. Tracks can be  the parallel composition of two existing  tracks, and HMusic has support for multi-tracks consisting of tracks of varying size composed in sequence. Finally, HMusic defines a set of primitives for playing  tracks and live coding. Users can play songs  written in HMusic, loop tracks, and  modify tracks while they are being  played. Live coding is implemented through a simple  UI  based  on the concepts of looping and  function application \citeparen{bois_ribeiro_1970}.
+
+\subsection{T-calculus}
+The T-calculus is a more mathematical  approach to an external music DSL design presented by Janin in 2016. He describes  a  new  algebraic model for music  writing and  programming based on separating  the contents of music objects (i.e.  what  music  they define)  and the usage of music  objects  (i.e.  how  they could be  combined). He approaches this from a mathematical perspective. Specifically, he  models music objects with a ``tiled music graph" that can be combined using the  ``tiled  sum"  operator, which is both sequential and parallel. The  resulting algebraic structure is  an $inverse$ $monoid$  (a monoid is  a set with an associative binary operation and  an identity element, and an inverse monoid is a monoid where each element  in the set has a unique multiplicative inverse). To  implement this, Janin developed a high  level DSL called T-calculus embedded  in Haskell. T-calculus  is  reactive, hierarchical, and modal.\citeparen{janin}.
+
+Janin  discusses how  every music  program can itself be  viewed  as a music score detailing the music to be  played. From the perspective  of music representation formalisms, music PLs must also be abstract enough to account for the composer's  creativity. Janin feels that classical western music notation can itself be seen as a music PL, but with the limitation  that  it only encodes music but cannot create it. In order to  handle all such necessary elements of music representation as  well as  software engineering requirements, a unified  theory of musical objects  with algebraic properties must be described. A  $music$ $algebra$  defines  (1) the basic music  objects  to be  used and (2) the combinators that allow the  creation of complex music  objects  via simple ones. Janin's goal is to  define a  music algebra from which he will derive a PL and a representation formalism. He does so by using $timed$  $graphs$  (directed acyclic graphs with labeled edges) that can then be combined via $tiled$ $composition$. The vertices of timed  graphs represent synchronization points, and the edge labels represent the duration of to-be-determined music objects  or rests. Tiled  composition  involves the combining of two musical objects via the $synchronization$  $step$ (gluing the input  root of the first  object to the input root of the  second) and the $fusion$ $step$ (removing potential ambiguity from the synchronization step). The resulting music algebra is created by adding additional edge attributes to the tiled timed graphs,  which  preserves the inverse monoid structure.
+\citeparen{janin}.
+
+\section{Applications in Algorithmic Composition}
+\label{sec:alg_comp}
+\subsection{Skini}
+Recall the DSL Skini from Section 2.3. Skini is in fact a synchronous internal DSL embedded in the GPL JavaScript that has intriguing applications in algorithmic composition. Music  created in the Skini production environment is based on three principles: audience  interaction determines what gets played next, the music constitutes sequences of patterns made up of elementary musical elements, and the  music (though interactive) must still follow  a  rigid structure defined by the composer beforehand, which prioritizes artistic consistency  over varied interactive performances. Skini may  seem like jazz, but  unlike jazz, the improvisation comes  from the  audience,  rather than the composer \citeparen{petit_serrano_2020}.
+
+A Skini composition is an example of  ``synthesis by concatenation" of patterns. (The music is then produced by playing patterns  according to audience  selections). The composer will organize the patterns into $repetitive$ $groups$ and $tanks$  (groups  without repetition). The program implementing the score will simulate a  large  state machine. States correspond  to group  activation (i.e. the ability for the audience to choose a group)  and de-activation, and transitions will  model the audience interaction and passing time. For the program, the authors use HipHop.js, a synchronous reactive language that is a multi-tier extension of  JavaScript, in order to simplify the programming of the complex  temporal behaviors  inherent to musical scores. HipHop.js executes  steps known as  $reactions$ or $instants$. Steps execute statements in  sequence or  in parallel; statements  communicate using $broadcast$ $signals$,  each of which has a unique  $present/absent$ $status$ \citeparen{petit_serrano_2020}.
+
+Finally, the Skini  execution  environment of the  HipHop.js program has two  essential  data structures: the ``matrix of  available groups of patterns" (which is controlled by the execution of the  HipHop.js score, and identifies  at every moment which groups and  tanks  are activated) and  ``pattern  queues" (which are provided by the audience and subsequently used by the synthesizers). Skini has been used in real-life  live  performances,  in  both jazz and classical settings.\citeparen{petit_serrano_2020}.
+
+\subsection{Advantages of using DSLs over Virtual Machines (VMs) for Music}
+It is reasonable to consider that perhaps other avenues of computation, such as Virtual Machines (VMs), would be more effective to work with music than a DSL. However, Sulyok et al. demonstrate otherwise. They look into the effect  of embedding  various  levels of musical data in VM architectures, as well as ``phenotype  representations"  of an algorithmic music composition system.  The  authors consider two distinct sets of instructions  for  a  linear genetic  programming  framework: the  first  is Turing-complete register machine with no knowledge of the nature of its  output,  and the other is a  DSL tailored to music composition, designed  around awareness  of its  output. DSL instructions include transfer,   branching, and conditional  instructions \citeparen{sulyok_harte_bodo_2019}.
+
+The ``phenotype" is the  output of the  VM. It comprises a sequence of  notes,  where a note  is defined by duration and pitch. (Linear genetic programming is a kind of genetic programming in  with the programs in the population get represented  as a linear sequence of instructions from a PL). The fitness metric for the  genetic programming framework was derived  by  the extraction of  musical elements from a corpus of Hungarian folk songs. These same  elements  were extracted from  the  phenotype and  assessed for maximum similarity  to the  corpus \citeparen{sulyok_harte_bodo_2019}.
+
+In total, the authors considered six configurations, by using two VM  architectures (the  is a general-purpose von  Neumann  machine,  or the GP machine,  and the other is  the DSL machine), and  three  different pitch schemes. The authors  found that  the DSL  machine outperformed  the GP machine even from  early generations. Therefore, the instruction set  tailed towards  music increases the  chance  that even a truly random genetic string  would  lead  to a desirable output \citeparen{sulyok_harte_bodo_2019}.
+
+\section{Applications in HCI} 
+\label{sec:hci}
+
+\subsection{Computational  Counterpoint Marks}  
+\label{subsec:comp_counterpt_marks}
+Martinez presents a novel approach  for extending the traditional staff domain (i.e. the domain of Western classical  music notation, also  known  as Common Western Music Notation (CWMN)) to  the PL domain. The syntax  of his external DSL is intended to  model the interaction between people and computers in a live electronics music performance. Therefore, both humans and computers  will be able to understand the notation.  This  allows for a unified music representation for live performance that is  human-readable and does not  depend  on technology \citeparen{martinez_2021}.
+
+Martinez extends CWMN to  the  interactive  domain through the creation of abstract-verbal statements called  called  \textit{Computational  Counterpoint Marks} on the score  phonetic-dimension. Computational  Counterpoint Marks are human-readable annotations acting  as expression-marks added  to a  score.  They accurately describe the logic of an interaction between the performer and the  computer. This  enhances the accompanied  graphic  signs,  leading  to a  unified and human-readable representation of an interactive  piece's  performance logic. Furthermore, novel score annotations can also be  understood by a computer via  the  digital  score. This means that the musical score itself actually becomes the source  code of a piece's  performance logic, which allows the  computer to perform live  during a concert. Finally, Martinez considers  the time domain. Specifically, he proposes symbolic rather  than absolute time representation that is  based on traditional score notation. Martinez's  model maps symbolic time  to  absolute time through an estimate based on updates during performance about the current  symbolic time \citeparen{martinez_2021}.
+ 
+\subsection{Research through Design}
+The development of Nishino et al.'s original external DSL LCSynth was approached through the HCI method `Research through Design' (RtD),   in which designers and researchers develop ``a product that transforms the world from its current state to a preferred state" and ``the artifacts produced in this type of research become design exemplars, providing an appropriate conduit for research findings to easily transfer to the HCI research and practice communities.” RtD places an emphasis on the contribution of knowledge to academia  rather than the design of a commercial product \citeparen{nishino_2012}.
+
+Nishimo et al. use RtD to develop a new DSL focusing on the problem of microsound  synthesis. He came up with a novel  abstraction of the sound synthesis framework, as well  as a new programming concept for computer music. Recall from Section 4.3 that Nishimo  et al. consider the potential incompatibility between the abstractions and the user's understanding of the domain that they call   the ``usability problem." They address this from  a formal perspective in their paper ``LCSynth: A Strongly-Timed Synthesis Language that Integrates Objects and Manipulations for Microsounds," which the reader may peruse for further  reading in this area. 
+ \citeparen{nishino_2012}.
+
+\section{Summary}
+DSLs are a fascinating and effective way to bridge the conceptual gap between computing and music. Since Wang introduced ChucK in 2008, external and internal DSLs utilizing programming paradigms including functional programming, object-oriented programming, synchronous programming, strongly-time programming, and mostly-strongly-timed programming have made advances in handling issues in microsound synthesis and signal processing, such as in the LCSynth, LC, and mimium languages. On a higher level, DSLs like PyTabs, Skini, and Computational Counterpoint Marks have addressed the areas of music notation representation and algorithmic composition, as well as intersect with the field of HCI. Finally, the novel concepts of live coding and laptop music are considered with the DSLs HMusic and even LC. 
+
+\chapter{MusAssist Features and Syntax}
+
+\chapter{The MusAssist Compiler}
+\section{Lexing}
+\section{Parsing}
+\section{Intermediate Representations}
+\section{Code Generation}
+
+\chapter{Sample Programs}
+
+\chapter{Future Work}
+
+\chapter{Conclusion}
+Clearly, DSLs are a powerful mechanism to push the boundaries of  computational creativity in the field of music. Unfortunately, DSLs for music have not been studied extensively  and  remain an extremely comparatively small area of research, though scholars such as  Wang continue to lead  research in institutions such as Stanford's CCRMA (Center for Computer Research in Music and Acoustics). By continuing to examine the creative expressive power of DSLs  in  music, we can continue to increase our understanding of the creative capabilities and extent of customization possible for  a programming language.
+\bibinput{referencesexercisebib} 
+\bibliography{referencesexercisebib}
+\bibliographystyle{abbrvnat}
+
+\end{document}

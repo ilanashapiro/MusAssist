@@ -1,0 +1,122 @@
+\begin{thebibliography}{17}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Bertram(2021)]{bertram_2021}
+A.~Bertram.
+\newblock What is declarative programming?, Oct 2021.
+\newblock URL
+  \url{https://www.techtarget.com/searchitoperations/definition/declarative-programming}.
+
+\bibitem[Bois and Ribeiro(2019)]{bois_ribeiro_1970}
+A.~R.~D. Bois and R.~Ribeiro.
+\newblock Hmusic: A domain specific language for music programming and live
+  coding: Semantic scholar, 2019.
+\newblock URL
+  \url{https://www.nime.org/proceedings/2019/nime2019_paper074.pdf}.
+
+\bibitem[Cuadrado et~al.(2012)Cuadrado, Izquierdo, and
+  Molina]{cuadrado_izquierdo_molina_2012}
+J.~S. Cuadrado, J.~L. Izquierdo, and J.~G. Molina.
+\newblock Comparison between internal and external dsls via rubytl and gra2mol.
+\newblock \emph{Computational Linguistics}, page 816–838, Nov 2012.
+\newblock \doi{10.4018/978-1-4666-6042-7.ch040}.
+
+\bibitem[DeepSource()]{deepsource}
+DeepSource.
+\newblock Synchronous programming.
+\newblock URL \url{https://deepsource.io/glossary/synchronous-programming/}.
+
+\bibitem[Fowler and Parsons(2011)]{fowler_parsons_2011}
+M.~Fowler and R.~Parsons.
+\newblock \emph{Domain-specific languages}.
+\newblock Addison-Wesley, 2011.
+
+\bibitem[Gillis and Lewis(2021)]{gillis_lewis_2021}
+A.~S. Gillis and S.~Lewis.
+\newblock What is object-oriented programming (oop)?, Jul 2021.
+\newblock URL
+  \url{https://searchapparchitecture.techtarget.com/definition/object-oriented-programming-OOP}.
+
+\bibitem[Janin(2016)]{janin}
+D.~Janin.
+\newblock A robust algebraic framework for high-level music writing, 2016.
+\newblock URL \url{https://hal.archives-ouvertes.fr/hal-01246584v2/document}.
+
+\bibitem[Joury(2020)]{joury_2020}
+A.~Joury.
+\newblock Why developers are falling in love with functional programming, Aug
+  2020.
+\newblock URL
+  \url{https://towardsdatascience.com/why-developers-are-falling-in-love-with-functional-programming-13514df4048e}.
+
+\bibitem[Martinez(2021)]{martinez_2021}
+J.~C. Martinez.
+\newblock Extending music notation as a programming language for interactive
+  music.
+\newblock \emph{ACM International Conference on Interactive Media Experiences},
+  Jun 2021.
+\newblock \doi{10.1145/3452918.3458807}.
+
+\bibitem[Matsuura and Jo(2021)]{matsuura_jo_2021}
+T.~Matsuura and K.~Jo.
+\newblock Mimium: A self-extensible programming language for sound and music.
+\newblock \emph{Proceedings of the 9th ACM SIGPLAN International Workshop on
+  Functional Art, Music, Modelling, and Design}, 2021.
+\newblock \doi{10.1145/3471872.3472969}.
+
+\bibitem[Nishino(2012)]{nishino_2012}
+H.~Nishino.
+\newblock Developing a new computer music programming language in the 'research
+  through design' context.
+\newblock \emph{Proceedings of the 3rd annual conference on Systems,
+  programming, and applications: software for humanity - SPLASH '12}, 2012.
+\newblock \doi{10.1145/2384716.2384736}.
+
+\bibitem[Nishino et~al.(2013)Nishino, Osaka, and
+  Nakatsu]{nishino_osaka_nakatsu_2013}
+H.~Nishino, N.~Osaka, and R.~Nakatsu.
+\newblock Lc : A strongly-timed prototype-based programming language for
+  computer music, 2013.
+\newblock URL \url{https://quod.lib.umich.edu/i/icmc/bbp2372.2013.017/1}.
+
+\bibitem[Nishino et~al.(2014)Nishino, Osaka, and
+  Nakatsu]{nishino_osaka_nakatsu_2014}
+H.~Nishino, N.~Osaka, and R.~Nakatsu.
+\newblock Lc: A new computer music programming language with three core
+  features, 2014.
+\newblock URL \url{https://quod.lib.umich.edu/i/icmc/bbp2372.2014.237/1}.
+
+\bibitem[Petit and Serrano(2020)]{petit_serrano_2020}
+B.~Petit and M.~Serrano.
+\newblock Interactive music and synchronous reactive programming.
+\newblock \emph{The Art, Science, and Engineering of Programming}, 5\penalty0
+  (1), 2020.
+\newblock \doi{10.22152/programming-journal.org/2021/5/2}.
+
+\bibitem[Simić et~al.(2015)Simić, Bal, Dejanovic, and
+  Vaderna]{simic_bal_dejanovic_vaderna}
+M.~Simić, Z.~Bal, I.~Dejanovic, and R.~Vaderna.
+\newblock Pytabs: A {DSL} for simplified music notation.
+\newblock \emph{ResearchGate}, 2015.
+\newblock URL
+  \url{https://www.researchgate.net/publication/312607043_PyTabs_A_DSL_for_simplified_music_notation}.
+
+\bibitem[Sulyok et~al.(2019)Sulyok, Harte, and Bodó]{sulyok_harte_bodo_2019}
+C.~Sulyok, C.~Harte, and Z.~Bodó.
+\newblock On the impact of domain-specific knowledge in evolutionary music
+  composition.
+\newblock \emph{Proceedings of the Genetic and Evolutionary Computation
+  Conference}, 2019.
+\newblock \doi{10.1145/3321707.3321710}.
+
+\bibitem[Wang(2008)]{wang_2008}
+G.~Wang.
+\newblock The chuck audio programming language: “a strongly-timed and
+  on-the-fly environ/mentality”, 2008.
+\newblock URL \url{https://www.cs.princeton.edu/~gewang/thesis.html}.
+
+\end{thebibliography}

@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2020)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: Shapiro Final Draft.aux
+The style file: abbrvnat.bst
+Database file #1: referencesexercisebib.bib
+Warning--empty year in deepsource
+You've used 17 entries,
+            2773 wiz_defined-function locations,
+            695 strings with 8058 characters,
+and the built_in function-call counts, 6355 in all, are:
+= -- 560
+> -- 334
+< -- 13
++ -- 116
+- -- 99
+* -- 429
+:= -- 983
+add.period$ -- 58
+call.type$ -- 17
+change.case$ -- 83
+chr.to.int$ -- 17
+cite$ -- 35
+duplicate$ -- 313
+empty$ -- 549
+format.name$ -- 126
+if$ -- 1345
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 9
+newline$ -- 100
+num.names$ -- 68
+pop$ -- 198
+preamble$ -- 1
+purify$ -- 67
+quote$ -- 0
+skip$ -- 278
+stack$ -- 0
+substring$ -- 52
+swap$ -- 41
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 182
+warning$ -- 1
+while$ -- 52
+width$ -- 0
+write$ -- 226
+(There was 1 warning)
