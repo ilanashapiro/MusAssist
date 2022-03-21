@@ -32,34 +32,24 @@ Domain specific languages, or DSLs, are programming languages tailored towards a
 
 DSLs can generally be placed into three categories: external DSLs, internal DSLs, and language workbenches. An $external$ $DSL$ is a PL that is separated  from the primary PL of its application. It normally uses a custom syntax, but sometimes borrows the syntax of an existing PL (an example of this is XML). The code for an external DSL is conventionally parsed by code of the host application using text parsing methods. Besides XML, common external DSLs include regular expressions, SQL, and Awk  \citeparen{fowler_parsons_2011}.
 
-
 An $internal$ $DSL$ is embedded in an already existing GPL, making use  of its  syntax and semantics. A program written in an internal DSL is already valid code in the host GPL, but only makes use of a small subset of the GPL's powerful expressive features in order to handle a specific aspect of the domain. Thus, a ``custom feel" is achieved using the GPL. Lisp is the hallmark GPL for creating internal DSLs, but Ruby is also common. Rails, one of Ruby's best-known frameworks, is frequently considered to be a collection of internal DSLs   \citeparen{fowler_parsons_2011}.
 
-Finally, a $ language$ $workbench$ is a customized IDE for building and defining DSLs \citeparen{fowler_parsons_2011}. In this paper, language workbenches are not discussed; the emphasis is purely on external and internal DSLs.
+Finally, a $ language$ $workbench$ is a customized IDE for building and defining DSLs \citeparen{fowler_parsons_2011}. 
 
-DSLs for music have not been studied as extensively as other application domains, but are a fascinating area of inquiry that explores the expressive power of languages and pushes the boundaries of computational creativity. The era of music DSLs began in 2008  with Ge Wang's invention of the ChucK audio processing language. ChucK is actually a GPL, though one broadly tailored towards music. With ChucK, Wang developed a language that is "expressive and easy to write and read with respect to time and parallelism," thus providing users with a "platform for precise audio synthesis/analysis and rapid experimentation in computer music." \citeparen{wang_2008}
+Music itself has a highly structured framework, and a musical score itself can be thought of as having many of the formal features of a PL. With the increased flexibility afforded to  a DSL via its limited expressiveness, it can be much  more effectively tailored to the application (i.e. music) than an GPL could be. Depending on the goals of the programmer, a DSL can be used to target a particular aspect of music, whether that be notation, algorithmic composition, signal processing, or live coding with music performance. 
 
- Music itself has a highly structured framework, and a musical score itself can be thought of as having many of the formal features of a PL. With the increased flexibility afforded to  a DSL via its limited expressiveness, it can be much  more effectively tailored to the application (i.e. music) than an GPL could be. Depending on the goals of the programmer, a DSL can be used to target a particular aspect of music, whether that be notation, algorithmic composition, signal processing, or live coding with music performance.  For instance, as will be discussed in \Cref{chap:background}, \Cref{subsec:comp_counterpt_marks},  Computational Counterpoint Marks is a music DSL designed by Juan Carlos Martinez to enhance Western music notation. The ``counterpoints marks" of Martinez's DSL are seen below the  ``source code" of the music itself -- here, Steve Reich's  \textit{Piano Phase} -- in the following example:
+MusAssist is an external DSL devised for music notation. It attempts to organically model a composer's flow of thought by structuring
 
-\begin{figure}[h!]
+\chapter{Background}
+\label{chap:background}
 
-\centering
-  \includegraphics[width=0.5\textwidth]{piano_phase}
-\caption{Computational Counterpoint Marks and Steve Reich's \textit{Piano Phase}}
-\label{piano_phase}
-\end{figure}
-\newpage
-
-Figure \ref{piano_phase} demonstrates how Computational Counterpoint Marks help to reinterpret  Western music notation  computationally, thus creating an augmented version of the performance by delineating a complicated computer-music interaction that is  comprehensible by both human  and  machine \citeparen{martinez_2021}. This task is  something that a GPL would be hard-pressed to achieve  in an elegant, efficient way. The limited expressiveness of Computational Counterpoint Marks thus allows it to be highly specialized. 
+DSLs for music have not been studied as extensively as other application domains, but are a fascinating area of inquiry that explores the expressive power of languages and pushes the boundaries of computational creativity. The era of music DSLs began in 2008  with Ge Wang's invention of the ChucK audio processing language. ChucK is actually a GPL broadly tailored towards music, as it spans the application domains of ``methods for sound synthesis, physical modeling of real-time world artifacts and spaces (e.g.,
+musical instruments, environmental sounds), analysis and information retrieval of sound and music, to mapping and crafting of new controllers and interfaces (both software and physical) for music, algorithmic/generative processes for automated or semi-automatic composition and accompaniment, [and] real-time music performance." With ChucK, Wang developed a language that is ``expressive and easy to write and read with respect to time and parallelism," thus providing users with a ``platform for precise audio synthesis/analysis and rapid experimentation in computer music." \citeparen{wang_2008}. 
 
 A multitude of programming paradigms have been used for music DSLs, including declarative programming, functional programming, object-oriented programming, synchronous programming, and subcategories of synchronous programming called strong-timed programming and mostly-strongly-timed programming. The choice of programming paradigm for a music DSL depends on the specific musical subdomain the language targets. For instance, a DSL intended to handle musical signal processing or live coding (i.e. applications that have to do with the time dimension of music) would benefit from using one of the synchronous programming paradigms. 
 
 Notably, though, the choice to make a DSL external or internal is not related to the choice of programming paradigm. In general, according to Cuadrado, Izquierdo, and Molina, internal DSLs are preferred over external DSLs when there  is  no significant tradeoff in performance, the runtime infrastructure of the parent language is easily reused, and the target audience is comfortable using  the parent language. Otherwise, an external DSL would most likely be a better choice. These same considerations apply when designing a DSL for music.
 \citeparen{cuadrado_izquierdo_molina_2012}.
-
-
-\chapter{Background}
-\label{chap:background}
 
 This chapter serves as a review of the existing literature on the better-known DSLs for music. The chapter is organized as follows. \Cref{sec:prog_paradigms} examines the programming paradigms commonly utilized in  DSLs for music. \Cref{sec:external} is a review of some common external DSLs for music, and \Cref{sec:internal} looks at examples of existing internal  DSLs for music. Finally, Sections \ref{sec:alg_comp} and \Cref{sec:hci} consider applications of  music DSLs in the fields of algorithmic composition and human-computer  interaction (HCI), respectively.
 
@@ -104,7 +94,7 @@ Simic et al. present  PyTabs, a  DSL  they designed and  created  for  simplifie
 In PyTabs, the  logic for parsing tablature  notation is extracted into a  generic parser, and then per-instrument parsing is defined  later in the concrete implementation. Chord construction consists  of one of the 12 semitones, a number representing  octave, and a decoration (i.e. major, minor) that indicates the quality of the  chord.  In the future, the authors plan to add support for more instruments, as  well as the ability to generated standard musical notation from PyTabs,  and  vice versa \citeparen{simic_bal_dejanovic_vaderna}.
 
 \subsection{LCSynth}
-Recall from Section 2.4 the DSL LSynth, created by Nishimo et al, that was inspired by Wang's strongly-timed DSL ChucK. 
+Recall from Section 2.4 the DSL LSynth, created by Nishimo et al, that was inspired by Wang's strongly-timed GPL ChucK. 
 In  the background information to LSynth, Nishimo discusses the unit-generator concept, a  software module from 1960  that uses ``conceptually similar functions to standard electronic equipment used for electronic sound synthesis." He also talks about microsound  synthesis techniques, which differs from the traditional unit-generator concept in that it does not  originate in electronic sound synthesis where  the signal is a function  of time. Instead, microsound synthesis involves many short sound particles (microsounds) that overlap to create the total sound. The  current issue with microsound synthesis is that most  computer music PLs are not  capable of handling the precise  timing behavior required  (for  instance,  most general purpose PLs  cannot do this) \citeparen{nishino_2012}.
 
 Nishimo et al. came up with a novel  abstraction of the sound synthesis framework, as well  as a new programming concept for computer music. Nishimo et al. also consider the difficulty of microsound synthesis to be an issue in the abstraction  of the underlying  sound synthesis software framework in the PL's design, i.e. an incompatibility between the abstractions and the user's understanding of the domain, which they call   the ``usability problem." \citeparen{nishino_2012}.

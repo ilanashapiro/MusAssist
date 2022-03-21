@@ -1,34 +1,34 @@
 \contentsline {chapter}{\numberline {1}Introduction}{2}{chapter.1}%
-\contentsline {chapter}{\numberline {2}Background}{5}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Programming Paradigms Used in Music DSLs}{5}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Declarative Programming}{5}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Functional Programming}{5}{subsection.2.1.2}%
-\contentsline {subsection}{\numberline {2.1.3}Object-Oriented Programming}{6}{subsection.2.1.3}%
-\contentsline {subsection}{\numberline {2.1.4}Synchronous Programming}{6}{subsection.2.1.4}%
-\contentsline {subsection}{\numberline {2.1.5}Strongly-Timed Programming}{6}{subsection.2.1.5}%
-\contentsline {section}{\numberline {2.2}Survey of External DSLs for Music}{7}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}LilyPond}{7}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}PyTabs}{7}{subsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.2.3}LCSynth}{8}{subsection.2.2.3}%
-\contentsline {subsection}{\numberline {2.2.4}LC}{8}{subsection.2.2.4}%
-\contentsline {subsection}{\numberline {2.2.5}mimium}{9}{subsection.2.2.5}%
-\contentsline {section}{\numberline {2.3}Survey of Internal DSLs for Music}{10}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}MusicXML}{10}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}HMusic}{10}{subsection.2.3.2}%
-\contentsline {subsection}{\numberline {2.3.3}T-calculus}{10}{subsection.2.3.3}%
-\contentsline {section}{\numberline {2.4}Applications in Algorithmic Composition}{11}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}Skini}{11}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}Advantages of using DSLs over Virtual Machines (VMs) for Music}{11}{subsection.2.4.2}%
-\contentsline {section}{\numberline {2.5}Applications in HCI}{12}{section.2.5}%
-\contentsline {subsection}{\numberline {2.5.1}Computational Counterpoint Marks}{12}{subsection.2.5.1}%
-\contentsline {subsection}{\numberline {2.5.2}Research through Design}{12}{subsection.2.5.2}%
-\contentsline {section}{\numberline {2.6}Summary}{13}{section.2.6}%
-\contentsline {chapter}{\numberline {3}MusAssist Features and Syntax}{14}{chapter.3}%
-\contentsline {chapter}{\numberline {4}The MusAssist Compiler}{15}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Lexing}{15}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Parsing}{15}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Intermediate Representations}{15}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Code Generation}{15}{section.4.4}%
-\contentsline {chapter}{\numberline {5}Sample Programs}{16}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Future Work}{17}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Conclusion}{18}{chapter.7}%
+\contentsline {chapter}{\numberline {2}Background}{3}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Programming Paradigms Used in Music DSLs}{4}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Declarative Programming}{4}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Functional Programming}{4}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Object-Oriented Programming}{4}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.1.4}Synchronous Programming}{5}{subsection.2.1.4}%
+\contentsline {subsection}{\numberline {2.1.5}Strongly-Timed Programming}{5}{subsection.2.1.5}%
+\contentsline {section}{\numberline {2.2}Survey of External DSLs for Music}{6}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}LilyPond}{6}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}PyTabs}{6}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}LCSynth}{6}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.2.4}LC}{7}{subsection.2.2.4}%
+\contentsline {subsection}{\numberline {2.2.5}mimium}{7}{subsection.2.2.5}%
+\contentsline {section}{\numberline {2.3}Survey of Internal DSLs for Music}{8}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}MusicXML}{8}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}HMusic}{8}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}T-calculus}{9}{subsection.2.3.3}%
+\contentsline {section}{\numberline {2.4}Applications in Algorithmic Composition}{9}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Skini}{9}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Advantages of using DSLs over Virtual Machines (VMs) for Music}{10}{subsection.2.4.2}%
+\contentsline {section}{\numberline {2.5}Applications in HCI}{10}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Computational Counterpoint Marks}{10}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Research through Design}{11}{subsection.2.5.2}%
+\contentsline {section}{\numberline {2.6}Summary}{11}{section.2.6}%
+\contentsline {chapter}{\numberline {3}MusAssist Features and Syntax}{12}{chapter.3}%
+\contentsline {chapter}{\numberline {4}The MusAssist Compiler}{13}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Lexing}{13}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Parsing}{13}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Intermediate Representations}{13}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Code Generation}{13}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Sample Programs}{14}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Future Work}{15}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Conclusion}{16}{chapter.7}%

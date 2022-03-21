@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  20 MAR 2022 23:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  21 MAR 2022 00:22
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -484,34 +484,28 @@ Chapter 1.
 [2
 
 ]
-<piano_phase.png, id=125, 852.18375pt x 512.91624pt>
-File: piano_phase.png Graphic file (type png)
-<use piano_phase.png>
-Package pdftex.def Info: piano_phase.png  used on input line 47.
-(pdftex.def)             Requested size: 215.0023pt x 129.40271pt.
- [3 <./piano_phase.png>] [4]
 Chapter 2.
-[5
+[3
 
-] [6] [7] [8] [9] [10] [11] [12] [13]
+] [4] [5] [6] [7] [8] [9] [10] [11]
 Chapter 3.
-[14
+[12
 
 ]
 Chapter 4.
-[15
+[13
 
 ]
 Chapter 5.
-[16
+[14
 
 ]
 Chapter 6.
-[17
+[15
 
 ]
 Chapter 7.
-(./referencesexercisebib.bib) (./Shapiro Final Draft.bbl [18
+(./referencesexercisebib.bib) (./Shapiro Final Draft.bbl [16
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 29--32
@@ -531,24 +525,28 @@ Underfull \hbox (badness 10000) in paragraph at lines 50--55
 dsdatascience . com /
  []
 
-[19
+[17
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 201.
- [20]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 201.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 192.
+ [18]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 192.
  (./Shapiro Final Draft.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 201.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 201.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 192.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 192.
 Package rerunfilecheck Info: File `"Shapiro Final Draft".out' has not changed.
 (rerunfilecheck)             Checksum: 0598B7F1147307B1C122AF38076D78CF;1049.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 201.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 192.
  ) 
 Here is how much of TeX's memory you used:
- 10569 strings out of 480608
- 175489 string characters out of 5903631
+ 10551 strings out of 480608
+ 175209 string characters out of 5903631
  468066 words of memory out of 5000000
- 26232 multiletter control sequences out of 15000+600000
+ 26218 multiletter control sequences out of 15000+600000
  540235 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,6n,46p,1625b,445s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -562,10 +560,10 @@ ocal/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/lo
 cal/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/loc
 al/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/loca
 l/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on "Shapiro Final Draft.pdf" (21 pages, 667251 bytes).
+Output written on "Shapiro Final Draft.pdf" (19 pages, 185796 bytes).
 PDF statistics:
- 404 PDF objects out of 1000 (max. 8388607)
- 365 compressed objects within 4 object streams
- 75 named destinations out of 1000 (max. 500000)
- 142 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 383 PDF objects out of 1000 (max. 8388607)
+ 348 compressed objects within 4 object streams
+ 72 named destinations out of 1000 (max. 500000)
+ 137 words of extra memory for PDF output out of 10000 (max. 10000000)
 
