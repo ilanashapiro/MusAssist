@@ -39,7 +39,7 @@ Finally, a $ language$ $workbench$ is a customized IDE for building and defining
 
 Music itself has a highly structured framework, and a musical score itself can be thought of as having many of the formal features of a PL. With the increased flexibility afforded to  a DSL via its limited expressiveness, it can be much  more effectively tailored to the application (i.e. music) than an GPL could be. Depending on the goals of the programmer, a DSL can be used to target a particular aspect of music, whether that be notation, algorithmic composition, signal processing, or live coding with music performance. 
 
-MusAssist is an external DSL devised as a compositional aid for music notation. It attempts to organically model a composer's flow of thought by modeling its syntax after the musical structures a composer conceives when writing. Users write out musical elements and expressions in MusAssist's simple and straightforward syntax much in the same way they would when composing. In other words, users $describe$ a composition in MusAssist, and MusAssist writes out the music via these instructions. Users can compose notes (including rests) and custom chords in the octave and key of choice. They can also specify templates for chords (all triads and seventh chords), harmonic sequences (chosen from Ascending Fifths, Descending Fifths, Ascending 5-6, and Descending 5-6) of a desired length, and cadences (chosen from Perfect Auth. The musical expression described by the template will then be written by the MusAssist compiler.
+MusAssist is an external DSL devised as a compositional aid for music notation by incorporating concepts from music theory. It attempts to organically model a composer's flow of thought by modeling its syntax after the musical structures a composer conceives when writing. Users write out musical elements and expressions in MusAssist's simple and straightforward syntax much in the same way they would when composing. In other words, users $describe$ a composition in MusAssist, and MusAssist writes out the music via these instructions. Users can compose notes (including rests) and custom chords in the octave and key of choice. They can also specify templates for chords (all triads and seventh chords), harmonic sequences (chosen from Ascending Fifths, Descending Fifths, Ascending 5-6, and Descending 5-6) of a desired length, and cadences (chosen from Perfect Auth. The musical expression described by the template will then be written by the MusAssist compiler. The compiler is written in Haskell.
 
 The target language of the MusAssist compiler is MusicXML, an internal DSL that is an extension of XML. MusicXML is interpreted by most major notation software programs (such as MuseScore). Thus, once a user has described a composition in MusAssist, they can open the resulting MusicXML file in MuseScore or another program for further customization and editing. MusAssist does not attempt to replace existing DSLs. Rather, it fills a unique niche in that it $assists$ users in music composition by providing them with a set of easy-to-use commands that would otherwise be tedious to write out by hand in a musical score. This is why MusAssist is compiled to MusicXML rather than an uneditable PDF format. MusAssist may also be particularly helpful to music students as an educational tool where they can easily see the relationship between a musical expression and its written form, such as a harmonic sequence template and the actual chords that result from it.
 
@@ -194,7 +194,224 @@ Nishimo et al. use RtD to develop a new DSL focusing on the problem of microsoun
 \section{Summary}
 DSLs are a fascinating and effective way to bridge the conceptual gap between computing and music. Since Wang introduced ChucK in 2008, external and internal DSLs utilizing programming paradigms including functional programming, object-oriented programming, synchronous programming, strongly-time programming, and mostly-strongly-timed programming have made advances in handling issues in microsound synthesis and signal processing, such as in the LCSynth, LC, and mimium languages. On a higher level, DSLs like PyTabs, Skini, and Computational Counterpoint Marks have addressed the areas of music notation representation and algorithmic composition, as well as intersect with the field of HCI. Finally, the novel concepts of live coding and laptop music are considered with the DSLs HMusic and even LC. 
 
-\chapter{MusAssist Features and Syntax}
+\chapter{MusAssist Syntax}
+\section{Concrete Syntax}
+\section{Abstract Syntax}
+MusAssist's abstract syntax consists of custom concrete data types as well as type aliases for certain attributes of musical objects. The abstract syntax was carefully design to best model musical structures organically.
+
+The fundamental music
+
+The high level data type generated from the parse result that serves as the entry point for the intermediate representations conversion is IntermediateInstr, the outline of which is shown below:
+\begin{verbatim}
+data IntermediateInstr = 
+  IRKeySignature NoteName Accidental Quality
+  | IRNewMeasure
+  | IRWrite [IntermediateExpr]
+\end{verbatim}
+
+data Tone = Tone NoteName Accidental Octave 
+  deriving (Eq, Show, Read)
+
+data Expr = 
+  Rest Duration
+  -- can keep this and predefined chords, bc if I just had custom chord, it's harder to work with
+  -- with DSLs, keep the domain specific information for as long as possible for expanding the generation
+  -- if I didn't, all I had is custom chord, then I give the user the ability to use the nice template, but
+  -- I also took away the ability for the tool to take advantage of the semantic info the user is giving
+  -- granted, I could def recover it by reconstructing custom chord, but if the user is already giving this, 
+  -- then why recover it. we want to take advantage of the props of the DSL!
+  -- analogy: in a GPL, keep the loop as long as possible before converting to JUMP
+  | Chord [Tone] Duration -- notes are single-element chords
+    deriving (Eq, Show, Read)
+
+data Instr = 
+  KeySignature Int Int -- num sharps (0-7), num flats (0-7). One of these should be zero!
+  | NewMeasure 
+  | Write [Expr]
+    deriving (Eq, Show, Read)
+
+-- templates to get expanded: these are the direct results of the parse
+ -- plan: translate from one intermediate representation to another. in my case, I can maybe do this intermediate
+    -- translation in which I lower these things (Chord, Cadence, HarmSeq) into their simplified form (i.e. CustomChords)
+    -- and then the code generation is just for NOTES, rests ,and custom chords
+data IntermediateExpr = 
+  Note Tone Duration -- these get expanded to become single-element chords
+  | ChordTemplate Tone Quality ChordType Inversion Duration -- Predefined chords: these all happen in root position
+  | Cadence CadenceType Tone Quality Duration -- quality is major/minor ONLY. det the start note and key of the cadence
+  | HarmonicSequence HarmonicSequenceType Tone Quality Duration Length -- quality is major/minor ONLY. det the start note and key of the seq
+  | FinalExpr Expr
+   deriving (Eq, Show, Read)
+
+data IntermediateInstr = 
+  IRKeySignature NoteName Accidental Quality
+  | IRNewMeasure
+  | IRWrite [IntermediateExpr]
+    deriving (Eq, Show, Read)
+    
+    
+    
+    
+    
+    
+data NoteName = 
+
+Accidental 
+type Octave = Int -- range is [1,8]
+data Inversion
+
+type Length = Int
+type Label = String
+
+data Duration
+data Quality 
+data ChordType  
+data CadenceType
+data HarmonicSequenceType
+\begin{verbatim}
+data NoteName = 
+    F
+    | C
+    | G 
+    | D 
+    | E 
+    | A 
+    | B
+  deriving (Eq, Ord, Show, Read) -- the notes are ordered in the order of sharps. reverse for order of flats
+  -- btw, for Ord (no longer using): earlier constructors in the datatype declaration count as smaller than later ones
+
+-- https://stackoverflow.com/questions/58761160/why-isnt-enum-typeclass-a-subclass-of-ord-typeclass
+-- https://stackoverflow.com/questions/5684049/is-there-some-way-to-define-an-enum-in-haskell-that-wraps-around
+instance Enum NoteName where
+    toEnum n = case n `mod` 7 of
+                  0 -> C
+                  1 -> D
+                  2 -> E
+                  3 -> F
+                  4 -> G
+                  5 -> A
+                  _ -> B
+
+    fromEnum C = 0
+    fromEnum D = 1
+    fromEnum E = 2
+    fromEnum F = 3
+    fromEnum G = 4
+    fromEnum A = 5
+    fromEnum B = 6
+
+    -- The generated definitions don't handle wrapping, so we need to do it ourselves
+    -- source for this part: https://stackoverflow.com/questions/58761160/why-isnt-enum-typeclass-a-subclass-of-ord-typeclass
+    enumFromTo n1 n2
+            | n1 == n2 = [n1]
+    enumFromTo n1 n2 = n1 : enumFromTo (succ n1) n2
+    enumFromThenTo n1 n2 n3
+            | n2 == n3 = [n1, n2]
+    enumFromThenTo n1 n2 n3 = n1 : enumFromThenTo n2 (toEnum $ (2 * fromEnum n2) - (fromEnum n1)) n3
+
+
+data Accidental = 
+     DoubleFlat 
+     | Flat 
+     | Natural
+     | Sharp
+     | DoubleSharp
+  deriving (Eq, Enum, Bounded, Show, Read)
+
+type Octave = Int -- range is [1,8]
+
+data Inversion = 
+  Root 
+  | First 
+  | Second 
+  | Third -- seventh chords only
+  deriving (Eq, Show, Read)
+
+type Length = Int
+
+type Label = String -- for saving sequences of notes/chords
+
+data Duration = 
+    Sixteenth
+    | Eighth 
+    | DottedEighth 
+    | Quarter 
+    | DottedQuarter 
+    | DottedHalf 
+    | Half 
+    | Whole 
+  deriving (Eq, Show, Ord, Read)
+
+data Quality = 
+    Major 
+    | Minor
+    | Augmented      -- chords only
+    | Diminished     -- chords only
+    | HalfDiminished -- seventh chords only
+  deriving (Eq, Show, Read)
+
+data ChordType = 
+     Triad 
+     | Seventh
+  deriving (Eq, Show, Read)
+--------------------------------------------------------------------------------
+-- Musical Objects
+--------------------------------------------------------------------------------
+data Tone = Tone NoteName Accidental Octave 
+  deriving (Eq, Show, Read)
+    
+-- all resulting chords in root position
+data CadenceType = 
+  PerfAuth 
+  | ImperfAuth
+  | Plagal
+  | HalfCad
+  | Deceptive
+  deriving (Eq, Show, Read)
+
+-- all resulting chords in root position
+data HarmonicSequenceType = 
+  AscFifths
+  | DescFifths
+  | Asc56 
+  | Desc56
+  deriving (Eq, Show, Read)
+
+data Expr = 
+  Rest Duration
+  -- can keep this and predefined chords, bc if I just had custom chord, it's harder to work with
+  -- with DSLs, keep the domain specific information for as long as possible for expanding the generation
+  -- if I didn't, all I had is custom chord, then I give the user the ability to use the nice template, but
+  -- I also took away the ability for the tool to take advantage of the semantic info the user is giving
+  -- granted, I could def recover it by reconstructing custom chord, but if the user is already giving this, 
+  -- then why recover it. we want to take advantage of the props of the DSL!
+  -- analogy: in a GPL, keep the loop as long as possible before converting to JUMP
+  | Chord [Tone] Duration -- notes are single-element chords
+    deriving (Eq, Show, Read)
+
+data Instr = 
+  KeySignature Int Int -- num sharps (0-7), num flats (0-7). One of these should be zero!
+  | NewMeasure 
+  | Write [Expr]
+    deriving (Eq, Show, Read)
+
+-- templates to get expanded: these are the direct results of the parse
+ -- plan: translate from one intermediate representation to another. in my case, I can maybe do this intermediate
+    -- translation in which I lower these things (Chord, Cadence, HarmSeq) into their simplified form (i.e. CustomChords)
+    -- and then the code generation is just for NOTES, rests ,and custom chords
+data IntermediateExpr = 
+  Note Tone Duration -- these get expanded to become single-element chords
+  | ChordTemplate Tone Quality ChordType Inversion Duration -- Predefined chords: these all happen in root position
+  | Cadence CadenceType Tone Quality Duration -- quality is major/minor ONLY. det the start note and key of the cadence
+  | HarmonicSequence HarmonicSequenceType Tone Quality Duration Length -- quality is major/minor ONLY. det the start note and key of the seq
+  | FinalExpr Expr
+   deriving (Eq, Show, Read)
+
+data IntermediateInstr = 
+  IRKeySignature NoteName Accidental Quality
+  | IRNewMeasure
+  | IRWrite [IntermediateExpr]
+    deriving (Eq, Show, Read)
+\end{verbatim}
 
 \chapter{The MusAssist Compiler}
 \section{Lexing}
@@ -204,15 +421,17 @@ DSLs are a fascinating and effective way to bridge the conceptual gap between co
 
 \chapter{Sample Programs}
 
-\chapter{Future Work}
-time signature changes
-clef changes within a line
-multiple clefs (i.e. for piano)
-multiple parts
+\chapter{Future Work and Conclusion}
+\section{Future Work}
+Ideally, in the future MusAssist would support more complex musical states and elements including custom time signature and mid-composition time signature changes (similar to the behavior currently implemented for key signatures), clef changes within a part, multiple-clef parts (i.e. piano), custom parts, and multiple parts. Custom and changeable time signature would allow for the users to experiment with metric modulation, something that is currently impossible with the fixed common time setup. Clef changes within a part, both manual and automatic when a note extends too many ledger lines beyond a clef, would allow the score to be more nicely formatted and readable for the user. Support for two-clef piano would allow the MusAssist compiler to successfully modify how it generates cadences and harmonic sequences to include the essential baseline, in addition to the harmonization already implemented. The latter two goals (custom parts and multiple parts) are somewhat outside MusAssist's goal as a music compositional aid, as this extends beyond the realm of music theory. However, users may enjoy this increased flexibility when composing.
 
+Finally, it would be useful in the future to have support for labeled musical expressions that can then be reused later in the program, similar to what LilyPonds has. This departs somewhat from the precept that MusAssist should align precisely with the flow composing music by hand would, as labeled expressions start to venture more into the realm of computing. Nonetheless, users would likely find it helpful.
 
-\chapter{Conclusion}
+\section{Conclusion}
+MusAssist is an external DSL whose Haskell-based compiler translates it to a MusicXML file that can be loaded into a major music notation software for further editing. Its syntax is simple and models the flow of thought a composer would have when writing music by hand. MusAssist fills a niche in the realm of musical DSLs by serving as a music compositional aid that is not intended to allow to the user to write a fully expressive musical piece, but rather to more easily create musical expressions that would be tedious to write by hand. The additional features described in the previous section would make the language align even more robustly with this goal. MuseScore can be further valuable as an education tool to music theory students, allowing them to visualize musical structures from the definitions that they describe in MusAssist.
+
 Clearly, DSLs are a powerful mechanism to push the boundaries of  computational creativity in the field of music. Unfortunately, DSLs for music have not been studied extensively  and  remain an extremely comparatively small area of research, though scholars such as  Wang continue to lead  research in institutions such as Stanford's CCRMA (Center for Computer Research in Music and Acoustics). By continuing to examine the creative expressive power of DSLs  in  music, we can continue to increase our understanding of the creative capabilities and extent of customization possible for  a programming language.
+
 \bibinput{referencesexercisebib} 
 \bibliography{referencesexercisebib}
 \bibliographystyle{abbrvnat}
