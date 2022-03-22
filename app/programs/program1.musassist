@@ -1,9 +1,9 @@
-SET key = A.M
-(D4, whole) (F#4, quarter) (Ab4, quarter) (G#4, eighth) (rest, sixteenth)           // this is a comment
-notes1 = (D4, whole) (F#4, quarter) (Ab4, quarter) (G#4, eighth) (rest, sixteenth)  // note without b or # is considered to be natural
-chords1 = ([Bb5, Db5, C5], half), ([C#5, E5], half), (C6.min.triad.inv:1, quarter), (F#4.halfdim.seventh.inv:3, eighth)
-SET key = D.m
-notes1, chords1, (AscFifths.G3, quarter, length:5), (PlagalCad, Eb5.m)
+SET_KEY AM 
+(D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest sixteenth)           // this is a comment
+notes1 = (D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest sixteenth)  // note without b or # is considered to be natural
+chords1 = ([Bb5, Db5, C5] half) ([C#5, E5] half) (C6 min triad inv:1 quarter) (F#4 halfdim seventh inv:3 eighth)
+SET_KEY = Dm
+notes1 chords1 (AscFifths G3 quarter length:5) (PlagalCad Eb5 min)
 
 this can all be captured by regex (i.e. this is a regular grammar, and therefore is CF for generators) 
     --> can do this pretty easily with alex and happy

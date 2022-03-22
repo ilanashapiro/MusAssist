@@ -58,7 +58,7 @@ main = do
   beatCt        <- Data.IORef.newIORef 0
   measureCt     <- Data.IORef.newIORef 1
   defaultKeySig <- Data.IORef.newIORef (0, 0) -- no sharps, no flats
-  code <- MusicXMLgen.transInstrs (beatCt, measureCt, defaultKeySig) processedAST
+  code          <- MusicXMLgen.transInstrs (beatCt, measureCt, defaultKeySig) processedAST
 
     -- header code for musicXML file
   let headerCode =
