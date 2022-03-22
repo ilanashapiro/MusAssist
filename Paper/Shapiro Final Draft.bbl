@@ -1,4 +1,4 @@
-\begin{thebibliography}{17}
+\begin{thebibliography}{20}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -41,6 +41,19 @@ A.~S. Gillis and S.~Lewis.
 \newblock URL
   \url{https://searchapparchitecture.techtarget.com/definition/object-oriented-programming-OOP}.
 
+\bibitem[Good(2001)]{good_2001}
+M.~Good.
+\newblock \emph{MusicXML: An Internet-Friendly Format for Sheet Music}.
+\newblock Dec 2001.
+\newblock URL
+  \url{https://michaelgood.info/publications/music/musicxml-an-internet-friendly-format-for-sheet-music/}.
+
+\bibitem[Good(2013)]{good_2013}
+M.~Good.
+\newblock Musicxml: Introduction, Apr 2013.
+\newblock URL
+  \url{https://www.musicxml.com/publications/makemusic-recordare/notation-and-analysis/introduction/}.
+
 \bibitem[Janin(2016)]{janin}
 D.~Janin.
 \newblock A robust algebraic framework for high-level music writing, 2016.
@@ -67,6 +80,13 @@ T.~Matsuura and K.~Jo.
 \newblock \emph{Proceedings of the 9th ACM SIGPLAN International Workshop on
   Functional Art, Music, Modelling, and Design}, 2021.
 \newblock \doi{10.1145/3471872.3472969}.
+
+\bibitem[Nienhuys and Nieuwenhuizen(2003)]{nienhuys_nieuwenhuizen_2003}
+H.-W. Nienhuys and J.~Nieuwenhuizen.
+\newblock \emph{LilyPond, A System for Automated Music Engraving}.
+\newblock May 2003.
+\newblock URL
+  \url{https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.100.6160&amp;rep=rep1&amp;type=pdf}.
 
 \bibitem[Nishino(2012)]{nishino_2012}
 H.~Nishino.

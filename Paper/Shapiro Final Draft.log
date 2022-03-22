@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  21 MAR 2022 00:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  21 MAR 2022 21:54
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -356,30 +356,39 @@ e 7852.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/setspace/setspace.sty
 Package: setspace 2011/12/19 v6.7a set line spacing
 )
+(/usr/local/texlive/2020/texmf-dist/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2019/06/20 v3.9 Customized lists
+\labelindent=\skip72
+\enit@outerparindent=\dimen165
+\enit@toks=\toks22
+\enit@inbox=\box48
+\enit@count@id=\count275
+\enitdp@description=\count276
+)
 (/usr/local/texlive/2020/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-03-12 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count275
-\l__pdf_internal_box=\box48
+\l__kernel_color_stack_int=\count277
+\l__pdf_internal_box=\box49
 )
 (./Shapiro Final Draft.aux)
 \openout1 = `"Shapiro Final Draft.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -416,21 +425,21 @@ LaTeX Font Info:    ... okay on input line 24.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 ABD: EverySelectfont initializing macros
-LaTeX Info: Redefining \selectfont on input line 24.
+LaTeX Info: Redefining \selectfont on input line 25.
 
 (/usr/local/texlive/2020/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count276
-\scratchdimen=\dimen165
-\scratchbox=\box49
-\nofMPsegments=\count277
-\nofMParguments=\count278
-\everyMPshowfont=\toks22
-\MPscratchCnt=\count279
-\MPscratchDim=\dimen166
-\MPnumerator=\count280
-\makeMPintoPDFobject=\count281
-\everyMPtoPDFconversion=\toks23
+\scratchcounter=\count278
+\scratchdimen=\dimen166
+\scratchbox=\box50
+\nofMPsegments=\count279
+\nofMParguments=\count280
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count281
+\MPscratchDim=\dimen167
+\MPnumerator=\count282
+\makeMPintoPDFobject=\count283
+\everyMPtoPDFconversion=\toks24
 ) (/usr/local/texlive/2020/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -443,8 +452,8 @@ e
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\AtBeginShipoutBox=\box50
-Package hyperref Info: Link coloring OFF on input line 24.
+\AtBeginShipoutBox=\box51
+Package hyperref Info: Link coloring OFF on input line 25.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
@@ -456,11 +465,11 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count282
+\c@section@level=\count284
 )
-LaTeX Info: Redefining \ref on input line 24.
-LaTeX Info: Redefining \pageref on input line 24.
-LaTeX Info: Redefining \nameref on input line 24.
+LaTeX Info: Redefining \ref on input line 25.
+LaTeX Info: Redefining \pageref on input line 25.
+LaTeX Info: Redefining \nameref on input line 25.
  (./Shapiro Final Draft.out) (./Shapiro Final Draft.out)
 \@outlinefile=\write4
 \openout4 = `"Shapiro Final Draft.out"'.
@@ -476,36 +485,36 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.30 \chapter
+l.31 \chapter
              {Introduction} [1
 
 ]
 Chapter 1.
 [2
 
-]
+] [3]
 Chapter 2.
-[3
+[4
 
-] [4] [5] [6] [7] [8] [9] [10] [11]
+] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14]
 Chapter 3.
-[12
-
-]
-Chapter 4.
-[13
-
-]
-Chapter 5.
-[14
-
-]
-Chapter 6.
 [15
 
 ]
+Chapter 4.
+[16
+
+]
+Chapter 5.
+[17
+
+]
+Chapter 6.
+[18
+
+]
 Chapter 7.
-(./referencesexercisebib.bib) (./Shapiro Final Draft.bbl [16
+(./referencesexercisebib.bib) (./Shapiro Final Draft.bbl [19
 
 ]
 Underfull \hbox (badness 10000) in paragraph at lines 29--32
@@ -514,39 +523,47 @@ n/10 https : / / deepsource . io / glossary /
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 50--55
+Underfull \hbox (badness 10000) in paragraph at lines 45--50
+[]\OT1/cmr/m/n/10 M. Good.  \OT1/cmr/m/it/10 Mu-sicXML: An Internet-Friendly Fo
+r-mat for Sheet Mu-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 45--50
+\OT1/cmr/m/it/10 sic\OT1/cmr/m/n/10 .  Dec 2001.  URL []$\OT1/cmtt/m/n/10 https
+ : / / michaelgood . info / publications / music /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 63--68
 []\OT1/cmr/m/n/10 A. Joury.  Why de-vel-op-ers are falling in love with func-ti
 onal pro-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 50--55
+Underfull \hbox (badness 10000) in paragraph at lines 63--68
 \OT1/cmr/m/n/10 gram-ming, Aug 2020.  URL []$\OT1/cmtt/m/n/10 https : / / towar
 dsdatascience . com /
  []
 
-[17
+[20
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 192.
- [18]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 192.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 220.
+ [21]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 220.
  (./Shapiro Final Draft.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 192.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 192.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 220.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 220.
 Package rerunfilecheck Info: File `"Shapiro Final Draft".out' has not changed.
 (rerunfilecheck)             Checksum: 0598B7F1147307B1C122AF38076D78CF;1049.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 192.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 220.
  ) 
 Here is how much of TeX's memory you used:
- 10551 strings out of 480608
- 175209 string characters out of 5903631
+ 10898 strings out of 480608
+ 181130 string characters out of 5903631
  468066 words of memory out of 5000000
- 26218 multiletter control sequences out of 15000+600000
+ 26551 multiletter control sequences out of 15000+600000
  540235 words of font info for 52 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  45i,6n,46p,1625b,445s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -560,10 +577,10 @@ ocal/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/lo
 cal/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/loc
 al/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/loca
 l/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on "Shapiro Final Draft.pdf" (19 pages, 185796 bytes).
+Output written on "Shapiro Final Draft.pdf" (22 pages, 195069 bytes).
 PDF statistics:
- 383 PDF objects out of 1000 (max. 8388607)
- 348 compressed objects within 4 object streams
- 72 named destinations out of 1000 (max. 500000)
+ 421 PDF objects out of 1000 (max. 8388607)
+ 383 compressed objects within 4 object streams
+ 82 named destinations out of 1000 (max. 500000)
  137 words of extra memory for PDF output out of 10000 (max. 10000000)
 

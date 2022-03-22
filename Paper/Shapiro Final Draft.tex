@@ -12,6 +12,7 @@
 \usepackage{hyperref} 
 \usepackage[nameinlink]{cleveref} 
  \usepackage{setspace}
+ \usepackage{enumitem}
 
 \title{MusAssist: A Domain Specific Language for Music }
 \author{Ilana Shapiro}
@@ -38,7 +39,9 @@ Finally, a $ language$ $workbench$ is a customized IDE for building and defining
 
 Music itself has a highly structured framework, and a musical score itself can be thought of as having many of the formal features of a PL. With the increased flexibility afforded to  a DSL via its limited expressiveness, it can be much  more effectively tailored to the application (i.e. music) than an GPL could be. Depending on the goals of the programmer, a DSL can be used to target a particular aspect of music, whether that be notation, algorithmic composition, signal processing, or live coding with music performance. 
 
-MusAssist is an external DSL devised for music notation. It attempts to organically model a composer's flow of thought by structuring
+MusAssist is an external DSL devised as a compositional aid for music notation. It attempts to organically model a composer's flow of thought by modeling its syntax after the musical structures a composer conceives when writing. Users write out musical elements and expressions in MusAssist's simple and straightforward syntax much in the same way they would when composing. In other words, users $describe$ a composition in MusAssist, and MusAssist writes out the music via these instructions. Users can compose notes (including rests) and custom chords in the octave and key of choice. They can also specify templates for chords (all triads and seventh chords), harmonic sequences (chosen from Ascending Fifths, Descending Fifths, Ascending 5-6, and Descending 5-6) of a desired length, and cadences (chosen from Perfect Auth. The musical expression described by the template will then be written by the MusAssist compiler.
+
+The target language of the MusAssist compiler is MusicXML, an internal DSL that is an extension of XML. MusicXML is interpreted by most major notation software programs (such as MuseScore). Thus, once a user has described a composition in MusAssist, they can open the resulting MusicXML file in MuseScore or another program for further customization and editing. MusAssist does not attempt to replace existing DSLs. Rather, it fills a unique niche in that it $assists$ users in music composition by providing them with a set of easy-to-use commands that would otherwise be tedious to write out by hand in a musical score. This is why MusAssist is compiled to MusicXML rather than an uneditable PDF format. MusAssist may also be particularly helpful to music students as an educational tool where they can easily see the relationship between a musical expression and its written form, such as a harmonic sequence template and the actual chords that result from it.
 
 \chapter{Background}
 \label{chap:background}
@@ -59,7 +62,7 @@ This chapter serves as a review of the existing literature on the better-known D
 \subsection{Declarative Programming}
 In contrast to the more commonly encountered paradigm of imperative programming, declarative programming is a programming model that eliminates control flow in favor of simply stating, or declaring, what the desired action or result is. Declarative programming is commonly used by DSLs in database management, and relies on pre-existing language features to execute the desired action without relying on control flow structures such as conditional logic and loops. In other words, declarative programming emphasizes $what$ the final result is, while imperative programming focuses on $how$ to get there. As an analogy, if someone hails a taxi, they $declare$ to the driver where they wish to go -- they do not give him turn-by-turn (i.e. imperative) directions. \citeparen{bertram_2021}
 
-Musical markup languages such as Michael Good's MusicXML and LilyPond fall under this category. 
+Musical markup languages such as Michael Good's MusicXML and LilyPond fall under this category. MusicXML is derived from XML (itself a DSL), and seeks to solve the music interchange problem between the various musical representation formats.  \cite{good_2013} LilyPond is not XML-based. Rather, it has its own syntax, and compiles to a PostScript or PDF format that can be printed or uploaded on the Internet.
 
 \subsection{Functional Programming}
 \textit{Functional programming} is a programming paradigm centered around  building functions for immutable values. It emphasizes $pure$ $functions$, or functions that never alter variables  but instead produce new  ones as output. Pure functions  can also be thought of as functions without $side$ $effects$, or when the function neither relies on nor modifies anything outside of its parameters. The GPL Haskell is perhaps the most famous example of a functional PL \citeparen{joury_2020}.
@@ -87,6 +90,22 @@ Nishino et al. go on to introduce yet another paradigm called  \textit{mostly-st
 \label{sec:external}
 
 \subsection{LilyPond}
+LilyPond is an external DSL created by Han-Wen Nienhuys, Jan Nieuwenhuizen that originally began as their personal project. It features a "modular, extensible and programmable compiler" to generate music notation of excellent quality. It supports the mixing of text and music elements, and .   Like MusicXML, it is a DSL aimed towards music notation. Unlike MusicXML, LilyPond does not consider the music interchange problem. Rather, it focuses on automated music printing. The compiler produces a printable PostScript or PDF file by taking in a file with a formal representation of the desired music. Its implementation uses the language Scheme (a LISP language). 
+
+The LilyPond compiler has four steps:
+\begin{enumerate}[noitemsep]
+\item Parse into an abstract syntax tree
+\item Musical elements are translated (i.e. interpreted) into graphical elements in an unformatted score
+\item Format the score
+\item Write the formatted score to an output file
+\end{enumerate}
+
+The input to the first step is a series of text-based \textit{musical expressions}, or fragments of music with set durations. Simple music expressions are combined to make more complex ones. The input format also supports identifiers that allow the user to re-use an expression multiple times.
+
+In the second step, which the authors call ``interpreting", a plugin architecture with plugins called $engravers$ performs the conversion. Each engraver handles a single specific task, creating a modular architecture that allows for ease of maintaining and extending the program. This is the step in which context sensitive information, like key signature and current beat in the measure, is handled so that barlines and accidentals are printed correctly.
+
+In this third step, the layout is determined. The input to this step is the unformatted score, or a collection of graphical objects. Tags called abstract graphical objects store information about constrainment, alignment, and element spacing. 
+\cite{nienhuys_nieuwenhuizen_2003}.
 
 \subsection{PyTabs}
 Simic et al. present  PyTabs, a  DSL  they designed and  created  for  simplified musical notation. PyTabs allows the user  to describe a composition comprising many  sequences that  can  be  provided in tablature or chord notation. PyTabs also provides functionality for playing a piece written in it. The authors propose a solution via PyTabs to problems in  simplified  music notation (specifically,  the  visual problem of  tablature  notation, and the lack of  standardization of how  to specify note duration in tablature notation) by  standardizing these issues into a formal language. They used Python to  implement  PyTabs, but PyTabs is not  embedded  in  Python;  it is an external  DSL \citeparen{simic_bal_dejanovic_vaderna}.
@@ -126,7 +145,11 @@ Two essential features of $mimium$  allow the description of continuous  signal 
 \label{sec:internal}
 
 \subsection{MusicXML}
-Michael Good's MusicXML is an Internet-friendly XML-based DSL capable of representing Western music notation and sheet music since c. 1600. It acts as an "interchange format for applications in music notation, music analysis, music information retrieval, and musical performance," thus enhancing existing specialized formats for specific use cases. Good created MusicXML in an attempt to emulate for online sheet music and music software what the popular MIDI format did for electronic instruments. He was inspired by MuseData and Humdrum, two extremely powerful academic music notation formats, for the design of MusicXML. Good further chose to derive MusixXML from XML in order to help solve the music interchange problem: to create a standardized method to represent complex, structured data in order to support smooth interchange between "musical notation, performance, analysis, and retrieval applications." XML has the desired qualities of "straightforward usability over the Internet, ease of creating documents, and human readability" that translate directly into the musical domain, and it has the capacity to be both more powerful and more expressive than MIDI format. \cite{good_2001}, \cite{good_2013}
+Michael Good's MusicXML is an Internet-friendly XML-based DSL capable of representing Western music notation and sheet music since c. 1600. It acts as an "interchange format for applications in music notation, music analysis, music information retrieval, and musical performance," thus enhancing existing specialized formats for specific use cases. Notable, MusicXML does not attempt to replace other formats tailored even more exactly to such use cases; rather its goal is to support sharing $between$ these applications. \cite{good_2013}
+
+Good created MusicXML in an attempt to emulate for online sheet music and music software what the popular MIDI format did for electronic instruments. Good further chose to derive MusixXML from XML in order to help solve the music interchange problem: to create a standardized method to represent complex, structured data in order to support smooth interchange between "musical notation, performance, analysis, and retrieval applications." XML has the desired qualities of "straightforward usability over the Internet, ease of creating documents, and human readability" that translate directly into the musical domain, and it has the capacity to be both more powerful and more expressive than MIDI format. \cite{good_2001}
+
+Good was inspired by MuseData and Humdrum, two extremely powerful academic music notation formats, for the design of MusicXML (though he went on to add additional features in order to accurately represent music from c. 1850 - present). He was particularly attracted to Humdrum's two-dimensional conception of music by part and time. Unfortunately, the hierarchical structure of native XML is not capable of supporting such a lattice structure, so Good developed an alternative by creating an automatic conversion between the two dimensions. This was achieved by using Extensible Style Sheet Transformations (XSLT) programs. Thus, automatic conversions are supported between part-wise scores (in which measures are nested within parts) and time-wise scores (in which parts are nested within measures). \cite{good_2013}
 
 \subsection{HMusic}
 Recall the DSL HMusic, embedded in the functional PL Haskell, that was first introduced in Section 2.1. On a  more  technical level, HMusic is an algebra (i.e. a set and its associated functions) for creating music  patterns. The set of  all possible patterns is defined  inductively as an ADT (algebraic data  type) in Haskell. The user can write recursive  Haskell functions to operate on patterns, as patterns  themselves are a recursive datatype in HMusic. HMusic also defines the ADT Track, which associates an instrument to a pattern. Tracks can be  the parallel composition of two existing  tracks, and HMusic has support for multi-tracks consisting of tracks of varying size composed in sequence. Finally, HMusic defines a set of primitives for playing  tracks and live coding. Users can play songs  written in HMusic, loop tracks, and  modify tracks while they are being  played. Live coding is implemented through a simple  UI  based  on the concepts of looping and  function application \citeparen{bois_ribeiro_1970}.
