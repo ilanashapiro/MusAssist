@@ -127,12 +127,14 @@ data Expr =
   -- then why recover it. we want to take advantage of the props of the DSL!
   -- analogy: in a GPL, keep the loop as long as possible before converting to JUMP
   | Chord [Tone] Duration -- notes are single-element chords
+  | Label Label
     deriving (Eq, Show, Read)
 
 data Instr = 
   KeySignature Int Int -- num sharps (0-7), num flats (0-7). One of these should be zero!
   | NewMeasure 
   | Write [Expr]
+  | Assign Label [Expr] -- the expanded expression is assigned to the label
     deriving (Eq, Show, Read)
 
 -- templates to get expanded: these are the direct results of the parse
@@ -151,4 +153,5 @@ data IntermediateInstr =
   IRKeySignature NoteName Accidental Quality
   | IRNewMeasure
   | IRWrite [IntermediateExpr]
+  | IRAssign Label [IntermediateExpr] -- labeled expressions. syntactic sugar for the expressions they contain. these get desugared before code generation
     deriving (Eq, Show, Read)

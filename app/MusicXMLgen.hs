@@ -285,6 +285,8 @@ transExpr state (MusAST.Chord tones duration) = do
 
     return $ firstInitialNoteCode ++ remainingInitialNoteCode ++ newMeasureCode ++ remainingSpilledNoteCode ++ finalSpilledNoteCode   
 
+transExpr _ label = return $ error ("label " ++ show label ++ " should have been desugared by this step")
+
 -----------------------------------------------------------------------------------------
 -- Code Generation for Individual Instructions
 -----------------------------------------------------------------------------------------
@@ -335,6 +337,9 @@ transInstr state MusAST.NewMeasure = do
   measurePadding <- generateRestsFromDivisions restPaddingDivisions
   newMeasureCode <- updateBeat remainingTimeInMeasure state
   return $ measurePadding ++ newMeasureCode
+
+-- Assign Label [Expr]
+transInstr _ _ = return [] -- we don't generate any code for assigning labels to exprs
 
 -----------------------------------------------------------------------------------------
 -- Code Generation for All the Instructions

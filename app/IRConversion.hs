@@ -321,6 +321,11 @@ expandIntermediateInstr (MusAST.IRKeySignature noteName accidental quality)
 
 expandIntermediateInstr MusAST.IRNewMeasure = return MusAST.NewMeasure
 
+-- all uses of this label in IRWrite will get desugared in the next step
+expandIntermediateInstr (MusAST.IRAssign label intermediateExprs) = do
+    exprs <- concatMapM expandIntermediateExpr intermediateExprs
+    return $ MusAST.Assign label exprs
+
 expandIntermediateInstr (MusAST.IRWrite intermediateExprs) = do
     exprs <- concatMapM expandIntermediateExpr intermediateExprs
     return $ MusAST.Write exprs
