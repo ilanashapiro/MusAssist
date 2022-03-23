@@ -17,6 +17,7 @@ and run
 
 module Main where
 
+import Parser
 import           Data.Char          (isSpace)
 import           Data.IORef
 import           Data.List          (dropWhileEnd)
@@ -26,6 +27,8 @@ import qualified IRConversion
 import           System.Environment (getArgs)
 import           System.FilePath    (replaceExtension, takeExtension)
 
+
+import System.Exit
 ----------
 -- Main --
 ----------
@@ -49,8 +52,13 @@ main = do
     ".irast" -> do
       text <- readFile fileName
       let input = strip text
+          parseResult  = par
       return (read input :: [MusAST.IntermediateInstr])
+      -- return (read input :: [MusAST.Tone])
     ext -> error $ "unexpected extension " ++ show ext
+
+  
+  exitWith (ExitFailure 2)
   processedAST <- IRConversion.expandIntermediateInstrs unprocessedAST
 
   -- Translate MusAssistAST code to musicXML code
