@@ -54,7 +54,6 @@ main = do
       let input = strip text
           parseResult  = par
       return (read input :: [MusAST.IntermediateInstr])
-      -- return (read input :: [MusAST.Tone])
     ext -> error $ "unexpected extension " ++ show ext
 
   
