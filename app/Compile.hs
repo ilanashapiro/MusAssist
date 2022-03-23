@@ -17,7 +17,6 @@ and run
 
 module Main where
 
-import Parser
 import           Data.Char          (isSpace)
 import           Data.IORef
 import           Data.List          (dropWhileEnd)
@@ -52,7 +51,6 @@ main = do
     ".irast" -> do
       text <- readFile fileName
       let input = strip text
-          parseResult  = par
       return (read input :: [MusAST.IntermediateInstr])
     ext -> error $ "unexpected extension " ++ show ext
 

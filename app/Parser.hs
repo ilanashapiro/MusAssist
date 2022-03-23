@@ -5,6 +5,7 @@ import Text.Parsec.Char
 import qualified Text.Parsec.Token as Token
 import qualified Data.Map as Map 
 import           Data.Char as Char
+import           Control.Monad.Extra
 
 import MusAssistAST
 
@@ -16,17 +17,19 @@ lowerCaseToSentenceCase s = (Char.toUpper $ head s) : tail s
 --------------------------------------------------------------------------------
 
 -- | Parse a MusAssist program from a file
-parseFile :: FilePath -> IO [IntermediateExpr]
-parseFile filename = readFile filename >>= parseNamed filename
+parseFile :: FilePath -> IO [IntermediateInstr]
+parseFile fileName = do 
+  fileContentsStr <- readFile fileName 
+  let fileLines = lines fileContentsStr
+  parseNamed fileName fileLines
 
 -- | Parse a MusAssist program, given a name for the source of the program and a string that
 --   contains the contents of the programs
-parseNamed :: String -> String -> IO [IntermediateExpr]
+parseNamed :: String -> [String] -> IO [IntermediateInstr]
 parseNamed name contents = 
-  case parse program name contents of
+  case concatMapM (parse program name) contents of
     Right ast -> return ast
     Left err  -> errorWithoutStackTrace (show err)
-
 
 -----------------------------------------------------------------------------------------
 -- Basic domains: variables, line numbers, and values 
@@ -44,18 +47,76 @@ number     = Token.integer lexer        -- ^  n ∈ ℤ
                                   -- |  NEW_MEASURE
                                   -- |  .......................
 
+instr :: Parsec String () IntermediateInstr
+instr = try (parseKeySig
+         <|> parseAssign
+         <|> ((many1 parseExpr <?> "A label must refer to at least one expression") >>=: IRWrite) -- labeled exprs
+         <|> (keyword "NEW_MEASURE" >>: IRNewMeasure) -- new measure
+         <?> "expected instruction")
+         <* eof
 
-instr :: Parsec String () IntermediateExpr
-instr = try (parens parseNote)
---          <|> assign
---          <|> ifStatement
---          <|> (keyword "input" *> identifier >>=: Input)   -- input x
---          <|> (keyword "print" *> identifier >>=: Print)   -- print x
---          <|> (keyword "goto"  *> lineNumber >>=: Goto)    -- goto l
---          <|> (keyword "skip"                >>:  Skip)    -- skip
---          <|> (keyword "halt"                >>:  Halt)    -- halt
-         <?> "expected instruction"
+-- | labelName = musical expression
+parseAssign :: Parsec String () IntermediateInstr
+parseAssign = do 
+  label <- identifier
+  op "="
+  expr <- many1 parseExpr <?> "A label must refer to at least one expression"
+  let ast = IRAssign label expr
+  return ast
 
+-- | SET_KEY keyword, followed by note name, accidental, quality
+parseKeySig :: Parsec String () IntermediateInstr
+parseKeySig = do 
+  keyword "SET_KEY"
+  noteName   <- parseNoteName
+  accidental <- parseAccidental
+  quality    <- parseQuality
+  let ast = IRKeySignature noteName accidental quality
+  return ast
+
+parseExpr :: Parsec String () IntermediateExpr
+parseExpr = try ( 
+  parens (parseNote 
+    <|> parseChordTemplate
+    <|> parseCadence
+    <|> parseHarmSeq)
+  <|> parseFinalExpr
+  <?> "Expected expression")
+
+parseChordTemplate :: Parsec String () IntermediateExpr
+parseChordTemplate = ChordTemplate <$> parseTone <*> parseQuality <*> parseChordType <*> parseInversion <*> parseDuration <* spaces -- CAN I REMOVE SPACES????
+
+parseCadence :: Parsec String () IntermediateExpr
+parseCadence = Cadence <$> parseCadenceType <*> parseTone <*> parseQuality <*> parseDuration <* spaces 
+
+parseHarmSeq :: Parsec String () IntermediateExpr
+parseHarmSeq = HarmonicSequence <$> parseHarmSeqType <*> parseTone <*> parseQuality <*> parseDuration <*> (natural >>=: fromIntegral) <* spaces
+
+parseNote :: Parsec String () IntermediateExpr 
+parseNote = Note <$> parseTone <*> parseDuration <* spaces
+
+parseFinalExpr :: Parsec String () IntermediateExpr
+parseFinalExpr = FinalExpr <$> try (parseLabel <|> parens (parseRest <|> parseChord))
+
+parseRest :: Parsec String () Expr 
+parseRest = string "rest" *> parseDuration >>=: Rest
+
+parseChord :: Parsec String () Expr
+parseChord = do
+  tones <- brackets (commaSep1 parseTone <?> "A user-defined chord must have at least one note")
+  duration <- parseDuration
+  return $ Chord tones duration
+
+parseLabel :: Parsec String () Expr
+parseLabel = identifier >>=: Label
+
+parseTone :: Parsec String () Tone 
+parseTone = do 
+  noteName   <- parseNoteName
+  accidental <- parseAccidental
+  octave     <-  natural
+  let ast = Tone noteName accidental (fromIntegral octave)
+  return ast
 
 parseDuration :: Parsec String () Duration
 parseDuration = do
@@ -66,17 +127,6 @@ parseDuration = do
   let ast = read durationStr :: Duration
   return ast
 
-
-
-parseRest :: Parsec String () Expr 
-parseRest = string "rest" *> parseDuration >>=: Rest
-
-parseNote :: Parsec String () IntermediateExpr 
-parseNote = Note <$> parseTone <*> parseDuration <* spaces
-
-parens :: Parsec String () a -> Parsec String () a -- replace a with IntermediateExpression
-parens = between (symbol "(") (symbol ")")
-
 parseNoteName :: Parsec String () NoteName
 parseNoteName = do
   noteName <- choice $ map (try . string) ["F", "C", "G", "D", "A", "E", "B"]
@@ -85,19 +135,11 @@ parseNoteName = do
 
 parseAccidental :: Parsec String () Accidental
 parseAccidental = do 
-  let parseAlteredAccidental = (string "##" >>: DoubleSharp) 
-                              <|> (string "#" >>: Sharp)
-                              <|> (string "bb" >>: DoubleFlat) 
-                              <|> (string "b" >>: Flat)
+  let parseAlteredAccidental = try (string "##" >>: DoubleSharp) 
+                              <|> try (string "#" >>: Sharp)
+                              <|> try (string "bb" >>: DoubleFlat) 
+                              <|> try (string "b" >>: Flat)
   ast <- option Natural $ parseAlteredAccidental
-  return ast
-    
-parseTone :: Parsec String () Tone 
-parseTone = do 
-  noteName   <- parseNoteName
-  accidental <- parseAccidental
-  octave     <-  natural
-  let ast = Tone noteName accidental (fromIntegral octave)
   return ast
     
 parseQuality :: Parsec String () Quality 
@@ -109,7 +151,7 @@ parseQuality = try (string "maj" >>: Major)
          <?> "expected quality"
 
 parseInversion :: Parsec String () Inversion
-parseInversion = do
+parseInversion =  do
   inversionStr <- string "inv:" *> (choice $ map (try . string) ["root", "first", "second", "third"]) >>=: lowerCaseToSentenceCase
   let ast = read inversionStr :: Inversion
   return ast
@@ -127,12 +169,21 @@ parseCadenceType = do
   let ast = read cadenceTypeStr :: CadenceType
   return ast
 
+parseHarmSeqType :: Parsec String () HarmonicSequenceType
+parseHarmSeqType = do
+  harmSeqTypeStr <- (choice $ map (try . string) ["AscFifths", "DescFifths", "Asc56", "Desc56"])
+  let ast = read harmSeqTypeStr :: HarmonicSequenceType
+  return ast
+
+-- betweenDelimiters :: String -> String -> Parsec String () a -> Parsec String () a -- replace a with IntermediateExpression
+-- betweenDelimiters open close = between (symbol open) (symbol close)
+
 --------------------------------------------------------------------------------
 -- * Programs
 --------------------------------------------------------------------------------
 
 -- | p ∈ Programs ::= [s1, s2, ..., sn]
-program :: Parsec String () [IntermediateExpr]
+program :: Parsec String () [IntermediateInstr]
 program = do instrs <- many instr
              eof
              return instrs
@@ -144,6 +195,9 @@ keyword = Token.reserved lexer
 op      = Token.reservedOp lexer
 natural    = Token.natural lexer
 symbol    = Token.symbol lexer
+parens        = Token.parens lexer
+brackets      = Token.brackets lexer
+commaSep1      = Token.commaSep1 lexer
 
 infixl 1 >>=:
 left >>=: f = f <$> left

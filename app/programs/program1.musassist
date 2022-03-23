@@ -1,8 +1,8 @@
-SET_KEY AM 
+SET_KEY Amaj
 (D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest sixteenth)           // this is a comment
 notes1 = (D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest sixteenth)  // note without b or # is considered to be natural
 chords1 = ([Bb5, Db5, C5] half) ([C#5, E5] half) (C6 min triad inv:first quarter) (F#4 halfdim seventh inv:second eighth)
-SET_KEY Dm
+SET_KEY Dmin
 NEW_MEASURE
 notes1 chords1 (AscFifths G3 quarter length:5) (PerfAuthCadence Eb5 min)
 

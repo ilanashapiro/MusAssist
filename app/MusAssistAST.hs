@@ -94,12 +94,7 @@ data ChordType =
      Triad 
      | Seventh
   deriving (Eq, Show, Read)
---------------------------------------------------------------------------------
--- Musical Objects
---------------------------------------------------------------------------------
-data Tone = Tone NoteName Accidental Octave 
-  deriving (Eq, Show, Read)
-    
+
 -- all resulting chords in root position
 data CadenceType = 
   PerfAuth 
@@ -116,6 +111,13 @@ data HarmonicSequenceType =
   | Asc56 
   | Desc56
   deriving (Eq, Show, Read)
+
+data Tone = Tone NoteName Accidental Octave 
+  deriving (Eq, Show, Read)
+
+--------------------------------------------------------------------------------
+-- Musical Objects
+--------------------------------------------------------------------------------
 
 data Expr = 
   Rest Duration
