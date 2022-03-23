@@ -30,5 +30,6 @@ cabal.project.local~
 bin/
 *.assem
 *.liveness
+Compile
 a.out
 html/*
