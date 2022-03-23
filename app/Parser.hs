@@ -50,10 +50,11 @@ number     = Token.integer lexer        -- ^  n ∈ ℤ
 instr :: Parsec String () IntermediateInstr
 instr = try (parseKeySig
          <|> parseAssign
-         <|> ((many1 parseExpr <?> "A label must refer to at least one expression") >>=: IRWrite) -- labeled exprs
+         <|> (many1 parseExpr >>=: IRWrite)) -- write musical expressions
          <|> (keyword "NEW_MEASURE" >>: IRNewMeasure) -- new measure
-         <?> "expected instruction")
          <* eof
+         <?> "expected instruction"
+         
 
 -- | labelName = musical expression
 parseAssign :: Parsec String () IntermediateInstr
@@ -79,9 +80,9 @@ parseExpr = try (
   parens (parseNote 
     <|> parseChordTemplate
     <|> parseCadence
-    <|> parseHarmSeq)
+    <|> parseHarmSeq))
   <|> parseFinalExpr
-  <?> "Expected expression")
+  <?> "Expected expression"
 
 parseChordTemplate :: Parsec String () IntermediateExpr
 parseChordTemplate = ChordTemplate <$> parseTone <*> parseQuality <*> parseChordType <*> parseInversion <*> parseDuration <* spaces -- CAN I REMOVE SPACES????
@@ -96,10 +97,16 @@ parseNote :: Parsec String () IntermediateExpr
 parseNote = Note <$> parseTone <*> parseDuration <* spaces
 
 parseFinalExpr :: Parsec String () IntermediateExpr
-parseFinalExpr = FinalExpr <$> try (parseLabel <|> parens (parseRest <|> parseChord))
+parseFinalExpr = FinalExpr <$> (try parseLabel <|> parens (parseRest <|> parseChord))
 
 parseRest :: Parsec String () Expr 
-parseRest = string "rest" *> parseDuration >>=: Rest
+parseRest = do 
+  string "rest" 
+  spaces
+  duration <- parseDuration
+  spaces
+  let ast = Rest duration
+  return ast
 
 parseChord :: Parsec String () Expr
 parseChord = do
