@@ -31,14 +31,6 @@ parseNamed name contents =
     Right ast -> return ast
     Left err  -> errorWithoutStackTrace (show err)
 
------------------------------------------------------------------------------------------
--- Basic domains: variables, line numbers, and values 
------------------------------------------------------------------------------------------
-identifier = Token.identifier lexer     -- ^  x ∈ Variables
-lineNumber = Token.natural lexer        -- ^  l ∈ Line numbers 
-number     = Token.integer lexer        -- ^  n ∈ ℤ
-
-
 --------------------------------------------------------------------------------
 -- * Intermediate Instructions
 --------------------------------------------------------------------------------
@@ -55,7 +47,6 @@ instr = try (parseKeySig
          <* eof
          <?> "expected instruction"
          
-
 -- | labelName = musical expression
 parseAssign :: Parsec String () IntermediateInstr
 parseAssign = do 
@@ -70,19 +61,22 @@ parseKeySig :: Parsec String () IntermediateInstr
 parseKeySig = do 
   keyword "SET_KEY"
   noteName   <- parseNoteName
-  accidental <- parseAccidental
+  accidental <- parseAccidental -- the maj/min only constriction on key sig gets checked during the IRConversion phase currently
   quality    <- parseQuality
   let ast = IRKeySignature noteName accidental quality
   return ast
 
 parseExpr :: Parsec String () IntermediateExpr
-parseExpr = try ( 
-  parens (parseNote 
-    <|> parseChordTemplate
-    <|> parseCadence
-    <|> parseHarmSeq))
-  <|> parseFinalExpr
-  <?> "Expected expression"
+parseExpr = 
+-- we HAVE to do parseChordTemplate before parseNote, because parseChordTemplate parses quality "halfdim" first and parseNote parses duration "half" first
+-- since "half" is a prefix of "halfdim", this means that the parse will fail if we do parseNote before parseChordTemplate
+  (try $ parens 
+    (try parseChordTemplate 
+      <|> try parseNote
+      <|> try parseCadence
+      <|> try parseHarmSeq))
+    <|> parseFinalExpr
+    <?> "Expected expression"
 
 parseChordTemplate :: Parsec String () IntermediateExpr
 parseChordTemplate = ChordTemplate <$> parseTone <*> parseQuality <*> parseChordType <*> parseInversion <*> parseDuration <* spaces -- CAN I REMOVE SPACES????
@@ -101,10 +95,8 @@ parseFinalExpr = FinalExpr <$> (try parseLabel <|> parens (parseRest <|> parseCh
 
 parseRest :: Parsec String () Expr 
 parseRest = do 
-  string "rest" 
-  spaces
+  symbol "rest"
   duration <- parseDuration
-  spaces
   let ast = Rest duration
   return ast
 
@@ -121,14 +113,14 @@ parseTone :: Parsec String () Tone
 parseTone = do 
   noteName   <- parseNoteName
   accidental <- parseAccidental
-  octave     <-  natural
+  octave     <-  natural <* spaces -- DO I NEED THIS??
   let ast = Tone noteName accidental (fromIntegral octave)
   return ast
 
 parseDuration :: Parsec String () Duration
 parseDuration = do
-  let parseNonDotted = choice $ map (try . string) ["sixteenth", "eighth", "quarter", "half", "whole"]
-      parseDotted    = string "dotted_" *> parseNonDotted
+  let parseNonDotted = choice $ map (try . symbol) ["sixteenth", "eighth", "quarter", "half", "whole"]
+      parseDotted    = symbol "dotted_" *> parseNonDotted
   durationStr <- (parseNonDotted >>=: lowerCaseToSentenceCase) 
                  <|> (parseDotted >>=: ((++) "Dotted") . lowerCaseToSentenceCase)
   let ast = read durationStr :: Duration
@@ -136,49 +128,50 @@ parseDuration = do
 
 parseNoteName :: Parsec String () NoteName
 parseNoteName = do
-  noteName <- choice $ map (try . string) ["F", "C", "G", "D", "A", "E", "B"]
+  noteName <- choice $ map (try . string) ["F", "C", "G", "D", "A", "E", "B"] -- we do NOT want to remove trailing space
   let ast = read noteName :: NoteName
   return ast
 
 parseAccidental :: Parsec String () Accidental
 parseAccidental = do 
-  let parseAlteredAccidental = try (string "##" >>: DoubleSharp) 
-                              <|> try (string "#" >>: Sharp)
-                              <|> try (string "bb" >>: DoubleFlat) 
-                              <|> try (string "b" >>: Flat)
+  let parseAlteredAccidental = try (symbol "##" >>: DoubleSharp) 
+                              <|> try (symbol "#" >>: Sharp)
+                              <|> try (symbol "bb" >>: DoubleFlat) 
+                              <|> try (symbol "b" >>: Flat)
   ast <- option Natural $ parseAlteredAccidental
   return ast
     
 parseQuality :: Parsec String () Quality 
-parseQuality = try (string "maj" >>: Major)
-          <|> (string "min"      >>: Minor)
-          <|> (string "aug"      >>: Augmented)
-          <|> (string "dim"      >>: Diminished)
-          <|> (string "halfdim"  >>: HalfDiminished)
-         <?> "expected quality"
+parseQuality = 
+  try (symbol "maj" >>: Major) -- have to "try" here bc "m" is prefix of both maj and min
+  <|> (symbol "min"      >>: Minor)
+  <|> (symbol "aug"      >>: Augmented)
+  <|> (symbol "dim"      >>: Diminished)
+  <|> (symbol "halfdim"  >>: HalfDiminished)
+  <?> "expected quality"
 
 parseInversion :: Parsec String () Inversion
 parseInversion =  do
-  inversionStr <- string "inv:" *> (choice $ map (try . string) ["root", "first", "second", "third"]) >>=: lowerCaseToSentenceCase
+  inversionStr <- string "inv:" *> (choice $ map (try . symbol) ["root", "first", "second", "third"]) >>=: lowerCaseToSentenceCase
   let ast = read inversionStr :: Inversion
   return ast
 
 parseChordType :: Parsec String () ChordType
 parseChordType = do
-  chordTypeStr <- (choice $ map (try . string) ["triad", "seventh"]) >>=: lowerCaseToSentenceCase
+  chordTypeStr <- (choice $ map (try . symbol) ["triad", "seventh"]) >>=: lowerCaseToSentenceCase
   let ast = read chordTypeStr :: ChordType
   return ast
 
 parseCadenceType :: Parsec String () CadenceType
 parseCadenceType = do
-  cadenceTypeStr <-  ((choice $ map (try . string) ["PerfAuth", "ImperfAuth, Plagal, Deceptive"]) <* string "Cadence") 
+  cadenceTypeStr <-  ((choice $ map (try . symbol) ["PerfAuth", "ImperfAuth, Plagal, Deceptive"]) <* string "Cadence") 
                       <|> (string "Half" >>=: flip (++) "Cad")
   let ast = read cadenceTypeStr :: CadenceType
   return ast
 
 parseHarmSeqType :: Parsec String () HarmonicSequenceType
 parseHarmSeqType = do
-  harmSeqTypeStr <- (choice $ map (try . string) ["AscFifths", "DescFifths", "Asc56", "Desc56"])
+  harmSeqTypeStr <- (choice $ map (try . symbol) ["AscFifths", "DescFifths", "Asc56", "Desc56"])
   let ast = read harmSeqTypeStr :: HarmonicSequenceType
   return ast
 
@@ -191,20 +184,25 @@ parseHarmSeqType = do
 
 -- | p ∈ Programs ::= [s1, s2, ..., sn]
 program :: Parsec String () [IntermediateInstr]
-program = do instrs <- many instr
-             eof
-             return instrs
+program = do 
+  whiteSpace -- do i need this???
+  instrs <- many instr
+  eof
+  return instrs
 
 -----------------------------------------------------------------------------------------
 -- Convenience parsers
 -----------------------------------------------------------------------------------------
-keyword = Token.reserved lexer
-op      = Token.reservedOp lexer
+keyword    = Token.reserved lexer
+op         = Token.reservedOp lexer
 natural    = Token.natural lexer
-symbol    = Token.symbol lexer
-parens        = Token.parens lexer
-brackets      = Token.brackets lexer
-commaSep1      = Token.commaSep1 lexer
+symbol     = Token.symbol lexer
+parens     = Token.parens lexer
+brackets   = Token.brackets lexer
+commaSep1  = Token.commaSep1 lexer
+identifier = Token.identifier lexer
+whiteSpace = Token.whiteSpace lexer
+stringLiteral     = Token.stringLiteral lexer
 
 infixl 1 >>=:
 left >>=: f = f <$> left
