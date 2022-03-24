@@ -8,29 +8,31 @@
 \contentsline {subsection}{\numberline {2.1.5}Strongly-Timed Programming}{6}{subsection.2.1.5}%
 \contentsline {section}{\numberline {2.2}Survey of External DSLs for Music}{7}{section.2.2}%
 \contentsline {subsection}{\numberline {2.2.1}LilyPond}{7}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}PyTabs}{7}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.2}PyTabs}{8}{subsection.2.2.2}%
 \contentsline {subsection}{\numberline {2.2.3}LCSynth}{8}{subsection.2.2.3}%
-\contentsline {subsection}{\numberline {2.2.4}LC}{8}{subsection.2.2.4}%
+\contentsline {subsection}{\numberline {2.2.4}LC}{9}{subsection.2.2.4}%
 \contentsline {subsection}{\numberline {2.2.5}mimium}{9}{subsection.2.2.5}%
 \contentsline {section}{\numberline {2.3}Survey of Internal DSLs for Music}{10}{section.2.3}%
 \contentsline {subsection}{\numberline {2.3.1}MusicXML}{10}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}HMusic}{10}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.2}HMusic}{11}{subsection.2.3.2}%
 \contentsline {subsection}{\numberline {2.3.3}T-calculus}{11}{subsection.2.3.3}%
-\contentsline {section}{\numberline {2.4}Applications in Algorithmic Composition}{11}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}Skini}{11}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}Advantages of using DSLs over Virtual Machines (VMs) for Music}{12}{subsection.2.4.2}%
+\contentsline {section}{\numberline {2.4}Applications in Algorithmic Composition}{12}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Skini}{12}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Advantages of using DSLs over Virtual Machines (VMs) for Music}{13}{subsection.2.4.2}%
 \contentsline {section}{\numberline {2.5}Applications in HCI}{13}{section.2.5}%
 \contentsline {subsection}{\numberline {2.5.1}Computational Counterpoint Marks}{13}{subsection.2.5.1}%
-\contentsline {subsection}{\numberline {2.5.2}Research through Design}{13}{subsection.2.5.2}%
-\contentsline {section}{\numberline {2.6}Summary}{13}{section.2.6}%
+\contentsline {subsection}{\numberline {2.5.2}Research through Design}{14}{subsection.2.5.2}%
+\contentsline {section}{\numberline {2.6}Summary}{14}{section.2.6}%
 \contentsline {chapter}{\numberline {3}Language Features}{15}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Abstract Syntax}{15}{section.3.1}%
-\contentsline {chapter}{\numberline {4}The MusAssist Compiler}{16}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Lexing}{16}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Parsing}{16}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Intermediate Representations}{16}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Code Generation}{16}{section.4.4}%
-\contentsline {chapter}{\numberline {5}Sample Programs}{17}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Future Work and Conclusion}{18}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Future Work}{18}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Conclusion}{18}{section.6.2}%
+\contentsline {section}{\numberline {3.1}Rests}{15}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Notes}{15}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Custom Chords}{16}{section.3.3}%
+\contentsline {chapter}{\numberline {4}The MusAssist Compiler}{17}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Lexing and Parsing}{17}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Abstract Syntax}{17}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Intermediate Representations}{17}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Code Generation}{17}{section.4.4}%
+\contentsline {chapter}{\numberline {5}Sample Programs}{18}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Future Work and Conclusion}{19}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Future Work}{19}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Conclusion}{19}{section.6.2}%
