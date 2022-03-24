@@ -92,7 +92,7 @@ Strongly-timed programming is a type of synchronous programming first introduced
 
 Nishimo et al. build upon Wang's work in strongly-timed programming. They further refine the definition of strongly-timed programming to be a variation of synchronous programming  integrating explicit control of logical synchronous time into an imperative PL in order to achieve precise timing behavior that is predicated on the ``ideal synchronous hypothesis," in which  that ``all computation and communications are assumed to take zero time (that is, all temporal scopes are executed instantaneously)." Nishimo  et al.'s DSL LCSynth, the parent language of  their object-oriented DSL LC, uses strongly-timed programming address the issue of imprecise  timing behavior in microsound synthesis \citeparen{nishino_2012}.
 
-Nishino et al. go on to introduce yet another paradigm called  \textit{mostly-strongly-timed programming} that is an extension of strongly-time programming. In mostly-strongly-timed programming, in addition to the principles of strongly-timed-programming, there is also support for  explicit  context  switching  between synchronous (i.e. non-preemptive) behavior and asynchronous (i.e. preemptive) behavior whose execution can be suspended at any arbitrary  time. Nishino et al.'s object-oriented DSL LC makes use of mostly-strongly-timed programming \citeparen{nishino_2012}.
+Nishino et al. go on to introduce yet another paradigm called  \textit{mostly-strongly-timed programming} that is an extension of strongly-timed programming. In mostly-strongly-timed programming, in addition to the principles of strongly-timed-programming, there is also support for  explicit  context  switching  between synchronous (i.e. non-preemptive) behavior and asynchronous (i.e. preemptive) behavior whose execution can be suspended at any arbitrary  time. Nishino et al.'s object-oriented DSL LC makes use of mostly-strongly-timed programming \citeparen{nishino_2012}.
 
 \section{Survey of External DSLs for Music}
 \label{sec:external}
@@ -200,14 +200,14 @@ Nishimo et al. use RtD to develop a new DSL focusing on the problem of microsoun
  \citeparen{nishino_2012}.
 
 \section{Summary}
-DSLs are a fascinating and effective way to bridge the conceptual gap between computing and music. Since Wang introduced ChucK in 2008, external and internal DSLs utilizing programming paradigms including functional programming, object-oriented programming, synchronous programming, strongly-time programming, and mostly-strongly-timed programming have made advances in handling issues in microsound synthesis and signal processing, such as in the LCSynth, LC, and mimium languages. On a higher level, DSLs like PyTabs, Skini, and Computational Counterpoint Marks have addressed the areas of music notation representation and algorithmic composition, as well as intersect with the field of HCI. Finally, the novel concepts of live coding and laptop music are considered with the DSLs HMusic and even LC. 
+DSLs are a fascinating and effective way to bridge the conceptual gap between computing and music. Since Wang introduced ChucK in 2008, external and internal DSLs utilizing programming paradigms including functional programming, object-oriented programming, synchronous programming, strongly-timed programming, and mostly-strongly-timed programming have made advances in handling issues in microsound synthesis and signal processing, such as in the LCSynth, LC, and mimium languages. On a higher level, DSLs like PyTabs, Skini, and Computational Counterpoint Marks have addressed the areas of music notation representation and algorithmic composition, as well as intersect with the field of HCI. Finally, the novel concepts of live coding and laptop music are considered with the DSLs HMusic and even LC. 
 
 %------------------------------------------------------------------------------------------------------------------------------------------------------
 \chapter{Language Features}
 
 MusAssist allows users to write individual notes and rests, as well as chords consisting of custom collections of notes. Drawing upon concepts from music theory, users can also describe chords based on type, quality, and inversion (such a C augmented seventh chord in second inversion). Furthermore, users can describe any of the four primary harmonic sequences (ascending fifths, descending fifths, ascending 5-6, and descending 5-6) of any length and in any local key (i.e. no matter what the current key signature is). MusAssist additionally allows users to describe any of the five primary cadences (perfect authentic, imperfect authentic, plagal, half, and deceptive) in any local key. Finally, users have the ability to change the key signature or move to a new measure at any time.
 
-This chapter details the concrete syntax of MusAssist. In the following sections, parameters take the following form: \verb!*PARAMETER*!.
+This chapter details the concrete syntax of MusAssist. In the following sections, parameters take the following form: \verb!<PARAMETER>!.
 %----------------------------------------------------------------------------
 \section{Rests}
 \label{sec:rests}
@@ -215,11 +215,11 @@ This chapter details the concrete syntax of MusAssist. In the following sections
 The syntax for a rest is as follows
 \begin{center}
 \begin{verbatim}
-(rest *DURATION*)
+(rest <DURATION>)
 \end{verbatim}
 \end{center}
 
-\noindent where \verb!*DURATION*! is taken from one of the following options
+\noindent where \verb!<DURATION>! is taken from one of the following options
 
 \begin{verbatim}
 \begin{center}
@@ -234,28 +234,28 @@ An example of a MusAssist rest is \verb!(rest dotted_quarter)!
 The syntax for a note is as follows
 
 \begin{verbatim}
-(*NOTENAME**ACCIDENTAL**OCTAVE* *DURATION*)
+(<NOTENAME><ACCIDENTAL><OCTAVE> <DURATION>)
 \end{verbatim}
 
-\noindent where \verb!*NOTENAME*! is taken from one of the following options
+\noindent where \verb!<NOTENAME>! is taken from one of the following options
 \begin{verbatim}
 C, D, E, F, G, A, B
 \end{verbatim}
 
-\noindent and \verb!*ACCIDENTAL*! is taken from one of the following options
+\noindent and \verb!<ACCIDENTAL>! is taken from one of the following options
 \begin{verbatim}
 #, ##, b, bb
 \end{verbatim}
 
-\verb!*ACCIDENTAL*! is an optional parameter. If the user leaves it out, the note is considered natural. Notice that double sharps are represented with \verb!##! rather than the conventional \musDoubleSharp \; symbol, as this is not an easily typed out character on a keyboard.
+\verb!<ACCIDENTAL>! is an optional parameter. If the user leaves it out, the note is considered natural. Notice that double sharps are represented with \verb!##! rather than the conventional \musDoubleSharp \; symbol, as this is not an easily typed out character on a keyboard.
 
-\verb!*OCTAVE*! is taken from one of the following options.
+\verb!<OCTAVE>! is taken from one of the following options.
 \begin{verbatim}
 1,2,3,4,5,6,7,8
 \end{verbatim}
 \noindent as these are the octaves of a standard piano.
 
-\verb!*DURATION*! is taken from the same options as in \Cref{sec:rests}.
+\verb!<DURATION>! is taken from the same options as in \Cref{sec:rests}.
 
 Examples of MusAssist notes are \verb!(Cbb5 eighth)!, \verb!(D#5 eighth)!, and \verb!(A2 quarter)!
 
@@ -265,12 +265,12 @@ Examples of MusAssist notes are \verb!(Cbb5 eighth)!, \verb!(D#5 eighth)!, and \
 The syntax for a custom chord is as follows
 
 \begin{verbatim}
-([*NOTENAME**ACCIDENTAL**OCTAVE*] *DURATION*)
+([<NOTENAME><ACCIDENTAL><OCTAVE>] <DURATION>)
 \end{verbatim}
 
-\noindent where \verb!*NOTENAME*!, \verb!*ACCIDENTAL*!, and \verb!*OCTAVE*! are taken from the same options as in \Cref{sec:notes}
+\noindent where \verb!<NOTENAME>!, \verb!<ACCIDENTAL>!, \verb!<OCTAVE>!, and \verb!<DURATION>! are taken from the same options as in \Cref{sec:notes}, and \verb!<ACCIDENTAL>! is similarly optional, with natural implied when it is left out.
 
-\verb![*NOTENAME**ACCIDENTAL**OCTAVE*]! indicates an arbitrarily long list supplied by the user, where each of the values are of the form \verb!*NOTENAME**ACCIDENTAL**OCTAVE*!
+\verb![<NOTENAME><ACCIDENTAL><OCTAVE>]! indicates an arbitrarily long list supplied by the user, where each of the values are of the form \verb!<NOTENAME><ACCIDENTAL><OCTAVE>!
 
 Examples of MusAssist custom chords are \verb!([Bb5, Dbb6, C5] half)! and  \verb!([C##1, E5] sixteenth)!
 
@@ -280,14 +280,15 @@ Examples of MusAssist custom chords are \verb!([Bb5, Dbb6, C5] half)! and  \verb
 The syntax for a chord template is as follows
 
 \begin{verbatim}
-([*NOTENAME**ACCIDENTAL**OCTAVE*] *DURATION*)
+(<NOTENAME><ACCIDENTAL><OCTAVE> <QUALITY> <CHORDTYPE> inv:<INVERSION> <DURATION>)
 \end{verbatim}
 
-\noindent where \verb!*NOTENAME*!, \verb!*ACCIDENTAL*!, and \verb!*OCTAVE*! are taken from the same options as in \Cref{sec:notes}
+\noindent where \verb!<NOTENAME>!, \verb!<ACCIDENTAL>!, \verb!<OCTAVE>!, and \verb|<DURATION>| are taken from the same options as in \Cref{sec:notes}, and \verb!<ACCIDENTAL>! is similarly optional, with natural implied when it is left out.
 
-\verb![*NOTENAME**ACCIDENTAL**OCTAVE*]! indicates an arbitrarily long list supplied by the user, where each of the values are of the form \verb!*NOTENAME**ACCIDENTAL**OCTAVE*!
+(C6 min triad inv:first quarter)
 
-Examples of MusAssist custom chords are \verb!([Bb5, Dbb6, C5] half)! and  \verb!([C##1, E5] sixteenth)!
+
+Examples of MusAssist chord templates are \verb!(C6 min triad inv:first quarter)! and  \\\verb!(F#4 halfdim seventh inv:third eighth)!
 
 %SET_KEY Amaj
 %(D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest sixteenth)           // this is a comment

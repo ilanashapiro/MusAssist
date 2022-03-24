@@ -10,12 +10,13 @@
 \BOOKMARK [1][-]{section.3.1}{Rests}{chapter.3}% 10
 \BOOKMARK [1][-]{section.3.2}{Notes}{chapter.3}% 11
 \BOOKMARK [1][-]{section.3.3}{Custom Chords}{chapter.3}% 12
-\BOOKMARK [0][-]{chapter.4}{The MusAssist Compiler}{}% 13
-\BOOKMARK [1][-]{section.4.1}{Lexing and Parsing}{chapter.4}% 14
-\BOOKMARK [1][-]{section.4.2}{Abstract Syntax}{chapter.4}% 15
-\BOOKMARK [1][-]{section.4.3}{Intermediate Representations}{chapter.4}% 16
-\BOOKMARK [1][-]{section.4.4}{Code Generation}{chapter.4}% 17
-\BOOKMARK [0][-]{chapter.5}{Sample Programs}{}% 18
-\BOOKMARK [0][-]{chapter.6}{Future Work and Conclusion}{}% 19
-\BOOKMARK [1][-]{section.6.1}{Future Work}{chapter.6}% 20
-\BOOKMARK [1][-]{section.6.2}{Conclusion}{chapter.6}% 21
+\BOOKMARK [1][-]{section.3.4}{Chord Templates}{chapter.3}% 13
+\BOOKMARK [0][-]{chapter.4}{The MusAssist Compiler}{}% 14
+\BOOKMARK [1][-]{section.4.1}{Lexing and Parsing}{chapter.4}% 15
+\BOOKMARK [1][-]{section.4.2}{Abstract Syntax}{chapter.4}% 16
+\BOOKMARK [1][-]{section.4.3}{Intermediate Representations}{chapter.4}% 17
+\BOOKMARK [1][-]{section.4.4}{Code Generation}{chapter.4}% 18
+\BOOKMARK [0][-]{chapter.5}{Sample Programs}{}% 19
+\BOOKMARK [0][-]{chapter.6}{Future Work and Conclusion}{}% 20
+\BOOKMARK [1][-]{section.6.1}{Future Work}{chapter.6}% 21
+\BOOKMARK [1][-]{section.6.2}{Conclusion}{chapter.6}% 22
