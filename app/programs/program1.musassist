@@ -8,15 +8,3 @@ SET_KEY Dmin
 NEW_MEASURE
 (DescFifths G5 min quarter length:15) (PerfAuthCadence Eb5 min half)
 // notes1 chords1 (AscFifths G3 min quarter length:5) (PerfAuthCadence Eb5 min sixteenth)
-
-// this can all be captured by regex (i.e. this is a regular grammar, and therefore is CF for generators) 
-//     --> can do this pretty easily with alex and happy
-// the grammar seems to be one level
-// lines can be one of 3 things: anonymous musical obj seq (that gets written), assignment
-// include separate products that describe what a chord is, note is, etc --> modularize it
-
-// tricky spots: comes down to identifiers. difference between note like C4, a name like C6.min.triad.inv:1, a name like PlagalCad, and a name like notes1
-//     these are all identifiers. they can appear, now, anywhere that a note can appear (i.e. the LHS of the pair objects)
-//     there is quite a bit of syntactic variety in that spot, whereas everywhere else it's limited
-//     have to be careful, when describing the grammar, that I put the longest prefixes first
-//     so if i do have tokens that are prefixes of other tokens, put the longest ones first (remember from before in class)

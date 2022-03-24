@@ -196,7 +196,7 @@ DSLs are a fascinating and effective way to bridge the conceptual gap between co
 
 \chapter{Language Features}
 
-MusAssist support
+MusAssist supports 
 
 
 \section{Abstract Syntax}
@@ -216,10 +216,8 @@ The fundamental music
 \section{Future Work}
 Ideally, in the future MusAssist would support more complex musical states and elements including custom time signature and mid-composition time signature changes (similar to the behavior currently implemented for key signatures), clef changes within a part, multiple-clef parts (i.e. piano), custom parts, and multiple parts. Custom and changeable time signature would allow for the users to experiment with metric modulation, something that is currently impossible with the fixed common time setup. Clef changes within a part, both manual and automatic when a note extends too many ledger lines beyond a clef, would allow the score to be more nicely formatted and readable for the user. Support for two-clef piano would allow the MusAssist compiler to successfully modify how it generates cadences and harmonic sequences to include the essential baseline, in addition to the harmonization already implemented. The latter two goals (custom parts and multiple parts) are somewhat outside MusAssist's goal as a music compositional aid, as this extends beyond the realm of music theory. However, users may enjoy this increased flexibility when composing.
 
-Finally, it would be useful in the future to have support for labeled musical expressions that can then be reused later in the program, similar to what LilyPonds has. This departs somewhat from the precept that MusAssist should align precisely with the flow composing music by hand would, as labeled expressions start to venture more into the realm of computing. Nonetheless, users would likely find it helpful.
-
 \section{Conclusion}
-MusAssist is an external DSL whose Haskell-based compiler translates it to a MusicXML file that can be loaded into a major music notation software for further editing. Its syntax is simple and models the flow of thought a composer would have when writing music by hand. MusAssist fills a niche in the realm of musical DSLs by serving as a music compositional aid that is not intended to allow to the user to write a fully expressive musical piece, but rather to more easily create musical expressions that would be tedious to write by hand. The additional features described in the previous section would make the language align even more robustly with this goal. MuseScore can be further valuable as an education tool to music theory students, allowing them to visualize musical structures from the definitions that they describe in MusAssist.
+MusAssist is an external DSL whose Haskell-based compiler translates it to MusicXML that can be loaded into a major music notation software for further editing. Its syntax is simple and models the flow of thought a composer would have when writing music by hand. MusAssist fills a niche in the realm of musical DSLs by serving as a music compositional aid that is not intended to allow to the user to write a fully expressive musical piece, but rather to more easily create musical expressions that would be tedious to write by hand. The additional features described in the previous section would make the language align even more robustly with this goal. MuseScore can be further valuable as an education tool to music theory students, allowing them to visualize musical structures from the definitions that they describe in MusAssist.
 
 Clearly, DSLs are a powerful mechanism to push the boundaries of  computational creativity in the field of music. Unfortunately, DSLs for music have not been studied extensively  and  remain an extremely comparatively small area of research, though scholars such as  Wang continue to lead  research in institutions such as Stanford's CCRMA (Center for Computer Research in Music and Acoustics). By continuing to examine the creative expressive power of DSLs  in  music, we can continue to increase our understanding of the creative capabilities and extent of customization possible for  a programming language.
 

@@ -6,15 +6,14 @@
 \BOOKMARK [1][-]{section.2.4}{Applications in Algorithmic Composition}{chapter.2}% 6
 \BOOKMARK [1][-]{section.2.5}{Applications in HCI}{chapter.2}% 7
 \BOOKMARK [1][-]{section.2.6}{Summary}{chapter.2}% 8
-\BOOKMARK [0][-]{chapter.3}{MusAssist Syntax}{}% 9
-\BOOKMARK [1][-]{section.3.1}{Concrete Syntax}{chapter.3}% 10
-\BOOKMARK [1][-]{section.3.2}{Abstract Syntax}{chapter.3}% 11
-\BOOKMARK [0][-]{chapter.4}{The MusAssist Compiler}{}% 12
-\BOOKMARK [1][-]{section.4.1}{Lexing}{chapter.4}% 13
-\BOOKMARK [1][-]{section.4.2}{Parsing}{chapter.4}% 14
-\BOOKMARK [1][-]{section.4.3}{Intermediate Representations}{chapter.4}% 15
-\BOOKMARK [1][-]{section.4.4}{Code Generation}{chapter.4}% 16
-\BOOKMARK [0][-]{chapter.5}{Sample Programs}{}% 17
-\BOOKMARK [0][-]{chapter.6}{Future Work and Conclusion}{}% 18
-\BOOKMARK [1][-]{section.6.1}{Future Work}{chapter.6}% 19
-\BOOKMARK [1][-]{section.6.2}{Conclusion}{chapter.6}% 20
+\BOOKMARK [0][-]{chapter.3}{Language Features}{}% 9
+\BOOKMARK [1][-]{section.3.1}{Abstract Syntax}{chapter.3}% 10
+\BOOKMARK [0][-]{chapter.4}{The MusAssist Compiler}{}% 11
+\BOOKMARK [1][-]{section.4.1}{Lexing}{chapter.4}% 12
+\BOOKMARK [1][-]{section.4.2}{Parsing}{chapter.4}% 13
+\BOOKMARK [1][-]{section.4.3}{Intermediate Representations}{chapter.4}% 14
+\BOOKMARK [1][-]{section.4.4}{Code Generation}{chapter.4}% 15
+\BOOKMARK [0][-]{chapter.5}{Sample Programs}{}% 16
+\BOOKMARK [0][-]{chapter.6}{Future Work and Conclusion}{}% 17
+\BOOKMARK [1][-]{section.6.1}{Future Work}{chapter.6}% 18
+\BOOKMARK [1][-]{section.6.2}{Conclusion}{chapter.6}% 19
