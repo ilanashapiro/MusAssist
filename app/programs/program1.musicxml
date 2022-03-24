@@ -235,7 +235,7 @@
 			<note>
 				<pitch>
 					<step>G</step>
-					<alter>1</alter>
+					<alter>2</alter>
 					<octave>4</octave>
 				</pitch>
 				<duration>2</duration>
@@ -251,7 +251,7 @@
 			<note>
 				<pitch>
 					<step>B</step>
-					<alter>-1</alter>
+					<alter>-2</alter>
 					<octave>5</octave>
 				</pitch>
 				<duration>8</duration>

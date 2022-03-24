@@ -14,6 +14,8 @@
  \usepackage{setspace}
  \usepackage{enumitem}
  \usepackage{musicography}
+\usepackage{etoolbox}
+
 
 \title{MusAssist: A Domain Specific Language for Music }
 \author{Ilana Shapiro}
@@ -23,6 +25,10 @@
 \newcommand\citeparen[1]{(\cite{#1})}
 \setcounter{tocdepth}{1}
 \setlength{\parskip}{5pt}
+
+\makeatletter
+\preto{\@verbatim}{\topsep=0pt \partopsep0pt }
+\makeatother
 
 \begin{document}
 
@@ -207,15 +213,18 @@ This chapter details the concrete syntax of MusAssist. In the following sections
 \label{sec:rests}
 
 The syntax for a rest is as follows
-
+\begin{center}
 \begin{verbatim}
 (rest *DURATION*)
 \end{verbatim}
+\end{center}
 
 \noindent where \verb!*DURATION*! is taken from one of the following options
 
 \begin{verbatim}
+\begin{center}
 sixteenth, eighth, dotted_eighth, quarter, dotted_quarter, half, dotted_half, whole
+\end{center}
 \end{verbatim}
 
 An example of a MusAssist rest is \verb!(rest dotted_quarter)!
@@ -261,10 +270,24 @@ The syntax for a custom chord is as follows
 
 \noindent where \verb!*NOTENAME*!, \verb!*ACCIDENTAL*!, and \verb!*OCTAVE*! are taken from the same options as in \Cref{sec:notes}
 
-\verb![*NOTENAME**ACCIDENTAL**OCTAVE*]! indicates an arbitrarily long list where each of the values have the form \verb!*NOTENAME**ACCIDENTAL**OCTAVE*!
+\verb![*NOTENAME**ACCIDENTAL**OCTAVE*]! indicates an arbitrarily long list supplied by the user, where each of the values are of the form \verb!*NOTENAME**ACCIDENTAL**OCTAVE*!
 
-Examples of MusAssist notes are \verb!([Bb5, Db5, C5] half)! and  \verb!([C##5, E5] half)!
+Examples of MusAssist custom chords are \verb!([Bb5, Dbb6, C5] half)! and  \verb!([C##1, E5] sixteenth)!
 
+%----------------------------------------------------------------------------
+
+\section{Chord Templates}
+The syntax for a chord template is as follows
+
+\begin{verbatim}
+([*NOTENAME**ACCIDENTAL**OCTAVE*] *DURATION*)
+\end{verbatim}
+
+\noindent where \verb!*NOTENAME*!, \verb!*ACCIDENTAL*!, and \verb!*OCTAVE*! are taken from the same options as in \Cref{sec:notes}
+
+\verb![*NOTENAME**ACCIDENTAL**OCTAVE*]! indicates an arbitrarily long list supplied by the user, where each of the values are of the form \verb!*NOTENAME**ACCIDENTAL**OCTAVE*!
+
+Examples of MusAssist custom chords are \verb!([Bb5, Dbb6, C5] half)! and  \verb!([C##1, E5] sixteenth)!
 
 %SET_KEY Amaj
 %(D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest sixteenth)           // this is a comment
