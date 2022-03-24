@@ -18,13 +18,15 @@ and run
 module Main where
 
 import           Data.Char          (isSpace)
-import           Data.IORef
+import           Data.IORef         as IORef
 import qualified MusAssistAST       as MusAST
 import qualified Parser
 import qualified MusicXMLgen
 import qualified IRConversion
 import           System.Environment (getArgs)
 import           System.FilePath    (replaceExtension, takeExtension)
+import           Data.Map(Map)
+import qualified Data.Map as Map
 
 ----------
 -- Main --
@@ -41,7 +43,7 @@ main = do
 
   -- A mutable counter used throughout the compiler code so that we can
   --    keep track of the beat to generate measures correctly
-  ct        <- Data.IORef.newIORef 0.0
+  ct        <- IORef.newIORef 0.0
 
   -- Read in the .ast file containing Haskell code
   --   for a list of MusAssistAST values from the parse result
@@ -55,9 +57,9 @@ main = do
 
   -- Translate MusAssistAST code to musicXML code
   putStrLn "Generating musicXML code..."
-  beatCt        <- Data.IORef.newIORef 0
-  measureCt     <- Data.IORef.newIORef 1
-  defaultKeySig <- Data.IORef.newIORef (0, 0) -- no sharps, no flats
+  beatCt        <- IORef.newIORef 0
+  measureCt     <- IORef.newIORef 1
+  defaultKeySig <- IORef.newIORef (0, 0) -- no sharps, no flats
   code          <- MusicXMLgen.transInstrs (beatCt, measureCt, defaultKeySig) processedAST
 
     -- header code for musicXML file

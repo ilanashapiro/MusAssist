@@ -13,6 +13,8 @@ import           Control.Monad.Extra
 import           Data.Map(Map)
 import qualified Data.Map as Map
 
+-- type SymbolTable = map MusAST.Label CodeLine -- for storing labeled exprs. both of these are string aliases
+
 globalValidKeyQualities :: [MusAST.Quality]
 globalValidKeyQualities = [MusAST.Major, MusAST.Minor]
 
@@ -335,3 +337,21 @@ expandIntermediateInstr (MusAST.IRWrite intermediateExprs) = do
 -----------------------------------------------------------------------------------------
 expandIntermediateInstrs :: [MusAST.IntermediateInstr] -> IO [MusAST.Instr]
 expandIntermediateInstrs intermediateInstrs = mapM expandIntermediateInstr intermediateInstrs
+
+
+
+-- Assign Label [Expr]
+-- transInstr state (MusAST.Assign label exprs) = do
+--   let (_, _, _, symbolTableIORef) = state
+--   symbolTable <- IORef.readIORef symbolTableIORef
+--   code <- concatMapM (transExpr state) exprs 
+--   IORef.writeIORef symbolTableIORef (Map.insert label code symbolTable) -- insert the code for the expr into the symbol table (return bc we're in a do block)
+--   return [] -- we don't generate any code when assigning label to exprs. we just store it in the symbol table
+
+-- transExpr (_, _, _, symbolTableIORef) (MusAST.Label label) = do  
+--   symbolTable <- IORef.readIORef symbolTableIORef
+--   let labeledExprCode = 
+--         case Map.lookup label symbolTable of
+--           Just code -> code
+--           Nothing   -> error ("Attempting to a reference a label: " ++ label ++ " that hasn't been defined")
+--   return labeledExprCode
