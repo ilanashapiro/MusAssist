@@ -19,15 +19,13 @@ module Main where
 
 import           Data.Char          (isSpace)
 import           Data.IORef
-import           Data.List          (dropWhileEnd)
 import qualified MusAssistAST       as MusAST
+import qualified Parser
 import qualified MusicXMLgen
 import qualified IRConversion
 import           System.Environment (getArgs)
 import           System.FilePath    (replaceExtension, takeExtension)
 
-
-import System.Exit
 ----------
 -- Main --
 ----------
@@ -47,15 +45,12 @@ main = do
 
   -- Read in the .ast file containing Haskell code
   --   for a list of MusAssistAST values from the parse result
-  unprocessedAST <- case takeExtension fileName of -- REPLACE THIS WITH PARSE RESULT ONCE I IMPLEMENT PARSING
-    ".irast" -> do
+  unprocessedAST <- case takeExtension fileName of 
+    ".musassist" -> do
       text <- readFile fileName
-      let input = strip text
-      return (read input :: [MusAST.IntermediateInstr])
+      Parser.parseFile fileName
     ext -> error $ "unexpected extension " ++ show ext
 
-  
-  exitWith (ExitFailure 2)
   processedAST <- IRConversion.expandIntermediateInstrs unprocessedAST
 
   -- Translate MusAssistAST code to musicXML code
@@ -150,7 +145,3 @@ main = do
   writeFile musicXMLFileName musicXMLCode
   putStrLn $ "Wrote file " ++ musicXMLFileName
 
-
--- Helper function to remove whitespace at the beginning and end of a string
-strip :: String -> String
-strip = dropWhileEnd isSpace . dropWhile isSpace

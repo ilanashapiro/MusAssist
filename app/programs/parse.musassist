@@ -1,1 +1,2 @@
-(AscFifths G3 quarter length:5) (PerfAuthCadence Eb5 min)
+notes1 = (D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest sixteenth)  // note without b or # is considered to be natural
+(AscFifths G3 min quarter length:5) (PerfAuthCadence Eb5 min quarter)

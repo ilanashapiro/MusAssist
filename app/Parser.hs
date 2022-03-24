@@ -6,6 +6,7 @@ import qualified Text.Parsec.Token as Token
 import qualified Data.Map as Map 
 import           Data.Char as Char
 import           Control.Monad.Extra
+import           Data.List          (dropWhileEnd)
 
 import MusAssistAST
 
@@ -20,7 +21,7 @@ lowerCaseToSentenceCase s = (Char.toUpper $ head s) : tail s
 parseFile :: FilePath -> IO [IntermediateInstr]
 parseFile fileName = do 
   fileContentsStr <- readFile fileName 
-  let fileLines = lines fileContentsStr
+  let fileLines = lines (strip fileContentsStr)
   parseNamed fileName fileLines
 
 -- | Parse a MusAssist program, given a name for the source of the program and a string that
@@ -40,9 +41,9 @@ parseNamed name contents =
                                   -- |  .......................
 
 instr :: Parsec String () IntermediateInstr
-instr = try (parseKeySig
-         <|> parseAssign
-         <|> (many1 parseExpr >>=: IRWrite)) -- write musical expressions
+instr =  parseKeySig
+         <|> try parseAssign
+         <|> (many1 parseExpr >>=: IRWrite) -- write musical expressions
          <|> (keyword "NEW_MEASURE" >>: IRNewMeasure) -- new measure
          <* eof
          <?> "expected instruction"
@@ -70,12 +71,14 @@ parseExpr :: Parsec String () IntermediateExpr
 parseExpr = 
 -- we HAVE to do parseChordTemplate before parseNote, because parseChordTemplate parses quality "halfdim" first and parseNote parses duration "half" first
 -- since "half" is a prefix of "halfdim", this means that the parse will fail if we do parseNote before parseChordTemplate
-  (try $ parens 
-    (try parseChordTemplate 
+-- also it's important to do parseFinalExpr first, because we HAVE to have parens after this 
+-- and finalexpr has one option (label) that doesn't have parens, so the label parse needs to get tried first 
+  try parseFinalExpr
+  <|> parens 
+    (try parseChordTemplate -- overlapping prefixes means we need to use "try"
       <|> try parseNote
       <|> try parseCadence
-      <|> try parseHarmSeq))
-    <|> parseFinalExpr
+      <|> parseHarmSeq)
     <?> "Expected expression"
 
 parseChordTemplate :: Parsec String () IntermediateExpr
@@ -85,7 +88,7 @@ parseCadence :: Parsec String () IntermediateExpr
 parseCadence = Cadence <$> parseCadenceType <*> parseTone <*> parseQuality <*> parseDuration <* spaces 
 
 parseHarmSeq :: Parsec String () IntermediateExpr
-parseHarmSeq = HarmonicSequence <$> parseHarmSeqType <*> parseTone <*> parseQuality <*> parseDuration <*> (natural >>=: fromIntegral) <* spaces
+parseHarmSeq = HarmonicSequence <$> parseHarmSeqType <*> parseTone <*> parseQuality <*> parseDuration <*> (string "length:" *> natural >>=: fromIntegral) <* spaces
 
 parseNote :: Parsec String () IntermediateExpr 
 parseNote = Note <$> parseTone <*> parseDuration <* spaces
@@ -164,8 +167,8 @@ parseChordType = do
 
 parseCadenceType :: Parsec String () CadenceType
 parseCadenceType = do
-  cadenceTypeStr <-  ((choice $ map (try . symbol) ["PerfAuth", "ImperfAuth, Plagal, Deceptive"]) <* string "Cadence") 
-                      <|> (string "Half" >>=: flip (++) "Cad")
+  cadenceTypeStr <-  ((choice $ map (try . symbol) ["PerfAuth", "ImperfAuth, Plagal, Deceptive"]) <* symbol "Cadence") 
+                      <|> (symbol "HalfCadence" >>: "HalfCad")
   let ast = read cadenceTypeStr :: CadenceType
   return ast
 
@@ -177,7 +180,7 @@ parseHarmSeqType = do
 
 -- betweenDelimiters :: String -> String -> Parsec String () a -> Parsec String () a -- replace a with IntermediateExpression
 -- betweenDelimiters open close = between (symbol open) (symbol close)
-
+ 
 --------------------------------------------------------------------------------
 -- * Programs
 --------------------------------------------------------------------------------
@@ -230,3 +233,7 @@ langDef = Token.LanguageDef
 
 lexer :: Token.TokenParser ()
 lexer = Token.makeTokenParser langDef
+
+-- Helper function to remove whitespace at the beginning and end of a string
+strip :: String -> String
+strip = dropWhileEnd Char.isSpace . dropWhile Char.isSpace
