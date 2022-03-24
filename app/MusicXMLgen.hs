@@ -20,17 +20,12 @@ type BeatCounter = IORef.IORef Int
 type MeasureCounter = IORef.IORef Int
 type KeySignature = IORef.IORef (Int, Int) -- num sharps, num flats. at least one must be 0! 
 
--- IN CONCLUSION
+-- NOTE:
 -- The user will always explicitly say whether something is sharp or flat
 -- Since the user doesn't handle measures directly (except for saying "start a new measure"),
--- don't keep track of sharps/flats per measure, since MuseScore will handle that notation. 
--- MusicXML just wants to know that actual quality of the note,
--- and aside from key signature which the user can define, we don't need to handle anything beyond this
-------------------------------------------------------------------------------------------------------------------------------------------------
-----type NotePrimitive = (MusAST.NoteName, MusAST.Octave) -- just saves note name and octave, use for keeping track of sharp/flat notes in a measure
--- list of sharp notes (i.e. notename, octave), list of flat notes in current measure
--- resets to empty at start of each measure
-----type SharpsFlatsAccInMeas = ([NotePrimitive], [NotePrimitive])
+-- we don't keep track of sharps/flats per measure. MuseScore will handle that notation. 
+-- MusicXML just needs to know that actual quality of the note,
+-- and aside from the key signature which the user can define, we don't need to handle anything beyond this
 
 type State = (BeatCounter, MeasureCounter, KeySignature)
 
@@ -77,14 +72,14 @@ updateBeat noteDuration (currBeatCt, measureCt, _) = do
 
 globalDurationIntBimap :: Bimap MusAST.Duration Int
 globalDurationIntBimap = Bimap.fromList 
-  [(MusAST.Sixteenth, 1),
-  (MusAST.Eighth, 2),
-  (MusAST.DottedEighth, 3),
-  (MusAST.Quarter, 4),
-  (MusAST.DottedQuarter, 6),
-  (MusAST.Half, 8),
+  [(MusAST.Whole, 16),
   (MusAST.DottedHalf, 12),
-  (MusAST.Whole, 16)]
+  (MusAST.Half, 8),
+  (MusAST.DottedQuarter, 6),
+  (MusAST.Quarter, 4),
+  (MusAST.DottedEighth, 3),
+  (MusAST.Eighth, 2),
+  (MusAST.Sixteenth, 1)]
 
 durationToNoteTypeCode :: MusAST.Duration -> [CodeLine]
 durationToNoteTypeCode duration = case duration of
@@ -100,7 +95,7 @@ durationToNoteTypeCode duration = case duration of
 breakUpNoteValRationally :: [Int] -> Int -> Bool -> IO [(MusAST.Duration, Int)]
 breakUpNoteValRationally _ 0 _                                      = return []
 breakUpNoteValRationally [] _ _                                     = return $ error "cannot generate accurate note divisions" 
-breakUpNoteValRationally (noteVal:noteVals) remainingTimeInMeasure isFromMeasStart =
+breakUpNoteValRationally (noteVal:noteVals) remainingTimeInMeasure isFromMeasStart = do
   if noteVal <= remainingTimeInMeasure then do
     noteDuration <- lookupR noteVal globalDurationIntBimap 
     remainingPadding <- breakUpNoteValRationally noteVals (remainingTimeInMeasure - noteVal) isFromMeasStart
@@ -110,7 +105,8 @@ breakUpNoteValRationally (noteVal:noteVals) remainingTimeInMeasure isFromMeasSta
   else breakUpNoteValRationally noteVals remainingTimeInMeasure isFromMeasStart
 
 generateNoteValueRationalDivisions :: Int -> Bool -> IO [(MusAST.Duration, Int)]
-generateNoteValueRationalDivisions = breakUpNoteValRationally (reverse $ elems globalDurationIntBimap) -- we want the note vals in desc order, biggest to smallest, in order for the greedy prop to work
+-- we want the note vals in globalDurationIntBimap in desc order, biggest to smallest, in order for the greedy prop to work
+generateNoteValueRationalDivisions = breakUpNoteValRationally (reverse $ elems globalDurationIntBimap) 
 
 generateRestsFromDivisions :: [(MusAST.Duration, Int)] -> IO [CodeLine]
 generateRestsFromDivisions restDurationValPairs = return $ 
@@ -263,22 +259,22 @@ transExpr state (MusAST.Chord tones duration) = do
     -- generating the remaining tied notes that fit in this measure (each note is tied both ways)
     -- True bc start of measure, so we want rests from greatest -> least
     spilledNoteDivisions <- generateNoteValueRationalDivisions remainingNoteLength True 
-    let (lastNoteDuration, lastNoteVal) = last spilledNoteDivisions -- the last note of the tie only gets tied one way, from the left
-        lastNoteTypeCode                = durationToNoteTypeCode lastNoteDuration
+    let (finalSpilledNoteDuration, finalSpilledNoteVal) = last spilledNoteDivisions -- the last note of the tie only gets tied one way, from the left
+        finalSpilledNoteTypeCode                = durationToNoteTypeCode finalSpilledNoteDuration
         finalSpilledNoteCode            =  -- handle the final note of the tie sequence, which has a stop tie ONLY
           Prelude.concatMap 
             (\pitchCode -> 
               ["\t\t\t<note>"]
                 ++ pitchCode ++
-                ["\t\t\t\t<duration>" ++ show lastNoteVal ++ "</duration>", -- the duration of this note is all the time that's left in the measure, since the note doesn't fit in the measure
+                ["\t\t\t\t<duration>" ++ show finalSpilledNoteVal ++ "</duration>", -- the duration of this note is all the time that's left in the measure, since the note doesn't fit in the measure
                 "\t\t\t\t<tie type=\"stop\"/>", -- the note doesn't fit in the measure, so we tie
                 "\t\t\t\t<voice>1</voice>"]
-                ++ lastNoteTypeCode ++
+                ++ finalSpilledNoteTypeCode ++
                 ["\t\t\t\t<notations>",
                   "\t\t\t\t\t<tied type=\"stop\"/>",
                 "\t\t\t\t</notations>",
               "\t\t\t</note>"]) pitchesCode
-        remainingSpilledNoteDivisions   = tail spilledNoteDivisions 
+        remainingSpilledNoteDivisions   = init spilledNoteDivisions 
     remainingSpilledNoteCode <- generateTiedNotesFromDivisions pitchesCode remainingSpilledNoteDivisions
 
     updateBeat remainingNoteLength state -- with current time sig/note length setup, cannot have a tied note that fills the next measure, so NO new measure code should get generated here

@@ -72,7 +72,7 @@ parseExpr =
 -- we HAVE to do parseChordTemplate before parseNote, because parseChordTemplate parses quality "halfdim" first and parseNote parses duration "half" first
 -- since "half" is a prefix of "halfdim", this means that the parse will fail if we do parseNote before parseChordTemplate
 -- also it's important to do parseFinalExpr first, because we HAVE to have parens after this 
--- and finalexpr has one option (label) that doesn't have parens, so the label parse needs to get tried first 
+-- and finalexpr has one option (label) that doesn't have parens, so the label parse (which happens in parseFinalExpr) needs to get tried first 
   try parseFinalExpr
   <|> parens 
     (try parseChordTemplate -- overlapping prefixes means we need to use "try"
@@ -105,7 +105,7 @@ parseRest = do
 
 parseChord :: Parsec String () Expr
 parseChord = do
-  tones <- brackets (commaSep1 parseTone <?> "A user-defined chord must have at least one note")
+  tones    <- brackets (commaSep1 parseTone <?> "A user-defined chord must have at least one note")
   duration <- parseDuration
   return $ Chord tones duration
 
@@ -146,7 +146,7 @@ parseAccidental = do
     
 parseQuality :: Parsec String () Quality 
 parseQuality = 
-  try (symbol "maj" >>: Major) -- have to "try" here bc "m" is prefix of both maj and min
+  try (symbol "maj"      >>: Major) -- have to "try" here bc "m" is prefix of both maj and min
   <|> (symbol "min"      >>: Minor)
   <|> (symbol "aug"      >>: Augmented)
   <|> (symbol "dim"      >>: Diminished)
