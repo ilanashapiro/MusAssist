@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  24 MAR 2022 21:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  25 MAR 2022 01:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -422,25 +422,26 @@ LaTeX Info: Redefining \addtolength on input line 81.
 \@centerbox=\box53
 \c@ROWcellindex@=\count289
 ))
-No file "Shapiro Final Draft".aux.
+(./Shapiro Final Draft.aux)
 \openout1 = `"Shapiro Final Draft.aux"'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -476,7 +477,7 @@ LaTeX Font Info:    ... okay on input line 35.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 ABD: EverySelectfont initializing macros
-LaTeX Info: Redefining \selectfont on input line 35.
+LaTeX Info: Redefining \selectfont on input line 50.
 
 (/usr/local/texlive/2020/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -504,7 +505,7 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \AtBeginShipoutBox=\box55
-Package hyperref Info: Link coloring OFF on input line 35.
+Package hyperref Info: Link coloring OFF on input line 50.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
@@ -518,9 +519,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count296
 )
-LaTeX Info: Redefining \ref on input line 35.
-LaTeX Info: Redefining \pageref on input line 35.
-LaTeX Info: Redefining \nameref on input line 35.
+LaTeX Info: Redefining \ref on input line 50.
+LaTeX Info: Redefining \pageref on input line 50.
+LaTeX Info: Redefining \nameref on input line 50.
  (./Shapiro Final Draft.out) (./Shapiro Final Draft.out)
 \@outlinefile=\write4
 \openout4 = `"Shapiro Final Draft.out"'.
@@ -528,222 +529,165 @@ LaTeX Info: Redefining \nameref on input line 35.
  [1
 
 {/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+(./Shapiro Final Draft.tocpdfTeX warning (ext4): destination with the same iden
+tifier (name{page.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.45 ...berline {5}Sample Programs}{22}{chapter.5}
+                                                  % [1
 
-Package hyperref Warning: old toc file detected, not used; run LaTeX again.
-
+])
 \tf@toc=\write5
 \openout5 = `"Shapiro Final Draft.toc"'.
 
-pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.41 \chapter
-             {Introduction} [1
-
-]
+ [2]
 Chapter 1.
+[3
 
-Package natbib Warning: Citation `fowler_parsons_2011' on page 2 undefined on i
-nput line 42.
-
-
-Package natbib Warning: Citation `fowler_parsons_2011' on page 2 undefined on i
-nput line 44.
-
-
-Package natbib Warning: Citation `fowler_parsons_2011' on page 2 undefined on i
-nput line 46.
-
-
-Package natbib Warning: Citation `fowler_parsons_2011' on page 2 undefined on i
-nput line 48.
-
-[2
-
-] [3]
+] [4]
 Chapter 2.
+[5
 
-Package natbib Warning: Citation `wang_2008' on page 4 undefined on input line 
-60.
+] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15]
+Chapter 3.
 
+Overfull \hbox (5.74158pt too wide) in paragraph at lines 248--248
+[]\OT1/cmtt/m/n/10 sixteenth, eighth, dotted_eighth, quarter, dotted_quarter, h
+alf, dotted_half, whole[] 
+ []
 
-Package natbib Warning: Citation `cuadrado_izquierdo_molina_2012' on page 4 und
-efined on input line 65.
-
-
-LaTeX Warning: Reference `sec:prog_paradigms' on page 1 undefined on input line
- 67.
-
-
-LaTeX Warning: Reference `sec:external' on page 1 undefined on input line 67.
-
-
-LaTeX Warning: Reference `sec:internal' on page 1 undefined on input line 67.
-
-
-LaTeX Warning: Reference `sec:alg_comp' on page 4 undefined on input line 67.
-
-
-LaTeX Warning: Reference `sec:hci' on page 1 undefined on input line 67.
-
-[4
+[16
 
 ]
+Overfull \hbox (17.41034pt too wide) in paragraph at lines 295--296
+[]\OT1/cmr/m/n/10 Examples of MusAs-sist cus-tom chords are [][]\OT1/cmtt/m/n/1
+0 ([Bb5, Dbb6, C5] half) []\OT1/cmr/m/n/10 and [][]\OT1/cmtt/m/n/10 ([C##1, E5]
+ sixteenth) 
+ []
+
+[17]
+<cmintriad.png, id=374, 288.07625pt x 111.41624pt>
+File: cmintriad.png Graphic file (type png)
+<use cmintriad.png>
+Package pdftex.def Info: cmintriad.png  used on input line 342.
+(pdftex.def)             Requested size: 163.40385pt x 63.2002pt.
+<f7.png, id=376, 365.365pt x 79.29625pt>
+File: f7.png Graphic file (type png)
+<use f7.png>
+Package pdftex.def Info: f7.png  used on input line 348.
+(pdftex.def)             Requested size: 215.0023pt x 46.66216pt.
+
+Overfull \hbox (5.74158pt too wide) in paragraph at lines 360--360
+[]\OT1/cmtt/m/n/10 (<HARMSEQTYPE> <NOTENAME><ACCIDENTAL><OCTAVE> <QUALITY> <DUR
+ATION> length:<LENGTH>)[] 
+ []
+
+[18 <./cmintriad.png> <./f7.png>]
+<ascfifths.png, id=388, 438.63875pt x 90.3375pt>
+File: ascfifths.png Graphic file (type png)
+<use ascfifths.png>
+Package pdftex.def Info: ascfifths.png  used on input line 393.
+(pdftex.def)             Requested size: 215.0023pt x 44.28091pt.
+<descfifths.png, id=389, 491.8375pt x 109.40875pt>
+File: descfifths.png Graphic file (type png)
+<use descfifths.png>
+Package pdftex.def Info: descfifths.png  used on input line 399.
+(pdftex.def)             Requested size: 215.0023pt x 47.8278pt.
+<asc56.png, id=390, 451.6875pt x 70.2625pt>
+File: asc56.png Graphic file (type png)
+<use asc56.png>
+Package pdftex.def Info: asc56.png  used on input line 405.
+(pdftex.def)             Requested size: 215.0023pt x 33.44579pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<desc56.png, id=391, 481.8pt x 122.4575pt>
+File: desc56.png Graphic file (type png)
+<use desc56.png>
+Package pdftex.def Info: desc56.png  used on input line 411.
+(pdftex.def)             Requested size: 215.0023pt x 54.64569pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[19 <./ascfifths.png> <./descfifths.png>] [20 <./asc56.png> <./desc56.png>]
+Chapter 4.
+[21
+
+]
+Chapter 5.
+[22
+
+]
+Chapter 6.
+[23
+
+] (./referencesexercisebib.bib) (./Shapiro Final Draft.bbl [24]
+Underfull \hbox (badness 10000) in paragraph at lines 29--32
+[]\OT1/cmr/m/n/10 DeepSource.  Syn-chronous pro-gram-ming.  URL []$\OT1/cmtt/m/
+n/10 https : / / deepsource . io / glossary /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 45--50
+[]\OT1/cmr/m/n/10 M. Good.  \OT1/cmr/m/it/10 Mu-sicXML: An Internet-Friendly Fo
+r-mat for Sheet Mu-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 45--50
+\OT1/cmr/m/it/10 sic\OT1/cmr/m/n/10 .  Dec 2001.  URL []$\OT1/cmtt/m/n/10 https
+ : / / michaelgood . info / publications / music /
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 63--68
+[]\OT1/cmr/m/n/10 A. Joury.  Why de-vel-op-ers are falling in love with func-ti
+onal pro-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 63--68
+\OT1/cmr/m/n/10 gram-ming, Aug 2020.  URL []$\OT1/cmtt/m/n/10 https : / / towar
+dsdatascience . com /
+ []
+
+[25
+
+])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 494.
+ [26]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 494.
+ (./Shapiro Final Draft.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 494.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 494.
+Package rerunfilecheck Info: File `"Shapiro Final Draft".out' has not changed.
+(rerunfilecheck)             Checksum: 25F6242595017959256DED0AE9AD3B9E;1611.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 494.
+ ) 
+Here is how much of TeX's memory you used:
+ 12244 strings out of 480608
+ 205524 string characters out of 5903631
+ 477806 words of memory out of 5000000
+ 27840 multiletter control sequences out of 15000+600000
+ 541131 words of font info for 55 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 45i,6n,46p,1625b,462s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
+></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
+</usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
+/usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></u
+sr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr
+/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/l
+ocal/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/lo
+cal/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/loc
+al/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/loca
+l/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local
+/texlive/2020/texmf-dist/fonts/type1/public/musixtex-fonts/musix16.pfb>
+Output written on "Shapiro Final Draft.pdf" (27 pages, 409742 bytes).
+PDF statistics:
+ 525 PDF objects out of 1000 (max. 8388607)
+ 468 compressed objects within 5 object streams
+ 107 named destinations out of 1000 (max. 500000)
+ 239 words of extra memory for PDF output out of 10000 (max. 10000000)
 
-Package natbib Warning: Citation `bertram_2021' on page 5 undefined on input li
-ne 73.
-
-
-Package natbib Warning: Citation `good_2013' on page 5 undefined on input line 
-75.
-
-
-Package natbib Warning: Citation `joury_2020' on page 5 undefined on input line
- 78.
-
-
-Package natbib Warning: Citation `bois_ribeiro_1970' on page 5 undefined on inp
-ut line 80.
-
-
-Package natbib Warning: Citation `gillis_lewis_2021' on page 5 undefined on inp
-ut line 83.
-
-[5]
-
-Package natbib Warning: Citation `nishino_osaka_nakatsu_2013' on page 6 undefin
-ed on input line 85.
-
-
-Package natbib Warning: Citation `nishino_osaka_nakatsu_2014' on page 6 undefin
-ed on input line 85.
-
-
-Package natbib Warning: Citation `deepsource' on page 6 undefined on input line
- 88.
-
-
-Package natbib Warning: Citation `petit_serrano_2020' on page 6 undefined on in
-put line 88.
-
-
-Package natbib Warning: Citation `petit_serrano_2020' on page 6 undefined on in
-put line 90.
-
-
-Package natbib Warning: Citation `wang_2008' on page 6 undefined on input line 
-93.
-
-
-Package natbib Warning: Citation `nishino_2012' on page 6 undefined on input li
-ne 95.
-
-[6]
-
-Package natbib Warning: Citation `nishino_2012' on page 7 undefined on input li
-ne 97.
-
-
-Package natbib Warning: Citation `nienhuys_nieuwenhuizen_2003' on page 7 undefi
-ned on input line 118.
-
-
-Package natbib Warning: Citation `simic_bal_dejanovic_vaderna' on page 7 undefi
-ned on input line 121.
-
-[7]
-
-Package natbib Warning: Citation `simic_bal_dejanovic_vaderna' on page 8 undefi
-ned on input line 123.
-
-
-Package natbib Warning: Citation `nishino_2012' on page 8 undefined on input li
-ne 127.
-
-
-Package natbib Warning: Citation `nishino_2012' on page 8 undefined on input li
-ne 129.
-
-
-Package natbib Warning: Citation `nishino_2012' on page 8 undefined on input li
-ne 132.
-
-
-Package natbib Warning: Citation `nishino_osaka_nakatsu_2013' on page 8 undefin
-ed on input line 135.
-
-[8]
-
-Package natbib Warning: Citation `nishino_osaka_nakatsu_2013' on page 9 undefin
-ed on input line 137.
-
-
-Package natbib Warning: Citation `nishino_osaka_nakatsu_2013' on page 9 undefin
-ed on input line 139.
-
-
-Package natbib Warning: Citation `nishino_osaka_nakatsu_2014' on page 9 undefin
-ed on input line 141.
-
-
-Package natbib Warning: Citation `matsuura_jo_2021' on page 9 undefined on inpu
-t line 146.
-
-
-Package natbib Warning: Citation `matsuura_jo_2021' on page 9 undefined on inpu
-t line 148.
-
-[9]
-
-Package natbib Warning: Citation `matsuura_jo_2021' on page 10 undefined on inp
-ut line 150.
-
-
-Package natbib Warning: Citation `matsuura_jo_2021' on page 10 undefined on inp
-ut line 152.
-
-
-Package natbib Warning: Citation `good_2013' on page 10 undefined on input line
- 158.
-
-
-Package natbib Warning: Citation `good_2001' on page 10 undefined on input line
- 160.
-
-
-Package natbib Warning: Citation `good_2013' on page 10 undefined on input line
- 162.
-
-[10]
-
-Package natbib Warning: Citation `bois_ribeiro_1970' on page 11 undefined on in
-put line 165.
-
-
-Package natbib Warning: Citation `janin' on page 11 undefined on input line 168
-.
-
-
-Package natbib Warning: Citation `janin' on page 11 undefined on input line 171
-.
-
-[11]
-
-Package natbib Warning: Citation `petit_serrano_2020' on page 12 undefined on i
-nput line 176.
-
-
-Package natbib Warning: Citation `petit_serrano_2020' on page 12 undefined on i
-nput line 178.
-
-
-Package natbib Warning: Citation `petit_serrano_2020' on page 12 undefined on i
-nput line 180.
-
-
-Package natbib Warning: Citation `sulyok_harte_bodo_2019' on page 12 undefined 
-on input line 183.
-
-
-Package natbib Warning: 

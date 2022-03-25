@@ -26,19 +26,35 @@
 \setcounter{tocdepth}{1}
 \setlength{\parskip}{5pt}
 
-\newcommand\param[1]{\verb!<#1>!}
+\ExplSyntaxOn
+\NewDocumentCommand{\textttu}{m}
+ {
+  \texttt
+   {
+    \tl_set:Nn \l_tmpa_tl { #1 }
+    \tl_replace_all:Nen \l_tmpa_tl { \char_generate:nn { `_ } { 8 } } { \_ }
+    \tl_use:N \l_tmpa_tl
+   }
+ }
+\cs_generate_variant:Nn \tl_replace_all:Nnn { Ne }
+\ExplSyntaxOff
+
+\newcommand\param[1]{\textttu{<#1>}}
 
 \makeatletter
 \preto{\@verbatim}{\topsep=0pt \partopsep0pt }
 \makeatother
+
+
 
 \begin{document}
 
 \maketitle
 
 \tableofcontents
- 
+
 \chapter{Introduction}
+
 Domain specific languages, or DSLs, are programming languages tailored towards a specific application. Formally, a DSL is defined as ``a computer programming language of limited expressiveness focused on a particular domain." This definition encompasses four critical features: (1) the computer programming language (PL) itself, (2) a ``language nature" (i.e. a sense of fluency from the way individual expressions can be combined), (3) limited expressiveness (since the purpose of a DSL is to be used in an particular domain, it should not have the complexity of a general purpose language, or GPL), and (4) domain focus (the motivation to create the DSL in the first place). Note that domain focus is  simply a consequence of the limited expressiveness of the DSL \citeparen{fowler_parsons_2011}.
 
 DSLs can generally be placed into three categories: external DSLs, internal DSLs, and language workbenches. An $external$ $DSL$ is a PL that is separated  from the primary PL of its application. It normally uses a custom syntax, but sometimes borrows the syntax of an existing PL (an example of this is XML). The code for an external DSL is conventionally parsed by code of the host application using text parsing methods. Besides XML, common external DSLs include regular expressions, SQL, and Awk  \citeparen{fowler_parsons_2011}.
@@ -52,6 +68,8 @@ Music itself has a highly structured framework, and a musical score itself can b
 MusAssist is an external DSL devised as a compositional aid for music notation by incorporating concepts from music theory. It attempts to organically model a composer's flow of thought by modeling its syntax after the musical structures a composer conceives when writing. Users write out musical elements and expressions in MusAssist's simple and straightforward syntax much in the same way they would when composing. In other words, users $describe$ a composition in MusAssist, and MusAssist writes out the music via these instructions. Users can compose notes (including rests) and custom chords in the octave and key of choice. They can also specify templates for chords (all triads and seventh chords), harmonic sequences (chosen from Ascending Fifths, Descending Fifths, Ascending 5-6, and Descending 5-6) of a desired length, and cadences (chosen from Perfect Auth. The musical expression described by the template will then be written by the MusAssist compiler. The compiler is written in Haskell.
 
 The target language of the MusAssist compiler is MusicXML, an internal DSL that is an extension of XML. MusicXML is interpreted by most major notation software programs (such as MuseScore). Thus, once a user has described a composition in MusAssist, they can open the resulting MusicXML file in MuseScore or another program for further customization and editing. MusAssist does not attempt to replace existing DSLs. Rather, it fills a unique niche in that it $assists$ users in music composition by providing them with a set of easy-to-use commands that would otherwise be tedious to write out by hand in a musical score. This is why MusAssist is compiled to MusicXML rather than an uneditable PDF format. MusAssist may also be particularly helpful to music students as an educational tool where they can easily see the relationship between a musical expression and its written form, such as a harmonic sequence template and the actual chords that result from it.
+
+In order to use MusAssist, the user need not have any understanding of computing, though they should have a solid knowledge of music theory up through chord and cadence types, as well as harmonic sequences. In order to  comprehend this paper, in addition to music theory, users should have a background in basic programming languages theory and compilers.
 
 \chapter{Background}
 \label{chap:background}
@@ -217,11 +235,11 @@ This chapter details the concrete syntax of MusAssist. In the following sections
 The syntax for a rest is as follows
 \begin{center}
 \begin{verbatim}
-(rest \param{DURATION})
+(rest <DURATION>)
 \end{verbatim}
 \end{center}
 
-\noindent where \param{DURATION} is taken from one of the following options
+\noindent where \param{DURATION} is taken from one of the following options:
 
 \begin{verbatim}
 \begin{center}
@@ -229,29 +247,29 @@ sixteenth, eighth, dotted_eighth, quarter, dotted_quarter, half, dotted_half, wh
 \end{center}
 \end{verbatim}
 
-An example of a MusAssist rest is \param{(rest dotted_quarter)}
+An example of a MusAssist rest is \verb.(rest dotted_quarter).
 %----------------------------------------------------------------------------
 \section{Notes}
 \label{sec:notes}
 The syntax for a note is as follows
 
 \begin{verbatim}
-(\param{NOTENAME}\param{ACCIDENTAL}\param{OCTAVE} \param{DURATION})
+(<NOTENAME><ACCIDENTAL><OCTAVE> <DURATION>)
 \end{verbatim}
 
-\noindent where \param{NOTENAME} is taken from one of the following options
+\noindent where \param{NOTENAME} is taken from one of the following options:
 \begin{verbatim}
 C, D, E, F, G, A, B
 \end{verbatim}
 
-\noindent and \param{ACCIDENTAL} is taken from one of the following options
+\noindent and \param{ACCIDENTAL} is taken from one of the following options:
 \begin{verbatim}
 #, ##, b, bb
 \end{verbatim}
 
-\param{ACCIDENTAL} is an optional parameter. If the user leaves it out, the note is considered natural. Notice that double sharps are represented with \param{##} rather than the conventional \musDoubleSharp \; symbol, as this is not an easily typed out character on a keyboard.
+\param{ACCIDENTAL} is an optional parameter. If the user leaves it out, the note is considered natural. Notice that double sharps are represented with \param{\#\#} rather than the conventional \musDoubleSharp \; symbol, as this is not an easily typed out character on a keyboard.
 
-\param{OCTAVE} is taken from one of the following options.
+\param{OCTAVE} is taken from one of the following options:
 \begin{verbatim}
 1,2,3,4,5,6,7,8
 \end{verbatim}
@@ -259,7 +277,7 @@ C, D, E, F, G, A, B
 
 \param{DURATION} is taken from the same options as in \Cref{sec:rests}.
 
-Examples of MusAssist notes are \param{(Cbb5 eighth)}, \param{(D#5 eighth)}, and \param{(A2 quarter)}
+Examples of MusAssist notes are \verb.(Cbb5 eighth)., \verb.(D#5 eighth)., and \verb.(A2 quarter).
 
 %----------------------------------------------------------------------------
 
@@ -267,14 +285,14 @@ Examples of MusAssist notes are \param{(Cbb5 eighth)}, \param{(D#5 eighth)}, and
 The syntax for a custom chord is as follows
 
 \begin{verbatim}
-([\param{NOTENAME}\param{ACCIDENTAL}\param{OCTAVE}] \param{DURATION})
+([<NOTENAME><ACCIDENTAL><OCTAVE>] <DURATION>)
 \end{verbatim}
 
 \noindent where \param{NOTENAME}, \param{ACCIDENTAL}, \param{OCTAVE}, and \param{DURATION} are taken from the same options as in \Cref{sec:notes}, and \param{ACCIDENTAL} is similarly optional, with natural implied when it is left out.
 
 [\param{NOTENAME}\param{ACCIDENTAL}\param{OCTAVE}] indicates an arbitrarily long list supplied by the user, where each of the values are of the form \param{NOTENAME}\param{ACCIDENTAL}\param{OCTAVE}
 
-Examples of MusAssist custom chords are \param{([Bb5, Dbb6, C5] half)} and  \param{([C##1, E5] sixteenth)}
+Examples of MusAssist custom chords are \verb.([Bb5, Dbb6, C5] half). and  \verb.([C##1, E5] sixteenth).
 
 %----------------------------------------------------------------------------
 
@@ -282,28 +300,144 @@ Examples of MusAssist custom chords are \param{([Bb5, Dbb6, C5] half)} and  \par
 The syntax for a chord template is as follows
 
 \begin{verbatim}
-(\param{NOTENAME}\param{ACCIDENTAL}\param{OCTAVE} \param{QUALITY} \param{CHORDTYPE} inv:\param{INVERSION} \param{DURATION})
+(<NOTENAME><ACCIDENTAL><OCTAVE> <QUALITY> <CHORDTYPE> inv:<INVERSION> <DURATION>)
 \end{verbatim}
 
 \noindent where \param{NOTENAME}, \param{ACCIDENTAL}, \param{OCTAVE}, and \param{DURATION} are taken from the same options as in \Cref{sec:notes}, and \param{ACCIDENTAL} is similarly optional, with natural implied when it is left out.
 
-\param{INVERSION} is taken from 
+\param{ACCIDENTAL} is now taken from one of the following restricted options:
+\begin{verbatim}
+#, b
+\end{verbatim}
+\noindent This is because chords cannot be built on a double sharp or flat, as such chords may introduce triple sharps or flats, and MusAssist does not support these elements. \param{ACCIDENTAL} does continue remain optional, with natural implied when it is left out.
+
+
+\param{INVERSION} is taken from one of the following options:
 \begin{verbatim}
 first, second, third
 \end{verbatim}
 
-\noindent where \param{third} is only an option for seventh chords.
+\noindent where \verb.third. is only an option for seventh chords.
 
-\param{QUALITY}
+\param{QUALITY} is taken from one of the following options:
+\begin{verbatim}
+maj, min, aug, dim, halfdim
+\end{verbatim}
 
-\param{CHORDTYPE}
+\noindent (which, as one would expect, indicate major, minor, augmented, diminished, and half diminished qualities). Half diminished can only apply to a seventh chord, not to triads.
 
 
+Finally, \param{CHORDTYPE} is taken from one of the following options:
+\begin{verbatim}
+triad, seventh
+\end{verbatim}
 
-(C6 min triad inv:first quarter)
+
+Examples of MusAssist harmonic sequences are \verb.(C6 min triad inv:first quarter). and  \\\verb.(F\#4 halfdim seventh inv:third eighth).
+
+These commands,  respectively, translate to the following:
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.38\textwidth]{cmintriad}
+\caption{C minor triad, first inversion, 6th octave}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{f7}
+\caption{F\# half diminished seventh, third inversion, 4th octave}
+\end{figure}
+
+%----------------------------------------------------------------------------
+
+\section{Harmonic Sequences}
+
+The syntax for a harmonic sequence is as follows
+
+\begin{verbatim}
+(<HARMSEQTYPE> <NOTENAME><ACCIDENTAL><OCTAVE> <QUALITY> <DURATION> length:<LENGTH>)
+\end{verbatim}
+
+\noindent where \param{NOTENAME}, \param{OCTAVE}, and \param{DURATION} (but not \verb.<ACCIDENTAL>.) are taken from the same options as in \Cref{sec:notes}.
+
+Unlike chord templates, here \param{QUALITY} is taken from one of the following restricted options:
+\begin{verbatim}
+maj, min
+\end{verbatim}
+
+\noindent This is because together, \verb.<NOTENAME><ACCIDENTAL><OCTAVE> <QUALITY>. determine the key (and the start octave) of the harmonic sequence, and a key can only be major or minor. 
+
+Like chord templates, here \param{ACCIDENTAL} is taken from one of the following restricted options:
+\begin{verbatim}
+#, b
+\end{verbatim}
+
+\noindent This is because a key in MusAssist cannot be described with a double sharp or flat, as such key signatures may introduce triple sharps or flats, which recall are not supported. \param{ACCIDENTAL}  continues remain optional, with natural implied when it is left out.
+
+\param{HARMSEQTYPE} is taken from one of the following options:
+\begin{verbatim}
+AscFifths, DescFifths, Asc56, Desc56
+\end{verbatim}
+These are the four most commonly encountered sequences. The musical theoretical aspects of harmonic sequences are outside the scope of this paper, but a good reference for review can be found here: \href{https://myweb.fsu.edu/nrogers/Handouts/Diatonic_Sequence_Handout.pdf}{https://myweb.fsu.edu/nrogers/Handouts/Diatonic\_Sequence\_Handout.pdf}
+
+Finally, \param{LENGTH} is any natural number (though a sequence that is too long will exceed the octave restriction of 1 through 8).
+
+Harmonic sequences can be written out in a variety of ways, depending on the chord inversions chosen. Furthermore, MusAssist at this time does not support multiple clefs (i.e. lines) simultaneously. This means that currently, harmonic sequences cannot be written with a bass line. However, the harmonies are preserved through the upper voices in keyboard-style voice leading. Though the upper-voice harmonization of a harmonic sequence need not follow the direction of the sequence's name (i.e. a descending fifths sequences could present as a series of ascending chords in the upper voices), MusAssist chooses a chord inversion and voice leading pattern such that each sequence does align with the direction of its name. 
+
+This is demonstrated in each of the following examples, all in C major. Each has length fifteen, to demonstrate that each of the four supported harmonic sequences consists of fourteen chords before it repeats (albeit in a different octave). Principles of smooth voice leading were used for all sequences.
 
 
-Examples of MusAssist chord templates are \param{(C6 min triad inv:first quarter)} and  \\\param{(F#4 halfdim seventh inv:third eighth)!
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{ascfifths}
+  \caption{Ascending Fifths Sequence}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{descfifths}
+  \caption{Descending Fifths Sequence}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{asc56}
+  \caption{Ascending 5-6 Sequence}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{desc56}
+  \caption{Descending 5-6 Sequence}
+\end{figure}
+
+
+The figures were created with the following MusAssist code, respectively: \\\verb.(AscFifths C4 maj quarter length:15)., \verb.(DescFifths C4 maj quarter length:15)., \\\verb.(Asc56 C4 maj quarter length:15)., \verb.(Desc56 C6 maj quarter length:15).
+\begin{verbatim}
+ 
+
+\end{verbatim}
+
+In most settings, the ascending fifths sequence would terminate after five chords (i.e. before it reaches a root position diminished  triad). However, MusAssist does not stop at this chord based on the principle that users should be able to generate sequences of any length. Terminating this sequence after five chords is up to the user.
+
+Furthermore, a minor descending fifths sequence would generally have the final appearance of scale degree seven raised, since it is leading back to the tonic. However, MusAssist does not do this based on the principle that all sequences should follow the pattern they are given, for any arbitrary length. It is up to the user to raise the final scale degree seven in a minor descending fifths sequence.
+
+%----------------------------------------------------------------------------
+
+\section{Cadences}
+
+%----------------------------------------------------------------------------
+
+\section{Labeled Expressions}
+
+%----------------------------------------------------------------------------
+
+\section{Key Signatures}
+
+%----------------------------------------------------------------------------
+
+\section{New Measures}
 
 %SET_KEY Amaj
 %(D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest sixteenth)           // this is a comment
@@ -318,16 +452,35 @@ Examples of MusAssist chord templates are \param{(C6 min triad inv:first quarter
 
 \chapter{The MusAssist Compiler}
 \section{Lexing and Parsing}
-\section{Abstract Syntax}
+Parsec
+	Token and Combinators
+	String literal prefix issue
+	Abstract syntax
+
 MusAssist's abstract syntax consists of custom concrete data types as well as type aliases for certain attributes of musical objects. The abstract syntax was carefully design to best model musical structures organically.
+
 \section{Intermediate Representations}
+
+The abstract syntax of the parse result contains information about various descriptions of musical objects, such as harmonic sequences and chord templates. 
+
+IRKeySignature 
+  | IRNewMeasure
+  | IRWrite [IntermediateExpr]
+  | IRAssign Label [IntermediateExpr]
+
+\subsection{Key Signatures}
+\subsection{Chord Templates}
+\subsection{Harmonic Sequences}
+\subsection{Cadences}
+\subsection{Label Desugaring}
+
 \section{Code Generation}
 
 \chapter{Sample Programs}
 
 \chapter{Future Work and Conclusion}
 \section{Future Work}
-Ideally, in the future MusAssist would support more complex musical states and elements including custom time signature and mid-composition time signature changes (similar to the behavior currently implemented for key signatures), clef changes within a part, multiple-clef parts (i.e. piano), custom parts, and multiple parts. Custom and changeable time signature would allow for the users to experiment with metric modulation, something that is currently impossible with the fixed common time setup. Clef changes within a part, both manual and automatic when a note extends too many ledger lines beyond a clef, would allow the score to be more nicely formatted and readable for the user. Support for two-clef piano would allow the MusAssist compiler to successfully modify how it generates cadences and harmonic sequences to include the essential baseline, in addition to the harmonization already implemented. The latter two goals (custom parts and multiple parts) are somewhat outside MusAssist's goal as a music compositional aid, as this extends beyond the realm of music theory. However, users may enjoy this increased flexibility when composing.
+Ideally, in the future MusAssist would support more complex musical states and elements including custom time signature and mid-composition time signature changes (similar to the behavior currently implemented for key signatures), clef changes within a part, multiple-clef parts (i.e. piano), custom parts (i.e. instruments), and multiple parts. Custom and changeable time signature would allow for the users to experiment with metric modulation, something that is currently impossible with the fixed common time setup. Clef changes within a part, both manual and automatic when a note extends too many ledger lines beyond a clef, would allow the score to be more nicely formatted and readable for the user. Support for two-clef piano would allow the MusAssist compiler to successfully modify how it generates cadences and harmonic sequences to include the essential baseline, in addition to the harmonization already implemented. The latter two goals (custom parts and multiple parts) are somewhat outside MusAssist's goal as a music compositional aid, as this extends beyond the realm of music theory. However, users may enjoy this increased flexibility when composing.
 
 \section{Conclusion}
 MusAssist is an external DSL whose Haskell-based compiler translates it to MusicXML that can be loaded into a major music notation software for further editing. Its syntax is simple and models the flow of thought a composer would have when writing music by hand. MusAssist fills a niche in the realm of musical DSLs by serving as a music compositional aid that is not intended to allow to the user to write a fully expressive musical piece, but rather to more easily create musical expressions that would be tedious to write by hand. The additional features described in the previous section would make the language align even more robustly with this goal. MuseScore can be further valuable as an education tool to music theory students, allowing them to visualize musical structures from the definitions that they describe in MusAssist.
