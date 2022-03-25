@@ -1,8 +1,4 @@
 module MusAssistAST 
--- (
---   Chord (..) -- this is the export list, the ... is the constructors of that type
--- if I don't put anything here, than everything is exported. it's actually a means of data hiding.
--- )
 where
 --------------------------------------------------------------------------------
 -- Sub-pieces of musical objects
@@ -121,14 +117,8 @@ data Tone = Tone NoteName Accidental Octave
 
 data Expr = 
   Rest Duration
-  -- can keep this and predefined chords, bc if I just had custom chord, it's harder to work with
-  -- with DSLs, keep the domain specific information for as long as possible for expanding the generation
-  -- if I didn't, all I had is custom chord, then I give the user the ability to use the nice template, but
-  -- I also took away the ability for the tool to take advantage of the semantic info the user is giving
-  -- granted, I could def recover it by reconstructing custom chord, but if the user is already giving this, 
-  -- then why recover it. we want to take advantage of the props of the DSL!
-  -- analogy: in a GPL, keep the loop as long as possible before converting to JUMP
   | Chord [Tone] Duration -- notes are single-element chords
+  | LabeledExpr [Expr]
     deriving (Eq, Show, Read)
 
 data Instr = 
@@ -139,14 +129,12 @@ data Instr =
     deriving (Eq, Show, Read)
 
 -- templates to get expanded: these are the direct results of the parse
- -- plan: translate from one intermediate representation to another. in my case, I can maybe do this intermediate
-    -- translation in which I lower these things (Chord, Cadence, HarmSeq) into their simplified form (i.e. CustomChords)
-    -- and then the code generation is just for NOTES, rests ,and custom chords
 data IntermediateExpr = 
   Note Tone Duration -- these get expanded to become single-element chords
   | ChordTemplate Tone Quality ChordType Inversion Duration -- Predefined chords: these all happen in root position
   | Cadence CadenceType Tone Quality Duration -- quality is major/minor ONLY. det the start note and key of the cadence
   | HarmonicSequence HarmonicSequenceType Tone Quality Duration Length -- quality is major/minor ONLY. det the start note and key of the seq
+  | Label Label -- labels referring to exprs. syntactic sugar for the expressions they contain. these get desugared before code generation
   | FinalExpr Expr
    deriving (Eq, Show, Read)
 
@@ -154,6 +142,5 @@ data IntermediateInstr =
   IRKeySignature NoteName Accidental Quality
   | IRNewMeasure
   | IRWrite [IntermediateExpr]
-  | Label Label -- these will get replaced with "Write [Expr]" during desugaring
   | IRAssign Label [IntermediateExpr] -- labeled expressions. syntactic sugar for the expressions they contain. these get desugared before code generation
     deriving (Eq, Show, Read)

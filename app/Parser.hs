@@ -43,9 +43,8 @@ parseNamed name contents =
 instr :: Parsec String () IntermediateInstr
 instr =  parseKeySig
          <|> try parseAssign
-         <|> try (many1 parseExpr >>=: IRWrite) -- write musical expressions
-         <|> try (keyword "NEW_MEASURE" >>: IRNewMeasure) -- new measure
-         <|> (identifier >>=: Label) -- labels that store exprs
+         <|> (many1 parseExpr >>=: IRWrite) -- write musical expressions
+         <|> (keyword "NEW_MEASURE" >>: IRNewMeasure) -- new measure
          <* eof
          <?> "expected instruction"
          
@@ -72,11 +71,13 @@ parseExpr :: Parsec String () IntermediateExpr
 parseExpr = 
 -- we HAVE to do parseChordTemplate before parseNote, because parseChordTemplate parses quality "halfdim" first and parseNote parses duration "half" first
 -- since "half" is a prefix of "halfdim", this means that the parse will fail if we do parseNote before parseChordTemplate
-  parens 
+-- also it's important to do parseLabel first, because we HAVE to have parens after this 
+  try parseLabel
+  <|> parens 
     (try parseChordTemplate -- overlapping prefixes means we need to use "try"
       <|> try parseNote
       <|> try parseCadence
-      <|> parseFinalExpr -- rests and custom chords
+      <|> parseFinalExpr
       <|> parseHarmSeq)
     <?> "Expected expression"
 
@@ -91,6 +92,9 @@ parseHarmSeq = HarmonicSequence <$> parseHarmSeqType <*> parseTone <*> parseQual
 
 parseNote :: Parsec String () IntermediateExpr 
 parseNote = Note <$> parseTone <*> parseDuration <* spaces
+
+parseLabel :: Parsec String () IntermediateExpr
+parseLabel = identifier >>=: Label
 
 parseFinalExpr :: Parsec String () IntermediateExpr
 parseFinalExpr = FinalExpr <$> (parseRest <|> parseChord)

@@ -280,6 +280,8 @@ transExpr state (MusAST.Chord tones duration) = do
 
     return $ firstInitialNoteCode ++ remainingInitialNoteCode ++ newMeasureCode ++ remainingSpilledNoteCode ++ finalSpilledNoteCode  
 
+transExpr state (MusAST.LabeledExpr exprs) = concatMapM (transExpr state) exprs
+
 -----------------------------------------------------------------------------------------
 -- Code Generation for Individual Instructions
 -----------------------------------------------------------------------------------------
