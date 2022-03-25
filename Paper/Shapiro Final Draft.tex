@@ -217,7 +217,7 @@ This chapter details the concrete syntax of MusAssist. In the following sections
 The syntax for a rest is as follows
 \begin{center}
 \begin{verbatim}
-(rest DURATION)
+(rest \param{DURATION})
 \end{verbatim}
 \end{center}
 
@@ -236,7 +236,7 @@ An example of a MusAssist rest is \param{(rest dotted_quarter)}
 The syntax for a note is as follows
 
 \begin{verbatim}
-(NOTENAMEACCIDENTALOCTAVE DURATION)
+(\param{NOTENAME}\param{ACCIDENTAL}\param{OCTAVE} \param{DURATION})
 \end{verbatim}
 
 \noindent where \param{NOTENAME} is taken from one of the following options
@@ -267,7 +267,7 @@ Examples of MusAssist notes are \param{(Cbb5 eighth)}, \param{(D#5 eighth)}, and
 The syntax for a custom chord is as follows
 
 \begin{verbatim}
-([NOTENAMEACCIDENTALOCTAVE] DURATION)
+([\param{NOTENAME}\param{ACCIDENTAL}\param{OCTAVE}] \param{DURATION})
 \end{verbatim}
 
 \noindent where \param{NOTENAME}, \param{ACCIDENTAL}, \param{OCTAVE}, and \param{DURATION} are taken from the same options as in \Cref{sec:notes}, and \param{ACCIDENTAL} is similarly optional, with natural implied when it is left out.
@@ -282,7 +282,7 @@ Examples of MusAssist custom chords are \param{([Bb5, Dbb6, C5] half)} and  \par
 The syntax for a chord template is as follows
 
 \begin{verbatim}
-(NOTENAMEACCIDENTALOCTAVE QUALITY CHORDTYPE inv:INVERSION DURATION)
+(\param{NOTENAME}\param{ACCIDENTAL}\param{OCTAVE} \param{QUALITY} \param{CHORDTYPE} inv:\param{INVERSION} \param{DURATION})
 \end{verbatim}
 
 \noindent where \param{NOTENAME}, \param{ACCIDENTAL}, \param{OCTAVE}, and \param{DURATION} are taken from the same options as in \Cref{sec:notes}, and \param{ACCIDENTAL} is similarly optional, with natural implied when it is left out.
@@ -296,7 +296,7 @@ first, second, third
 
 \param{QUALITY}
 
-CHORDTYPE
+\param{CHORDTYPE}
 
 
 
