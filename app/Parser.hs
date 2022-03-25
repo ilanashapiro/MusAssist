@@ -43,8 +43,9 @@ parseNamed name contents =
 instr :: Parsec String () IntermediateInstr
 instr =  parseKeySig
          <|> try parseAssign
-         <|> (many1 parseExpr >>=: IRWrite) -- write musical expressions
-         <|> (keyword "NEW_MEASURE" >>: IRNewMeasure) -- new measure
+         <|> try (many1 parseExpr >>=: IRWrite) -- write musical expressions
+         <|> try (keyword "NEW_MEASURE" >>: IRNewMeasure) -- new measure
+         <|> (identifier >>=: Label) -- labels that store exprs
          <* eof
          <?> "expected instruction"
          
@@ -71,13 +72,11 @@ parseExpr :: Parsec String () IntermediateExpr
 parseExpr = 
 -- we HAVE to do parseChordTemplate before parseNote, because parseChordTemplate parses quality "halfdim" first and parseNote parses duration "half" first
 -- since "half" is a prefix of "halfdim", this means that the parse will fail if we do parseNote before parseChordTemplate
--- also it's important to do parseFinalExpr first, because we HAVE to have parens after this 
--- and finalexpr has one option (label) that doesn't have parens, so the label parse (which happens in parseFinalExpr) needs to get tried first 
-  try parseFinalExpr
-  <|> parens 
+  parens 
     (try parseChordTemplate -- overlapping prefixes means we need to use "try"
       <|> try parseNote
       <|> try parseCadence
+      <|> parseFinalExpr -- rests and custom chords
       <|> parseHarmSeq)
     <?> "Expected expression"
 
@@ -94,7 +93,7 @@ parseNote :: Parsec String () IntermediateExpr
 parseNote = Note <$> parseTone <*> parseDuration <* spaces
 
 parseFinalExpr :: Parsec String () IntermediateExpr
-parseFinalExpr = FinalExpr <$> (try parseLabel <|> parens (parseRest <|> parseChord))
+parseFinalExpr = FinalExpr <$> (parseRest <|> parseChord)
 
 parseRest :: Parsec String () Expr 
 parseRest = do 
@@ -108,9 +107,6 @@ parseChord = do
   tones    <- brackets (commaSep1 parseTone <?> "A user-defined chord must have at least one note")
   duration <- parseDuration
   return $ Chord tones duration
-
-parseLabel :: Parsec String () Expr
-parseLabel = identifier >>=: Label
 
 parseTone :: Parsec String () Tone 
 parseTone = do 

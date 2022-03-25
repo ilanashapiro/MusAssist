@@ -12,8 +12,9 @@ import           Data.Either
 import           Control.Monad.Extra
 import           Data.Map(Map)
 import qualified Data.Map as Map
+import           Data.IORef         as IORef
 
--- type SymbolTable = map MusAST.Label CodeLine -- for storing labeled exprs. both of these are string aliases
+type SymbolTable = IORef.IORef (Map MusAST.Label [MusAST.Expr]) -- for storing labeled exprs. both of these are string aliases
 
 globalValidKeyQualities :: [MusAST.Quality]
 globalValidKeyQualities = [MusAST.Major, MusAST.Minor]
@@ -87,7 +88,7 @@ generateTriadWithinScale tonicTone tonicQuality duration intervalVal specialOcta
                 else MusAST.Minor
             _           -> error "Can't generate triad in invalid scale quality (i.e. not major or minor)"
     tone <- generateToneWithinScale tonicTone tonicQuality intervalVal specialOctaveCases octFunc
-    triadList <- expandIntermediateExpr (MusAST.ChordTemplate tone quality MusAST.Triad inversion duration)
+    triadList <- expandIntermediateExpr (MusAST.ChordTemplate tone quality MusAST.Triad inversion duration) 
     return $ head triadList
 
 -----------------------------------------------------------------------------------------
@@ -152,7 +153,7 @@ expandIntermediateExpr (MusAST.Cadence cadenceType (MusAST.Tone tonicNoteName to
     let tonicRootTone = MusAST.Tone tonicNoteName tonicAccidental tonicOctave
     tonicRootTriadList <- expandIntermediateExpr (MusAST.ChordTemplate tonicRootTone quality MusAST.Triad MusAST.Root duration)
     let tonicRootTriad = head tonicRootTriadList
-        generateTriad = generateTriadWithinScale tonicRootTone quality duration
+        generateTriad = generateTriadWithinScale tonicRootTone quality duration 
     fourthSecondInvTriad <- generateTriad 3 (enumFromTo MusAST.C MusAST.F) pred MusAST.Second
 
     if cadenceType == MusAST.Plagal then return $ [fourthSecondInvTriad, tonicRootTriad] else do
@@ -189,8 +190,8 @@ expandIntermediateExpr (MusAST.Cadence cadenceType (MusAST.Tone tonicNoteName to
 expandIntermediateExpr (MusAST.HarmonicSequence harmSeqType tonicTone tonicQuality duration length) = 
     if tonicQuality `notElem` globalValidKeyQualities then return $ error "Harmonic Seq quality must be major or minor only" else 
     if length < 1 then return $ error "Harmonic Seq must have length at least 1 " else do 
-    tonicRootTriadList <- expandIntermediateExpr (MusAST.ChordTemplate tonicTone tonicQuality MusAST.Triad MusAST.Root duration)
-    tonicSecondInvTriadList <- expandIntermediateExpr (MusAST.ChordTemplate tonicTone tonicQuality MusAST.Triad MusAST.Second duration)
+    tonicRootTriadList <- expandIntermediateExpr (MusAST.ChordTemplate tonicTone tonicQuality MusAST.Triad MusAST.Root duration) 
+    tonicSecondInvTriadList <- expandIntermediateExpr (MusAST.ChordTemplate tonicTone tonicQuality MusAST.Triad MusAST.Second duration) 
 
     let (MusAST.Tone tonicNoteName tonicAcc initialTonicOctave) = tonicTone
         tonicRootTriad = head tonicRootTriadList
@@ -262,7 +263,7 @@ expandIntermediateExpr (MusAST.HarmonicSequence harmSeqType tonicTone tonicQuali
                 
                 (specialOctCasesForIndex, octFunc) = specialOctCasesFunc nextIndexInSeq nextTonicOctave
 
-            triad <- generateTriadWithinScale nextTonicTone tonicQuality duration intervalFromTonic specialOctCasesForIndex octFunc inversion 
+            triad <- generateTriadWithinScale nextTonicTone tonicQuality duration intervalFromTonic specialOctCasesForIndex octFunc inversion
             return $ (remainingSeq ++ [triad], intervalFromTonic, nextIndexInSeq, nextTonicOctave) -- the seq cycles after 14 chords, but an octave up
         
     (finalSeq, _, _, _) <- generateSeq length
@@ -273,10 +274,10 @@ expandIntermediateExpr (MusAST.FinalExpr expr) = return [expr]
 -----------------------------------------------------------------------------------------
 -- Expand Individual Intermediate Instructions
 -----------------------------------------------------------------------------------------
-expandIntermediateInstr :: MusAST.IntermediateInstr -> IO MusAST.Instr
+expandIntermediateInstr :: SymbolTable -> MusAST.IntermediateInstr -> IO MusAST.Instr
 
 -- | Quality is major/minor ONLY
-expandIntermediateInstr (MusAST.IRKeySignature noteName accidental quality) 
+expandIntermediateInstr symbolTableIORef (MusAST.IRKeySignature noteName accidental quality)
     | quality == MusAST.Major = 
         let convertSharpKeySig noteName = 
                 let numSharpsMaybe = elemIndex (pred noteName) globalOrderOfSharps 
@@ -317,18 +318,28 @@ expandIntermediateInstr (MusAST.IRKeySignature noteName accidental quality)
                         if noteName >= MusAST.D then Just MusAST.Natural
                         else Just MusAST.Flat
         in case majAccidentalMaybe of 
-            Just majAccidental -> expandIntermediateInstr (MusAST.IRKeySignature majKeyNoteName majAccidental MusAST.Major)
+            Just majAccidental -> expandIntermediateInstr symbolTableIORef (MusAST.IRKeySignature majKeyNoteName majAccidental MusAST.Major)
             Nothing            -> return $ error "Cannot convert minor to major key sig due to double flats" 
     | otherwise = return $ error "Key signature quality can only be major or minor"
 
-expandIntermediateInstr MusAST.IRNewMeasure = return MusAST.NewMeasure
+expandIntermediateInstr _ MusAST.IRNewMeasure = return MusAST.NewMeasure
 
--- all uses of this label in IRWrite will get desugared in the next step
-expandIntermediateInstr (MusAST.IRAssign label intermediateExprs) = do
-    exprs <- concatMapM expandIntermediateExpr intermediateExprs
-    return $ MusAST.Assign label exprs
+-- all uses of this label in IRWrite will get desugared in this file when they're referenced
+expandIntermediateInstr symbolTableIORef (MusAST.IRAssign label intermediateExprs)  = do
+    expandedExprs <- concatMapM expandIntermediateExpr intermediateExprs
+    symbolTable <- IORef.readIORef symbolTableIORef
+    IORef.writeIORef symbolTableIORef (Map.insert label expandedExprs symbolTable) -- store the label info in the symbol table
+    return $ MusAST.Assign label expandedExprs
 
-expandIntermediateInstr (MusAST.IRWrite intermediateExprs) = do
+-- | Replace a label with its stored expressions
+expandIntermediateInstr symbolTableIORef (MusAST.Label label) = do
+    symbolTable <- IORef.readIORef symbolTableIORef
+    let exprs = case Map.lookup label symbolTable of 
+                    Just e -> e
+                    Nothing -> error "label has been referenced before assignment to a musical expression"
+    return $ MusAST.Write exprs
+
+expandIntermediateInstr _ (MusAST.IRWrite intermediateExprs)  = do
     exprs <- concatMapM expandIntermediateExpr intermediateExprs
     return $ MusAST.Write exprs
 
@@ -336,7 +347,10 @@ expandIntermediateInstr (MusAST.IRWrite intermediateExprs) = do
 -- Expand All the Intermediate Instructions
 -----------------------------------------------------------------------------------------
 expandIntermediateInstrs :: [MusAST.IntermediateInstr] -> IO [MusAST.Instr]
-expandIntermediateInstrs intermediateInstrs = mapM expandIntermediateInstr intermediateInstrs
+expandIntermediateInstrs intermediateInstrs = do
+    let emptyTypedMap = Map.empty :: Map MusAST.Label [MusAST.Expr]
+    symbolTableIORef <- IORef.newIORef emptyTypedMap
+    mapM (expandIntermediateInstr symbolTableIORef) intermediateInstrs
 
 
 

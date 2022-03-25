@@ -186,7 +186,6 @@ transExpr state (MusAST.Rest duration) = do
     spilledRestCode <- generateRestsFromDivisions spilledRestDivisions
 
     updateBeat remainingRestLength state -- with current time sig/note length setup, cannot have a tied note that fills the next measure, so NO new measure code should get generated here
-
     return $ initialRestCode ++ newMeasureCode ++ spilledRestCode
 
 ------------------------------------------------------------------------------------------------
@@ -279,9 +278,7 @@ transExpr state (MusAST.Chord tones duration) = do
 
     updateBeat remainingNoteLength state -- with current time sig/note length setup, cannot have a tied note that fills the next measure, so NO new measure code should get generated here
 
-    return $ firstInitialNoteCode ++ remainingInitialNoteCode ++ newMeasureCode ++ remainingSpilledNoteCode ++ finalSpilledNoteCode   
-
-transExpr _ label = return $ error ("label " ++ show label ++ " should have been desugared by this step")
+    return $ firstInitialNoteCode ++ remainingInitialNoteCode ++ newMeasureCode ++ remainingSpilledNoteCode ++ finalSpilledNoteCode  
 
 -----------------------------------------------------------------------------------------
 -- Code Generation for Individual Instructions
