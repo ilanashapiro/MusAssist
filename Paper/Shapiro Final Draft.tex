@@ -551,20 +551,26 @@ SET_KEY <NOTENAME><ACCIDENTAL><QUALITY>
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %NEED TO TALK ABOUT INVALID KEYS WITH DOUBLE ACCIDENTALS!!!!!! this also applies to harmseq and cadences!!!
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% also, need to fix in code: setting the key sig twice at the beginning (bug in codegen), setting the same key sig mult times (unexpected behavior, generates new measure each time....)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Notably, keys cannot be changed within a measure. If the users attempts to do this, a new measure will automatically get started. Also, a MusAssist key signature change must occur by itself on its own line.
+Notably, keys cannot be changed within a measure. If the users attempts to do this, a new measure will automatically get started. Also, a MusAssist key signature change must occur by itself on its own line. Finally, if the user sets a key signature to what the current key signature already is, nothing will happen. 
 
-For example,
+For example,\newpage
 \begin{verbatim}
 SET_KEY Dmin
 SET_KEY Amaj
+SET_KEY Amaj
+SET_KEY Cmaj
 \end{verbatim}
 
 will translate to the following when loaded into MuseScore:
 
-%FIXME
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{images/keys}
+  \caption{Key Signature Changes}
+\end{figure}
+\newpage
 %----------------------------------------------------------------------------
 
 \section{New Measures}

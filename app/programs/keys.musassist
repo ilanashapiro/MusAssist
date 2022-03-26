@@ -1,10 +1,4 @@
+SET_KEY Dmin
 SET_KEY Amaj
-SET_KEY Dmin
-SET_KEY Emaj
+SET_KEY Amaj
 SET_KEY Cmaj
-(D4 quarter)
-SET_KEY Dmin
-SET_KEY Dmin
-SET_KEY Dmin
-SET_KEY Dmin
-SET_KEY Emin
