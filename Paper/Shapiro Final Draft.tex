@@ -545,6 +545,12 @@ SET_KEY <NOTENAME><ACCIDENTAL><QUALITY>
 
 \noindent where \param{NOTENAME} is taken from the same options as in \Cref{sec:notes}, \param{ACCIDENTAL} is taken from the same restricted options as in \Cref{sec:chordtemplates} and \param{QUALITY} is taken from the same restricted options as in \Cref{sec:harmseq}. Again, accidentals and qualities are restricted because keys must be major or minor, and cannot be built on a double sharp or flat due to the problem of such keys introducing triple sharps or flats.
 
+A key signature also cannot have double sharps or flats, which could happen even if the key signature is not built on a double sharp or flat note. This means that the following key signatures, though they are built on seemingly valid notes, are actually invalid:
+\begin{verbatim}
+D#maj, E#maj, G#maj, A#maj, B#maj, Fbmaj
+E#min, B#min, Cbmin, Dbmin, Fbmin, Gbmin
+\end{verbatim}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
