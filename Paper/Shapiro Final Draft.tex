@@ -389,7 +389,7 @@ The syntax for a harmonic sequence is as follows
 (<HARMSEQTYPE> <NOTENAME><ACCIDENTAL><OCTAVE> <QUALITY> <DURATION> length:<LENGTH>)
 \end{verbatim}
 
-\noindent where \param{NOTENAME}, \param{OCTAVE}, and \param{DURATION} (but not \verb.<ACCIDENTAL>.) are taken from the same options as in \Cref{sec:notes}.
+\noindent where \param{NOTENAME}, \param{OCTAVE}, and \param{DURATION} (but not \verb.<ACCIDENTAL>.) are taken from the same options as in \Cref{sec:notes}. \param{DURATION} and \param{LENGTH} are not to be confused: \param{DURATION} specifies the length of each individual  chord in the harmonic sequence, while \param{LENGTH} specifies the number of chords in the sequence. 
 
 Unlike chord templates, here \param{QUALITY} is taken from one of the following restricted options:
 \begin{verbatim}
@@ -417,6 +417,7 @@ Harmonic sequences can be written out in a variety of ways, depending on the cho
 
 This is demonstrated in each of the following examples, all in C major. Each has length fifteen, to demonstrate that each of the four supported harmonic sequences consists of fourteen chords before it repeats (albeit in a different octave). Principles of smooth voice leading were used for all sequences.
 
+The following figures were created with the following MusAssist code, respectively: \\\verb.(AscFifths C4 maj quarter length:15)., \verb.(DescFifths C4 maj quarter length:15)., \\\verb.(Asc56 C4 maj quarter length:15)., \verb.(Desc56 C6 maj quarter length:15). When loaded into MuseScore, they look like:
 
 \begin{figure}[h!]
 \centering
@@ -443,7 +444,7 @@ This is demonstrated in each of the following examples, all in C major. Each has
 \end{figure}
 
 \newpage
-The figures were created with the following MusAssist code, respectively: \\\verb.(AscFifths C4 maj quarter length:15)., \verb.(DescFifths C4 maj quarter length:15)., \\\verb.(Asc56 C4 maj quarter length:15)., \verb.(Desc56 C6 maj quarter length:15).
+
 
 
 In most music theory settings, the ascending fifths sequence would terminate after five chords (i.e. before it reaches a root position diminished  triad). However, MusAssist does not stop at this chord based on the principle that users should be able to generate sequences of any length. Terminating this sequence after five chords is up to the user.
@@ -457,8 +458,44 @@ Furthermore, a minor descending fifths sequence would generally have the final a
 The syntax for a cadence is as follows
 
 \begin{verbatim}
-(<NOTENAME><ACCIDENTAL><OCTAVE> <QUALITY> <CHORDTYPE> inv:<INVERSION> <DURATION>)
+(<CADENCETYPE> <NOTENAME><ACCIDENTAL><OCTAVE> <QUALITY> <DURATION>)
 \end{verbatim}
+
+The five possible cadence types in MusAssist demonstrated in the following examples.
+
+\noindent\verb.(PerfAuthCadence Eb5 min sixteenth)., \verb.(ImperfAuthCadence F#5 min quarter)., \verb.(DeceptiveCadence B4 maj eighth)., \verb.(HalfCadence G#5 min whole)., \verb.(PlagalCadence C5 maj half).
+
+These commands,  respectively, translate to the following when loaded into the MuseScore notation software:
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{images/perfauth}
+  \caption{Perfect Authentic Cadence in E\musFlat minor}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{images/imperfauth}
+  \caption{Imperfect Authentic Cadence in F\# minor}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{images/deceptive}
+  \caption{Deceptive Cadence in B major}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{images/half}
+  \caption{Half Cadence in G\# minor}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.3\textwidth]{images/plagal}
+  \caption{Plagal Cadence in C major}
+\end{figure}
 
 %----------------------------------------------------------------------------
 
