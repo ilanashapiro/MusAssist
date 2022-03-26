@@ -16,11 +16,12 @@
 \BOOKMARK [1][-]{section.3.7}{Labeled Expressions}{chapter.3}% 16
 \BOOKMARK [1][-]{section.3.8}{Key Signatures}{chapter.3}% 17
 \BOOKMARK [1][-]{section.3.9}{New Measures}{chapter.3}% 18
-\BOOKMARK [0][-]{chapter.4}{The MusAssist Compiler}{}% 19
-\BOOKMARK [1][-]{section.4.1}{Lexing and Parsing}{chapter.4}% 20
-\BOOKMARK [1][-]{section.4.2}{Intermediate Representations}{chapter.4}% 21
-\BOOKMARK [1][-]{section.4.3}{Code Generation}{chapter.4}% 22
-\BOOKMARK [0][-]{chapter.5}{Sample Programs}{}% 23
-\BOOKMARK [0][-]{chapter.6}{Future Work and Conclusion}{}% 24
-\BOOKMARK [1][-]{section.6.1}{Future Work}{chapter.6}% 25
-\BOOKMARK [1][-]{section.6.2}{Conclusion}{chapter.6}% 26
+\BOOKMARK [1][-]{section.3.10}{Comments}{chapter.3}% 19
+\BOOKMARK [0][-]{chapter.4}{The MusAssist Compiler}{}% 20
+\BOOKMARK [1][-]{section.4.1}{Lexing and Parsing}{chapter.4}% 21
+\BOOKMARK [1][-]{section.4.2}{Intermediate Representations}{chapter.4}% 22
+\BOOKMARK [1][-]{section.4.3}{Code Generation}{chapter.4}% 23
+\BOOKMARK [0][-]{chapter.5}{Sample Programs}{}% 24
+\BOOKMARK [0][-]{chapter.6}{Future Work and Conclusion}{}% 25
+\BOOKMARK [1][-]{section.6.1}{Future Work}{chapter.6}% 26
+\BOOKMARK [1][-]{section.6.2}{Conclusion}{chapter.6}% 27

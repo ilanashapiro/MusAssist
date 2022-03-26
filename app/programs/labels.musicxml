@@ -91,31 +91,25 @@
 	</direction>
 			<note>
 				<pitch>
-					<step>C</step>
-					<alter>2</alter>
-					<octave>1</octave>
-				</pitch>
-				<duration>1</duration>
-				<voice>1</voice>
-				<type>16th</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>E</step>
+					<step>D</step>
 					<alter>0</alter>
-					<octave>5</octave>
+					<octave>4</octave>
 				</pitch>
-				<duration>1</duration>
+				<duration>16</duration>
 				<voice>1</voice>
-				<type>16th</type>
+				<type>whole</type>
 			</note>
+		</measure>
+		<measure number="2">
 			<note>
-				<rest />
-				<duration>3</duration>
+				<pitch>
+					<step>A</step>
+					<alter>-1</alter>
+					<octave>4</octave>
+				</pitch>
+				<duration>4</duration>
 				<voice>1</voice>
-				<type>eighth</type>
-				<dot/>
+				<type>quarter</type>
 			</note>
 			<note>
 				<rest />
@@ -123,6 +117,52 @@
 				<voice>1</voice>
 				<type>half</type>
 				<dot/>
+			</note>
+		</measure>
+		<measure number="3">
+			<note>
+				<rest />
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>B</step>
+					<alter>-2</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>8</duration>
+				<voice>1</voice>
+				<type>half</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<alter>-1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>8</duration>
+				<voice>1</voice>
+				<type>half</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>C</step>
+					<alter>0</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>8</duration>
+				<voice>1</voice>
+				<type>half</type>
+			</note>
+			<note>
+				<rest />
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
 			</note>
 			<barline location="right">
 					<bar-style>light-heavy</bar-style>

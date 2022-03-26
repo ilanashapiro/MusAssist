@@ -91,31 +91,38 @@
 	</direction>
 			<note>
 				<pitch>
-					<step>C</step>
-					<alter>2</alter>
-					<octave>1</octave>
-				</pitch>
-				<duration>1</duration>
-				<voice>1</voice>
-				<type>16th</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>E</step>
+					<step>D</step>
 					<alter>0</alter>
-					<octave>5</octave>
+					<octave>4</octave>
 				</pitch>
-				<duration>1</duration>
+				<duration>4</duration>
 				<voice>1</voice>
-				<type>16th</type>
+				<type>quarter</type>
 			</note>
 			<note>
 				<rest />
-				<duration>3</duration>
+				<duration>12</duration>
+				<voice>1</voice>
+				<type>half</type>
+				<dot/>
+			</note>
+		</measure>
+		<measure number="2">
+			<note>
+				<pitch>
+					<step>E</step>
+					<alter>0</alter>
+					<octave>4</octave>
+				</pitch>
+				<duration>2</duration>
 				<voice>1</voice>
 				<type>eighth</type>
-				<dot/>
+			</note>
+			<note>
+				<rest />
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
 			</note>
 			<note>
 				<rest />

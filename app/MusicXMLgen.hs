@@ -9,7 +9,7 @@ module MusicXMLgen where
 import qualified MusAssistAST         as MusAST
 import           Data.Char
 import           Data.IORef           as IORef
-import           Data.Bimap           as Bimap
+import qualified Data.Bimap           as Bimap
 import           Control.Monad.Extra
 import           Data.Map(Map)
 import qualified Data.Map as Map
@@ -79,7 +79,7 @@ updateBeat noteDuration (currBeatCt, measureCt, _) = do
       IORef.writeIORef currBeatCt updatedBeatCount
       return []
 
-globalDurationIntBimap :: Bimap MusAST.Duration Int
+globalDurationIntBimap :: Bimap.Bimap MusAST.Duration Int
 globalDurationIntBimap = Bimap.fromList 
   [(MusAST.Whole, 16),
   (MusAST.DottedHalf, 12),
@@ -106,7 +106,7 @@ breakUpNoteValRationally _ 0 _                                      = return []
 breakUpNoteValRationally [] _ _                                     = return $ error "cannot generate accurate note divisions" 
 breakUpNoteValRationally (noteVal:noteVals) remainingTimeInMeasure isFromMeasStart = do
   if noteVal <= remainingTimeInMeasure then do
-    noteDuration <- lookupR noteVal globalDurationIntBimap 
+    noteDuration <- Bimap.lookupR noteVal globalDurationIntBimap 
     remainingPadding <- breakUpNoteValRationally noteVals (remainingTimeInMeasure - noteVal) isFromMeasStart
     -- breaking up note at beginning of measure, want note/rest length from longest -> shortest
     -- or, if it's end of measure padding, want note/rest  length from shortest -> longest
@@ -115,11 +115,11 @@ breakUpNoteValRationally (noteVal:noteVals) remainingTimeInMeasure isFromMeasSta
 
 generateNoteValueRationalDivisions :: Int -> Bool -> IO [(MusAST.Duration, Int)]
 -- we want the note vals in globalDurationIntBimap in desc order, biggest to smallest, in order for the greedy prop to work
-generateNoteValueRationalDivisions = breakUpNoteValRationally (reverse $ elems globalDurationIntBimap) 
+generateNoteValueRationalDivisions = breakUpNoteValRationally (reverse $ Bimap.elems globalDurationIntBimap) 
 
 generateRestsFromDivisions :: [(MusAST.Duration, Int)] -> IO [CodeLine]
 generateRestsFromDivisions restDurationValPairs = return $ 
-  Prelude.concatMap (\(restDuration, restVal) ->
+  concatMap (\(restDuration, restVal) ->
     let isMeasureRest = restVal == globalTimePerMeasure
         restTypeCode = if isMeasureRest then [] 
                        else durationToNoteTypeCode restDuration
@@ -134,9 +134,9 @@ generateRestsFromDivisions restDurationValPairs = return $
 -- all these notes will be tied BOTH WAYS
 generateTiedNotesFromDivisions :: [[CodeLine]] -> [(MusAST.Duration, Int)] -> IO [CodeLine]
 generateTiedNotesFromDivisions pitchesCode noteDurationValPairs = return $ 
-    Prelude.concatMap (\(noteDuration, noteVal) ->
+    concatMap (\(noteDuration, noteVal) ->
       let noteTypeCode = durationToNoteTypeCode noteDuration
-      in Prelude.concatMap 
+      in concatMap 
           (\pitchCode -> 
             ["\t\t\t<note>"]
               ++ pitchCode ++
@@ -228,7 +228,7 @@ transExpr state (MusAST.Chord tones duration) = do
     then do 
       newMeasureCode <- updateBeat noteDurationVal state -- new measure code gets generated if noteDurationVal == remainingTimeInMeasure
       return $ 
-        (Prelude.concatMap -- the code for the note that fits in the current measure
+        (concatMap -- the code for the note that fits in the current measure
           (\pitchCode ->
             ["\t\t\t<note>"]
             ++ pitchCode ++
@@ -244,7 +244,7 @@ transExpr state (MusAST.Chord tones duration) = do
     let (firstNoteDuration, firstNoteVal) = head initialNoteDivisions -- the first note of the tie only gets tied one way, from the right
         firstNoteTypeCode                 = durationToNoteTypeCode firstNoteDuration
         firstInitialNoteCode              = -- handle the first note of the tie sequence, which has a start tie ONLY
-          Prelude.concatMap 
+          concatMap 
           (\pitchCode -> 
             ["\t\t\t<note>"]
               ++ pitchCode ++
@@ -352,11 +352,12 @@ transInstr _ _ = return [] -- we don't generate any code for assigning labels to
 transInstrs :: State -> [MusAST.Instr] -> IO [CodeLine]
 transInstrs state instrs = do
   instrSeqs <- mapM (transInstr state) instrs
+  if null instrSeqs then return [] else do
   let (currBeatCt, _, _) = state
       firstInstrSeq = head instrSeqs
-      firstCodeLine = head firstInstrSeq
+      firstCodeLine = if null firstInstrSeq then [] else head firstInstrSeq -- null if first instr is Assign
       lastInstrSeq  = last instrSeqs
-      lastCodeLine  = last lastInstrSeq
+      lastCodeLine  = if null lastInstrSeq then [] else last lastInstrSeq -- null if last instr is Assign
 
   -- this is the remaining header code for the MusicXML file that was started in CompileM.hs
   -- we set it here to have key sig of no sharps and flats, if the user's first instruction 
@@ -375,4 +376,4 @@ transInstrs state instrs = do
         let finalizedCode = init instrSeqs
         return $ finalizedCode ++ [take ((length lastInstrSeq) - 2) lastInstrSeq] -- remove the hanging new measure code since we do not want it
 
-  return $ Prelude.concat (remainingHeaderCode:finalInstrs)
+  return $ concat (remainingHeaderCode:finalInstrs)

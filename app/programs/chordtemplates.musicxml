@@ -66,6 +66,29 @@
 		<staff-distance>65.00</staff-distance>
 		</staff-layout>
 	</print>
+	<attributes>
+		<divisions>4</divisions>
+		<key>
+			<fifths>0</fifths>
+		</key>
+		<time>
+			<beats>4</beats>
+			<beat-type>4</beat-type>
+		</time>
+		<clef>
+			<sign>G</sign>
+			<line>2</line>
+		</clef>
+	</attributes>
+	<direction placement="above">
+		<direction-type>
+			<metronome parentheses="no" default-x="-30.68" relative-y="20.00">
+			<beat-unit>quarter</beat-unit>
+			<per-minute>80</per-minute>
+			</metronome>
+		</direction-type>
+		<sound tempo="90"/>
+	</direction>
 			<note>
 				<pitch>
 					<step>F</step>

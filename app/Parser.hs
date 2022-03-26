@@ -223,7 +223,7 @@ langDef = Token.LanguageDef
   , Token.commentLine     = "//"
   , Token.nestedComments  = True
   , Token.identStart      = letter -- identifier must start with a letter
-  , Token.identLetter     = alphaNum <|> oneOf "_'12345678" -- identifier can end with alphanum, or with _ or with ',  or with 1-8
+  , Token.identLetter     = alphaNum <|> oneOf "_'" -- identifier can end with alphanum, or with _ or with '
   , Token.opStart         = oneOf "=" 
   , Token.opLetter        = oneOf "="
   , Token.reservedNames   = ["SET_KEY", "NEW_MEASURE"]
