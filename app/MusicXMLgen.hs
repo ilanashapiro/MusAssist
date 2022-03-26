@@ -305,18 +305,25 @@ transInstr state (MusAST.KeySignature numSharps numFlats) =
   then return $ error "key sig must have 0-7 sharps OR flats, not both!" 
   else do   
     let (currBeatCt, measNum, keySig) = state 
-    currentBeatCount <- IORef.readIORef currBeatCt
-    measureNum <- IORef.readIORef measNum
+    (currentSharps, currentFlats)    <- IORef.readIORef keySig
+    currentBeatCount                 <- IORef.readIORef currBeatCt
+    measureNum                       <- IORef.readIORef measNum
+
+    if numSharps == currentSharps && numFlats == currentFlats then return [] else do -- if the new key sig is same as old one, then don't do anything
+
     IORef.writeIORef keySig (numSharps, numFlats)
     let remainingTimeInMeasure = globalTimePerMeasure - currentBeatCount
         isStartFirstMeasure    = currentBeatCount == 0 && measureNum == 1
         keySigFifthsVal = if numSharps > 0 then numSharps else -numFlats
 
-    -- if the key sig is set at beginning of piece, don't go to the next measure to do it
-    -- if the user consecutively sets a bunch of key sigs at the beginning, this thus takes the last one before a different command
-    -- in fact, this is the rest of the header code for the file (see CompileM.hs)
-    if isStartFirstMeasure then globalHeaderCode keySigFifthsVal else do 
-    
+    -- i.e. we have NOT already changed the key sig in meas 1
+    -- bc if the key sig is set at beginning of piece, don't go to the next measure to do it
+    -- this occurs when the first instruction in the program is a key change
+    -- notably, globalHeaderCode is the rest of the header code for the file (see CompileM.hs)
+    if isStartFirstMeasure && (currentSharps == 0 && currentFlats == 0) 
+      then globalHeaderCode keySigFifthsVal
+    else do 
+    -- this includes if the user consecutively sets a bunch of key sigs at the beginning, each one will happen in a new measure
     let newKeySigCode = 
           ["\t<attributes>",
             "\t\t<key>",
@@ -349,8 +356,13 @@ transInstr _ _ = return [] -- we don't generate any code for assigning labels to
 -- Code Generation for All the Instructions
 -----------------------------------------------------------------------------------------
 
-transInstrs :: State -> [MusAST.Instr] -> IO [CodeLine]
-transInstrs state instrs = do
+transInstrs :: [MusAST.Instr] -> IO [CodeLine]
+transInstrs instrs = do
+  beatCt        <- IORef.newIORef 0
+  measureCt     <- IORef.newIORef 1
+  defaultKeySig <- IORef.newIORef (0, 0) -- no sharps, no flats
+  let state =  (beatCt, measureCt, defaultKeySig) 
+
   instrSeqs <- mapM (transInstr state) instrs
   if null instrSeqs then return [] else do
   let (currBeatCt, _, _) = state

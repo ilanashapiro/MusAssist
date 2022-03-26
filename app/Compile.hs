@@ -57,10 +57,7 @@ main = do
 
   -- Translate MusAssistAST code to musicXML code
   putStrLn "Generating musicXML code..."
-  beatCt        <- IORef.newIORef 0
-  measureCt     <- IORef.newIORef 1
-  defaultKeySig <- IORef.newIORef (0, 0) -- no sharps, no flats
-  code          <- MusicXMLgen.transInstrs (beatCt, measureCt, defaultKeySig) processedAST
+  code          <- MusicXMLgen.transInstrs processedAST
 
     -- header code for musicXML file
   let headerCode =
