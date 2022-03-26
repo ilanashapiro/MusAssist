@@ -80,6 +80,15 @@
 			<line>2</line>
 		</clef>
 	</attributes>
+	<direction placement="above">
+		<direction-type>
+			<metronome parentheses="no" default-x="-30.68" relative-y="20.00">
+			<beat-unit>quarter</beat-unit>
+			<per-minute>80</per-minute>
+			</metronome>
+		</direction-type>
+		<sound tempo="90"/>
+	</direction>
 			<note>
 				<pitch>
 					<step>D</step>

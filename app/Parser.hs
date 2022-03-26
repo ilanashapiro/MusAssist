@@ -167,7 +167,7 @@ parseChordType = do
 
 parseCadenceType :: Parsec String () CadenceType
 parseCadenceType = do
-  cadenceTypeStr <-  ((choice $ map (try . symbol) ["PerfAuth", "ImperfAuth, Plagal, Deceptive"]) <* symbol "Cadence") 
+  cadenceTypeStr <-  ((choice $ map (try . symbol) ["PerfAuth", "ImperfAuth", "Plagal", "Deceptive"]) <* symbol "Cadence") 
                       <|> (symbol "HalfCadence" >>: "HalfCad")
   let ast = read cadenceTypeStr :: CadenceType
   return ast

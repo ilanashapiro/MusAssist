@@ -357,7 +357,7 @@ transInstrs state instrs = do
       firstCodeLine = head firstInstrSeq
       lastInstrSeq  = last instrSeqs
       lastCodeLine  = last lastInstrSeq
-  
+
   -- this is the remaining header code for the MusicXML file that was started in CompileM.hs
   -- we set it here to have key sig of no sharps and flats, if the user's first instruction 
   -- was not to set a custom key sig for the start of the piece
@@ -375,4 +375,4 @@ transInstrs state instrs = do
         let finalizedCode = init instrSeqs
         return $ finalizedCode ++ [take ((length lastInstrSeq) - 2) lastInstrSeq] -- remove the hanging new measure code since we do not want it
 
-  return $ Prelude.concat finalInstrs
+  return $ Prelude.concat (remainingHeaderCode:finalInstrs)

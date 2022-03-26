@@ -27,22 +27,22 @@
 \contentsline {section}{\numberline {3.1}Rests}{16}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Notes}{16}{section.3.2}%
 \contentsline {section}{\numberline {3.3}Custom Chords}{17}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Chord Templates}{17}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Harmonic Sequences}{18}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Cadences}{20}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Labeled Expressions}{20}{section.3.7}%
-\contentsline {section}{\numberline {3.8}Key Signatures}{20}{section.3.8}%
-\contentsline {section}{\numberline {3.9}New Measures}{20}{section.3.9}%
-\contentsline {chapter}{\numberline {4}The MusAssist Compiler}{21}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Lexing and Parsing}{21}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Intermediate Representations}{21}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Key Signatures}{21}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Chord Templates}{21}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Harmonic Sequences}{21}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Cadences}{21}{subsection.4.2.4}%
-\contentsline {subsection}{\numberline {4.2.5}Label Desugaring}{21}{subsection.4.2.5}%
-\contentsline {section}{\numberline {4.3}Code Generation}{21}{section.4.3}%
-\contentsline {chapter}{\numberline {5}Sample Programs}{22}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Future Work and Conclusion}{23}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Future Work}{23}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Conclusion}{23}{section.6.2}%
+\contentsline {section}{\numberline {3.4}Chord Templates}{19}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Harmonic Sequences}{20}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Cadences}{22}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Labeled Expressions}{22}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Key Signatures}{22}{section.3.8}%
+\contentsline {section}{\numberline {3.9}New Measures}{22}{section.3.9}%
+\contentsline {chapter}{\numberline {4}The MusAssist Compiler}{23}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Lexing and Parsing}{23}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Intermediate Representations}{23}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Key Signatures}{23}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Chord Templates}{23}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Harmonic Sequences}{23}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Cadences}{23}{subsection.4.2.4}%
+\contentsline {subsection}{\numberline {4.2.5}Label Desugaring}{23}{subsection.4.2.5}%
+\contentsline {section}{\numberline {4.3}Code Generation}{23}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Sample Programs}{24}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Future Work and Conclusion}{25}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Future Work}{25}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Conclusion}{25}{section.6.2}%

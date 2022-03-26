@@ -68,13 +68,31 @@
 	</print>
 			<note>
 				<pitch>
-					<step>A</step>
-					<alter>0</alter>
-					<octave>2</octave>
+					<step>C</step>
+					<alter>2</alter>
+					<octave>1</octave>
 				</pitch>
-				<duration>4</duration>
+				<duration>1</duration>
 				<voice>1</voice>
-				<type>quarter</type>
+				<type>16th</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>E</step>
+					<alter>0</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>1</duration>
+				<voice>1</voice>
+				<type>16th</type>
+			</note>
+			<note>
+				<rest />
+				<duration>3</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+				<dot/>
 			</note>
 			<note>
 				<rest />
