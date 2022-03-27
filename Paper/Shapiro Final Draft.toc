@@ -34,32 +34,30 @@
 \contentsline {section}{\numberline {3.8}Key Signatures}{23}{section.3.8}%
 \contentsline {section}{\numberline {3.9}New Measures}{25}{section.3.9}%
 \contentsline {section}{\numberline {3.10}Comments}{25}{section.3.10}%
-\contentsline {chapter}{\numberline {4}The MusAssist Compiler}{26}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Lexing and Parsing}{26}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Note Names}{26}{subsection.4.1.1}%
-\contentsline {subsection}{\numberline {4.1.2}Accidentals}{27}{subsection.4.1.2}%
-\contentsline {subsection}{\numberline {4.1.3}Octaves}{27}{subsection.4.1.3}%
-\contentsline {subsection}{\numberline {4.1.4}Inversions}{28}{subsection.4.1.4}%
-\contentsline {subsection}{\numberline {4.1.5}Length}{28}{subsection.4.1.5}%
-\contentsline {subsection}{\numberline {4.1.6}Labels}{28}{subsection.4.1.6}%
-\contentsline {subsection}{\numberline {4.1.7}Durations}{28}{subsection.4.1.7}%
-\contentsline {subsection}{\numberline {4.1.8}Qualities}{29}{subsection.4.1.8}%
-\contentsline {subsection}{\numberline {4.1.9}Chord Types}{29}{subsection.4.1.9}%
-\contentsline {subsection}{\numberline {4.1.10}Cadence Types}{29}{subsection.4.1.10}%
-\contentsline {subsection}{\numberline {4.1.11}Harmonic Sequence Types}{30}{subsection.4.1.11}%
-\contentsline {subsection}{\numberline {4.1.12}Tones}{30}{subsection.4.1.12}%
-\contentsline {subsection}{\numberline {4.1.13}Intermediate Expressions}{30}{subsection.4.1.13}%
-\contentsline {subsection}{\numberline {4.1.14}Expressions}{31}{subsection.4.1.14}%
-\contentsline {subsection}{\numberline {4.1.15}Intermediate Instructions}{31}{subsection.4.1.15}%
-\contentsline {subsection}{\numberline {4.1.16}Final Remarks}{31}{subsection.4.1.16}%
-\contentsline {section}{\numberline {4.2}Intermediate Representations}{32}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Key Signatures}{32}{subsection.4.2.1}%
-\contentsline {subsection}{\numberline {4.2.2}Chord Templates}{32}{subsection.4.2.2}%
-\contentsline {subsection}{\numberline {4.2.3}Harmonic Sequences}{32}{subsection.4.2.3}%
-\contentsline {subsection}{\numberline {4.2.4}Cadences}{32}{subsection.4.2.4}%
-\contentsline {subsection}{\numberline {4.2.5}Label Desugaring}{32}{subsection.4.2.5}%
-\contentsline {section}{\numberline {4.3}Code Generation}{32}{section.4.3}%
-\contentsline {chapter}{\numberline {5}Sample Programs}{33}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Future Work and Conclusion}{34}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Future Work}{34}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Conclusion}{34}{section.6.2}%
+\contentsline {chapter}{\numberline {4}Lexing and Parsing}{26}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Note Names}{26}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Accidentals}{27}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Octaves}{27}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Inversions}{28}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Length}{28}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Labels}{28}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Durations}{28}{section.4.7}%
+\contentsline {section}{\numberline {4.8}Qualities}{29}{section.4.8}%
+\contentsline {section}{\numberline {4.9}Chord Types}{29}{section.4.9}%
+\contentsline {section}{\numberline {4.10}Cadence Types}{30}{section.4.10}%
+\contentsline {section}{\numberline {4.11}Harmonic Sequence Types}{30}{section.4.11}%
+\contentsline {section}{\numberline {4.12}Tones}{30}{section.4.12}%
+\contentsline {section}{\numberline {4.13}Intermediate Expressions}{31}{section.4.13}%
+\contentsline {section}{\numberline {4.14}Intermediate Instructions}{31}{section.4.14}%
+\contentsline {section}{\numberline {4.15}Final Remarks}{32}{section.4.15}%
+\contentsline {chapter}{\numberline {5}Intermediate Representations}{34}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Key Signatures}{34}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Chord Templates}{34}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Harmonic Sequences}{34}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Cadences}{34}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Label Desugaring}{34}{section.5.5}%
+\contentsline {chapter}{\numberline {6}Code Generation}{35}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Sample Programs}{36}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Future Work and Conclusion}{37}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Future Work}{37}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Conclusion}{37}{section.8.2}%

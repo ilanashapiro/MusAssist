@@ -632,8 +632,7 @@ comment *//
 
 %-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 %-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-\chapter{The MusAssist Compiler}
-\section{Lexing and Parsing}
+\chapter{Lexing and Parsing}
 
 Parsing of MusAssist concrete syntax was implemented with parser combinators using parsers from Parsec, an industrial strength parser library. Parsec's helper module Token was used for lexing. To combine parsers, Haskell's Applicative module was used, and the following custom monadic sequencing operators\footnote{credit: Ben Wiedermann}
 \begin{verbatim}
@@ -648,7 +647,7 @@ were defined to generate the results of the parse.
 
 The following sections discuss the parsing of the concrete syntax from \Cref{chap:langfeatures} into abstract syntax. The abstract syntax was carefully designed to best model musical structures organically.
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
-\subsection{Note Names}
+\section{Note Names}
 Recall from \Cref{sec:notes} that the set of all possible values for the concrete syntax \param{NOTENAME} is:
 \begin{verbatim}
 F,C,G,D,E,A,B
@@ -669,7 +668,7 @@ data NoteName =
 
 The reason that an ADT was created for note names, rather than a simple type alias for String was not used for note names, was so that (1) correctness could be enforced for the possible note names and (2) so that custom orderings, as well as the ability to take  successors and predecessors, can be defined for the note names. As will be discussed in \Cref{chap:ir}, two orderings will be needed for note names, which are accomplished through deriving \verb.Ord. and implementing a custom instance of the \verb.Enum. typeclass. For now, simply notice that the \verb.NoteName. ADT lists the notes in the order of sharps.
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
-\subsection{Accidentals}
+\section{Accidentals}
 Recall from \Cref{sec:notes} that the set of all possible values for the concrete syntax \param{ACCIDENTAL} is:
 \begin{verbatim}
 #, ##, b, bb
@@ -688,7 +687,7 @@ data Accidental =
 
 Like notes, accidentals were not represented in the abstract syntax with a String alias in order to (1) enforce correctness for the limited possible values and (2) enforce a custom ordering. As will be discussed in \Cref{chap:ir}, one ordering (as well as the ability to take successors and predecessors) will be needed for accidentals, which is accomplished through deriving \verb.Enum..
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
-\subsection{Octaves}
+\section{Octaves}
 Recall from \Cref{sec:notes} that the set of all possible values for the concrete syntax \param{ACCIDENTAL} is:
 \begin{verbatim}
 1,2,3,4,5,6,7,8
@@ -702,7 +701,7 @@ type Octave = Int
 
 An Int type alias, rather than a custom ADT, was chosen for octaves as the constraint of  1-8 is simple to enforce in a later stage, and no custom ordering is needed beyond what is already provided by Int.
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
-\subsection{Inversions}
+\section{Inversions}
 Recall from \Cref{sec:chordtemplates} that the set of all possible values for the concrete syntax \param{INVERSION} is:
 \begin{verbatim}
 root, first, second, third
@@ -721,7 +720,7 @@ data Inversion =
 An ADT was better than a String alias to represent inversions in order to best enforce correctness of the data given their limited possible values. 
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
-\subsection{Length}
+\section{Length}
 
 Recall from \Cref{sec:harmseq} that the concrete syntax \param{LENGTH} can be any natural number. This thus parses to the abstract syntax \verb.Length., a Haskell type alias for Int:
 
@@ -730,7 +729,7 @@ type Length = Int
 \end{verbatim}
  
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
-\subsection{Labels}
+\section{Labels}
 Recall from \Cref{sec:labels} that a the concrete syntax of a MusAssist label is simply a string of the user's choice that must start with a letter, and can contain letters, numbers, underscores, and single quotes. Labels thus parse to the abstract syntax \verb.Label., a Haskell type alias for String:
 
 \begin{verbatim}
@@ -738,7 +737,7 @@ type Label = String
 \end{verbatim}
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
-\subsection{Durations}
+\section{Durations}
 Recall from \Cref{sec:rests} that the set of all possible values for the concrete syntax \param{DURATION} is:
 
 \begin{verbatim}
@@ -762,7 +761,7 @@ data Duration =
 Durations were not represented in the abstract syntax with a String alias in order to (1) enforce correctness for the limited possible values and (2) enforce a custom ordering. \verb.Duration. derives \verb.Ord., which enforces for the ordering of durations from smallest to largest, as seen in the data deffinition. Of note, durations are not represented as floats as MusAssist does not support arbitrarily complex durations, and ordered custom data types are easier to work with than floats.
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
-\subsection{Qualities}
+\section{Qualities}
 
 Recall from \Cref{sec:chordtemplates}  that the set of all possible values for the concrete syntax \param{QUALITY} is:
 \begin{verbatim}
@@ -782,7 +781,7 @@ data Quality =
 
 An ADT was better than a String alias to represent qualities in order to best enforce correctness of the data given their limited possible values. 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
-\subsection{Chord Types}
+\section{Chord Types}
 
 Recall from \Cref{sec:chordtemplates}  that the set of all possible values for the concrete syntax \param{CHORDTYPE} is:
 \begin{verbatim}
@@ -800,7 +799,7 @@ data ChordType =
 An ADT was better than a String alias to represent qualities in order to best enforce correctness of the data given their limited possible values. 
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
-\subsection{Cadence Types}
+\section{Cadence Types}
 
 Recall from \Cref{sec:chordtemplates}  that the set of all possible values for the concrete syntax \param{CADENCETYPE} is:
 \begin{verbatim}
@@ -821,7 +820,7 @@ data CadenceType =
 An ADT was better than a String alias to represent cadence types in order to best enforce correctness of the data given their limited possible values. 
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
-\subsection{Harmonic Sequence Types}
+\section{Harmonic Sequence Types}
 Recall from \Cref{sec:harmseq}  that the set of all possible values for the concrete syntax \param{HARMSEQTYPE} is:
 
 \begin{verbatim}
@@ -840,7 +839,8 @@ data HarmonicSequenceType =
 
 An ADT was better than a String alias to represent harmonic sequence types in order to best enforce correctness of the data given their limited possible values. 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
-\subsection{Tones}
+\section{Tones}
+\label{sec:tones}
 
 A tone (i.e. a ``sounding," or non-rest, note) is comprised of a note name, accidental, and octave, and is represented with \verb.Tone., a custom Haskell ADT:
 
@@ -848,8 +848,17 @@ A tone (i.e. a ``sounding," or non-rest, note) is comprised of a note name, acci
 data Tone = Tone NoteName Accidental Octave 
 \end{verbatim}
 
+The parsers for note name, accidental, and octave are thus combined to create a parser for tones:\newpage
+
+\begin{verbatim}
+parseTone :: Parsec String () Tone 
+parseTone = Tone <$> parseNoteName <*> parseAccidental <*> 
+		            (natural >>=: \octave -> fromIntegral octave)
+\end{verbatim}
+where \verb.natural. is a helper lexing function for natural numbers from Parsec's \verb.Token. module.
+
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
-\subsection{Intermediate Expressions}
+\section{Intermediate Expressions}
 
 An intermediate expression describes one of two entities: a musical template that will get expanded in \Cref{chap:ir}, or a ``final expression" that will not get expanded. Intermediate expressions are represented with \verb.IntermediateExpr., a custom Haskell ADT:
 
@@ -863,11 +872,9 @@ data IntermediateExpr =
   | FinalExpr Expr
 \end{verbatim}
 
-As the ADT demonstrates, the templates to expand are notes, chord templates, cadence, harmonic sequences, and labels. Each will be 
+Parsers for the musical building blocks described in the previous sections of this chapter are combined, similar to in \Cref{sec:tones}, to create parsers for each \verb.IntermediateExpr.
 
-%--------------------------------------------------------------------------------------------------------------------------------------------------------
-\subsection{Expressions}
-\label{sec:exprs}
+As the ADT demonstrates, the templates to expand are notes, chord templates, cadence, harmonic sequences, and labels. In \Cref{chap:ir}, they will be each expanded to a value of type \verb.Expr., a custom Haskell ADT describing the building blocks of all musical expressions:
 
 \begin{verbatim}
 data Expr = 
@@ -876,24 +883,42 @@ data Expr =
   | LabeledExpr [Expr]
 \end{verbatim}
 
+Any template described in \verb.IntermediateExpr. will get expanded to the \verb.Expr.s it contains. Another way of thinking about this is that \verb.IntermediateExpr.s get ``lowered" to \verb.Expr.s.
+
+An \verb.IntermediateExpr. of type \verb.FinalExpr. simply unwrapped to the \verb.Expr. The concrete syntax that parses to \verb.FinalExpr. is the syntax for rests and custom chords. 
+
+Of the templates, a \verb.Note. will get expanded to a single-note \verb.Chord., a \verb.ChordTemplate. will get expanded to a multi-note \verb.Chord., a \verb.Cadence. and a \verb.HarmonicSequence. each will get expanded to a list of multi-note \verb.Chord.s, and a \verb.LabeledExpr. will get expanded (i.e. desugared) to a \verb.LabeledExpr. containing the list of desugared expressions stored by the label. Again, all of this is explicated in detail in \Cref{chap:ir}.
+
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
-\subsection{Intermediate Instructions}
+\section{Intermediate Instructions}
+
+An intermediate instruction describes the four possible instructions in a MusAssist program: changing the key signature, creating a new measure, writing a series of musical expressions, or assigning a label to a series of expressions to be reused later. Intermediate instructions are represented with \verb.IntermediateInstr., a custom Haskell ADT:
 
 \begin{verbatim}
 data IntermediateInstr = 
-  IRKeySignature 
+  IRKeySignature NoteName Accidental Quality
   | IRNewMeasure
   | IRWrite [IntermediateExpr]
   | IRAssign Label [IntermediateExpr]
 \end{verbatim}
 
+As will be discussed in \Cref{chap:ir}, each \verb.IntermediateInstr. is expanded in the intermediate representations phase to a value in the ADT \verb.Instr.:
 
+\begin{verbatim}
+data Instr = 
+  KeySignature Int Int 
+  | NewMeasure 
+  | Write [Expr]
+  | Assign Label [Expr] 
+\end{verbatim}
+
+Like \verb.Expr., \verb.Instr.. is not included in the parse result. \verb.IRKeySignature. is a template describing a key signature that gets expanded (or ``lowered") from its description to the number of sharps and flats held in \verb.KeySignature. Every other \verb.IntermediateInstr. simply maps 1-1 to its corresponding \verb.Instr., with \verb.IntermediateExpr. parameters expanded to \verb.Expr. as necessary. Again, this will be explained in great detail in \Cref{chap:ir}.
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
-\subsection{Final Remarks}
-MusAssistAST.hs defines one additional ADT: \verb.data Instr.. This ADT is not included in the parse result, and is instead generated from the expansion of the templates in \verb.IntermediateInstr.. This will be discussed in \Cref{chap:ir}.
+\section{Final Remarks}
+\label{sec:finalremarks}
 
-When writing the parser, it was important to order parser alternatives correctly due to the issue of overlapping prefixes of identifiers in the concrete syntax. For instance, consider the parser for expressions (i.e. that maps to the ADT \verb.data expr.)
+When writing the parser, it was important to order parser alternatives correctly due to the issue of overlapping prefixes of identifiers in the concrete syntax. For instance, consider the parser for intermediate expressions (i.e. that maps to the ADT \verb.IntermediateExpr.)
 
 \begin{verbatim}
 parseExpr :: Parsec String () IntermediateExpr
@@ -910,19 +935,19 @@ parseExpr =
 
 We must call \verb.parseChordTemplate. before \verb.parseNote., because \verb.parseChordTemplate. will attempt to parse the string ``halfdim" (i.e. a quality) and parseNote will attempt to parse the string ``half" (i.e. a duration). Since ``half" is a prefix of ``halfdim", this means that if we call parseNote before parseChordTemplate on the string ``halfdim," the parse will succeed on the prefix ``half", which will incorrectly be parsed as a duration, and then the parse will fail on ``dim." Furthermore, as seen in \verb.parseExpr., it is necessary to use Parsec's ``try" keyword on all parsers that succeed on strings with overlapping prefixes, even when they are in the right order, so that when the parse fails on the first parser alternative(s) after the overlapping prefix, no input will get consumed before trying the next one.
 
-\section{Intermediate Representations}
+\chapter{Intermediate Representations}
 \label{chap:ir}
 The abstract syntax of the parse result contains information about various descriptions of musical objects, such as harmonic sequences and chord templates. 
 
 
 
-\subsection{Key Signatures}
-\subsection{Chord Templates}
-\subsection{Harmonic Sequences}
-\subsection{Cadences}
-\subsection{Label Desugaring}
+\section{Key Signatures}
+\section{Chord Templates}
+\section{Harmonic Sequences}
+\section{Cadences}
+\section{Label Desugaring}
 
-\section{Code Generation}
+\chapter{Code Generation}
 
 \chapter{Sample Programs}
 
