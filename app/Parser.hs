@@ -113,12 +113,7 @@ parseChord = do
   return $ Chord tones duration
 
 parseTone :: Parsec String () Tone 
-parseTone = do 
-  noteName   <- parseNoteName
-  accidental <- parseAccidental
-  octave     <-  natural <* spaces -- DO I NEED THIS??
-  let ast = Tone noteName accidental (fromIntegral octave)
-  return ast
+parseTone = Tone <$> parseNoteName <*> parseAccidental <*> (natural >>=: \octave -> fromIntegral octave)
 
 parseDuration :: Parsec String () Duration
 parseDuration = do
@@ -196,16 +191,15 @@ program = do
 -----------------------------------------------------------------------------------------
 -- Convenience parsers
 -----------------------------------------------------------------------------------------
-keyword    = Token.reserved lexer
-op         = Token.reservedOp lexer
-natural    = Token.natural lexer
-symbol     = Token.symbol lexer
-parens     = Token.parens lexer
-brackets   = Token.brackets lexer
-commaSep1  = Token.commaSep1 lexer
-identifier = Token.identifier lexer
-whiteSpace = Token.whiteSpace lexer
-stringLiteral     = Token.stringLiteral lexer
+keyword           = Token.reserved lexer
+op                = Token.reservedOp lexer
+natural           = Token.natural lexer
+symbol            = Token.symbol lexer
+parens            = Token.parens lexer
+brackets          = Token.brackets lexer
+commaSep1         = Token.commaSep1 lexer
+identifier        = Token.identifier lexer
+whiteSpace        = Token.whiteSpace lexer
 
 infixl 1 >>=:
 left >>=: f = f <$> left

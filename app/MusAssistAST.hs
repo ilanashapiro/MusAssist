@@ -45,14 +45,13 @@ instance Enum NoteName where
             | n2 == n3 = [n1, n2]
     enumFromThenTo n1 n2 n3 = n1 : enumFromThenTo n2 (toEnum $ (2 * fromEnum n2) - (fromEnum n1)) n3
 
-
 data Accidental = 
      DoubleFlat 
      | Flat 
      | Natural
      | Sharp
      | DoubleSharp
-  deriving (Eq, Enum, Bounded, Show, Read)
+  deriving (Eq, Enum, Show, Read)
 
 type Octave = Int -- range is [1,8]
 
