@@ -885,9 +885,7 @@ data Expr =
 
 Any template described in \verb.IntermediateExpr. will get expanded to the \verb.Expr.s it contains. Another way of thinking about this is that \verb.IntermediateExpr.s get ``lowered" to \verb.Expr.s.
 
-An \verb.IntermediateExpr. of type \verb.FinalExpr. simply unwrapped to the \verb.Expr. The concrete syntax that parses to \verb.FinalExpr. is the syntax for rests and custom chords. 
-
-Of the templates, a \verb.Note. will get expanded to a single-note \verb.Chord., a \verb.ChordTemplate. will get expanded to a multi-note \verb.Chord., a \verb.Cadence. and a \verb.HarmonicSequence. each will get expanded to a list of multi-note \verb.Chord.s, and a \verb.LabeledExpr. will get expanded (i.e. desugared) to a \verb.LabeledExpr. containing the list of desugared expressions stored by the label. Again, all of this is explicated in detail in \Cref{chap:ir}.
+An \verb.IntermediateExpr. of type \verb.FinalExpr. simply unwrapped to the \verb.Expr. The concrete syntax that parses to \verb.FinalExpr. is that for rests and custom chords. 
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Intermediate Instructions}
@@ -935,10 +933,13 @@ parseExpr =
 
 We must call \verb.parseChordTemplate. before \verb.parseNote., because \verb.parseChordTemplate. will attempt to parse the string ``halfdim" (i.e. a quality) and parseNote will attempt to parse the string ``half" (i.e. a duration). Since ``half" is a prefix of ``halfdim", this means that if we call parseNote before parseChordTemplate on the string ``halfdim," the parse will succeed on the prefix ``half", which will incorrectly be parsed as a duration, and then the parse will fail on ``dim." Furthermore, as seen in \verb.parseExpr., it is necessary to use Parsec's ``try" keyword on all parsers that succeed on strings with overlapping prefixes, even when they are in the right order, so that when the parse fails on the first parser alternative(s) after the overlapping prefix, no input will get consumed before trying the next one.
 
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
 \chapter{Intermediate Representations}
 \label{chap:ir}
 This chapter discusses the expansions (or ``lowerings") of the musical templates described in the ADTs \verb.IntermediateInstr. and \verb.IntermediateExpr. 
 
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Intermediate Instructions}
 The \verb.IntermediateInstr.s \verb.IRNewMeasure, IRWrite [IntermediateExpr],. and \\\verb.IRAssign Label [IntermediateExpr]. all have straightforward conversions to \verb.Instr.. 
 
@@ -946,6 +947,7 @@ The \verb.IntermediateInstr.s \verb.IRNewMeasure, IRWrite [IntermediateExpr],. a
 
 The only complex expansion of an \verb.IntermediateInstr. in the conversion of a key signature description (i.e. note name, accidental, and quality) to the number of sharps or flats in the key.
 
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
 \subsection{Key Signatures}
 The logic for the number of sharps or flats in a key signature is divided based on the two possible key signature qualities: major and minor. 
 \subsubsection{Major}
@@ -997,6 +999,7 @@ To summarize, the logic of determining the number of sharps or flats in a major 
 \item Any key  signature with a natural in its name is a key signature. C major (zero sharps or flats) and F major (one flat) are special cases. All other such key signatures are sharp key signatures, and the number of sharps is determined in the same way as just discussed.
 \end{enumerate}
 
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
 \subsubsection{Minor}
 Rather than go through the logic of determining the number of sharps or flats in a minor key signature, we convert each minor key signature to its relative major, and apply the logic from the previous section.
 
@@ -1051,15 +1054,27 @@ Minor keys in red are invalid (i.e. contain double sharps or flats). However, th
 
 Since we go up a minor third from $n$, the tonic of the minor key, to get  the note name of the relative major, we simply call \verb.succ. twice on $n$ to get the note name of the relative major.
 
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Intermediate Expressions}
 \label{sec:irexpr}
+
+The \verb.IntermediateExpr.s \verb.FinalExpr Expr., \verb.Note Tone Duration., \verb.Label Label. have relatively simple expansions. 
+
+For \verb.FinalExpr.s, the \verb.Expr. parameter is simply returned (think of this as ``unwrapping" \verb.FinalExpr Expr.). 
+
+A \verb.Note. will get expanded to a single-tone \verb.Chord.
+
+In terms of \verb.Label.s, when the \verb.IntermediateInstr. \verb.IRAssign Label [IntermediateExpr]. gets translated to the the \verb.IntermediateInstr. \verb.Assign Label [Expr]., the list of expanded \verb.Expr.s is stored in a symbol table mapped to the label name. Then, when expanding \verb.Label., the label name is simply queried in the symbol table, and the list of expanded expressions for that label is returned to replace the label reference. This desugaring step must occur in the intermediate representations stage of the compiler rather than the code generation stage for reasons that will be discussed in \Cref{chap:codegen}.
+%-----DISCUSS THE REASON ABOUT BEATS WITHIN MEASURE
+
+All the other templates described in \verb.IntermediateExpr. have more complex expansions. On a high level, a \verb.ChordTemplate. will get expanded to a multi-note \verb.Chord., and \verb.Cadence. and a \verb.HarmonicSequence. each will get expanded to a list of multi-note \verb.Chord.s.
 
 \section{Chord Templates}
 \section{Harmonic Sequences}
 \section{Cadences}
-\section{Label Desugaring}
 
 \chapter{Code Generation}
+\label{chap:codegen}
 
 \chapter{Sample Programs}
 

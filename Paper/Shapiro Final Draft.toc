@@ -50,18 +50,17 @@
 \contentsline {section}{\numberline {4.13}Intermediate Expressions}{31}{section.4.13}%
 \contentsline {section}{\numberline {4.14}Intermediate Instructions}{31}{section.4.14}%
 \contentsline {section}{\numberline {4.15}Final Remarks}{32}{section.4.15}%
-\contentsline {chapter}{\numberline {5}Intermediate Representations}{34}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Intermediate Instructions}{34}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Key Signatures}{34}{subsection.5.1.1}%
-\contentsline {subsubsection}{Major}{34}{section*.22}%
-\contentsline {subsubsection}{Minor}{36}{section*.25}%
-\contentsline {section}{\numberline {5.2}Intermediate Expressions}{38}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Chord Templates}{38}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Harmonic Sequences}{38}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Cadences}{38}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Label Desugaring}{38}{section.5.6}%
-\contentsline {chapter}{\numberline {6}Code Generation}{39}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Sample Programs}{40}{chapter.7}%
-\contentsline {chapter}{\numberline {8}Future Work and Conclusion}{41}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Future Work}{41}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Conclusion}{41}{section.8.2}%
+\contentsline {chapter}{\numberline {5}Intermediate Representations}{33}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Intermediate Instructions}{33}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Key Signatures}{33}{subsection.5.1.1}%
+\contentsline {subsubsection}{Major}{33}{section*.22}%
+\contentsline {subsubsection}{Minor}{35}{section*.25}%
+\contentsline {section}{\numberline {5.2}Intermediate Expressions}{37}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Chord Templates}{37}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Harmonic Sequences}{37}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Cadences}{37}{section.5.5}%
+\contentsline {chapter}{\numberline {6}Code Generation}{38}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Sample Programs}{39}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Future Work and Conclusion}{40}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Future Work}{40}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Conclusion}{40}{section.8.2}%
