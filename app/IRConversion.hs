@@ -290,7 +290,7 @@ expandIntermediateInstr symbolTableIORef (MusAST.IRKeySignature noteName acciden
         let convertSharpKeySig noteName = 
                 let numSharpsMaybe = elemIndex (pred noteName) globalOrderOfSharps 
                 in case numSharpsMaybe of
-                    Just numSharps -> return $ MusAST.KeySignature (succ numSharps) 0 -- account for zero-indexing
+                    Just numSharps -> return $ MusAST.KeySignature (succ numSharps) 0 -- (succ numSharps) accounts for zero-indexing
                     Nothing -> return $ error "Cannot convert sharp key sig template"
         in case accidental of 
             MusAST.Flat -> 
@@ -300,13 +300,14 @@ expandIntermediateInstr symbolTableIORef (MusAST.IRKeySignature noteName acciden
                                 -- this is a flat key signature
                                 -- seven possible sharps or flats bc 7 possible note names
                                 -- also, we will never have sharpsIndex go below 1 because F major is handled separately
+                                -- (the sharpsIndex - 1 is to account for zero-indexing)
                                 Just sharpsIndex -> return $ MusAST.KeySignature 0 (7 - (sharpsIndex - 1)) 
                                 Nothing          -> return $ error "Cannot convert flat key sig template"
-                    else return $ error "Key signature cannot have double flats"
+                else return $ error "Key signature cannot have double flats"
             MusAST.Sharp -> 
                 if noteName <= MusAST.C
                     then convertSharpKeySig noteName
-                    else return $ error "Key signature cannot have double flats"
+                else return $ error "Key signature cannot have double flats"
             MusAST.Natural -> 
                 case noteName of
                     MusAST.C -> return $ MusAST.KeySignature 0 0
