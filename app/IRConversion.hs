@@ -300,7 +300,6 @@ expandIntermediateInstr symbolTableIORef (MusAST.IRKeySignature noteName acciden
                                 -- this is a flat key signature
                                 -- seven possible sharps or flats bc 7 possible note names
                                 -- also, we will never have sharpsIndex go below 1 because F major is handled separately
-                                -- (the sharpsIndex - 1 is to account for zero-indexing)
                                 Just sharpsIndex -> return $ MusAST.KeySignature 0 (7 - (sharpsIndex - 1)) 
                                 Nothing          -> return $ error "Cannot convert flat key sig template"
                 else return $ error "Key signature cannot have double flats"
@@ -313,22 +312,21 @@ expandIntermediateInstr symbolTableIORef (MusAST.IRKeySignature noteName acciden
                     MusAST.C -> return $ MusAST.KeySignature 0 0
                     MusAST.F -> return $ MusAST.KeySignature 0 1
                     otherNoteName -> convertSharpKeySig noteName -- this is a sharp key sig by definition
+            _             -> return $ error "Cannot have key signature with double flats or sharps in key sig name" 
     | quality == MusAST.Minor =
         let majKeyNoteName = applyN succ noteName 2 -- we go up 3 semitones in the minor key to get the major key
-            majAccidentalMaybe = 
+            majAccidental = 
                 case accidental of -- default is convert to major, then check if valid there, except when there's no single-accidentals major conversion
                     MusAST.Sharp -> 
-                        if noteName >= MusAST.D then Just MusAST.Sharp
-                        else Just MusAST.Natural
+                        if noteName >= MusAST.D then MusAST.Sharp
+                        else MusAST.Natural
                     MusAST.Flat -> 
-                        if noteName >= MusAST.D then Just MusAST.Flat -- technically, Db minor will error in Fb Major as double flats, but we don't error now for consistency 
-                        else Nothing -- no conversion to major due to double flats
+                        if noteName >= MusAST.D then MusAST.Flat 
+                        else MusAST.DoubleFlat -- this is invalid by definition, will error once we recurse and re-process as relative major
                     MusAST.Natural -> 
-                        if noteName >= MusAST.D then Just MusAST.Natural
-                        else Just MusAST.Flat
-        in case majAccidentalMaybe of 
-            Just majAccidental -> expandIntermediateInstr symbolTableIORef (MusAST.IRKeySignature majKeyNoteName majAccidental MusAST.Major)
-            Nothing            -> return $ error "Cannot convert minor to major key sig due to double flats" 
+                        if noteName >= MusAST.D then MusAST.Natural
+                        else MusAST.Flat
+        in expandIntermediateInstr symbolTableIORef (MusAST.IRKeySignature majKeyNoteName majAccidental MusAST.Major)
     | otherwise = return $ error "Key signature quality can only be major or minor"
 
 expandIntermediateInstr _ MusAST.IRNewMeasure = return MusAST.NewMeasure

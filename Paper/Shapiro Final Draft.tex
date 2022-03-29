@@ -949,7 +949,8 @@ The only complex expansion of an \verb.IntermediateInstr. in the conversion of a
 \subsection{Key Signatures}
 The logic for the number of sharps or flats in a key signature is divided based on the two possible key signature qualities: major and minor. 
 \subsubsection{Major}
-In order to determine the number of sharps or flats for a major key, the possible valid keys (i.e. keys with 0-7 sharps or flats) were listed and divided into keys with 0 or more sharps (\Cref{major_sharp}), and keys with 0 or more flats (\Cref{major_flat}).
+
+In order to determine the number of sharps or flats for a major key, the possible valid keys (i.e. keys with 0-7 sharps or flats) were listed and divided into keys with 0 or more sharps (\Cref{major_sharp}), and keys with 0 or more flats (\Cref{major_flat}). (If an invalid key is given, an error is thrown).
 
 \begin{figure}[h!]
 \centering
@@ -969,12 +970,16 @@ In order to determine the number of sharps or flats for a major key, the possibl
 
 Let a \textit{flat key signature} have at least one flat, and let a \textit{sharp key signature} have at least one sharp.
 
-In \Cref{major_sharp}, we see that the number of sharps in a major key signature with at least one sharp corresponds to the $index$ of the note name of last sharp in its key signature, in the order of sharps. Similarly, in \Cref{major_flat}, we see that the number of flats in a major key signature with at least one flat corresponds to seven minus the index of the note name of the last flat in its key signature, in the order of sharps. Thus, if we let $i=$ index of last note name of the last accidental in a key signature (i.e. in F major, a flat key signature, the note name of the last flat would be B), then the number of sharps in a sharp key signature is $i$, and the number of flats in a flat key signature is $7-i$. The $7-i$ calculation comes from the fact that the order of flats (BEADGCF) is simply the reverse of the order of sharps (FCGDAEB), and there are seven possible sharps or flats because there are seven possible note names. In order to support this logic, a list of \verb.NoteNames. in the order of sharps called \verb.globalOrderOfSharps. was created.
+In \Cref{major_sharp}, we see that the number of sharps in a sharp major key signature corresponds to the $index$ of the note name of last sharp appearing in the key signature, in the order of sharps. 
 
-The question now becomes how to determine the last sharp or flat in a major key signature. The first step is to determine which key signatures are flat or sharp, given only the key signature's description of note name and accidental. Examining Figures \ref{major_sharp} and \ref{major_flat} again, we notice the following patterns:
+Similarly, in \Cref{major_flat}, we see that the number of flats in a flat major key signature corresponds to $7-(i-1)$, where $i$ is the the index of the key signature's note name in the order of sharps. The ``seven-minus" calculation comes from the fact that the order of flats (BEADGCF) is simply the reverse of the order of sharps (FCGDAEB), and there are seven possible sharps or flats because there are seven possible note names. 
+
+In order to support this logic, a list of \verb.NoteNames. in the order of sharps called \verb.globalOrderOfSharps. was created.
+
+The question now becomes how to determine the last sharp in a sharp major key signature. The first step is to determine which key signatures are flat or sharp, given only the key signature's description of note name and accidental. Examining Figures \ref{major_sharp} and \ref{major_flat} again, we notice the following patterns:
 \begin{enumerate}
-\item  Any key  signature with a flat in its name (i.e. A\musFlat \; major) is a flat key signature. However, the only valid key signatures with flats in their names (i.e. those that do not have double sharps or flats) are those whose note name $n$ satisfies $n \geq $\;C in the order of sharps.
-\item  Any key  signature with a sharp in its name (i.e. C\musSharp \; major) is a sharp key signature. However, the only valid key signatures with sharps in their names (i.e. those that do not have double sharps or flats) are those whose note name $n$ satisfies $n \leq $\;C in the order of sharps.
+\item  Any key  signature with a flat in its name (i.e. A\musFlat \; major) is a flat key signature. However, the only valid key signatures with flats in their names (i.e. those that do not have double sharps or flats and thus appear in Figures \ref{major_sharp} and \ref{major_flat}) are those whose note name $n$ satisfies $n \geq $\;C in the order of sharps.
+\item  Any key  signature with a sharp in its name (i.e. C\musSharp \; major) is a sharp key signature. However, the only valid key signatures with sharps in their names (i.e. those that do not have double sharps or flats and thus appear in Figures \ref{major_sharp} and \ref{major_flat}) are those whose note name $n$ satisfies $n \leq $\;C in the order of sharps.
 \item  C major and F major are special cases. C major has zero sharps or flats, and F  major has one flat.
 \item  Any other key signature (which must have a natural in its name, i.e. G major) is a sharp key signature.
 \end{enumerate}
@@ -984,15 +989,68 @@ If we are in a sharp key signature, the rule from music theory is that the last 
 
 Thus, if we are in a sharp key signature, to determine the name of the last sharp in the key, we can simply call \verb.pred. on the tonic (i.e. key) note name. To get the index of this resulting \verb.NoteName. in the order of sharps, we simply look up its index in the list \verb.globalOrderOfSharps. (accounting of course for the zero-indexing of lists).
 
-To summarize, the logic of determining the number of sharps or flats is:
+To summarize, the logic of determining the number of sharps or flats in a major key is:
 \begin{enumerate}
-\item Any key  signature whose note name $n$ satisfies $n \geq $\;C in the number of sharps and that a flat in its name is a flat key signature. \verb.pred n. gives us the note name 
-\item
+\item Any key  signature with a flat in its name, and whose note name $n$ satisfies $n \geq $\;C in the order of sharps, is a valid flat key signature. We look up the index of $n$ in \verb.globalOrderOfSharps. to get $i$, and the key thus has $7-(i-1)$ flats.
+\item Any key  signature with a sharp in its name, and whose note name $n$ satisfies $n \leq $\;C in the order of sharps, is a valid sharp key signature. \verb.pred n. gives us $n'$, the note name of the last sharp in the key signature. The index of $n'$ in \verb.globalOrderOfSharps. tells us how many sharps the key signature has (accounting for the zero-indexing of \verb.globalOrderOfSharps.)
+
+\item Any key  signature with a natural in its name is a key signature. C major (zero sharps or flats) and F major (one flat) are special cases. All other such key signatures are sharp key signatures, and the number of sharps is determined in the same way as just discussed.
 \end{enumerate}
 
 \subsubsection{Minor}
+Rather than go through the logic of determining the number of sharps or flats in a minor key signature, we convert each minor key signature to its relative major, and apply the logic from the previous section.
 
-Though the ADT \verb.NoteName. derived \verb.Ord. and is in the order of sharps, in order to 
+Consider the following mapping of valid minor key signatures (i.e. those without double sharps or flats) to their relative major key signatures. Recall that to get the relative major of a minor key, we go up a minor third in from the tonic of the minor key. 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.9\textwidth]{images/minor_sharp}
+\caption{Relative Major Name Accidentals of Minor Keys with Sharp in Name}
+\label{minor_sharp}
+\end{figure}
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.9\textwidth]{images/minor_flat}
+\caption{Relative Major Name Accidentals of Minor Keys with Sharp in Name}
+\label{minor_flat}
+\end{figure}
+\newpage
+
+This allows us to notice the following patterns. Each of the following diagrams shows the accidental in the name of the relative major key signature of each of the minor keys in the list. Notice that the minor keys are ordered in the order of sharps. 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.9\textwidth]{images/sharp_min_to_maj}
+\caption{Relative Major Accidentals for Minor Keys with Sharp in Name}
+\label{major_sharp}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.9\textwidth]{images/flat_min_to_maj}
+\caption{Relative Major Accidentals for Minor Keys with Flat in Name}
+\label{major_flat}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.9\textwidth]{images/natural_min_to_maj}
+\caption{Relative Major Accidentals for Minor Keys with Natural in Name}
+\label{major_flat}
+\end{figure}
+
+Minor keys in red are invalid (i.e. contain double sharps or flats). However, these will be identified as invalid later, when they have subsequently been processed as major keys after being converted to the relative major. Thus, we can simply determine the accidental of the relative major key by ignoring invalid keys for now. Given a minor key with note name $n$ and accidental $a$, the accidental of its relative major can be determined by D as a ``pivot." 
+
+\begin{enumerate}
+\item If $a=\musFlat$, then if $n \geq$ D in the order of sharps, the accidental of its relative major is \musSharp. Otherwise, it is \musNatural.
+\item If $a=\musFlat$, then if $n \geq$ D in the order of sharps, the accidental of its relative major is \musFlat. Otherwise, it is \musDoubleFlat.
+\item If $a=\musFlat$, then if $n \geq$ D in the order of sharps, the accidental of its relative major is \musNatural. Otherwise, it is \musFlat.
+\end{enumerate}
+
+Since we go up a minor third from $n$, the tonic of the minor key, to get  the note name of the relative major, we simply call \verb.succ. twice on $n$ to get the note name of the relative major.
+
 \section{Intermediate Expressions}
 \label{sec:irexpr}
 
