@@ -1072,6 +1072,8 @@ All the other templates described in \verb.IntermediateExpr. have more complex e
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \subsection{Chord Templates}
 \label{sec:chordtemplates}
+Recall that a chord template contains information about its root note, quality, type, inversion, and duration. It will get expanded to the list of notes (i.e. tones) that it describes.
+
 Expansion of chord templates begins with validity checks: that (1) the chord root is not a double sharp or flat (MusAssist does not support this), and (2) that the chord is not a half diminished triad (impossible according to music theory). After this, each of the notes of the chord is determined.
 
 To do this, a helper function called \verb.generateToneWithinScale. was created. This function, given the tonic tone and quality (either major or minor), will generate the tone within that scale given the desired interval from the tonic (must be between 1 and 6, i.e. within one octave of the tonic). 
