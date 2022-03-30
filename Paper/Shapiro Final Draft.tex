@@ -1076,13 +1076,13 @@ Recall that a chord template contains information about its root note, quality, 
 
 Expansion of chord templates begins with validity checks: that (1) the chord root is not a double sharp or flat (MusAssist does not support this), and (2) that the chord is not a half diminished triad (impossible according to music theory). After this, each of the notes of the chord is determined.
 
-To do this, a helper function called \verb.generateToneWithinScale. was created. This function, given the tonic tone and quality (either major or minor), will generate the tone within that scale given the desired interval from the tonic (must be between 1 and 6, i.e. within one octave of the tonic). 
+To do this, a helper function called \verb.generateToneWithinScale. was created. This function, given the tonic tone and quality (either major or minor), will generate the tone within that diatonic scale given the desired interval from the tonic (must be between 1 and 6, i.e. within one octave of the tonic). 
 
 In \verb.generateToneWithinScale., determining the note name of the desired tone within the scale based on interval is straightforward: simply apply \verb.succ. to the tonic note $n$ times, where $n$ is the interval from the tonic. Recall that \verb.succ. is defined in the custom Enum instance of the NoteName ADT and is based on the order of notes in a scale, not the order of sharps like the \verb.Ord. derivation is.
 
 Notably, \verb.generateToneWithinScale. also takes in the parameters \verb.specialOctaveCases. and \verb.octFunc. The default octave of the tone is the same as the tonic, but \verb.generateToneWithinScale. will apply the custom function (\verb.succ. or \verb.pred. in the implementation) to the default octave if the computed note name is in \verb.specialOctaveCases.. This allows the octave to be customized as needed. The logic of \verb.specialOctaveCases. and \verb.octFunc. is implemented in the chord template expansion function, and will be revisited when we return to this function.
 
-The most difficult part of \verb.generateToneWithinScale. is determining the accidental of the tone. To work out the logic behind this, the following figures list all single-accidental key signature names (even invalid ones that contain double sharps or flats, in order to establish the pattern). The diagrams group the key signature names under the accidental of the note that is the specified interval from the tonic. For instance, in both A\musFlat\; major and minor (since all major or minor scales have a major second), the major second interval from the tonic (A\musFlat) is B\musFlat. The accidental of B\musFlat\; is \musFlat, so in \Cref{maj_seconds}, A\musFlat\; falls under the \musFlat\; column.
+The most difficult part of \verb.generateToneWithinScale. is determining the accidental of the tone. To work out the logic behind this, the following figures consider all single-accidental key signature names (even invalid ones that contain double sharps or flats, in order to establish the pattern). The diagrams group the key signature names under the accidental of the note that is the specified interval from the tonic. For instance, in both A\musFlat\; major and minor (since all major or minor scales have a major second), the major second interval from the tonic (A\musFlat) is B\musFlat. The accidental of B\musFlat\; is \musFlat, so in \Cref{maj_seconds}, A\musFlat\; falls under the \musFlat\; column.
 
 \begin{figure}[h!]
 \centering
@@ -1091,7 +1091,9 @@ The most difficult part of \verb.generateToneWithinScale. is determining the acc
 \label{maj_seconds}
 \end{figure}
 
-This allows us to ascertain that in any key, the note that is a major second above the tonic has the same accidental as the tonic, except for keys that have the note name E and B. (Namely, these keys are E and B major or minor, E\musFlat and B\musFlat major or minor, and E\musSharp and B \musSharp major or minor). In these  cases, the accidental is ``lifted" once  (i.e. \musFlat becomes \musNatural, \musNatural becomes \musSharp, and \musSharp becomes \musDoubleSharp). This is where the ADT \verb.Accidental.'s derivation of \verb.Enum. comes in. In order to lift or lower an accidental, we can simply apply \verb.succ. or \verb.pred.. Thus, if the note name of the scale key is E or B, we apply \verb.succ. to the accidental in the key name. 
+This allows us to ascertain that in any key, the note that is a major second above the tonic has the same accidental as the tonic, except for keys that have the note name E and B. (Namely, these keys are E and B major or minor, E\musFlat and B\musFlat major or minor, and E\musSharp and B \musSharp major or minor). In these  cases, the accidental is ``lifted" once  (i.e. \musFlat becomes \musNatural, \musNatural becomes \musSharp, and \musSharp becomes \musDoubleSharp). This is where the ADT \verb.Accidental.'s derivation of \verb.Enum. comes in. In order to lift or lower an accidental, we can simply apply \verb.succ. or \verb.pred.. Thus, if the note name of the scale key is E or B, we apply \verb.succ. to the accidental in the key name (i.e. the accidental of the tonic) to get the accidental of the note a major second above the tonic. 
+
+We can proceed in a similar fashion for all other imperfect intervals. In the case of thirds, it turns out that the pattern emerges for minor thirds, rather than major thirds.
 
 \begin{figure}[h!]
 \centering
@@ -1100,12 +1102,20 @@ This allows us to ascertain that in any key, the note that is a major second abo
 \label{min_thirds}
 \end{figure}
 
+We see that for any key, the note that is a minor third above the tonic has the same accidental as the tonic, except for keys that have the note name F,  C, or G. In these  cases, the accidental is ``lowered" once  (i.e. \musFlat becomes \musDoubleFlat, \musNatural becomes \musFlat, and \musSharp becomes \musFlat). Just like with major seconds, now, if the note name of the scale key is F, C, or G, we apply \verb.pred. to the accidental in the key name (i.e. the accidental of the tonic) to get the accidental of the note a minor third above the tonic.
+
+Subsequently, the case of sixths, it turns out that the pattern emerges for major sixths, rather than minor thirds.
+
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.5\textwidth]{images/maj_sixths}
 \caption{Accidental of Major Sixth from Tonic per Key}
 \label{maj_sixths}
 \end{figure}
+
+We see that for any key, the note that is a major sixth above the tonic has the same accidental as the tonic, except for keys that have the note name A, E, or B. In these  cases, the accidental is ``lifted" once, like with major seconds. Thus, if the note name of the scale key is A, E, or B, we apply \verb.succ. to the accidental in the key name (i.e. the accidental of the tonic) to get the accidental of the note a major sixth above the tonic.
+
+Finally, the case of sevenths, it turns out that the pattern emerges for minor sevenths, rather than major sevenths.
 
 \begin{figure}[h!]
 \centering
@@ -1114,6 +1124,44 @@ This allows us to ascertain that in any key, the note that is a major second abo
 \label{min_sevenths}
 \end{figure}
 
+We see that for any key, the note that is a major sixth above the tonic has the same accidental as the tonic, except for keys that have the note name F or C. In these  cases, the accidental is ``lowered" once, like with minor thirds. Thus, if the note name of the scale key is F or C, we apply \verb.pred. to the accidental in the key name (i.e. the accidental of the tonic) to get the accidental of the note a minor seventh above the tonic.
+
+We finally consider the perfect intervals: fourths and fifths. By thinking about these intervals for a moment, it becomes clear that perfect intervals always have the same accidental as their tonic, except in those rare cases when we get a tritone. There is only one case that this occurs for each of these intervals: for perfect fourths, keys with F in the key name, and for perfect fifths, keys with B in the note name. The logic for this can be seen by visualizing a piano. B is a tritone above F because B is only a half step (rather than a whole step) below C, and F is a tritone above B because F is only a half step (rather than a whole step) above E.
+
+%-- Map numStepsFromTonic ([notes that are special cases for this interval], 
+%                        -- function to alter accidental for special case notes, 
+%                        -- quality that the computed accidentals are valid for).
+                        
+All of these conclusions allow us to summarize our findings in the following map (defined \href{https://github.com/ilanashapiro/MusAssist/blob/main/app/IRConversion.hs}{here}):
+\begin{verbatim}
+globalStepsFromTonicToAccInfoMap :: Map Int ([MusAST.NoteName],
+                                    MusAST.Accidental -> MusAST.Accidental, 
+                                    Maybe MusAST.Quality)
+globalStepsFromTonicToAccInfoMap = Map.fromList
+    [(0, ([], (succ . pred), Nothing)),                            -- root
+     (1, (drop 5 globalOrderOfSharps, succ, Nothing)),             -- seconds
+     (2, (take 3 globalOrderOfSharps, pred, Just MusAST.Minor)),   -- thirds
+     (3, ([MusAST.F], pred, Nothing)),                             -- fourths
+     (4, ([MusAST.B], succ, Nothing)),                             -- fifths
+     (5, (drop 4 globalOrderOfSharps, succ, Just MusAST.Major)),   -- sixths
+     (6, (take 2 globalOrderOfSharps, pred, Just MusAST.Minor))]   -- sevenths
+\end{verbatim}
+
+\verb.globalStepsFromTonicToAccInfoMap. maps the interval from tonic (beginning with 0, or the tonic itself) to information about the note at that interval from tonic. In the tuple on the right side of the map, the first element is the list of ``special case" notes from that interval from the tonic (i.e. notes that do not have the same accidental as the tonic). The second element is the function to apply to the tonic accidental in order to get  the correct accidental for these special case notes. The third and final element is the key quality that the accidental pattern is valid for (i.e. major, in the case of sixths, or minor, in the case of thirds and sevenths). Notice that although, based on the pattern discovered in \Cref{maj_seconds}, we would think initially that seconds should only be valid for major, this is not the case because both major and minor keys have their supertonic a major second above the tonic. Thus, the valid key quality is \verb.Nothing., since this does not apply here. Similarly, key quality does not affect perfect intervals, nor the tonic itself.
+
+We can thus use \verb.globalStepsFromTonicToAccInfoMap. in \verb.generateToneWithinScale. by querying based on the interval from the tonic. We then adjust the accidental by applying the queried accidental function if the note name is in the special cases list, and then we further adjust based on the key quality the pattern is valid for. For instance, if we are in a major scale and the interval value is 2 (meaning we want a major third), we need to apply \verb.succ. to the accidental from  \verb.globalStepsFromTonicToAccInfoMap. (note that we must apply this alteration AFTER we have already applied the queried accidental function if needed). Similarly, if we are in a minor scale and the interval value is 5 (meaning we want a minor sixth), we need to apply \verb.pred. to the accidental from  \verb.globalStepsFromTonicToAccInfoMap. once the queried accidental function has been applied as needed for special case notes.
+
+Thus, \verb.generateToneWithinScale. returns the tone within a diatonic scale a specified interval from the tonic, with the option to adjust the octave.
+
+We now return to the function for expanding chord templates. We simply proceed linearly to generate each note in  the chord using \verb.generateToneWithinScale. based on the interval from the tonic. Thirds have an interval of 2 from the tonic, fifths have an interval of 4 from the tonic, and sevenths have an interval of 6 from the tonic.
+
+The scale is set to major for major and augmented chords, and to minor for all other chord qualities (minor, half diminished, diminished). This means that for augmented chords, the chordal fifth will need to be raised half a step (i.e. we need to apply \verb.succ. to the accidental returned in \verb.generateToneWithinScale.), and the chordal seventh will need to be lowered half a step. For diminished chords, both the chordal fifth and seventh will need to be lowered half a step, and for half diminished chords, the chordal fifth will need to get lowered half a step. 
+
+The special octave cases depend on the interval. For instance, for fifths, if the chordal root is F, G, A, or B, the chordal fifth's octave number is one above the root, since octave numbers change on C. We can use the convenient function \verb.enumFromTo. from our custom instance of the \verb.Enum. class for the ADT \verb.NoteName., and we get that the special octave cases for fifths are \verb.(enumFromTo MusAST.F MusAST.B)., and the octave function to get applied in \verb.generateToneWithinScale. for these cases is \verb.succ.. The same logic applies to all other intervals, by simply working out which chordal roots have the specified interval above them in a different octave. This allows us to make all chords initially in root position. The octave function for \verb.generateToneWithinScale. is always \verb.succ. in chord template expansion, but as we will see later in the expansion of other templates, this is not always the case. 
+
+The final consideration to handle in chord template expansions are inversions. If the chord type is a triad, the chord template expansion stops after generating the notes for the triad. Otherwise, it continues on to generate the chordal seventh. In either case, inversions are handled similarly. Recall that the chord (whether triad or seventh) starts out in root position. Let $n$ be the inversion value (0 for root, 1 for first inversion, 2 for second,  and 3 or third). By incrementing the octave of the first $n$ tones of the chord in root position, we get the correct inversion. 
+
+At this point,  we have all the information we need for chord template expansion. The computed and adjusted note name, accidental, and octave of for each tone in the chord are zipped together to create a list of  tones, and this is passed into the data constructor \verb.Chord. from the ADT \verb.Expr.. The given duration  for the chord template is passed in as the second parameter for \verb.Chord., and we are done.
 
 \section{Harmonic Sequences}
 \section{Cadences}
