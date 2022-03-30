@@ -57,7 +57,6 @@ generateToneWithinScale tonicTone tonicQuality intervalVal specialOctaveCases oc
     if intervalVal < 0 || intervalVal > 6 then return $ error "Can't generate tone outside single scale range" else 
     if tonicQuality `notElem` globalValidKeyQualities then return $ error "Can't generate tone given invalid key quality (not major or minor)" else do
     let (MusAST.Tone tonicNoteName tonicAccidental tonicOctave) = tonicTone
-    -- if intervalVal == 0 then return tonicTone else do
         noteName   = applyN succ tonicNoteName intervalVal
         (specialAccidentalCases, accFunc, accFuncValidQuality) = 
             case (Map.lookup intervalVal globalStepsFromTonicToAccInfoMap) of 

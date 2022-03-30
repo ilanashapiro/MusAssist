@@ -685,7 +685,7 @@ data Accidental =
      | DoubleSharp
 \end{verbatim}
 
-Like notes, accidentals were not represented in the abstract syntax with a String alias in order to (1) enforce correctness for the limited possible values and (2) enforce a custom ordering. As will be discussed in \Cref{chap:ir}, one ordering (as well as the ability to take successors and predecessors) will be needed for accidentals, which is accomplished through deriving \verb.Enum..
+Like notes, accidentals were not represented in the abstract syntax with a String alias in order to (1) enforce correctness for the limited possible values and (2) enforce a custom ordering. As will be discussed in \Cref{sec:chordtemplates}, one ordering (as well as the ability to take successors and predecessors) will be needed for accidentals, which is accomplished through deriving \verb.Enum..
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Octaves}
 Recall from \Cref{sec:notes} that the set of all possible values for the concrete syntax \param{ACCIDENTAL} is:
@@ -1069,7 +1069,50 @@ In terms of \verb.Label.s, when the \verb.IntermediateInstr. \verb.IRAssign Labe
 
 All the other templates described in \verb.IntermediateExpr. have more complex expansions. On a high level, a \verb.ChordTemplate. will get expanded to a multi-note \verb.Chord., and \verb.Cadence. and a \verb.HarmonicSequence. each will get expanded to a list of multi-note \verb.Chord.s.
 
-\section{Chord Templates}
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
+\subsection{Chord Templates}
+\label{sec:chordtemplates}
+Expansion of chord templates begins with validity checks: that (1) the chord root is not a double sharp or flat (MusAssist does not support this), and (2) that the chord is not a half diminished triad (impossible according to music theory). After this, each of the notes of the chord is determined.
+
+To do this, a helper function called \verb.generateToneWithinScale. was created. This function, given the tonic tone and quality (either major or minor), will generate the tone within that scale given the desired interval from the tonic (must be between 1 and 6, i.e. within one octave of the tonic). 
+
+In \verb.generateToneWithinScale., determining the note name of the desired tone within the scale based on interval is straightforward: simply apply \verb.succ. to the tonic note $n$ times, where $n$ is the interval from the tonic. Recall that \verb.succ. is defined in the custom Enum instance of the NoteName ADT and is based on the order of notes in a scale, not the order of sharps like the \verb.Ord. derivation is.
+
+Notably, \verb.generateToneWithinScale. also takes in the parameters \verb.specialOctaveCases. and \verb.octFunc. The default octave of the tone is the same as the tonic, but \verb.generateToneWithinScale. will apply the custom function (\verb.succ. or \verb.pred. in the implementation) to the default octave if the computed note name is in \verb.specialOctaveCases.. This allows the octave to be customized as needed. The logic of \verb.specialOctaveCases. and \verb.octFunc. is implemented in the chord template expansion function, and will be revisited when we return to this function.
+
+The most difficult part of \verb.generateToneWithinScale. is determining the accidental of the tone. To work out the logic behind this, the following figures list all single-accidental key signature names (even invalid ones that contain double sharps or flats, in order to establish the pattern). The diagrams group the key signature names under the accidental of the note that is the specified interval from the tonic. For instance, in both A\musFlat\; major and minor (since all major or minor scales have a major second), the major second interval from the tonic (A\musFlat) is B\musFlat. The accidental of B\musFlat\; is \musFlat, so in \Cref{maj_seconds}, A\musFlat\; falls under the \musFlat\; column.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{images/maj_seconds}
+\caption{Accidental of Major Second from Tonic per Key}
+\label{maj_seconds}
+\end{figure}
+
+This allows us to ascertain that in any key, the note that is a major second above the tonic has the same accidental as the tonic, except for keys that have the note name E and B. (Namely, these keys are E and B major or minor, E\musFlat and B\musFlat major or minor, and E\musSharp and B \musSharp major or minor). In these  cases, the accidental is ``lifted" once  (i.e. \musFlat becomes \musNatural, \musNatural becomes \musSharp, and \musSharp becomes \musDoubleSharp). This is where the ADT \verb.Accidental.'s derivation of \verb.Enum. comes in. In order to lift or lower an accidental, we can simply apply \verb.succ. or \verb.pred.. Thus, if the note name of the scale key is E or B, we apply \verb.succ. to the accidental in the key name. 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{images/min_thirds}
+\caption{Accidental of Minor Third from Tonic per Key}
+\label{min_thirds}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{images/maj_sixths}
+\caption{Accidental of Major Sixth from Tonic per Key}
+\label{maj_sixths}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.5\textwidth]{images/min_sevenths}
+\caption{Accidental of Minor Seventh from Tonic per Key}
+\label{min_sevenths}
+\end{figure}
+
+
 \section{Harmonic Sequences}
 \section{Cadences}
 

@@ -56,11 +56,11 @@
 \contentsline {subsubsection}{Major}{33}{section*.22}%
 \contentsline {subsubsection}{Minor}{35}{section*.25}%
 \contentsline {section}{\numberline {5.2}Intermediate Expressions}{37}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Chord Templates}{37}{section.5.3}%
-\contentsline {section}{\numberline {5.4}Harmonic Sequences}{37}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Cadences}{37}{section.5.5}%
-\contentsline {chapter}{\numberline {6}Code Generation}{38}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Sample Programs}{39}{chapter.7}%
-\contentsline {chapter}{\numberline {8}Future Work and Conclusion}{40}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Future Work}{40}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Conclusion}{40}{section.8.2}%
+\contentsline {subsection}{\numberline {5.2.1}Chord Templates}{37}{subsection.5.2.1}%
+\contentsline {section}{\numberline {5.3}Harmonic Sequences}{38}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Cadences}{38}{section.5.4}%
+\contentsline {chapter}{\numberline {6}Code Generation}{40}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Sample Programs}{41}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Future Work and Conclusion}{42}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Future Work}{42}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Conclusion}{42}{section.8.2}%
