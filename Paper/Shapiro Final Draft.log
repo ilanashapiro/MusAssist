@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  30 MAR 2022 12:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  30 MAR 2022 23:52
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -581,7 +581,7 @@ Overfull \hbox (5.74158pt too wide) in paragraph at lines 245--245
 alf, dotted_half, whole[] 
  []
 
-<images/rest.png, id=457, 339.2675pt x 95.35625pt>
+<images/rest.png, id=447, 339.2675pt x 95.35625pt>
 File: images/rest.png Graphic file (type png)
 <use images/rest.png>
 Package pdftex.def Info: images/rest.png  used on input line 252.
@@ -592,17 +592,17 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 [16
 
 ]
-<images/cbb5.png, id=466, 372.39125pt x 94.3525pt>
+<images/cbb5.png, id=456, 372.39125pt x 94.3525pt>
 File: images/cbb5.png Graphic file (type png)
 <use images/cbb5.png>
 Package pdftex.def Info: images/cbb5.png  used on input line 291.
 (pdftex.def)             Requested size: 163.40385pt x 41.40291pt.
-<images/dsharp5.png, id=467, 372.39125pt x 94.3525pt>
+<images/dsharp5.png, id=457, 372.39125pt x 94.3525pt>
 File: images/dsharp5.png Graphic file (type png)
 <use images/dsharp5.png>
 Package pdftex.def Info: images/dsharp5.png  used on input line 297.
 (pdftex.def)             Requested size: 163.40385pt x 41.40291pt.
-<images/a2.png, id=468, 316.18124pt x 135.50626pt>
+<images/a2.png, id=458, 316.18124pt x 135.50626pt>
 File: images/a2.png Graphic file (type png)
 <use images/a2.png>
 Package pdftex.def Info: images/a2.png  used on input line 303.
@@ -618,23 +618,23 @@ Overfull \hbox (17.41034pt too wide) in paragraph at lines 320--321
  sixteenth) 
  []
 
-<images/custom1.png, id=481, 367.3725pt x 204.765pt>
+<images/custom1.png, id=471, 367.3725pt x 204.765pt>
 File: images/custom1.png Graphic file (type png)
 <use images/custom1.png>
 Package pdftex.def Info: images/custom1.png  used on input line 326.
 (pdftex.def)             Requested size: 163.40385pt x 91.07794pt.
-<images/custom2.png, id=482, 348.30125pt x 118.4425pt>
+<images/custom2.png, id=472, 348.30125pt x 118.4425pt>
 File: images/custom2.png Graphic file (type png)
 <use images/custom2.png>
 Package pdftex.def Info: images/custom2.png  used on input line 332.
 (pdftex.def)             Requested size: 163.40385pt x 55.56676pt.
 [18 <./images/a2.png> <./images/custom1.png> <./images/custom2.png>]
-<images/cmintriad.png, id=495, 388.45125pt x 101.37875pt>
+<images/cmintriad.png, id=485, 388.45125pt x 101.37875pt>
 File: images/cmintriad.png Graphic file (type png)
 <use images/cmintriad.png>
 Package pdftex.def Info: images/cmintriad.png  used on input line 382.
 (pdftex.def)             Requested size: 163.40385pt x 42.64684pt.
-<images/f7.png, id=496, 314.17375pt x 131.49126pt>
+<images/f7.png, id=486, 314.17375pt x 131.49126pt>
 File: images/f7.png Graphic file (type png)
 <use images/f7.png>
 Package pdftex.def Info: images/f7.png  used on input line 388.
@@ -649,7 +649,7 @@ ATION> length:<LENGTH>)[]
 LaTeX Warning: Reference `chordtemplates' on page 1 undefined on input line 408
 .
 
-<images/ascfifths.png, id=507, 883.3pt x 140.525pt>
+<images/ascfifths.png, id=497, 883.3pt x 140.525pt>
 File: images/ascfifths.png Graphic file (type png)
 <use images/ascfifths.png>
 Package pdftex.def Info: images/ascfifths.png  used on input line 437.
@@ -657,7 +657,7 @@ Package pdftex.def Info: images/ascfifths.png  used on input line 437.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<images/descfifths.png, id=508, 883.3pt x 98.3675pt>
+<images/descfifths.png, id=498, 883.3pt x 98.3675pt>
 File: images/descfifths.png Graphic file (type png)
 <use images/descfifths.png>
 Package pdftex.def Info: images/descfifths.png  used on input line 443.
@@ -665,7 +665,7 @@ Package pdftex.def Info: images/descfifths.png  used on input line 443.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<images/asc56.png, id=509, 883.3pt x 120.45pt>
+<images/asc56.png, id=499, 883.3pt x 120.45pt>
 File: images/asc56.png Graphic file (type png)
 <use images/asc56.png>
 Package pdftex.def Info: images/asc56.png  used on input line 449.
@@ -673,7 +673,7 @@ Package pdftex.def Info: images/asc56.png  used on input line 449.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<images/desc56.png, id=510, 883.3pt x 106.3975pt>
+<images/desc56.png, id=500, 883.3pt x 106.3975pt>
 File: images/desc56.png Graphic file (type png)
 <use images/desc56.png>
 Package pdftex.def Info: images/desc56.png  used on input line 455.
@@ -689,65 +689,77 @@ e/musictheorycheatsheet/diatonicism/ii-
  []
 
 
-Overfull \hbox (31.9359pt too wide) in paragraph at lines 498--499
+Package amsmath Warning: Foreign command \atop;
+(amsmath)                \frac or \genfrac should be used instead
+(amsmath)                 on input line 505.
+
+
+Overfull \hbox (54.67715pt too wide) in paragraph at lines 501--512
+[][]
+ []
+
+
+Overfull \hbox (31.9359pt too wide) in paragraph at lines 516--517
 [][]\OT1/cmtt/m/n/10 (DeceptiveCadence B4 maj eighth)[]\OT1/cmr/m/n/10 , [][]\O
 T1/cmtt/m/n/10 (HalfCadence G#5 min whole)[]\OT1/cmr/m/n/10 , [][]\OT1/cmtt/m/n
 /10 (PlagalCadence C5 maj half) 
  []
 
-<images/perfauth.png, id=533, 880.28876pt x 118.4425pt>
+<images/perfauth.png, id=523, 880.28876pt x 118.4425pt>
 File: images/perfauth.png Graphic file (type png)
 <use images/perfauth.png>
-Package pdftex.def Info: images/perfauth.png  used on input line 505.
+Package pdftex.def Info: images/perfauth.png  used on input line 521.
 (pdftex.def)             Requested size: 301.00192pt x 40.49944pt.
-<images/imperfauth.png, id=534, 465.74pt x 118.4425pt>
+<images/imperfauth.png, id=524, 465.74pt x 118.4425pt>
 File: images/imperfauth.png Graphic file (type png)
 <use images/imperfauth.png>
-Package pdftex.def Info: images/imperfauth.png  used on input line 511.
+Package pdftex.def Info: images/imperfauth.png  used on input line 527.
 (pdftex.def)             Requested size: 215.0023pt x 54.67758pt.
-<images/deceptive.png, id=535, 883.3pt x 99.37125pt>
+<images/deceptive.png, id=525, 883.3pt x 99.37125pt>
 File: images/deceptive.png Graphic file (type png)
 <use images/deceptive.png>
-Package pdftex.def Info: images/deceptive.png  used on input line 517.
+Package pdftex.def Info: images/deceptive.png  used on input line 533.
 (pdftex.def)             Requested size: 215.0023pt x 24.18771pt.
-<images/half.png, id=536, 880.28876pt x 126.4725pt>
+<images/half.png, id=526, 880.28876pt x 126.4725pt>
 File: images/half.png Graphic file (type png)
 <use images/half.png>
-Package pdftex.def Info: images/half.png  used on input line 523.
+Package pdftex.def Info: images/half.png  used on input line 539.
 (pdftex.def)             Requested size: 301.00192pt x 43.24516pt.
-<images/plagal.png, id=537, 301.125pt x 99.37125pt>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<images/plagal.png, id=527, 301.125pt x 99.37125pt>
 File: images/plagal.png Graphic file (type png)
 <use images/plagal.png>
-Package pdftex.def Info: images/plagal.png  used on input line 529.
+Package pdftex.def Info: images/plagal.png  used on input line 545.
 (pdftex.def)             Requested size: 129.00269pt x 42.57262pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[22 <./images/perfauth.png> <./images/imperfauth.png> <./images/deceptive.png> 
-<./images/half.png>]
-<images/label.png, id=552, 881.2925pt x 116.435pt>
+[22 <./images/perfauth.png> <./images/imperfauth.png> <./images/deceptive.png>]
+<images/label.png, id=543, 881.2925pt x 116.435pt>
 File: images/label.png Graphic file (type png)
 <use images/label.png>
-Package pdftex.def Info: images/label.png  used on input line 549.
+Package pdftex.def Info: images/label.png  used on input line 565.
 (pdftex.def)             Requested size: 301.00192pt x 39.76682pt.
- [23 <./images/plagal.png> <./images/label.png>]
-<images/keys.png, id=564, 880.28876pt x 95.35625pt>
+[23 <./images/half.png> <./images/plagal.png> <./images/label.png>]
+<images/keys.png, id=557, 880.28876pt x 95.35625pt>
 File: images/keys.png Graphic file (type png)
 <use images/keys.png>
-Package pdftex.def Info: images/keys.png  used on input line 593.
+Package pdftex.def Info: images/keys.png  used on input line 609.
 (pdftex.def)             Requested size: 301.00192pt x 32.60547pt.
  [24 <./images/keys.png>]
-<images/newmeasure.png, id=572, 506.89375pt x 93.34875pt>
+<images/newmeasure.png, id=565, 506.89375pt x 93.34875pt>
 File: images/newmeasure.png Graphic file (type png)
 <use images/newmeasure.png>
-Package pdftex.def Info: images/newmeasure.png  used on input line 613.
+Package pdftex.def Info: images/newmeasure.png  used on input line 629.
 (pdftex.def)             Requested size: 215.0023pt x 39.59363pt.
  [25 <./images/newmeasure.png>]
 Chapter 4.
 [26
 
 ] [27]
-Overfull \hbox (5.74158pt too wide) in paragraph at lines 745--745
+Overfull \hbox (5.74158pt too wide) in paragraph at lines 761--761
 []\OT1/cmtt/m/n/10 sixteenth, eighth, dotted_eighth, quarter, dotted_quarter, h
 alf, dotted_half, whole[] 
  []
@@ -755,24 +767,24 @@ alf, dotted_half, whole[]
 [28] [29] [30] [31] [32]
 Chapter 5.
 
-Overfull \hbox (43.576pt too wide) in paragraph at lines 946--947
+Overfull \hbox (43.576pt too wide) in paragraph at lines 962--963
 \OT1/cmr/m/n/10 lated to [][]\OT1/cmtt/m/n/10 Write [Expr][]\OT1/cmr/m/n/10 , a
 nd [][]\OT1/cmtt/m/n/10 IRAssign Label [IntermediateExpr] []\OT1/cmr/m/n/10 get
 s trans-lated to [][]\OT1/cmtt/m/n/10 Assign Label [Expr]
  []
 
-<images/major_sharp.png, id=636, 595.22375pt x 61.22874pt>
+<images/major_sharp.png, id=628, 595.22375pt x 61.22874pt>
 File: images/major_sharp.png Graphic file (type png)
 <use images/major_sharp.png>
-Package pdftex.def Info: images/major_sharp.png  used on input line 959.
+Package pdftex.def Info: images/major_sharp.png  used on input line 976.
 (pdftex.def)             Requested size: 387.00153pt x 39.8094pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<images/major_flat.png, id=637, 595.22375pt x 61.22874pt>
+<images/major_flat.png, id=629, 595.22375pt x 61.22874pt>
 File: images/major_flat.png Graphic file (type png)
 <use images/major_flat.png>
-Package pdftex.def Info: images/major_flat.png  used on input line 966.
+Package pdftex.def Info: images/major_flat.png  used on input line 983.
 (pdftex.def)             Requested size: 387.00153pt x 39.8094pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -780,47 +792,47 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 [33
 
 ]
-Overfull \hbox (13.77231pt too wide) in paragraph at lines 979--980
+Overfull \hbox (13.77231pt too wide) in paragraph at lines 996--997
 []\OT1/cmr/m/n/10 In or-der to sup-port this logic, a list of [][]\OT1/cmtt/m/n
 /10 NoteNames []\OT1/cmr/m/n/10 in the or-der of sharps called [][]\OT1/cmtt/m/
 n/10 globalOrderOfSharps
  []
 
 [34 <./images/major_sharp.png> <./images/major_flat.png>]
-<images/minor_sharp.png, id=667, 607.26875pt x 61.22874pt>
+<images/minor_sharp.png, id=659, 607.26875pt x 61.22874pt>
 File: images/minor_sharp.png Graphic file (type png)
 <use images/minor_sharp.png>
-Package pdftex.def Info: images/minor_sharp.png  used on input line 1010.
+Package pdftex.def Info: images/minor_sharp.png  used on input line 1027.
 (pdftex.def)             Requested size: 387.00153pt x 39.02087pt.
-<images/minor_flat.png, id=668, 608.2725pt x 59.22125pt>
+<images/minor_flat.png, id=660, 608.2725pt x 59.22125pt>
 File: images/minor_flat.png Graphic file (type png)
 <use images/minor_flat.png>
-Package pdftex.def Info: images/minor_flat.png  used on input line 1018.
+Package pdftex.def Info: images/minor_flat.png  used on input line 1035.
 (pdftex.def)             Requested size: 387.00153pt x 37.67915pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [35 <./images/minor_sharp.png>]
-<images/sharp_min_to_maj.png, id=680, 464.73625pt x 64.24pt>
+<images/sharp_min_to_maj.png, id=672, 464.73625pt x 64.24pt>
 File: images/sharp_min_to_maj.png Graphic file (type png)
 <use images/sharp_min_to_maj.png>
-Package pdftex.def Info: images/sharp_min_to_maj.png  used on input line 1028.
+Package pdftex.def Info: images/sharp_min_to_maj.png  used on input line 1045.
 (pdftex.def)             Requested size: 387.00153pt x 53.4966pt.
-<images/flat_min_to_maj.png, id=681, 463.7325pt x 61.22874pt>
+<images/flat_min_to_maj.png, id=673, 463.7325pt x 61.22874pt>
 File: images/flat_min_to_maj.png Graphic file (type png)
 <use images/flat_min_to_maj.png>
-Package pdftex.def Info: images/flat_min_to_maj.png  used on input line 1035.
+Package pdftex.def Info: images/flat_min_to_maj.png  used on input line 1052.
 (pdftex.def)             Requested size: 387.00153pt x 51.09824pt.
-<images/natural_min_to_maj.png, id=682, 463.7325pt x 61.22874pt>
+<images/natural_min_to_maj.png, id=674, 463.7325pt x 61.22874pt>
 File: images/natural_min_to_maj.png Graphic file (type png)
 <use images/natural_min_to_maj.png>
-Package pdftex.def Info: images/natural_min_to_maj.png  used on input line 1042
+Package pdftex.def Info: images/natural_min_to_maj.png  used on input line 1059
 .
 (pdftex.def)             Requested size: 387.00153pt x 51.09824pt.
  [36 <./images/minor_flat.png> <./images/sharp_min_to_maj.png> <./images/flat_m
 in_to_maj.png> <./images/natural_min_to_maj.png>]
-Overfull \hbox (36.43915pt too wide) in paragraph at lines 1063--1064
+Overfull \hbox (36.43915pt too wide) in paragraph at lines 1080--1081
 []\OT1/cmr/m/n/10 For [][]\OT1/cmtt/m/n/10 FinalExpr[]\OT1/cmr/m/n/10 s, the []
 []\OT1/cmtt/m/n/10 Expr []\OT1/cmr/m/n/10 pa-ram-e-ter is sim-ply re-turned (th
 ink of this as ``un-wrap-ping" [][]\OT1/cmtt/m/n/10 FinalExpr Expr[]\OT1/cmr/m/
@@ -828,40 +840,48 @@ n/10 ).
  []
 
 [37]
-<images/maj_seconds.png, id=704, 403.5075pt x 216.81pt>
+<images/maj_seconds.png, id=696, 403.5075pt x 216.81pt>
 File: images/maj_seconds.png Graphic file (type png)
 <use images/maj_seconds.png>
-Package pdftex.def Info: images/maj_seconds.png  used on input line 1089.
+Package pdftex.def Info: images/maj_seconds.png  used on input line 1108.
 (pdftex.def)             Requested size: 215.0023pt x 115.52408pt.
-<images/min_thirds.png, id=705, 403.5075pt x 216.81pt>
+<images/min_thirds.png, id=697, 403.5075pt x 216.81pt>
 File: images/min_thirds.png Graphic file (type png)
 <use images/min_thirds.png>
-Package pdftex.def Info: images/min_thirds.png  used on input line 1100.
+Package pdftex.def Info: images/min_thirds.png  used on input line 1119.
 (pdftex.def)             Requested size: 215.0023pt x 115.52408pt.
- [38 <./images/maj_seconds.png> <./images/min_thirds.png>]
-<images/maj_sixths.png, id=714, 403.5075pt x 216.81pt>
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<images/maj_sixths.png, id=698, 403.5075pt x 216.81pt>
 File: images/maj_sixths.png Graphic file (type png)
 <use images/maj_sixths.png>
-Package pdftex.def Info: images/maj_sixths.png  used on input line 1111.
+Package pdftex.def Info: images/maj_sixths.png  used on input line 1130.
 (pdftex.def)             Requested size: 215.0023pt x 115.52408pt.
-<images/min_sevenths.png, id=715, 403.5075pt x 216.81pt>
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[38 <./images/maj_seconds.png>]
+<images/min_sevenths.png, id=705, 403.5075pt x 216.81pt>
 File: images/min_sevenths.png Graphic file (type png)
 <use images/min_sevenths.png>
-Package pdftex.def Info: images/min_sevenths.png  used on input line 1122.
+Package pdftex.def Info: images/min_sevenths.png  used on input line 1141.
 (pdftex.def)             Requested size: 215.0023pt x 115.52408pt.
- [39 <./images/maj_sixths.png> <./images/min_sevenths.png>] [40] [41]
+ [39 <./images/min_thirds.png> <./images/maj_sixths.png> <./images/min_sevenths
+.png>] [40] [41] [42]
 Chapter 6.
-[42
-
-]
-Chapter 7.
 [43
 
 ]
-Chapter 8.
+Chapter 7.
 [44
 
-] (./referencesexercisebib.bib) (./Shapiro Final Draft.bbl [45]
+]
+Chapter 8.
+[45
+
+] (./referencesexercisebib.bib) (./Shapiro Final Draft.bbl [46]
 Underfull \hbox (badness 10000) in paragraph at lines 29--32
 []\OT1/cmr/m/n/10 DeepSource.  Syn-chronous pro-gram-ming.  URL []$\OT1/cmtt/m/
 n/10 https : / / deepsource . io / glossary /
@@ -891,18 +911,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 63--68
 dsdatascience . com /
  []
 
-[46
+[47
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1187.
- [47]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1187.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1228.
+ [48]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1228.
  (./Shapiro Final Draft.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1187.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1187.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1228.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1228.
 
 Package rerunfilecheck Info: File `"Shapiro Final Draft".out' has not changed.
-(rerunfilecheck)             Checksum: 5C66F31AD6BB4A47F0638ECCF7914228;2732.
+(rerunfilecheck)             Checksum: 2ABE8F74628D7D088890CA082DABBFBF;2612.
 
 
 LaTeX Warning: There were undefined references.
@@ -910,16 +930,16 @@ LaTeX Warning: There were undefined references.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1187.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1228.
  ) 
 Here is how much of TeX's memory you used:
- 12579 strings out of 480608
- 211676 string characters out of 5903631
- 480559 words of memory out of 5000000
- 28069 multiletter control sequences out of 15000+600000
+ 12582 strings out of 480608
+ 211737 string characters out of 5903631
+ 480669 words of memory out of 5000000
+ 28070 multiletter control sequences out of 15000+600000
  541131 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 45i,8n,46p,1625b,462s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 45i,13n,46p,1625b,462s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exi
 st, replaced by a fixed one
 
@@ -929,20 +949,21 @@ usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></u
 sr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr
 /local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/l
 ocal/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/loc
-al/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/
-texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/tex
-live/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texliv
-e/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive
-/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2
-020/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/20
-20/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/202
-0/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2020
-/texmf-dist/fonts/type1/public/musixtex-fonts/musix11.pfb></usr/local/texlive/2
-020/texmf-dist/fonts/type1/public/musixtex-fonts/musix16.pfb>
-Output written on "Shapiro Final Draft.pdf" (48 pages, 1068535 bytes).
+al/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/
+texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/tex
+live/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texliv
+e/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2
+020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/20
+20/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2020
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2020/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2020/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2020/te
+xmf-dist/fonts/type1/public/musixtex-fonts/musix11.pfb></usr/local/texlive/2020
+/texmf-dist/fonts/type1/public/musixtex-fonts/musix16.pfb>
+Output written on "Shapiro Final Draft.pdf" (49 pages, 1080003 bytes).
 PDF statistics:
- 879 PDF objects out of 1000 (max. 8388607)
- 743 compressed objects within 8 object streams
- 182 named destinations out of 1000 (max. 500000)
- 516 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 882 PDF objects out of 1000 (max. 8388607)
+ 744 compressed objects within 8 object streams
+ 184 named destinations out of 1000 (max. 500000)
+ 500 words of extra memory for PDF output out of 10000 (max. 10000000)
 

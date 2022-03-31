@@ -493,11 +493,27 @@ PerfAuthCadence, ImperfAuthCadence, HalfCadence, PlagalCadence, DeceptiveCadence
 
 The music theory of cadences is outside the scope of this paper, but good references for review can be found  here: \href{https://sites.google.com/site/musictheorycheatsheet/diatonicism/ii-functional-harmony-and-cadences}{https://sites.google.com/site/musictheorycheatsheet/diatonicism/ii-functional-harmony-and-cadences} and here: \href{https://sites.google.com/site/musictheorycheatsheet/diatonicism/ii-functional-harmony-and-cadences}{https://sites.google.com/site/musictheorycheatsheet/diatonicism/ii-functional-harmony-and-cadences} 
 
+Again, the cadences are written in the upper voices only, in keyboard voice leading style, due to MusAssist's current lack of support for multiple clefs. Principles of smooth voice leading were applied throughout.
+
+From a music theory standpoint, based on the principles of functional harmony, there are several ways to represent each of these cadences. In MusAssist, the following representations were chosen for each cadence. The major version is presented first, and the minor version is after that, in parentheses.
+
+\begin{table}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+Perfect Authentic & Imperfect Authentic & Plagal & Deceptive & Half \\ \hline
+IV-V-I (iv-V-i) 
+& IV-vii$^{\text{o}{6 \atop 4}}$-I$^{6 \atop 4}$ (iv-vii$^{\text{o}{6 \atop 4}}$-i$^{6 \atop 4}$)
+& IV$^{6 \atop 4}$-I (iv$^{6 \atop 4}$-I)        
+& IV-V$^{6 \atop 4}$-vi$^{6 \atop 4}$ (iv-V$^{6 \atop 4}$-VI$^{6 \atop 4}$)
+& IV-ii$^6$-V (iv-ii$^{\text{o}6}$-V)
+\\ \hline
+\end{tabular}
+\label{table:cadences}
+\end{table}
+
 The five possible cadence types in MusAssist demonstrated in the following examples. 
 
 \noindent\verb.(PerfAuthCadence Eb5 min sixteenth)., \verb.(ImperfAuthCadence F#5 min quarter)., \\\verb.(DeceptiveCadence B4 maj eighth)., \verb.(HalfCadence G#5 min whole)., \verb.(PlagalCadence C5 maj half).
-
-Again, the cadences are written in the upper voices only, in keyboard voice leading style, due to MusAssist's current lack of support for multiple clefs. Principles of smooth voice leading were applied throughout.
 
 These MusAssist expressions,  respectively, translate to the following when loaded into the MuseScore notation software. Notice the doubled root in the perfect authentic cadence in an attempt to simulate the 4-5-1 bass line, as well as to preserve the 2-1 downward step in the uppermost voice required for this cadence. 
 \begin{figure}[h!]
@@ -947,6 +963,7 @@ The \verb.IntermediateInstr.s \verb.IRNewMeasure, IRWrite [IntermediateExpr],. a
 
 The only complex expansion of an \verb.IntermediateInstr. in the conversion of a key signature description (i.e. note name, accidental, and quality) to the number of sharps or flats in the key.
 
+The expansion of template instructions occurs in \verb.expandIntermediateInstr.
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \subsection{Key Signatures}
 The logic for the number of sharps or flats in a key signature is divided based on the two possible key signature qualities: major and minor. 
@@ -1069,6 +1086,8 @@ In terms of \verb.Label.s, when the \verb.IntermediateInstr. \verb.IRAssign Labe
 
 All the other templates described in \verb.IntermediateExpr. have more complex expansions. On a high level, a \verb.ChordTemplate. will get expanded to a multi-note \verb.Chord., and \verb.Cadence. and a \verb.HarmonicSequence. each will get expanded to a list of multi-note \verb.Chord.s.
 
+The expansion of template expressions occurs in \verb.expandIntermediateExpr.
+
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \subsection{Chord Templates}
 \label{sec:chordtemplates}
@@ -1163,18 +1182,40 @@ The final consideration to handle in chord template expansions are inversions. I
 
 At this point,  we have all the information we need for chord template expansion. The computed and adjusted note name, accidental, and octave of for each tone in the chord are zipped together to create a list of  tones, and this is passed into the data constructor \verb.Chord. from the ADT \verb.Expr.. The given duration  for the chord template is passed in as the second parameter for \verb.Chord., and we are done.
 
-\section{Harmonic Sequences}
-\section{Cadences}
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
 
+\subsection{Cadences}
+Recall that a cadence template contains information about its cadence type, start tone, quality, and duration, where duration is the length of each note, and start tone and quality together determine the local key of the cadence. It will get expanded to the list of chords that it describes.
+
+Expansion of cadences begins a validity check: that the quality of the cadence is either major or minor. After this, the chords of the cadences are generated.
+
+To do this, a helper function called \verb.generateTriadWithinScale. was created. This function, given the tonic tone and quality (either major or minor), will generate the triad within that diatonic scale given the desired inversion and interval from the tonic (must be between 1 and 6, i.e. within one octave of the tonic) and inversion. Given the tonic quality (i.e. the quality of the scale), \verb.generateTriadWithinScale. first determines the quality of the desired chord. From music theory, it is known that that major keys contain the following chords: I-ii-iii-IV-V-vi-vii$^\text{o}$, and minor keys contain the following chords: i-ii$^\text{o}$-III-iv-v-VI-VII. Thus, depending on whether the tonic quality is major or minor, the quality of the triad is computed based on this information.
+
+After this, \verb.generateToneWithinScale. is called to  generate the root of the chord. Following this, a chord template for the triad is created, and passed into \verb.expandIntermediateExpr. to get expanded into a \verb.Chord. containing the list of tones and duration. The result of this is the desired triad.
+
+Returning to cadence template expansion, \verb.generateTriadWithinScale. is used to create each triad in  the cadence. Notably, none of the cadences in MusAssist utilize seventh chords. 
+\\\verb.generateTriadWithinScale. is thus called to generate the chords for the given cadence type based on MusAssist's cadence representations from \Cref{table:cadences}. 
+
+A notable edge case that occurred was when creating the V$^{6 \atop 4}$ chord for deceptive cadences. In order for the cadence to render appropriately, the root of the V$^{6 \atop 4}$ needs to be an octave number $below$ the tonic of the scale. Hence, the special octave cases are \verb.(enumFromTo MusAST.C MusAST.E). (i.e. C,D, and E, the keys whose  fifth scale degree would normally be the $same$ octave number as the tonic), and the octave function for these cases is  \verb.pred.
+
+Other edge cases included making sure that all V chords were major when calling \\\verb.generateTriadWithinScale., no matter the local key quality, since in a cadence, the five chord is always major. Similarly, we want the diminished seventh triad vii$^\text{o}$ in the imperfect authentic cadence no matter the local key quality (since we raise the leading tone in minor keys when moving towards the tonic). This means that  we also to pass major as the quality parameter to \verb.generateTriadWithinScale. here, in order for this chord to be built off the major seven scale degree.
+
+After creating all the chords for the cadence  type with  \verb.generateTriadWithinScale., the chords are simply returned as a list.
+
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+\subsection{Harmonic Sequences}
+Harmonic sequences were the most complex template to expand.
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
 \chapter{Code Generation}
 \label{chap:codegen}
-
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
 \chapter{Sample Programs}
-
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
 \chapter{Future Work and Conclusion}
 \section{Future Work}
 Ideally, in the future MusAssist would support more complex musical states and elements including custom time signature and mid-composition time signature changes (similar to the behavior currently implemented for key signatures), clef changes within a part, multiple-clef parts (i.e. piano), custom parts (i.e. instruments), and multiple parts. Custom and changeable time signature would allow for the users to experiment with metric modulation, something that is currently impossible with the fixed common time setup. Clef changes within a part, both manual and automatic when a note extends too many ledger lines beyond a clef, would allow the score to be more nicely formatted and readable for the user. Support for two-clef piano would allow the MusAssist compiler to successfully modify how it generates cadences and harmonic sequences to include the essential baseline, in addition to the harmonization already implemented. The latter two goals (custom parts and multiple parts) are somewhat outside MusAssist's goal as a music compositional aid, as this extends beyond the realm of music theory. However, users may enjoy this increased flexibility when composing.
-
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Conclusion}
 MusAssist is an external DSL whose Haskell-based compiler translates it to MusicXML that can be loaded into a major music notation software for further editing. Its syntax is simple and models the flow of thought a composer would have when writing music by hand. MusAssist fills a niche in the realm of musical DSLs by serving as a music compositional aid that is not intended to allow to the user to write a fully expressive musical piece, but rather to more easily create musical expressions that would be tedious to write by hand. The additional features described in the previous section would make the language align even more robustly with this goal. MuseScore can be further valuable as an education tool to music theory students, allowing them to visualize musical structures from the definitions that they describe in MusAssist.
 
