@@ -204,6 +204,21 @@ expandIntermediateExpr symbolTable (MusAST.HarmonicSequence harmSeqType tonicTon
 
         -- the logic of this is quite complicated and was worked out on paper
         specialOctCasesFunc nextIndexInSeq nextTonicOctave = case harmSeqType of 
+            MusAST.AscFifths  ->
+                if even nextIndexInSeq 
+                    then (take (nextIndexInSeq `div` 2) cMajScaleNotesDesc, succ)
+                else if nextIndexInSeq <= 7
+                        then (take ((nextIndexInSeq - 1) `div` 2 + 4) cMajScaleNotesDesc, succ)
+                else let (succ2Cases, succCases) = splitAt ((nextIndexInSeq - 7) `div` 2) cMajScaleNotesDesc
+                        in if tonicNoteName `elem` succ2Cases then (succ2Cases, succ2) else (succCases, succ)
+            MusAST.DescFifths ->
+                if even nextIndexInSeq 
+                    then (take (nextIndexInSeq `div` 2) cMajScaleNotesAsc, pred)
+                else if nextIndexInSeq <= 5
+                    then (take ((nextIndexInSeq + 7) `div` 2) cMajScaleNotesAsc, pred)
+                else 
+                    let (pred2Cases, predCases) = splitAt ((nextIndexInSeq - 7) `div` 2) cMajScaleNotesAsc
+                    in if tonicNoteName `elem` pred2Cases then (pred2Cases, pred2) else (predCases, pred)
             MusAST.Asc56      ->
                 if even nextIndexInSeq 
                     then (take (nextIndexInSeq `div` 2) cMajScaleNotesDesc, succ)
@@ -227,22 +242,7 @@ expandIntermediateExpr symbolTable (MusAST.HarmonicSequence harmSeqType tonicTon
                     then (drop (nextIndexInSeq + 2) cMajScaleNotesAsc, succ)
                 -- const nextTonicOctave is placeholder for no oct func to apply for the index 5 chord in the seq (since this is just the tonic again)
                 else ([], const nextTonicOctave) 
-            MusAST.AscFifths  ->
-                if even nextIndexInSeq 
-                    then (take (nextIndexInSeq `div` 2) cMajScaleNotesDesc, succ)
-                else if nextIndexInSeq <= 7
-                        then (take ((nextIndexInSeq - 1) `div` 2 + 4) cMajScaleNotesDesc, succ)
-                else let (succ2Cases, succCases) = splitAt ((nextIndexInSeq - 7) `div` 2) cMajScaleNotesDesc
-                        in if tonicNoteName `elem` succ2Cases then (succ2Cases, succ2) else (succCases, succ)
-            MusAST.DescFifths ->
-                if even nextIndexInSeq 
-                    then (take (nextIndexInSeq `div` 2) cMajScaleNotesAsc, pred)
-                else if nextIndexInSeq <= 5
-                    then (take ((nextIndexInSeq + 7) `div` 2) cMajScaleNotesAsc, pred)
-                else 
-                    let (pred2Cases, predCases) = splitAt ((nextIndexInSeq - 7) `div` 2) cMajScaleNotesAsc
-                    in if tonicNoteName `elem` pred2Cases then (pred2Cases, pred2) else (predCases, pred)
-        
+                    
         -- the "index interval changes" tell you how to get to the next chord in the seq, from the current chord, via the interval separating them
         (tonicTriad, octIncVal, evenIndexIntervalChange, oddIndexIntervalChange, evenIndexInv, oddIndexInv) = case harmSeqType of 
             MusAST.Asc56      -> (tonicRootTriad, 1, 5, -4, MusAST.First, MusAST.Root)

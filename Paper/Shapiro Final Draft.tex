@@ -1215,9 +1215,14 @@ Other edge cases included making sure that all V chords were major when calling 
 After creating all the chords for the cadence  type with  \verb.generateTriadWithinScale., the chords are simply returned as a list.
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
-
+\textbf{OUTLINE ONLY AFTER THIS POINT----------------------------------------------------------------------------------------------------------------}
 \subsection{Harmonic Sequences}
 Harmonic sequences were the most complex template to expand.
+
+Outline:
+need to determine 2 things: (1) the interval of the next chord relative to the previous, and (2) the octave of each chord
+
+(1) the following diagrams show how to find the interval pattern based on the index in the sequence. discuss the meaning of this in more detail. Also, refer back to \Cref{sec:harmseq} for the first description of these harmonic progressions.
 
 \begin{figure}[h!]
 \centering
@@ -1243,10 +1248,132 @@ Harmonic sequences were the most complex template to expand.
   \caption{Descending 5-6 Interval Analysis}
 \end{figure}
 
-\Cref{sec:harmseq}
+(2) now to determine the octave of each chord. Recall that the octave of each chord in the sequence is given by the octave of the chordal root (no matter the inversion). Also, the octave of each chord depends only on the note name, not the accidental (since all an accidental does is alter the same note in the staff). By going through each sequence for each of the seven possible notes in a key name (i.e. CDEFFGAB), the octave of each chord relative to the octave of the first chord in the sequence was determined. To do this, all chords were converted to root position for the sake of the analysis. For instance, consider \Cref{desc56-example}. 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1.1\textwidth]{images/desc56-example}
+  \caption{Descending 5-6 Interval Analysis}
+  \label{fig:desc56-example}
+\end{figure}
+
+The chordal roots in blue are an octave number above the first chord in the sequence,  the chordal roots in yellow are an octave number below, and the chordal  root in red is two octave numbers below.
+
+By doing this analysis for each key name, for each sequence, the following information was gathered:
+
+[INSERT OCTAVE INFORMATION TABLES HERE]
+
+These tables (i.e. matrices) were transposed and broken up as follows to reveal a pattern based on the indices of chords in the sequence:
+
+[INSERT TRANSPOSED OCTAVE TABLES HERE]
+
+explain how this allows us to come up with the following code to determine the octave number of each chord in each sequence, where we generate the special octave cases (i.e. here this is the key names) with their associated functions, given the index we're in for the sequence. For instance if we were at index 1 in a sequence, we would get ([F,G,A,B], \verb.succ.), since sequences in any of these keys have their index 1 chord an octave number above the first chord (just like in \Cref{desc56-example}).
+
+Ascending Fifths
+\begin{verbatim}
+    if even nextIndexInSeq 
+        then (take (nextIndexInSeq `div` 2) cMajScaleNotesDesc, succ)
+    else if nextIndexInSeq <= 7
+            then (take ((nextIndexInSeq - 1) `div` 2 + 4) cMajScaleNotesDesc, succ)
+    else let (succ2Cases, succCases) = splitAt ((nextIndexInSeq - 7) `div` 2) cMajScaleNotesDesc
+            in if tonicNoteName `elem` succ2Cases 
+                    then (succ2Cases, succ2) 
+                else (succCases, succ)
+\end{verbatim}
+
+Descending  Fifths
+\begin{verbatim}
+    if even nextIndexInSeq 
+        then (take (nextIndexInSeq `div` 2) cMajScaleNotesAsc, pred)
+    else if nextIndexInSeq <= 5
+        then (take ((nextIndexInSeq + 7) `div` 2) cMajScaleNotesAsc, pred)
+    else 
+        let (pred2Cases, predCases) = splitAt ((nextIndexInSeq - 7) `div` 2) cMajScaleNotesAsc
+        in if tonicNoteName `elem` pred2Cases 
+                then (pred2Cases, pred2) 
+            else (predCases, pred)
+\end{verbatim}
+
+Ascending 5-6:
+\begin{verbatim}
+    if even nextIndexInSeq 
+        then (take (nextIndexInSeq `div` 2) cMajScaleNotesDesc, succ)
+    else if nextIndexInSeq >= 7  
+        then (take ((nextIndexInSeq - 5) `div` 2) cMajScaleNotesDesc, succ)
+    else if nextIndexInSeq <= 3 
+        then (take (if nextIndexInSeq == 1 then 2 else 1) cMajScaleNotesAsc, pred)
+    -- const nextTonicOctave is placeholder for no oct func to apply for the 
+         index 5 chord in the seq (since this is just the tonic again)
+    else ([], const nextTonicOctave)  
+\end{verbatim}
+
+Descending 5-6
+\begin{verbatim}
+    if even nextIndexInSeq 
+        then if nextIndexInSeq <= 6 then (take nextIndexInSeq cMajScaleNotesAsc, pred)
+                else let (pred2Cases, predCases) = splitAt (nextIndexInSeq - 7) cMajScaleNotesAsc
+                    in if tonicNoteName `elem` pred2Cases 
+                           then (pred2Cases, pred2) 
+                        else (predCases, pred)
+    else if nextIndexInSeq == 13
+            then let (pred2Cases, predCases) = splitAt 1 cMajScaleNotesAsc
+                in if tonicNoteName `elem` pred2Cases 
+                        then (pred2Cases, pred2)
+                    else (predCases, pred)
+    else if nextIndexInSeq >= 7
+        then (take (nextIndexInSeq - 5) cMajScaleNotesAsc, pred)
+    else if nextIndexInSeq <= 3
+        then (drop (nextIndexInSeq + 2) cMajScaleNotesAsc, succ)
+    -- const nextTonicOctave is placeholder for no oct func to apply for the 
+        index 5 chord in the seq (since this is just the tonic again)
+    else ([], const nextTonicOctave) 
+\end{verbatim}
+
+Finally, discuss the inner helper function \verb.generateSeq n. that  given $n$, the length (number of chords) in the sequence, generates the sequence.  \verb.generateSeq n. determines the next index  in the sequence (resetting to zero each  time the sequence repeats after 14 chords), either  increments or decrements the tonic octave number after each cycle, determines the note name of the next chordal root based on the interval rule from the previous chord for that sequence, and determines the inversion based on the index. The special octave cases and associated octave function are determined as just discussed. \verb.generateSeq n. now has enough information to call  \verb.generateTriadWithinScale. to generate the desired chord for that index in the sequence, and then recurses to the next chord in the sequence until $n$ goes to zero. Notably, sequences are zero-indexed.
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \chapter{Code Generation}
 \label{chap:codegen}
+
+OUTLINE:
+
+[DISCUSS HOW MUSICXML CODE WORKS]
+note name, accidental, duration, type, alter values, notes vs rests, chord tags
+
+Current beat in measure, measure num, and key sig are maintained as state via IORefs.
+
+Header MusicXML code sets up the page layout and UI, print, and midi defaults. Also sets tempo at \musQuarter=80bpm, and sets key sig to C major/A minor ONLY if the user's first command isn't to set the key sig to something else.
+
+Start by translating instructions (i.e. ADT \verb.INSTR.) list in the function \verb.transInstrs.. When done with this, pad the final measure with rests if needed. To do this (as well as will be used for tied notes that spill into the next measure), create helper function called \verb.generateNoteValueRationalDivisions. 
+
+\verb.generateNoteValueRationalDivisions.  passes in the durations from \verb.globalDurationIntBimap. (a bimap, i.e. a map that supports two-way query) in descending order, from greatest to least, to the helper function \verb.breakUpNoteValRationally. This function breaks up the given duration into valid duration values (i.e. the values given in the ADT \verb.Duration.). It does so greedily in order to work: it continually attempts to fill the given duration with the largest value from the list passed in (i.e. the durations from \verb.globalDurationIntBimap.; this is why the are ordered from greatest to least). \verb.breakUpNoteValRationally. returns this ``rational break-up" of the given duration as a list of (duration ADT value, duration integer value) pairs, ordered either greatest to least (if we are at the beginning of a measure, like in the case of spilled  tied notes), or least to greatest (if we are not at the beginning of the measure, like in the cases of the first part of tied notes, or when we generate measure padding of rests for a partially filled measure). 
+\begin{verbatim}
+breakUpNoteValRationally :: [Int] -> Int -> Bool -> IO [(MusAST.Duration, Int)]
+breakUpNoteValRationally _ 0 _ = return []
+breakUpNoteValRationally [] _ _ = return $ error "cannot generate accurate note divisions" 
+breakUpNoteValRationally (noteVal:noteVals) remainingTimeInMeasure isFromMeasStart = do
+  if noteVal <= remainingTimeInMeasure then do
+    noteDuration <- Bimap.lookupR noteVal globalDurationIntBimap 
+    remainingPadding <- breakUpNoteValRationally noteVals 
+                                                (remainingTimeInMeasure - noteVal) isFromMeasStart
+    -- breaking up note at beginning of measure, want note/rest length from longest -> shortest
+    -- or, if it's end of measure padding, want note/rest  length from shortest -> longest
+    return $ if isFromMeasStart 
+                 then (noteDuration, noteVal):remainingPadding 
+             else remainingPadding ++ [(noteDuration, noteVal)]
+  else breakUpNoteValRationally noteVals remainingTimeInMeasure isFromMeasStart
+\end{verbatim}
+After the duration is broken up rationally, the helper function \verb.generateRestsFromDivisions. is called to actually generate the padding code. \verb.generateRestsFromDivisions. takes in the result list from  \verb.generateNoteValueRationalDivisions. and generates a list of MusicXML code for rests based on the given duration.
+
+
+
+Going one level down, \verb.transInstrs. calls \verb.transInstr. for each \verb.Instr. in the instructions list. As MusicXML code is generated, the current beat and measure are handled in the function \verb.updateBeat. Whenever \verb.updateBeat. is called, the current beat IORef is incremented based the note duration parameter passed into the function. If we have reached the end of the measure (i.e. the updated beat count equals the time per measure, which is set at 16 for all programs) [DISCUSS WHERE THE 16 COMES FROM, HOW THIS IS FROM 4/4 TIME AND MUSICXML INTERPRETS THIS AS 16 BECAUSE THE SMALLEST NOTE VAL IS SIXTEENTH], then we generate new measure code, increment the IORef for measure number, and reset the current beat to zero. \verb.updateBeat. is called whenever a note or rest is written.
+
+\verb.Assign Label [Expr]. doesn't generate any MusicXML code. Like at the end of \verb.transInstrs., \verb.NewMeasure. calls \verb.generateNoteValueRationalDivisions. and \verb.generateRestsFromDivisions. to pad the rest of the current measure if necessary, and then generates MusicXML code to create a new measure. \verb.Write [Exprs]. simply calls the function \verb.transExpr. that is one more level down and concatenates the results to get the list of MusicXML code for the given expressions to be written. 
+
+The last case for \verb.transInstr., \verb.KeySignature., is slightly more complicated.
+[DISCUSS LOGIC FOR GENERATING KEY SIGNATURES, DISCUSS MUSICXML ALTER VALUES]
+
+The lowest level of code generation for the abstract syntax is transExpr.
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \chapter{Sample Programs}
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
