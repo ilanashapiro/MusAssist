@@ -60,7 +60,7 @@
 \contentsline {subsection}{\numberline {5.2.2}Cadences}{41}{subsection.5.2.2}%
 \contentsline {subsection}{\numberline {5.2.3}Harmonic Sequences}{42}{subsection.5.2.3}%
 \contentsline {chapter}{\numberline {6}Code Generation}{46}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Sample Programs}{48}{chapter.7}%
-\contentsline {chapter}{\numberline {8}Future Work and Conclusion}{49}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Future Work}{49}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Conclusion}{49}{section.8.2}%
+\contentsline {chapter}{\numberline {7}Sample Programs}{49}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Future Work and Conclusion}{51}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Future Work}{51}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Conclusion}{51}{section.8.2}%

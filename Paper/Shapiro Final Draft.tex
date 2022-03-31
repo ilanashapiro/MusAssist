@@ -1337,7 +1337,7 @@ Finally, discuss the inner helper function \verb.generateSeq n. that  given $n$,
 OUTLINE:
 
 [DISCUSS HOW MUSICXML CODE WORKS]
-note name, accidental, duration, type, alter values, notes vs rests, chord tags
+note name, accidental, duration, type, alter values, notes vs rests, chord tags, attributes, start/stop tie tags
 
 Current beat in measure, measure num, and key sig are maintained as state via IORefs.
 
@@ -1366,7 +1366,7 @@ After the duration is broken up rationally, the helper function \verb.generateRe
 
 
 
-Going one level down, \verb.transInstrs. calls \verb.transInstr. for each \verb.Instr. in the instructions list. As MusicXML code is generated, the current beat and measure are handled in the function \verb.updateBeat. Whenever \verb.updateBeat. is called, the current beat IORef is incremented based the note duration parameter passed into the function. If we have reached the end of the measure (i.e. the updated beat count equals the time per measure, which is set at 16 for all programs) [DISCUSS WHERE THE 16 COMES FROM, HOW THIS IS FROM 4/4 TIME AND MUSICXML INTERPRETS THIS AS 16 BECAUSE THE SMALLEST NOTE VAL IS SIXTEENTH], then we generate new measure code, increment the IORef for measure number, and reset the current beat to zero. \verb.updateBeat. is called whenever a note or rest is written.
+Going one level down, \verb.transInstrs. calls \verb.transInstr. for each \verb.Instr. in the instructions list. As MusicXML code is generated, the current beat and measure are handled in the function \verb.updateBeat. Whenever \verb.updateBeat. is called, the current beat IORef is incremented based the note duration parameter passed into the function. If we have reached the end of the measure (i.e. the updated beat count equals the time per measure, which is set at 16 for all programs) [DISCUSS WHERE THE 16 COMES FROM, HOW THIS IS FROM 4/4 TIME AND MUSICXML INTERPRETS THIS AS 16 BECAUSE THE SMALLEST NOTE VAL IS SIXTEENTH], then we generate new measure code, increment the IORef for measure number, and reset the current beat to zero. \verb.updateBeat. is called whenever a note or rest is written. New measure code is returned (empty list if we aren't starting a new measure).
 
 \verb.Assign Label [Expr]. doesn't generate any MusicXML code. Like at the end of \verb.transInstrs., \verb.NewMeasure. calls \verb.generateNoteValueRationalDivisions. and \verb.generateRestsFromDivisions. to pad the rest of the current measure if necessary, and then generates MusicXML code to create a new measure. \verb.Write [Exprs]. simply calls the function \verb.transExpr. that is one more level down and concatenates the results to get the list of MusicXML code for the given expressions to be written. 
 
@@ -1374,8 +1374,53 @@ The last case for \verb.transInstr., \verb.KeySignature., is slightly more compl
 [DISCUSS LOGIC FOR GENERATING KEY SIGNATURES, DISCUSS MUSICXML ALTER VALUES]
 
 The lowest level of code generation for the abstract syntax is transExpr.
+
+\verb.Rest Duration.: 2 cases
+1) the rest fits in the measure. Simply generate code for the entire rest
+2) the rest spills  over into the  next measure. Break up the rest duration into what fits in this measure, and what  spills over. Then call \verb.generateRestsFromDivisions. (which recall breaks up the rests rationally) twice: for the initial duration, and for the spilled duration. Call \verb.updateBeat. after the initial rest code to update the beat and measure num, and generate new measure code. Return initial rest code ++ new measure code ++ spilled rest code. 
+
+\verb.Chord [Tone] Duration. (recall that if \verb.[Tone]. has one element, then this \verb.Chord. is simply a note). First generate code for all the pitches. do this by zipWith and then concat for all the tones in the list. we zip with index in order  to only include the chord MusicXML tag for the second or greater tone in the tones list. do this by zipping tones and the list \verb.[0..]. together.
+
+Then, 2 cases:
+1) the chord fits in the measure. Simply generate code for the whole chord.
+
+2) the chord spills  over into the  next measure. More complicated than rests because we have to manually handle ties. Recall that in MusicXML, we have separate start and stop ties. So, we have to do the following:
+Break up the note duration into the initial duration (fits in measure) and spilled duration (next measure). Call \verb.generateNoteValueRationalDivisions. for each of these durations. Take the head of the initial note divisions list, and create a chord from it with start tie only. Then, call the helper function \verb.generateTiedNotesFromDivisions. on the remaining initial note divisions to generate chords with start and stop ties.
+
+Then we call \verb.updateBeat. and save the new measure code. 
+
+Then do the same thing for the spilled note divisions, except this time \verb.generateTiedNotesFromDivisions. on \verb.init. of the spilled note divisions (i.e. all but the last duration value). We then handle the last duration from the spilled divisions separately, creating final spilled  note with stop tie only.
+
+Return firstInitialNoteCode ++ remainingInitialNoteCode ++ newMeasureCode ++ remainingSpilledNoteCode ++ finalSpilledNoteCode.
+
+At this point, all the MusicXML code has been generated, and we are ready to open the program in MuseScore or other music notation software.
+
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \chapter{Sample Programs}
+\begin{verbatim}
+SET_KEY Amaj
+(D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest sixteenth)           
+// this is a comment
+notes1 = (D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest whole)  
+// note without b or # is considered to be natural
+chords1 = ([Bbb5, Db5, C5] half) ([C#5, E5] half) (C6 min triad inv:first quarter) 
+(F#4 halfdim seventh inv:second eighth)
+(D4 whole) (F#4 quarter) (Ab4 quarter) (G##4 eighth) (rest sixteenth)
+([Bbb5, Db5, C5] half) ([C#5, E5] half) (C6 min triad inv:first quarter) 
+(F#4 halfdim seventh inv:second eighth)
+SET_KEY Dmin
+NEW_MEASURE
+(DescFifths G5 min quarter length:15) (PerfAuthCadence Eb5 min half)
+notes1 chords1 (AscFifths G3 min quarter length:5) chords1 
+(PerfAuthCadence Eb5 min sixteenth) chords1
+\end{verbatim}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{images/program1}
+  %\caption{}
+\end{figure}
+
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \chapter{Future Work and Conclusion}
 \section{Future Work}
