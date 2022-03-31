@@ -428,7 +428,19 @@ Finally, \param{LENGTH} is any natural number (though a sequence that is too lon
 
 Harmonic sequences can be written out in a variety of ways, depending on the chord inversions chosen. Furthermore, MusAssist at this time does not support multiple clefs (i.e. lines) simultaneously. This means that currently, harmonic sequences cannot be written with a bass line. However, the harmonies are preserved through the upper voices in keyboard-style voice leading. Though the upper-voice harmonization of a harmonic sequence need not follow the direction of the sequence's name (i.e. a descending fifths sequences could present as a series of ascending chords in the upper voices), MusAssist chooses a chord inversion and voice leading pattern such that each sequence does align with the direction of its name. 
 
-This is demonstrated in each of the following examples, all in C major. Each has length fifteen, to demonstrate that each of the four supported harmonic sequences consists of fourteen chords before it repeats (albeit in a different octave). Principles of smooth voice leading were used for all sequences.
+The chord progressions of each sequence in MusAssist are summarized in more detail in the following table (all in major, for the sake of example). Each of the four supported harmonic sequences consists of fourteen chords before it repeats (albeit in a different octave), which are as follows:
+
+\begin{table}[h!]
+\begin{tabular}{|l|llllllllllllll|}
+\hline
+Ascending Fifths  & I$^{6 \atop 4}$ & V                & ii$^{6 \atop 4}$ & vi                & iii$^{6 \atop 4}$ & vii$^\text{o}$   & IV$^{6 \atop 4}$ & I               & V$^{6 \atop 4}$             & ii                          & vi$^{6 \atop 4}$ & iii              & vii$^{\text{o}{6 \atop 4}}$ & IV              \\ \hline
+Descending Fifths & I               & IV$^{6 \atop 4}$ & vii$^\text{o}$   & iii$^{6 \atop 4}$ & vi                & ii$^{6 \atop 4}$ & V                & I$^{6 \atop 4}$ & IV                          & vii$^{\text{o}{6 \atop 4}}$ & iii              & vi$^{6 \atop 4}$ & ii                          & V$^{6 \atop 4}$ \\ \hline
+Ascending 5-6     & I               & vi$^6$           & ii               & vii$^{\text{o}6}$ & iii               & I$^6$            & IV               & ii$^6$          & V                           & iii$^6$                     & vi               & IV$^6$           & vii$^\text{o}$              & V$^6$           \\ \hline
+Descending 5-6    & I$^{6 \atop 4}$ & V                & vi$^{6 \atop 4}$ & vii$^{6 \atop 4}$ & IV$^{6 \atop 4}$  & I                & ii$^{6 \atop 4}$ & vi              & vii$^{\text{o}{6 \atop 4}}$ & IV                          & V$^{6 \atop 4}$  & ii               & iii$^{6 \atop 4}$           & vii$^\text{o}$  \\ \hline
+\end{tabular}
+\end{table}
+
+This is demonstrated in each of the following examples, all in C major. Each has length fifteen, to demonstrate the entire 14-chord sequences and also return to the first chord. Principles of smooth voice leading were used for all sequences.
 
 The following figures were created with the following MusAssist expressions, respectively: \\\verb.(AscFifths C4 maj quarter length:15)., \verb.(DescFifths C4 maj quarter length:15)., \\\verb.(Asc56 C4 maj quarter length:15)., \verb.(Desc56 C6 maj quarter length:15). When loaded into MuseScore, they look like:
 
@@ -1206,6 +1218,8 @@ After creating all the chords for the cadence  type with  \verb.generateTriadWit
 
 \subsection{Harmonic Sequences}
 Harmonic sequences were the most complex template to expand.
+
+\Cref{sec:harmseq}
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \chapter{Code Generation}
 \label{chap:codegen}

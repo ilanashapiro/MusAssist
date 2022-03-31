@@ -29,9 +29,9 @@
 \contentsline {section}{\numberline {3.3}Custom Chords}{18}{section.3.3}%
 \contentsline {section}{\numberline {3.4}Chord Templates}{19}{section.3.4}%
 \contentsline {section}{\numberline {3.5}Harmonic Sequences}{20}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Cadences}{21}{section.3.6}%
+\contentsline {section}{\numberline {3.6}Cadences}{22}{section.3.6}%
 \contentsline {section}{\numberline {3.7}Labeled Expressions}{23}{section.3.7}%
-\contentsline {section}{\numberline {3.8}Key Signatures}{23}{section.3.8}%
+\contentsline {section}{\numberline {3.8}Key Signatures}{24}{section.3.8}%
 \contentsline {section}{\numberline {3.9}New Measures}{25}{section.3.9}%
 \contentsline {section}{\numberline {3.10}Comments}{25}{section.3.10}%
 \contentsline {chapter}{\numberline {4}Lexing and Parsing}{26}{chapter.4}%
@@ -53,8 +53,8 @@
 \contentsline {chapter}{\numberline {5}Intermediate Representations}{33}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Intermediate Instructions}{33}{section.5.1}%
 \contentsline {subsection}{\numberline {5.1.1}Key Signatures}{33}{subsection.5.1.1}%
-\contentsline {subsubsection}{Major}{33}{section*.23}%
-\contentsline {subsubsection}{Minor}{35}{section*.26}%
+\contentsline {subsubsection}{Major}{33}{section*.24}%
+\contentsline {subsubsection}{Minor}{35}{section*.27}%
 \contentsline {section}{\numberline {5.2}Intermediate Expressions}{37}{section.5.2}%
 \contentsline {subsection}{\numberline {5.2.1}Chord Templates}{37}{subsection.5.2.1}%
 \contentsline {subsection}{\numberline {5.2.2}Cadences}{41}{subsection.5.2.2}%
