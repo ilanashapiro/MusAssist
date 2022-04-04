@@ -1215,14 +1215,10 @@ Other edge cases included making sure that all V chords were major when calling 
 After creating all the chords for the cadence  type with  \verb.generateTriadWithinScale., the chords are simply returned as a list.
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
-\textbf{OUTLINE ONLY AFTER THIS POINT----------------------------------------------------------------------------------------------------------------}
 \subsection{Harmonic Sequences}
-Harmonic sequences were the most complex template to expand.
+Harmonic sequences were the most complex template to expand. In order to generate a harmonic sequence, two pieces of information need to be determined: (1) the interval of the next chord relative to the previous, and (2) the octave number of each chord.
 
-Outline:
-need to determine 2 things: (1) the interval of the next chord relative to the previous, and (2) the octave of each chord
-
-(1) the following diagrams show how to find the interval pattern based on the index in the sequence. discuss the meaning of this in more detail. Also, refer back to \Cref{sec:harmseq} for the first description of these harmonic progressions.
+The following diagrams demonstrate the interval pattern for each sequence based on the chord index. All sequences use zero-indexing.  (Refer to \Cref{sec:harmseq} for the first description of these harmonic progressions).
 
 \begin{figure}[h!]
 \centering
@@ -1248,33 +1244,58 @@ need to determine 2 things: (1) the interval of the next chord relative to the p
   \caption{Descending 5-6 Interval Analysis}
 \end{figure}
 
-(2) now to determine the octave of each chord. Recall that the octave of each chord in the sequence is given by the octave of the chordal root (no matter the inversion). Also, the octave of each chord depends only on the note name, not the accidental (since all an accidental does is alter the same note in the staff). By going through each sequence for each of the seven possible notes in a key name (i.e. CDEFFGAB), the octave of each chord relative to the octave of the first chord in the sequence was determined. To do this, all chords were converted to root position for the sake of the analysis. For instance, consider \Cref{desc56-example}. 
+In each figure, the top row is the chord progression, the middle row is the interval of the chord from the tonic, and the bottom row is the interval of each chord from the previous (modulo 7). A clear pattern emerges for each sequence. Thus, given the index of a chord, we can definitely determine its interval relationship to the previous chord in the sequence.
+
+The next step is to determine the octave number of each chord. Recall that the octave number of a chord in the sequence is given by the octave number of the chordal root (no matter the inversion). Also, the octave number of each chord depends only on the note name, not the accidental (since all an accidental does is alter the same note in the staff). By going through each sequence for each of the seven possible notes in a key name (i.e. CDEFFGAB), we determine the octave number of each chord relative to the octave of the first chord in the sequence. To do this, all chords were converted to root position for the sake of the analysis. For instance, consider \Cref{fig:desc56-example}. 
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1.1\textwidth]{images/desc56-example}
-  \caption{Descending 5-6 Interval Analysis}
+  \caption{Descending 5-6 Octaves Example}
   \label{fig:desc56-example}
 \end{figure}
 
 The chordal roots in blue are an octave number above the first chord in the sequence,  the chordal roots in yellow are an octave number below, and the chordal  root in red is two octave numbers below.
 
-By doing this analysis for each key name, for each sequence, the following information was gathered:
+By doing this analysis for each key name, per sequence, the following information was gathered for each sequence, revealing patterns based on the chord indices in the sequences.
 
-[INSERT OCTAVE INFORMATION TABLES HERE]
+We begin by considering ascending fifths. For each possible key name (i.e. each possible note name), \Cref{fig:asc_fifths_octave_grid} shows the function that relates the octave number of the chord at that index in the sequence to the octave number of the first chord in the sequence (assuming zero-indexing of chords). For instance, given an ascending fifths sequence with C in the key name (i.e., C\musFlat, C\musNatural, or C\musSharp \; major or minor), then the chords at indices 7,9,11, and 13 in the sequence (using zero-indexing) will be an octave number above the first chord in the sequence.
+
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.4\textwidth]{images/asc_fifths_octave_grid}
   \caption{Ascending Fifths Octave Table}
+  \label{fig:asc_fifths_octave_grid}
 \end{figure}
+
+ \Cref{fig:asc_fifths_octave_grid} was then transposed and reorganized as follows to relate indices to key names. Note that \verb.succ2. is shorthand for \verb!succ . succ!
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.7\textwidth]{images/asc_fifths_octave_analysis}
   \caption{Ascending Fifths Octave Analysis}
+  \label{fig:asc_fifths_octave_analysis}
 \end{figure}
+\newpage
 
+As demonstrated in the figure, this allows us to create rules based on chord indices in the sequence. For each function relating chord octave numbers to octave number of the first chord the sequence (here, \verb.succ. and \verb.succ2.), the indices were ``chunked" into groups that can each be described by a single function, whose input is the index and whose output is the key name. For instance, all even-indexed chords in an ascending fifths sequence may need to have their octave  number increased relative to the first chord, depending on the key name. For any such even index $i$, we can determine which sequence key names must have the octave number of their $i^{th}$ chord increased relative to the first chord by taking the first $\frac{i-1}{2}$ key names (i.e. note names) from the C major descending scale (BAGFEDC). 
 
+This allows us to write the following code to determine the octave number of each chord in each sequence relative to the first chord. Given the chord index in the sequence, we generate a pair relating the special octave cases (i.e. key names) with their associated  functions to be applied in order to correctly alter the octave number of the first chord to obtain the octave number of the chord at the desired index. For instance if we were at index 1 in a sequence, we would get ([F,G,A,B], \verb.succ.), since sequences in any of these keys have their index 1 chord an octave number above the first chord.
+
+\begin{verbatim}
+    if even nextIndexInSeq 
+        then (take (nextIndexInSeq `div` 2) cMajScaleNotesDesc, succ)
+    else if nextIndexInSeq <= 7
+            then (take ((nextIndexInSeq - 1) `div` 2 + 4) cMajScaleNotesDesc, succ)
+    else let (succ2Cases, succCases) = splitAt ((nextIndexInSeq - 7) `div` 2) cMajScaleNotesDesc
+            in if tonicNoteName `elem` succ2Cases 
+                    then (succ2Cases, succ2) 
+                else (succCases, succ)
+\end{verbatim}
+
+Unfortunately, however, the functions from chord index to special octave cases is not 1-1. 
+
+\newpage
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.4\textwidth]{images/desc_fifths_octave_grid}
@@ -1286,7 +1307,6 @@ By doing this analysis for each key name, for each sequence, the following infor
 \includegraphics[width=0.7\textwidth]{images/desc_fifths_octave_analysis}
   \caption{Descending Fifths Octave Analysis}
 \end{figure}
-
 
 \begin{figure}[h!]
 \centering
@@ -1318,17 +1338,7 @@ These tables (i.e. matrices) were transposed and broken up as follows to reveal 
 
 explain how this allows us to come up with the following code to determine the octave number of each chord in each sequence, where we generate the special octave cases (i.e. here this is the key names) with their associated functions, given the index we're in for the sequence. For instance if we were at index 1 in a sequence, we would get ([F,G,A,B], \verb.succ.), since sequences in any of these keys have their index 1 chord an octave number above the first chord (just like in \Cref{desc56-example}).
 
-Ascending Fifths
-\begin{verbatim}
-    if even nextIndexInSeq 
-        then (take (nextIndexInSeq `div` 2) cMajScaleNotesDesc, succ)
-    else if nextIndexInSeq <= 7
-            then (take ((nextIndexInSeq - 1) `div` 2 + 4) cMajScaleNotesDesc, succ)
-    else let (succ2Cases, succCases) = splitAt ((nextIndexInSeq - 7) `div` 2) cMajScaleNotesDesc
-            in if tonicNoteName `elem` succ2Cases 
-                    then (succ2Cases, succ2) 
-                else (succCases, succ)
-\end{verbatim}
+
 
 Descending  Fifths
 \begin{verbatim}
@@ -1378,7 +1388,7 @@ Descending 5-6
     else ([], const nextTonicOctave) 
 \end{verbatim}
 
-Finally, discuss the inner helper function \verb.generateSeq n. that  given $n$, the length (number of chords) in the sequence, generates the sequence.  \verb.generateSeq n. determines the next index  in the sequence (resetting to zero each  time the sequence repeats after 14 chords), either  increments or decrements the tonic octave number after each cycle, determines the note name of the next chordal root based on the interval rule from the previous chord for that sequence, and determines the inversion based on the index. The special octave cases and associated octave function are determined as just discussed. \verb.generateSeq n. now has enough information to call  \verb.generateTriadWithinScale. to generate the desired chord for that index in the sequence, and then recurses to the next chord in the sequence until $n$ goes to zero. Notably, sequences are zero-indexed.
+Finally, discuss the inner helper function \verb.generateSeq n. that  given $n$, the length (number of chords) in the sequence, generates the sequence.  \verb.generateSeq n. determines the next index  in the sequence (resetting to zero each  time the sequence repeats after 14 chords), either  increments or decrements the tonic octave number after each cycle, determines the note name of the next chordal root based on the interval rule from the previous chord for that sequence, and determines the inversion based on the index. The special octave cases and associated octave function are determined as just discussed. \verb.generateSeq n. now has enough information to call  \verb.generateTriadWithinScale. to generate the desired chord for that index in the sequence, and then recurses to the next chord in the sequence until $n$ goes to zero. 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \chapter{Code Generation}
 \label{chap:codegen}
