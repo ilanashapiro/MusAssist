@@ -436,7 +436,7 @@ The chord progressions of each sequence in MusAssist are summarized in more deta
 Ascending Fifths  & I$^{6 \atop 4}$ & V                & ii$^{6 \atop 4}$ & vi                & iii$^{6 \atop 4}$ & vii$^\text{o}$   & IV$^{6 \atop 4}$ & I               & V$^{6 \atop 4}$             & ii                          & vi$^{6 \atop 4}$ & iii              & vii$^{\text{o}{6 \atop 4}}$ & IV              \\ \hline
 Descending Fifths & I               & IV$^{6 \atop 4}$ & vii$^\text{o}$   & iii$^{6 \atop 4}$ & vi                & ii$^{6 \atop 4}$ & V                & I$^{6 \atop 4}$ & IV                          & vii$^{\text{o}{6 \atop 4}}$ & iii              & vi$^{6 \atop 4}$ & ii                          & V$^{6 \atop 4}$ \\ \hline
 Ascending 5-6     & I               & vi$^6$           & ii               & vii$^{\text{o}6}$ & iii               & I$^6$            & IV               & ii$^6$          & V                           & iii$^6$                     & vi               & IV$^6$           & vii$^\text{o}$              & V$^6$           \\ \hline
-Descending 5-6    & I$^{6 \atop 4}$ & V                & vi$^{6 \atop 4}$ & vii$^{6 \atop 4}$ & IV$^{6 \atop 4}$  & I                & ii$^{6 \atop 4}$ & vi              & vii$^{\text{o}{6 \atop 4}}$ & IV                          & V$^{6 \atop 4}$  & ii               & iii$^{6 \atop 4}$           & vii$^\text{o}$  \\ \hline
+Descending 5-6    & I$^{6 \atop 4}$ & V                & vi$^{6 \atop 4}$ & iii & IV$^{6 \atop 4}$  & I                & ii$^{6 \atop 4}$ & vi              & vii$^{\text{o}{6 \atop 4}}$ & IV                          & V$^{6 \atop 4}$  & ii               & iii$^{6 \atop 4}$           & vii$^\text{o}$  \\ \hline
 \end{tabular}
 \end{table}
 
@@ -1216,7 +1216,7 @@ After creating all the chords for the cadence  type with  \verb.generateTriadWit
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \subsection{Harmonic Sequences}
-Harmonic sequences were the most complex template to expand. In order to generate a harmonic sequence, two pieces of information need to be determined: (1) the interval of the next chord relative to the previous, and (2) the octave number of each chord.
+Harmonic sequences were the most complex template to expand. In order to generate a harmonic sequence, three items need to be determined: (1) the interval of the next chord relative to the previous, (2) the inversion of each chord, and (3) the octave number of each chord.
 
 The following diagrams demonstrate the interval pattern for each sequence based on the chord index. All sequences use zero-indexing.  (Refer to \Cref{sec:harmseq} for the first description of these harmonic progressions).
 
@@ -1244,7 +1244,18 @@ The following diagrams demonstrate the interval pattern for each sequence based 
   \caption{Descending 5-6 Interval Analysis}
 \end{figure}
 
-In each figure, the top row is the chord progression, the middle row is the interval of the chord from the tonic, and the bottom row is the interval of each chord from the previous (modulo 7). A clear pattern emerges for each sequence. Thus, given the index of a chord, we can definitely determine its interval relationship to the previous chord in the sequence.
+In each figure, the top row is the chord index, the second row is the chord progression, the third row is the interval of the chord from the tonic, and the bottom row is the interval of each chord from the previous (modulo 7). A clear pattern for both chord inversion and interval change emerges for each sequence. For instance, 
+
+% -- the "index interval changes" tell you how to get to the next chord in the seq, from the current chord, via the interval separating them
+\begin{verbatim}
+        (tonicTriad, octIncVal, evenIndexIntervalChange, oddIndexIntervalChange, evenIndexInv, oddIndexInv) = case harmSeqType of 
+            MusAST.Asc56      -> (tonicRootTriad, 1, 5, -4, MusAST.First, MusAST.Root)
+            MusAST.Desc56     -> (tonicSecondInvTriad, -2, -3, 1, MusAST.Root, MusAST.Second)
+            MusAST.AscFifths  -> (tonicSecondInvTriad, 1, 4, -3, MusAST.Root, MusAST.Second)
+            MusAST.DescFifths -> (tonicRootTriad, -1, -4, 3, MusAST.Second, MusAST.Root)
+\end{verbatim}
+
+Thus, given the index of a chord, we can definitely determine its interval relationship to the previous chord in the sequence.
 
 The next step is to determine the octave number of each chord. Recall that the octave number of a chord in the sequence is given by the octave number of the chordal root (no matter the inversion). Also, the octave number of each chord depends only on the note name, not the accidental (since all an accidental does is alter the same note in the staff). By going through each sequence for each of the seven possible notes in a key name (i.e. CDEFFGAB), we determine the octave number of each chord relative to the octave of the first chord in the sequence. To do this, all chords were converted to root position for the sake of the analysis. For instance, consider \Cref{fig:desc56-example}. 
 
@@ -1352,6 +1363,21 @@ We continue this analysis for the ascending 5-6 sequence.
 \includegraphics[width=0.7\textwidth]{images/asc56_octave_analysis}
   \caption{Ascending 5-6 Octave Analysis}
 \end{figure}
+\newpage
+
+\begin{verbatim}
+    if even nextIndexInSeq 
+        then (take (nextIndexInSeq `div` 2) cMajScaleNotesDesc, succ)
+    else if nextIndexInSeq >= 7  
+        then (take ((nextIndexInSeq - 5) `div` 2) cMajScaleNotesDesc, succ)
+    else if nextIndexInSeq <= 3 
+        then (take (if nextIndexInSeq == 1 then 2 else 1) cMajScaleNotesAsc, pred)
+    else ([], const nextTonicOctave)  
+\end{verbatim}
+
+Note that here, we do not need to split up the  result sets for any of the relations,  as they are all functions to begin with (i.e. each index maps to a single result set). However, we do have one new case: the final line, \verb.([], const nextTonicOctave)., in which no special octave cases exist for that index. Specifically, in this case, the index 5 chord in the ascending 5-6 sequence (i.e. the sixth chord due to zero-indexing) is simply the first chord again, albeit in a different inversion, and thus always has the same octave number as the first chord, no matter the key name. \verb.const nextTonicOctave. is therefore placeholder for this case when there is  no special octave function to be applied.
+         
+Finally, we apply the analysis one more time for the descending 5-6 sequence.
 
 \begin{figure}[h!]
 \centering
@@ -1364,23 +1390,10 @@ We continue this analysis for the ascending 5-6 sequence.
 \includegraphics[width=\textwidth]{images/desc56_octave_analysis}
   \caption{Descending 5-6 Octave Analysis}
 \end{figure}
+\newpage
 
+Note that for the first time, we have three octave function cases: \verb.pred., \verb.pred2., and \verb.succ.. This is reflected in the following Haskell implementation.
 
-
-Ascending 5-6:
-\begin{verbatim}
-    if even nextIndexInSeq 
-        then (take (nextIndexInSeq `div` 2) cMajScaleNotesDesc, succ)
-    else if nextIndexInSeq >= 7  
-        then (take ((nextIndexInSeq - 5) `div` 2) cMajScaleNotesDesc, succ)
-    else if nextIndexInSeq <= 3 
-        then (take (if nextIndexInSeq == 1 then 2 else 1) cMajScaleNotesAsc, pred)
-    -- const nextTonicOctave is placeholder for no oct func to apply for the 
-         index 5 chord in the seq (since this is just the tonic again)
-    else ([], const nextTonicOctave)  
-\end{verbatim}
-
-Descending 5-6
 \begin{verbatim}
     if even nextIndexInSeq 
         then if nextIndexInSeq <= 6 then (take nextIndexInSeq cMajScaleNotesAsc, pred)
@@ -1397,12 +1410,24 @@ Descending 5-6
         then (take (nextIndexInSeq - 5) cMajScaleNotesAsc, pred)
     else if nextIndexInSeq <= 3
         then (drop (nextIndexInSeq + 2) cMajScaleNotesAsc, succ)
-    -- const nextTonicOctave is placeholder for no oct func to apply for the 
-        index 5 chord in the seq (since this is just the tonic again)
     else ([], const nextTonicOctave) 
 \end{verbatim}
 
-Finally, discuss the inner helper function \verb.generateSeq n. that  given $n$, the length (number of chords) in the sequence, generates the sequence.  \verb.generateSeq n. determines the next index  in the sequence (resetting to zero each  time the sequence repeats after 14 chords), either  increments or decrements the tonic octave number after each cycle, determines the note name of the next chordal root based on the interval rule from the previous chord for that sequence, and determines the inversion based on the index. The special octave cases and associated octave function are determined as just discussed. \verb.generateSeq n. now has enough information to call  \verb.generateTriadWithinScale. to generate the desired chord for that index in the sequence, and then recurses to the next chord in the sequence until $n$ goes to zero. 
+Here, we must split two relations, $f_1(i) = i-7$, where $i \in \{8,10,12\}$, and $f_2(i) = 1$, where $i =13$, into two respective result sets in order to make them functions. Just like before, we have $f_1(i) \cap f_1(i)' = f_2(i) \cap f_2(i)' = \emptyset$ for the respective valid values of $i$, as well as $f_1(i) \cup f_1(i)' = f_2(i) \cup f_2(i)' =$ C major scale, for the respective valid values of $i$. We can thus definitely the split both relations into two cases to make them each a function, with the following lines taken from the above code:
+
+\verb.let (pred2Cases, predCases) = splitAt (nextIndexInSeq - 7) cMajScaleNotesAsc. \\(for $i \in \{8,10,12\}$)
+
+\noindent and 
+
+\verb.let (pred2Cases, predCases) = splitAt 1 cMajScaleNotesAsc. \\(for $i =13$)
+
+Just as before, depending which result set the tonic note name is in, we know to return that result set and its associated octave alteration function (i.e. for both $f_1$ and $f_2$, either \verb.(pred2Cases, pred2). or \verb.(predCases, pred).).
+
+Finally, notice that the \verb.const. function appears once again in the final line of the above code: \verb.([], const nextTonicOctave).  This is again the case in which no special octave cases exist for that index. Specifically, just like the ascending 5-6 sequence, the index 5 chord in the descending 5-6 sequence (i.e. the sixth chord due to zero-indexing) is simply the first chord again, albeit in a different inversion, and thus always has the same octave number as the first chord, no matter the key name.
+
+We have thus determined how to find the interval and inversion of a chord in the sequence from the previous chord, and how to find the octave number of a chord in the sequence. Importantly, the interval analysis holds for any representation of these harmonic sequences, as this is what defines the sequence. However, the inversion and octave analysis holds only for MusAssist's chosen representation of the sequences, as a different inversion pattern would deeply alter both of these analyses.
+
+, discuss the inner helper function \verb.generateSeq n. that  given $n$, the length (number of chords) in the sequence, generates the sequence.  \verb.generateSeq n. determines the next index  in the sequence (resetting to zero each  time the sequence repeats after 14 chords), either  increments or decrements the tonic octave number after each cycle, determines the note name of the next chordal root based on the interval rule from the previous chord for that sequence, and determines the inversion based on the index. The special octave cases and associated octave function are determined as just discussed. \verb.generateSeq n. now has enough information to call  \verb.generateTriadWithinScale. to generate the desired chord for that index in the sequence, and then recurses to the next chord in the sequence until $n$ goes to zero. 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \chapter{Code Generation}
 \label{chap:codegen}
