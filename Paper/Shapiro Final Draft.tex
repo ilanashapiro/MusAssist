@@ -1301,18 +1301,45 @@ For $i \in \{9,11,13\}$, let $f(i)$ be the resulting set of key names for \verb.
 
 We have thus split the results sets into \verb.(succ2Cases, succCases). In order to determine which result set we want to $f$ to map to, we simply see which set contains  the  tonic note name (i.e. the key note name), we we call $n$. Since we just concluded that $f$  covers the entire C major scale (and thus all key names) over both its possible result sets, we know that we always have  $n \in f(i)$. Thus, either $n \in$ \verb.succ2Cases., or $n \in$ \verb.succCases.. If the former is true, then, as seen in the above code, our result is \verb.(succ2Cases, succ2).. Otherwise, we simply have \verb.(succCases, succ). 
 
-\newpage
+The special octave key names and their respective associated octave alteration functions are thus determined for the ascending fifths sequence. An identical analysis can be applied to the remaining sequences to determine their octave information.
+
+For the descending fifths sequences, Figures \ref{fig:desc_fifths_octave_grid} and \ref{fig:desc_fifths_octave_analysis} similarly describe the relationship between chord index and octave number relative to the first chord in the sequence. Notice here that rather than \verb.succ. and \verb.succ2., we have \verb.pred. and \verb.pred2. (shorthand for \verb!pred . pred!), indicating that octave numbers are lowered by one or two from the first chord, depending on the chord index.
+
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.4\textwidth]{images/desc_fifths_octave_grid}
   \caption{Descending Fifths Octave Table}
+  \label{fig:desc_fifths_octave_grid}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.7\textwidth]{images/desc_fifths_octave_analysis}
   \caption{Descending Fifths Octave Analysis}
+  \label{fig:desc_fifths_octave_analysis}
 \end{figure}
+\newpage
+Like the ascending fifths sequence, here we can similarly use the conclusions from Figures \ref{fig:desc_fifths_octave_grid} and \ref{fig:desc_fifths_octave_analysis} to write the following code to determine the special octave cases (i.e. key names) and their associated respective functions for the descending fifths sequence.
+
+\begin{verbatim}
+    if even nextIndexInSeq 
+        then (take (nextIndexInSeq `div` 2) cMajScaleNotesAsc, pred)
+    else if nextIndexInSeq <= 5
+        then (take ((nextIndexInSeq + 7) `div` 2) cMajScaleNotesAsc, pred)
+    else 
+        let (pred2Cases, predCases) = splitAt ((nextIndexInSeq - 7) `div` 2) cMajScaleNotesAsc
+        in if tonicNoteName `elem` pred2Cases 
+                then (pred2Cases, pred2) 
+            else (predCases, pred)
+\end{verbatim}
+
+Notice that here we also have to split the result sets for $f(i) = \frac{i-7}{2}$ when $i \in \{9,11,13\}$. Just like before, we have $f(i) \cap f(i)' = \emptyset$, and $f(i) \cup f(i)' =$ C major scale. We can thus definitely the split  the relation into two cases to make it a function with the following line:
+
+\verb.let (pred2Cases, predCases) = splitAt ((nextIndexInSeq - 7) `div` 2) cMajScaleNotesAsc.
+
+and depending which result set the tonic note name is in, we know to return that result set and its associated octave alteration function (i.e. either \verb.(pred2Cases, pred2). or \verb.(predCases, pred).).
+
+We continue this analysis for the ascending 5-6 sequence.
 
 \begin{figure}[h!]
 \centering
@@ -1338,26 +1365,7 @@ We have thus split the results sets into \verb.(succ2Cases, succCases). In order
   \caption{Descending 5-6 Octave Analysis}
 \end{figure}
 
-These tables (i.e. matrices) were transposed and broken up as follows to reveal a pattern based on the indices of chords in the sequence:
 
-[INSERT TRANSPOSED OCTAVE TABLES HERE]
-
-explain how this allows us to come up with the following code to determine the octave number of each chord in each sequence, where we generate the special octave cases (i.e. here this is the key names) with their associated functions, given the index we're in for the sequence. For instance if we were at index 1 in a sequence, we would get ([F,G,A,B], \verb.succ.), since sequences in any of these keys have their index 1 chord an octave number above the first chord (just like in \Cref{desc56-example}).
-
-
-
-Descending  Fifths
-\begin{verbatim}
-    if even nextIndexInSeq 
-        then (take (nextIndexInSeq `div` 2) cMajScaleNotesAsc, pred)
-    else if nextIndexInSeq <= 5
-        then (take ((nextIndexInSeq + 7) `div` 2) cMajScaleNotesAsc, pred)
-    else 
-        let (pred2Cases, predCases) = splitAt ((nextIndexInSeq - 7) `div` 2) cMajScaleNotesAsc
-        in if tonicNoteName `elem` pred2Cases 
-                then (pred2Cases, pred2) 
-            else (predCases, pred)
-\end{verbatim}
 
 Ascending 5-6:
 \begin{verbatim}
