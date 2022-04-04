@@ -1278,7 +1278,7 @@ We begin by considering ascending fifths. For each possible key name (i.e. each 
 \end{figure}
 \newpage
 
-As demonstrated in the figure, this allows us to create rules based on chord indices in the sequence. For each function relating chord octave numbers to octave number of the first chord the sequence (here, \verb.succ. and \verb.succ2.), the indices were ``chunked" into groups that can each be described by a single function, whose input is the index and whose output is the key name. For instance, all even-indexed chords in an ascending fifths sequence may need to have their octave  number increased relative to the first chord, depending on the key name. For any such even index $i$, we can determine which sequence key names must have the octave number of their $i^{th}$ chord increased relative to the first chord by taking the first $\frac{i-1}{2}$ key names (i.e. note names) from the C major descending scale (BAGFEDC). 
+As demonstrated in the figure, this allows us to create rules based on chord indices in the sequence. For each function relating chord octave numbers to octave number of the first chord the sequence (here, \verb.succ. and \verb.succ2.), the indices were ``chunked" into groups that can each be described by a single function, whose input is the index and whose output is the key name. For instance, all even-indexed chords in an ascending fifths sequence may need to have their octave  number increased relative to the first chord, depending on the key name. For any such even index $i$, we can determine which sequence key names must have the octave number of their $i^{th}$ chord increased relative to the first chord by taking the first $\frac{i-1}{2}$ key names (i.e. note names) from the C major descending scale (B,A,G,F,E,D,C). 
 
 This allows us to write the following code to determine the octave number of each chord in each sequence relative to the first chord. Given the chord index in the sequence, we generate a pair relating the special octave cases (i.e. key names) with their associated  functions to be applied in order to correctly alter the octave number of the first chord to obtain the octave number of the chord at the desired index. For instance if we were at index 1 in a sequence, we would get ([F,G,A,B], \verb.succ.), since sequences in any of these keys have their index 1 chord an octave number above the first chord.
 
@@ -1293,7 +1293,13 @@ This allows us to write the following code to determine the octave number of eac
                 else (succCases, succ)
 \end{verbatim}
 
-Unfortunately, however, the functions from chord index to special octave cases is not 1-1. 
+Unfortunately, however, the relations from chord index to special octave cases are not always functions, unless we restrict their use cases. Let $f(i) = \frac{i-7}{2}$ Returning to \Cref{fig:asc_fifths_octave_analysis}, we see that, for instance, $f(9) =$ \{C,D,E,F,G,A\} for \verb.succ., but also $f(9) =$ \{B\} for \verb.succ2.. A similar issue occurs for $f(11)$ and $f(13)$. In order to make $f$ a function, we need to determine which result set it maps to (i.e. to the set of key names for \verb.succ., or the set of key names for \verb.succ2.). 
+
+For $i \in \{9,11,13\}$, let $f(i)$ be the resulting set of key names for \verb.succ., and let $f(i)$' be the resulting set of key names for \verb.succ2.. Fortunately, we note that $f(i) \cap f(i)' = \emptyset$, and $f(i) \cup f(i)' = $ C major scale (CDEFGAB). In other words, the result sets are cleanly divided by splitting the C major descending scale (BAGFEDC) at the $\frac{i-7}{2}^{th}$ note (i.e. the first $\frac{i-7}{2}$ notes of this scale will map to the result set for  \verb.succ2., and the remaining notes will map to the result set for \verb.succ). This is exemplified in the following line of code from the previous page:
+
+\verb.let (succ2Cases, succCases) = splitAt ((nextIndexInSeq - 7) `div` 2) cMajScaleNotesDesc.
+
+We have thus split the results sets into \verb.(succ2Cases, succCases). In order to determine which result set we want to $f$ to map to, we simply see which set contains  the  tonic note name (i.e. the key note name), we we call $n$. Since we just concluded that $f$  covers the entire C major scale (and thus all key names) over both its possible result sets, we know that we always have  $n \in f(i)$. Thus, either $n \in$ \verb.succ2Cases., or $n \in$ \verb.succCases.. If the former is true, then, as seen in the above code, our result is \verb.(succ2Cases, succ2).. Otherwise, we simply have \verb.(succCases, succ). 
 
 \newpage
 \begin{figure}[h!]
