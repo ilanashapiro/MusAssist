@@ -1246,15 +1246,16 @@ The following diagrams demonstrate the interval pattern for each sequence based 
   \caption{Descending 5-6 Interval Analysis}
 \end{figure}
 
-In each figure, the top row is the chord index, the second row is the chord progression, the third row is the interval of the chord from the tonic, and the bottom row is the interval of each chord from the previous (modulo 7). A clear pattern for both chord inversions and interval changes emerges for each sequence based on the index. Also, recall from Figures \ref{fig:ascfifths}-\ref{fig:desc56} that all descending sequences are written in a descending direction, and ascending sequences are written in an ascending direction. Thus, when descending sequences repeat, their octave number decrements, and when ascending sequences repeat, their octave number increments. We can thus write Haskell code to create the following tuples of (first chord in sequence, octave number change when the sequence repeats, interval from previous chord when at an even index, interval from previous chord when at an odd index, even index chord inversion, odd index chord inversion) for each sequence:
+In each figure, the top row is the chord index, the second row is the chord progression, the third row is the interval of the chord from the tonic, and the bottom row is the interval of each chord from the previous (modulo 7). A clear pattern for both chord inversions and interval changes emerges for each sequence based on the index. Also, recall from Figures \ref{fig:ascfifths} -- \ref{fig:desc56} that all descending sequences are written in a descending direction, and ascending sequences are written in an ascending direction. Thus, when descending sequences repeat, their octave number decrements, and when ascending sequences repeat, their octave number increments. We can thus write Haskell code to create the following tuples of (first chord in sequence, octave number change when the sequence repeats, interval from previous chord when at an even index, interval from previous chord when at an odd index, even index chord inversion, odd index chord inversion) for each sequence:
 
 % -- the "index interval changes" tell you how to get to the next chord in the seq, from the current chord, via the interval separating them
 \begin{verbatim}
-        (tonicTriad, octIncVal, evenIndexIntervalChange, oddIndexIntervalChange, evenIndexInv, oddIndexInv) = case harmSeqType of 
-            MusAST.Asc56      -> (tonicRootTriad, 1, 5, -4, MusAST.First, MusAST.Root)
-            MusAST.Desc56     -> (tonicSecondInvTriad, -2, -3, 1, MusAST.Root, MusAST.Second)
-            MusAST.AscFifths  -> (tonicSecondInvTriad, 1, 4, -3, MusAST.Root, MusAST.Second)
-            MusAST.DescFifths -> (tonicRootTriad, -1, -4, 3, MusAST.Second, MusAST.Root)
+(tonicTriad, octIncVal, evenIndexIntervalChange, oddIndexIntervalChange, evenIndexInv, 
+ oddIndexInv) = case harmSeqType of 
+    MusAST.Asc56      -> (tonicRootTriad, 1, 5, -4, MusAST.First, MusAST.Root)
+    MusAST.Desc56     -> (tonicSecondInvTriad, -2, -3, 1, MusAST.Root, MusAST.Second)
+    MusAST.AscFifths  -> (tonicSecondInvTriad, 1, 4, -3, MusAST.Root, MusAST.Second)
+    MusAST.DescFifths -> (tonicRootTriad, -1, -4, 3, MusAST.Second, MusAST.Root)
 \end{verbatim}
 
 The next step is to determine the octave number of each chord. Recall that the octave number of a chord in the sequence is given by the octave number of the chordal root (no matter the inversion). Also, the octave number of each chord depends only on the note name, not the accidental (since all an accidental does is alter the same note in the staff). By going through each sequence for each of the seven possible notes in a key name (i.e. CDEFFGAB), we determine the octave number of each chord relative to the octave of the first chord in the sequence. To do this, all chords were converted to root position for the sake of the analysis. For instance, consider \Cref{fig:desc56-example}. 
@@ -1432,11 +1433,97 @@ We are now ready to generate the sequences. A generic sequence-generator helper 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \chapter{Code Generation}
 \label{chap:codegen}
+We are finally ready to generate MusicXML code from the abstract syntax. In order to do so, we must first comprehend MusicXML's syntax. 
 
-OUTLINE:
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
+\section{MusicXML Syntax}
+This section gives an overview of MusicXML's syntax as pertains to translations from MusAssist. A full and more detailed reference of MusicXML's syntax can be found here: \\\href{https://www.w3.org/2021/06/musicxml40/}{https://www.w3.org/2021/06/musicxml40/}.
 
-[DISCUSS HOW MUSICXML CODE WORKS]
-note name, accidental, duration, type, alter values, notes vs rests, chord tags, attributes, start/stop tie tags
+Throughout the section, words in all caps (e.g. DURATION) are parameters.
+
+\subsection{Static Header Code Attributes}
+\begin{verbatim}
+<attributes>
+    <divisions>4</divisions>
+    <key>
+        <fifths>3</fifths>
+    </key>
+    <time>
+    <beats>4</beats>
+    <beat-type>4</beat-type>
+    </time>
+    <clef>
+        <sign>G</sign>
+        <line>2</line>
+    </clef>
+</attributes>
+<direction placement="above">
+    <direction-type>
+        <metronome parentheses="no" default-x="-30.68" relative-y="20.00">
+            <beat-unit>quarter</beat-unit>
+            <per-minute>80</per-minute>
+        </metronome>
+    </direction-type>
+    <sound tempo="90"/>
+</direction>
+
+\end{verbatim}
+
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
+\subsection{Rests}
+\label{sec:xmlrest}
+
+A rest element in MusicXML has the following form:
+\begin{verbatim}
+<note>
+    <rest/>
+    <duration>DURATION</duration>
+    <voice>1</voice>
+    <type>TYPE</type>
+</note>
+\end{verbatim}
+
+Notice that a rest is a special kind of \verb.<note>. element, with the \verb.<rest/>. tag instead of pitch information. The \verb.<voice>1</voice>. tag is set to 1 for all MusAssist elements, as the voice type is a more advanced notation element that MusAssist does not currently support. Multiple voicing would mean the ability to have simultaneous lines occurring in a single measure, which is certainly a features MusAssist could strive to support in the future.
+
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
+\subsection{Notes and Chords}
+
+\begin{verbatim}
+<note>
+    <pitch>
+        <step>NOTE_NAME</step>
+        <alter>ACCIDENTAL</alter>
+        <octave>OCTAVE</octave>
+    </pitch>
+    <duration>DURATION</duration>
+    <voice>1</voice>
+    <type>TYPE</type>
+</note>
+\end{verbatim}
+
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
+\subsection{Tied Notes}
+
+\begin{verbatim}
+<note>
+    <pitch>
+        <step>NOTE_NAME</step>
+        <alter>ACCIDENTAL</alter>
+        <octave>OCTAVE</octave>
+    </pitch>
+    <duration>DURATION</duration>
+    <tie type="start"/>
+    <tie type="stop"/>
+    <voice>1</voice>
+    <type>TYPE</type>
+    <notations>
+        <tied type="start"/>
+        <tied type="stop"/>
+    </notations>
+</note>
+\end{verbatim}
+
+\section{MusicXML Code Generation}
 
 Current beat in measure, measure num, and key sig are maintained as state via IORefs.
 
@@ -1523,7 +1610,7 @@ notes1 chords1 (AscFifths G3 min quarter length:5) chords1
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \chapter{Future Work and Conclusion}
 \section{Future Work}
-Ideally, in the future MusAssist would support more complex musical states and elements including custom time signature and mid-composition time signature changes (similar to the behavior currently implemented for key signatures), clef changes within a part, multiple-clef parts (i.e. piano), custom parts (i.e. instruments), and multiple parts. Custom and changeable time signature would allow for the users to experiment with metric modulation, something that is currently impossible with the fixed common time setup. Clef changes within a part, both manual and automatic when a note extends too many ledger lines beyond a clef, would allow the score to be more nicely formatted and readable for the user. Support for two-clef piano would allow the MusAssist compiler to successfully modify how it generates cadences and harmonic sequences to include the essential baseline, in addition to the harmonization already implemented. The latter two goals (custom parts and multiple parts) are somewhat outside MusAssist's goal as a music compositional aid, as this extends beyond the realm of music theory. However, users may enjoy this increased flexibility when composing.
+Ideally, in the future MusAssist would support more complex musical states and elements including custom time signature and mid-composition time signature changes (similar to the behavior currently implemented for key signatures), clef changes within a part, multiple-clef parts (i.e. piano), multiple voicing within a part, custom parts (i.e. instruments), and multiple parts. Custom and changeable time signature would allow for the users to experiment with metric modulation, something that is currently impossible with the fixed common time setup. Clef changes within a part, both manual and automatic when a note extends too many ledger lines beyond a clef, would allow the score to be more nicely formatted and readable for the user. Support for two-clef piano would allow the MusAssist compiler to successfully modify how it generates cadences and harmonic sequences to include the essential baseline, in addition to the harmonization already implemented. Multiple voicing would allow for the user to create more complex musical lines, particularly with counterpoint. The latter two goals (custom parts and multiple parts) are somewhat outside MusAssist's goal as a music compositional aid, as this extends beyond the realm of music theory. However, users may enjoy this increased flexibility when composing.
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Conclusion}
 MusAssist is an external DSL whose Haskell-based compiler translates it to MusicXML that can be loaded into a major music notation software for further editing. Its syntax is simple and models the flow of thought a composer would have when writing music by hand. MusAssist fills a niche in the realm of musical DSLs by serving as a music compositional aid that is not intended to allow to the user to write a fully expressive musical piece, but rather to more easily create musical expressions that would be tedious to write by hand. The additional features described in the previous section would make the language align even more robustly with this goal. MuseScore can be further valuable as an education tool to music theory students, allowing them to visualize musical structures from the definitions that they describe in MusAssist.

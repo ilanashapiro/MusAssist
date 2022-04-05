@@ -124,7 +124,7 @@ generateRestsFromDivisions restDurationValPairs = return $
         restTypeCode = if isMeasureRest then [] 
                        else durationToNoteTypeCode restDuration
     in ["\t\t\t<note>",
-           "\t\t\t\t<rest " ++ (if isMeasureRest then "measure=\"yes\"" else "") ++ "/>",
+           "\t\t\t\t<rest" ++ (if isMeasureRest then " measure=\"yes\"" else "") ++ "/>",
           "\t\t\t\t<duration>" ++ show restVal ++ "</duration>",
           "\t\t\t\t<voice>1</voice>"]
         ++ restTypeCode ++
