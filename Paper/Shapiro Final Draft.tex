@@ -1539,6 +1539,26 @@ A rest element in MusicXML has the following form:
 A rest is a special kind of \verb.<note>. element, with the \verb.<rest/>. tag instead of pitch information. Thus, DURATION and TYPE take on the same values as in \Cref{sec:xmlnotes}. A rest cannot be tied, nor can it be part of a chord.
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
+\subsection{Measures}
+\label{sec:xmlmeasure}
+MusicXML measures are denoted by the opening tag \verb.</measure>. and the closing tag \verb.<measure number="NUMBER">., where NUMBER is a positive integer. All code within these tags belongs to that measure.
+
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
+\subsection{Key Signatures}
+\label{sec:xmlkeysig}
+When the  key signature is changed after the beginning of the piece, the following  code is inserted at the beginning of the measure (i.e. directly after the opening \verb.</measure>. tag):
+
+\begin{verbatim}
+<attributes>
+    <key>
+        <fifths>NUM_ACCIDENTALS</fifths>
+    </key>
+</attributes>
+\end{verbatim}
+
+Like in the header code, NUM\_ACCIDENTALS is an integer taken from $[-7,7]$.
+
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{MusicXML Code Generation}
 We are now ready to make the final translation from abstract syntax to MusicXML.
 
@@ -1564,7 +1584,7 @@ Code generation begins with the function \verb.transInstrs.. Here, we translate 
 
  \verb.breakUpNoteValRationally. breaks up the given duration value into ``valid" duration values (i.e. into the numerical values that map to the values defined in the ADT \verb.Duration. in \verb.globalDurationIntBimap.). In order for this to work,  \verb.breakUpNoteValRationally. greedily breaks up the input duration value: it continually attempts to fill the input duration on the current level of recursion with the largest value from the list (i.e. the values from \verb.globalDurationIntBimap.) that is passed in. This is why the values from \verb.globalDurationIntBimap. are ordered from greatest to least before they are passed in. 
 
-\verb.breakUpNoteValRationally. returns this ``rational break-up" of the given duration as a list of (duration ADT value, duration integer value) pairs, ordered either greatest to least (if we are at the beginning of a measure, like in the case of spilled  tied notes), or least to greatest (if we are not at the beginning of the measure, like in the cases of the first part of tied notes, or when we generate measure padding of rests for a partially filled measure). 
+\verb.breakUpNoteValRationally. returns this ``rational break-up" of the given duration as a list of (\verb.Duration. ADT value, duration integer value) pairs, ordered either greatest to least (if we are at the beginning of a measure, like in the case of spilled  tied notes), or least to greatest (if we are not at the beginning of the measure, like in the cases of the first part of tied notes, or when we generate measure padding of rests for a partially filled measure). This ordering of rest values following standard music notation practices. 
 
 The implementation of \verb.breakUpNoteValRationally. is as follows.
 
@@ -1587,17 +1607,45 @@ After the duration is broken up rationally, the helper function \verb.generateRe
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \subsection{Individual Instruction Translation}
-Going one level down, \verb.transInstrs. calls \verb.transInstr. for each \verb.Instr. in the instructions list. As MusicXML code is generated, the current beat and measure are handled in the function \verb.updateBeat. Whenever \verb.updateBeat. is called, the current beat IORef is incremented based the note duration parameter passed into the function. If we have reached the end of the measure (i.e. the updated beat count equals the time per measure, which is set at 16 for all programs) [DISCUSS WHERE THE 16 COMES FROM, HOW THIS IS FROM 4/4 TIME AND MUSICXML INTERPRETS THIS AS 16 BECAUSE THE SMALLEST NOTE VAL IS SIXTEENTH], then we generate new measure code, increment the IORef for measure number, and reset the current beat to zero. \verb.updateBeat. is called whenever a note or rest is written. New measure code is returned (empty list if we aren't starting a new measure).
+Going one level down, \verb.transInstrs. calls \verb.transInstr. to generate MusicXML code for each \verb.Instr. in the instructions list. This means we pattern match to four cases: \verb.KeySignature Int Int., \verb.NewMeasure., \verb.Write [Expr]., and \verb.Assign Label [Expr]. 
 
-\verb.Assign Label [Expr]. doesn't generate any MusicXML code. Like at the end of \verb.transInstrs., \verb.NewMeasure. calls \verb.generateNoteValueRationalDivisions. and \verb.generateRestsFromDivisions. to pad the rest of the current measure if necessary, and then generates MusicXML code to create a new measure. \verb.Write [Exprs]. simply calls the function \verb.transExpr. that is one more level down and concatenates the results to get the list of MusicXML code for the given expressions to be written. 
+As MusicXML code is generated, the current beat and measure number are handled in the function \verb.updateBeat. Whenever \verb.updateBeat. is called, the current beat IORef is incremented given the note duration parameter passed into the function. If we have reached the end of the measure (i.e. the updated beat count equals the time per measure) then we generate new measure code (see \Cref{sec:xmlmeasure}), increment the IORef for measure number, and reset the current beat to zero. Time per measure is set at 16 for all programs, since the enforced time signature for a MusAssist program is common time, which has 16 sixteenth notes. 
 
-The last case for \verb.transInstr., \verb.KeySignature., is slightly more complicated.
-[DISCUSS LOGIC FOR GENERATING KEY SIGNATURES, DISCUSS MUSICXML ALTER VALUES]
+\verb.updateBeat. is called whenever a note or rest is written, and returns new measure code (which is an empty list if we are not starting a new measure). The implementation of \verb.updateBeat. is as follows.
+
+\begin{verbatim}
+updateBeat :: NoteDuration -> State -> IO [CodeLine]
+updateBeat noteDuration (currBeatCt, measureCt, _) = do
+  currentBeatCount <- IORef.readIORef currBeatCt
+  let updatedBeatCount = currentBeatCount + noteDuration 
+  if updatedBeatCount == globalTimePerMeasure 
+    then do
+      measureNum           <- IORef.readIORef measureCt
+      IORef.writeIORef currBeatCt 0   
+      let incMeasNum = measureNum + 1
+      IORef.writeIORef measureCt incMeasNum 
+      let newMeasureCode = 
+          ["\t\t</measure>", "\t\t<measure number=\"" ++ show incMeasNum ++ "\">"]
+      return newMeasureCode
+    else do
+      IORef.writeIORef currBeatCt updatedBeatCount
+      return []
+\end{verbatim}
+
+Returning to \verb.transInstr., the translation of the instruction \verb.Assign Label [Expr]. does not generate any MusicXML code. 
+
+Like at the end of \verb.transInstrs., the translation of \verb.NewMeasure. calls \verb.generateNoteValueRationalDivisions. and \verb.generateRestsFromDivisions. to pad the rest of the current measure if necessary, and then generates MusicXML code to create a new measure. 
+
+The translation of \verb.Write [Exprs]. simply calls the function \verb.transExpr. (which will be discussed shortly) to unwrap and translate the expressions it contains, and concatenates the results to generate the resulting list of MusicXML codelines.
+
+The last case for \verb.transInstr., \verb.KeySignature Int Int., is slightly more complicated. After performing an error check that the key signature is valid (i.e. one or both of the arguments to \verb.KeySignature. must be zero, as a key signature cannot have sharps and flats), the current key signature, beat in the measure, and measure number are read from the IORefs in \verb.State.. If the new key signature is the same as the current one, empty code is returned, and \verb.State. is not updated. Otherwise, we pad the measure with rests if needed using \verb.generateNoteValueRationalDivisions. and \verb.generateRestsFromDivisions. 
+
+Then, we check if this key signature change occurs at the beginning of the first measure, which means this is the user's first instruction. If this is the case, we simply call \verb.globalHeaderCode fifths. from \Cref{sec:xmlheader}. Otherwise, we pad the current measure with rests and generate a new measure using \verb.generateNoteValueRationalDivisions., \verb.generateRestsFromDivisions., and \verb.updateBeat.. Then, finally, we generate MusicXML code for the new key signature (see \Cref{sec:xmlmeasure}), as MusicXML does not support mid-measure key signature changes. 
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \subsection{Expression Translation}
 
-The lowest level of code generation for the abstract syntax is transExpr.
+Going another level down, the final recursive function in the code generation is \verb.transExpr.
 
 \verb.Rest Duration.: 2 cases
 1) the rest fits in the measure. Simply generate code for the entire rest
