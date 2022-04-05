@@ -1437,37 +1437,51 @@ We are finally ready to generate MusicXML code from the abstract syntax. In orde
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{MusicXML Syntax}
-This section gives an overview of MusicXML's syntax as pertains to translations from MusAssist. A full and more detailed reference of MusicXML's syntax can be found here: \\\href{https://www.w3.org/2021/06/musicxml40/}{https://www.w3.org/2021/06/musicxml40/}.
+This section gives an overview of MusicXML's syntax as pertains to translations from MusAssist. A full and more detailed reference of MusicXML's syntax can be found \href{https://www.w3.org/2021/06/musicxml40/}{here}.
 
 Throughout the section, words in all caps (e.g. DURATION) are parameters.
 
-\subsection{Static Header Code Attributes}
+\subsection{Header Code}
+Static MusicXML header code is generated for all MusAssist files that handles encoding, print and midi settings, and layout defaults. The header code can be found \href{https://github.com/ilanashapiro/MusAssist/blob/main/app/Compile.hs}{here}.  
+
+However, a critical part of the MusicXML header is left off the static header code: the program attributes. 
+
 \begin{verbatim}
 <attributes>
     <divisions>4</divisions>
     <key>
-        <fifths>3</fifths>
+        <fifths>NUM_ACCIDENTALS</fifths>
     </key>
     <time>
-    <beats>4</beats>
-    <beat-type>4</beat-type>
+        <beats>4</beats>
+        <beat-type>4</beat-type>
     </time>
     <clef>
         <sign>G</sign>
         <line>2</line>
     </clef>
 </attributes>
-<direction placement="above">
-    <direction-type>
-        <metronome parentheses="no" default-x="-30.68" relative-y="20.00">
-            <beat-unit>quarter</beat-unit>
-            <per-minute>80</per-minute>
-        </metronome>
-    </direction-type>
-    <sound tempo="90"/>
-</direction>
-
 \end{verbatim}
+
+The addition of the header attributes was delayed until code generation due to the NUM\_ACCIDENTALS parameter. By default, NUM\_ACCIDENTALS is set to zero, indicating a key signature of C major/A minor. However, if the user's first command is to set the key signature to something else, then the header attributes must be adjusted accordingly. Thus, the helper function \verb.globalHeaderCode fifths. that takes as a parameter the number of sharps or flats was created. \verb.fifths., which represents NUM\_ACCIDENTALS, is an integer taken from $[-7,7]$. Negative values indicate flats, while positive values indicates sharps.
+
+As for the remainder of the attributes code, the following sets the time signature to common time:
+\begin{verbatim}
+    <time>
+        <beats>4</beats>
+        <beat-type>4</beat-type>
+    </time>
+\end{verbatim}
+
+\noindent and the following sets the clef to treble:
+\begin{verbatim}
+    <clef>
+        <sign>G</sign>
+        <line>2</line>
+    </clef>
+\end{verbatim}
+
+Finally, notice the \verb.<divisions>4</divisions>. element at the top. The \verb.<divisions>. tag is critical to the representation of note durations throughout the MusicXML program. The \verb.<divisions>. value 
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \subsection{Rests}
@@ -1483,7 +1497,9 @@ A rest element in MusicXML has the following form:
 </note>
 \end{verbatim}
 
-Notice that a rest is a special kind of \verb.<note>. element, with the \verb.<rest/>. tag instead of pitch information. The \verb.<voice>1</voice>. tag is set to 1 for all MusAssist elements, as the voice type is a more advanced notation element that MusAssist does not currently support. Multiple voicing would mean the ability to have simultaneous lines occurring in a single measure, which is certainly a features MusAssist could strive to support in the future.
+Notice that a rest is a special kind of \verb.<note>. element, with the \verb.<rest/>. tag instead of pitch information. The \verb.<voice>. value is set to 1 for all MusAssist elements, as the voice type is a more advanced notation element that MusAssist does not currently support. Multiple voicing would mean the ability to have simultaneous lines occurring in a single measure, which is certainly a features MusAssist could strive to support in the future.
+
+
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \subsection{Notes and Chords}

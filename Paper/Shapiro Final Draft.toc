@@ -61,10 +61,10 @@
 \contentsline {subsection}{\numberline {5.2.3}Harmonic Sequences}{42}{subsection.5.2.3}%
 \contentsline {chapter}{\numberline {6}Code Generation}{53}{chapter.6}%
 \contentsline {section}{\numberline {6.1}MusicXML Syntax}{53}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Static Header Code Attributes}{53}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.1}Header Code}{53}{subsection.6.1.1}%
 \contentsline {subsection}{\numberline {6.1.2}Rests}{54}{subsection.6.1.2}%
-\contentsline {subsection}{\numberline {6.1.3}Notes and Chords}{54}{subsection.6.1.3}%
-\contentsline {subsection}{\numberline {6.1.4}Tied Notes}{54}{subsection.6.1.4}%
+\contentsline {subsection}{\numberline {6.1.3}Notes and Chords}{55}{subsection.6.1.3}%
+\contentsline {subsection}{\numberline {6.1.4}Tied Notes}{55}{subsection.6.1.4}%
 \contentsline {section}{\numberline {6.2}MusicXML Code Generation}{55}{section.6.2}%
 \contentsline {chapter}{\numberline {7}Sample Programs}{58}{chapter.7}%
 \contentsline {chapter}{\numberline {8}Future Work and Conclusion}{60}{chapter.8}%

@@ -47,16 +47,7 @@ globalHeaderCode fifths = return $
     "\t\t\t<sign>G</sign>",
     "\t\t\t<line>2</line>",
     "\t\t</clef>",
-  "\t</attributes>",
-  "\t<direction placement=\"above\">",
-        "\t\t<direction-type>",
-          "\t\t\t<metronome parentheses=\"no\" default-x=\"-30.68\" relative-y=\"20.00\">",
-            "\t\t\t<beat-unit>quarter</beat-unit>",
-            "\t\t\t<per-minute>80</per-minute>",
-            "\t\t\t</metronome>",
-          "\t\t</direction-type>",
-        "\t\t<sound tempo=\"90\"/>",
-        "\t</direction>"] 
+  "\t</attributes>"] 
 
 ---------------------------------------------
 -- Beats: to handle measures --

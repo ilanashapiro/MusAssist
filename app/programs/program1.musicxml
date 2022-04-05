@@ -66,6 +66,15 @@
 		<staff-distance>65.00</staff-distance>
 		</staff-layout>
 	</print>
+	<direction placement="above">
+		<direction-type>
+			<metronome parentheses="no" default-x="-30.68" relative-y="20.00">
+			<beat-unit>quarter</beat-unit>
+			<per-minute>80</per-minute>
+			</metronome>
+		</direction-type>
+		<sound tempo="90"/>
+	</direction>
 	<attributes>
 		<divisions>4</divisions>
 		<key>
@@ -80,15 +89,6 @@
 			<line>2</line>
 		</clef>
 	</attributes>
-	<direction placement="above">
-		<direction-type>
-			<metronome parentheses="no" default-x="-30.68" relative-y="20.00">
-			<beat-unit>quarter</beat-unit>
-			<per-minute>80</per-minute>
-			</metronome>
-		</direction-type>
-		<sound tempo="90"/>
-	</direction>
 			<note>
 				<pitch>
 					<step>D</step>
@@ -427,7 +427,7 @@
 				<type>eighth</type>
 			</note>
 			<note>
-				<rest />
+				<rest/>
 				<duration>4</duration>
 				<voice>1</voice>
 				<type>quarter</type>
@@ -1236,7 +1236,7 @@
 				<type>eighth</type>
 			</note>
 			<note>
-				<rest />
+				<rest/>
 				<duration>2</duration>
 				<voice>1</voice>
 				<type>eighth</type>
@@ -1244,14 +1244,14 @@
 		</measure>
 		<measure number="14">
 			<note>
-				<rest />
+				<rest/>
 				<duration>12</duration>
 				<voice>1</voice>
 				<type>half</type>
 				<dot/>
 			</note>
 			<note>
-				<rest />
+				<rest/>
 				<duration>2</duration>
 				<voice>1</voice>
 				<type>eighth</type>
@@ -2107,13 +2107,13 @@
 				<type>eighth</type>
 			</note>
 			<note>
-				<rest />
+				<rest/>
 				<duration>1</duration>
 				<voice>1</voice>
 				<type>16th</type>
 			</note>
 			<note>
-				<rest />
+				<rest/>
 				<duration>8</duration>
 				<voice>1</voice>
 				<type>half</type>

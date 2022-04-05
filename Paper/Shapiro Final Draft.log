@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  4 APR 2022 22:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  4 APR 2022 23:39
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1057,50 +1057,62 @@ nextIndexInSeq - 7) cMajScaleNotesAsc[]
 Chapter 6.
 [53
 
-] [54]
-Overfull \hbox (13.35538pt too wide) in paragraph at lines 1532--1533
+]
+Overfull \hbox (36.15167pt too wide) in paragraph at lines 1466--1467
+[]\OT1/cmr/m/n/10 The ad-di-tion of the header at-tributes was de-layed un-til 
+code gen-er-a-tion due to the NUM[]ACCIDENTALS
+ []
+
+
+Overfull \hbox (24.819pt too wide) in paragraph at lines 1466--1467
+\OT1/cmr/m/n/10 the header at-tributes must be ad-justed ac-cord-ingly. Thus, t
+he helper func-tion [][]\OT1/cmtt/m/n/10 globalHeaderCode fifths
+ []
+
+[54]
+Overfull \hbox (13.35538pt too wide) in paragraph at lines 1548--1549
 \OT1/cmr/m/n/10 that spill into the next mea-sure), cre-ate helper func-tion ca
 lled [][]\OT1/cmtt/m/n/10 generateNoteValueRationalDivisions 
  []
 
 
-Overfull \hbox (2.8819pt too wide) in paragraph at lines 1534--1535
+Overfull \hbox (2.8819pt too wide) in paragraph at lines 1550--1551
 [][][]\OT1/cmtt/m/n/10 generateNoteValueRationalDivisions []\OT1/cmr/m/n/10 pas
 ses in the du-ra-tions from [][]\OT1/cmtt/m/n/10 globalDurationIntBimap
  []
 
-
-Overfull \hbox (42.49126pt too wide) in paragraph at lines 1550--1550
+[55]
+Overfull \hbox (42.49126pt too wide) in paragraph at lines 1566--1566
 []\OT1/cmtt/m/n/10 breakUpNoteValRationally [] _ _ = return $ error "cannot gen
 erate accurate note divisions"[] 
  []
 
 
-Overfull \hbox (26.7414pt too wide) in paragraph at lines 1550--1550
+Overfull \hbox (26.7414pt too wide) in paragraph at lines 1566--1566
 []\OT1/cmtt/m/n/10 breakUpNoteValRationally (noteVal:noteVals) remainingTimeInM
 easure isFromMeasStart = do[] 
  []
 
 
-Overfull \hbox (84.49089pt too wide) in paragraph at lines 1550--1550
+Overfull \hbox (84.49089pt too wide) in paragraph at lines 1566--1566
 []                                                \OT1/cmtt/m/n/10 (remainingTi
 meInMeasure - noteVal) isFromMeasStart[] 
  []
 
 
-Overfull \hbox (68.74103pt too wide) in paragraph at lines 1550--1550
+Overfull \hbox (68.74103pt too wide) in paragraph at lines 1566--1566
 []    \OT1/cmtt/m/n/10 -- breaking up note at beginning of measure, want note/r
 est length from longest -> shortest[] 
  []
 
 
-Overfull \hbox (42.49126pt too wide) in paragraph at lines 1550--1550
+Overfull \hbox (42.49126pt too wide) in paragraph at lines 1566--1566
 []    \OT1/cmtt/m/n/10 -- or, if it's end of measure padding, want note/rest  l
 ength from shortest -> longest[] 
  []
 
-[55] [56]
-Overfull \hbox (39.96672pt too wide) in paragraph at lines 1578--1579
+[56]
+Overfull \hbox (39.96672pt too wide) in paragraph at lines 1594--1595
 []\OT1/cmr/m/n/10 Then do the same thing for the spilled note di-vi-sions, ex-c
 ept this time [][]\OT1/cmtt/m/n/10 generateTiedNotesFromDivisions
  []
@@ -1108,15 +1120,15 @@ ept this time [][]\OT1/cmtt/m/n/10 generateTiedNotesFromDivisions
 [57]
 Chapter 7.
 
-Overfull \hbox (0.49162pt too wide) in paragraph at lines 1602--1602
+Overfull \hbox (0.49162pt too wide) in paragraph at lines 1618--1618
 []\OT1/cmtt/m/n/10 chords1 = ([Bbb5, Db5, C5] half) ([C#5, E5] half) (C6 min tr
 iad inv:first quarter)[] 
  []
 
-<images/program1.png, id=864, 823.075pt x 550.055pt>
+<images/program1.png, id=865, 823.075pt x 550.055pt>
 File: images/program1.png Graphic file (type png)
 <use images/program1.png>
-Package pdftex.def Info: images/program1.png  used on input line 1606.
+Package pdftex.def Info: images/program1.png  used on input line 1622.
 (pdftex.def)             Requested size: 430.00462pt x 287.36475pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -1160,12 +1172,12 @@ dsdatascience . com /
 [62
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1624.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1640.
  [63]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1624.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1640.
  (./Shapiro Final Draft.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1624.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1624.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1640.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1640.
 
 Package rerunfilecheck Info: File `"Shapiro Final Draft".out' has not changed.
 (rerunfilecheck)             Checksum: A9068573EA8F71BD7882333158E669AE;2745.
@@ -1176,7 +1188,7 @@ LaTeX Warning: There were undefined references.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1624.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1640.
  ) 
 Here is how much of TeX's memory you used:
  12767 strings out of 480608
@@ -1207,10 +1219,10 @@ xmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2020/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2020/texm
 f-dist/fonts/type1/public/musixtex-fonts/musix11.pfb></usr/local/texlive/2020/t
 exmf-dist/fonts/type1/public/musixtex-fonts/musix16.pfb>
-Output written on "Shapiro Final Draft.pdf" (64 pages, 2066704 bytes).
+Output written on "Shapiro Final Draft.pdf" (64 pages, 2067626 bytes).
 PDF statistics:
- 1027 PDF objects out of 1200 (max. 8388607)
- 844 compressed objects within 9 object streams
+ 1028 PDF objects out of 1200 (max. 8388607)
+ 845 compressed objects within 9 object streams
  220 named destinations out of 1000 (max. 500000)
  586 words of extra memory for PDF output out of 10000 (max. 10000000)
 

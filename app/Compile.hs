@@ -128,7 +128,16 @@ main = do
                   "\t\t<staff-layout number=\"2\">",
                   "\t\t<staff-distance>65.00</staff-distance>",
                   "\t\t</staff-layout>",
-            "\t</print>"]
+            "\t</print>",
+            "\t<direction placement=\"above\">",
+            "\t\t<direction-type>",
+            "\t\t\t<metronome parentheses=\"no\" default-x=\"-30.68\" relative-y=\"20.00\">",
+                  "\t\t\t<beat-unit>quarter</beat-unit>",
+                  "\t\t\t<per-minute>80</per-minute>",
+                  "\t\t\t</metronome>",
+            "\t\t</direction-type>",
+            "\t\t<sound tempo=\"90\"/>",
+            "\t</direction>"]
 
       trailerCode = [
             "\t\t\t<barline location=\"right\">",
