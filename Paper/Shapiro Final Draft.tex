@@ -1576,7 +1576,7 @@ Here, key signature is represented as a pair of (num sharps, num flats). At leas
 The 3-tuple of the IORefs for beat, measure, and key signature constitute the program state: \\\verb.type State = (BeatCounter, MeasureCounter, KeySignature). \verb.State. is passed around to each code generation function. 
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
-\subsection{Instructions Translations}
+\subsection{Instructions Translation}
 
 Code generation begins with the function \verb.transInstrs.. Here, we translate the input list of instructions (i.e. the list of the ADT \verb.INSTR.) that is the result of the intermediate expansions. After doing so, we pad the final measure with rests if needed. To accomplish the measure padding, we create a helper function called \verb.generateNoteValueRationalDivisions.. (This function will later also be used for tied notes that spill into the next measure).
 
@@ -1638,6 +1638,9 @@ Like at the end of \verb.transInstrs., the translation of \verb.NewMeasure. call
 
 The translation of \verb.Write [Exprs]. simply calls the function \verb.transExpr. (which will be discussed shortly) to unwrap and translate the expressions it contains, and concatenates the results to generate the resulting list of MusicXML codelines.
 
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
+\subsubsection{Key Signatures}
+
 The last case for \verb.transInstr., \verb.KeySignature Int Int., is slightly more complicated. After performing an error check that the key signature is valid (i.e. one or both of the arguments to \verb.KeySignature. must be zero, as a key signature cannot have sharps and flats), the current key signature, beat in the measure, and measure number are read from the IORefs in \verb.State.. If the new key signature is the same as the current one, empty code is returned, and \verb.State. is not updated. Otherwise, we pad the measure with rests if needed using \verb.generateNoteValueRationalDivisions. and \verb.generateRestsFromDivisions. 
 
 Then, we check if this key signature change occurs at the beginning of the first measure, which means this is the user's first instruction. If this is the case, we simply call \verb.globalHeaderCode fifths. from \Cref{sec:xmlheader}. Otherwise, we pad the current measure with rests and generate a new measure using \verb.generateNoteValueRationalDivisions., \verb.generateRestsFromDivisions., and \verb.updateBeat.. Then, finally, we generate MusicXML code for the new key signature (see \Cref{sec:xmlmeasure}), as MusicXML does not support mid-measure key signature changes. 
@@ -1645,30 +1648,51 @@ Then, we check if this key signature change occurs at the beginning of the first
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \subsection{Expression Translation}
 
-Going another level down, the final recursive function in the code generation is \verb.transExpr.
+Going another level down, the final recursive function in the code generation is \verb.transExpr., which translates values from the ADT \verb.Expr. to MusicXML. This means we pattern match to four cases: \verb.Rest Duration., \verb.Chord [Tone] Duration., and \verb.LabeledExpr [Expr].. Generating MusicXML code for \verb.LabeledExpr [Expr]. is simple; we simply call \verb.transExpr. recursively for the list of expressions contained in the label. Rests and chords are more complex.
 
-\verb.Rest Duration.: 2 cases
-1) the rest fits in the measure. Simply generate code for the entire rest
-2) the rest spills  over into the  next measure. Break up the rest duration into what fits in this measure, and what  spills over. Then call \verb.generateRestsFromDivisions. (which recall breaks up the rests rationally) twice: for the initial duration, and for the spilled duration. Call \verb.updateBeat. after the initial rest code to update the beat and measure num, and generate new measure code. Return initial rest code ++ new measure code ++ spilled rest code. 
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
+\subsubsection{Rests}
 
-\verb.Chord [Tone] Duration. (recall that if \verb.[Tone]. has one element, then this \verb.Chord. is simply a note). First generate code for all the pitches. do this by zipWith and then concat for all the tones in the list. we zip with index in order  to only include the chord MusicXML tag for the second or greater tone in the tones list. do this by zipping tones and the list \verb.[0..]. together.
+In the translation of \verb.Rest.s, we  have two cases:
+\begin{enumerate}
+\item The rest fits in the current measure. Here, we simply generate code for the entire rest (see \Cref{sec:xmlrest}).
 
-Then, 2 cases:
-1) the chord fits in the measure. Simply generate code for the whole chord.
+\item The rest spills over into the next measure. Here, we break up the rest duration into two pieces (1) what fits in the current measure (the ``initial duration", and (2) what  spills over (the ``spilled duration"). Then, we call \verb.generateRestsFromDivisions. twice, to generate rationally broken-up rests for for the initial duration and for the spilled duration. After we break up the initial rest duration rationally, we call \verb.updateBeat. to generate new measure code, and then we break up the spilled rests. 
 
-2) the chord spills  over into the  next measure. More complicated than rests because we have to manually handle ties. Recall that in MusicXML, we have separate start and stop ties. So, we have to do the following:
-Break up the note duration into the initial duration (fits in measure) and spilled duration (next measure). Call \verb.generateNoteValueRationalDivisions. for each of these durations. Take the head of the initial note divisions list, and create a chord from it with start tie only. Then, call the helper function \verb.generateTiedNotesFromDivisions. on the remaining initial note divisions to generate chords with start and stop ties.
+\item Finally, we return initial rest code, new measure code, and spilled rest code. 
+\end{enumerate}
 
-Then we call \verb.updateBeat. and save the new measure code. 
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
+\subsubsection{Chords}
 
-Then do the same thing for the spilled note divisions, except this time \verb.generateTiedNotesFromDivisions. on \verb.init. of the spilled note divisions (i.e. all but the last duration value). We then handle the last duration from the spilled divisions separately, creating final spilled  note with stop tie only.
+In the translation of \verb.Chord.s, we first generate code for all the pitches. Recall that if \verb.[Tone]. has one element, then this \verb.Chord. is simply a note. All subsequent \verb.Tone.s in the list will receive a \verb.<chord/>. tag in the MusicXML translation (see: \Cref{sec:xmlnotes}). We accomplish this by using the Haskell function \verb.zipWith., and then \verb.concat., for all the tones in the list with their corresponding list indices. In other words, we zip together the tones and the list \verb.[0..]., which contains their indices. An index greater than zero tells us this tone is part of a chord.
 
-Return firstInitialNoteCode ++ remainingInitialNoteCode ++ newMeasureCode ++ remainingSpilledNoteCode ++ finalSpilledNoteCode.
+We then have two cases:
+\begin{enumerate}
+\item The chord fits in the measure. Here, we simply generate code for the entire chord (see: \Cref{sec:xmlnotes}).
+
+\item The chord spills  over into the  next measure. Unlike rests, we now must manually handle ties. Recall that MusicXML requires separate start and stop ties. Thus, we must do the following
+\begin{enumerate}
+\item Break up the note duration into the initial duration (that fits in the current measure) and spilled duration (that spills into the next measure). 
+
+\item Call \verb.generateNoteValueRationalDivisions. for the initial duration. Take the head of the initial note divisions list, and create a chord from it with start tie only. Then, we call the helper function \verb.generateTiedNotesFromDivisions. on the remaining initial note divisions. \verb.generateTiedNotesFromDivisions. takes in a list of pitches code and a list of (\verb.Duration. ADT value, duration integer value) pairs, and generates chords from these pitches and durations that each have with both start and stop ties.
+
+\item Call \verb.updateBeat., to generate new measure code. 
+
+\item Call \verb.generateNoteValueRationalDivisions. for the initial duration. Call \verb.init. to take all but the last element of the spilled note divisions, and pass this into \verb.generateTiedNotesFromDivisions. to generate chords with both start and stop ties. Finally, take the last element of the spilled note divisions, and create a chord with stop tie only.
+\end{enumerate}
+
+\item Finally, we return the first initial note code with start tie only, remaining initial notes code with double ties, new measure code,  spilled notes code with double ties, and the final spilled note code with stop tie only.
+\end{enumerate}
+
+
 
 At this point, all the MusicXML code has been generated, and we are ready to open the program in MuseScore or other music notation software.
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \chapter{Sample Programs}
+The following examples show MusAssist syntax, and the result of opening the compiled MusicXML code in MuseScore.
+
 \begin{verbatim}
 SET_KEY Amaj
 (D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest sixteenth)           

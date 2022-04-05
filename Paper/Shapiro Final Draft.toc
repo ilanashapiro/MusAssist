@@ -68,10 +68,13 @@
 \contentsline {subsection}{\numberline {6.1.5}Key Signatures}{56}{subsection.6.1.5}%
 \contentsline {section}{\numberline {6.2}MusicXML Code Generation}{56}{section.6.2}%
 \contentsline {subsection}{\numberline {6.2.1}State}{56}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Instructions Translations}{57}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.2}Instructions Translation}{57}{subsection.6.2.2}%
 \contentsline {subsection}{\numberline {6.2.3}Individual Instruction Translation}{58}{subsection.6.2.3}%
+\contentsline {subsubsection}{Key Signatures}{59}{section*.50}%
 \contentsline {subsection}{\numberline {6.2.4}Expression Translation}{59}{subsection.6.2.4}%
-\contentsline {chapter}{\numberline {7}Sample Programs}{60}{chapter.7}%
-\contentsline {chapter}{\numberline {8}Future Work and Conclusion}{62}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Future Work}{62}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Conclusion}{62}{section.8.2}%
+\contentsline {subsubsection}{Rests}{59}{section*.51}%
+\contentsline {subsubsection}{Chords}{59}{section*.52}%
+\contentsline {chapter}{\numberline {7}Sample Programs}{61}{chapter.7}%
+\contentsline {chapter}{\numberline {8}Future Work and Conclusion}{63}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Future Work}{63}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Conclusion}{63}{section.8.2}%
