@@ -1442,9 +1442,10 @@ This section gives an overview of MusicXML's syntax as pertains to translations 
 Throughout the section, words in all caps (e.g. DURATION) are parameters.
 
 \subsection{Header Code}
+\label{sec:xmlheader}
 Static MusicXML header code is generated for all MusAssist files that handles encoding, print and midi settings, and layout defaults. The header code can be found \href{https://github.com/ilanashapiro/MusAssist/blob/main/app/Compile.hs}{here}.  
 
-However, a critical part of the MusicXML header is left off the static header code: the program attributes. 
+However, a critical part of the MusicXML header is left off the static header code until code generation: the program attributes. (This can be found (see \href{https://github.com/ilanashapiro/MusAssist/blob/main/app/MusicXMLgen.hs}{here}).
 
 \begin{verbatim}
 <attributes>
@@ -1481,7 +1482,45 @@ As for the remainder of the attributes code, the following sets the time signatu
     </clef>
 \end{verbatim}
 
-Finally, notice the \verb.<divisions>4</divisions>. element at the top. The \verb.<divisions>. tag is critical to the representation of note durations throughout the MusicXML program. The \verb.<divisions>. value 
+Finally, notice the \verb.<divisions>4</divisions>. element at the top. The \verb.<divisions>. tag is critical to the representation of note durations throughout the MusicXML program. The \verb.<divisions>. value determines the numerical value of the smallest possible duration, which must always be a positive integer. Specifically, the \verb.<divisions>. value determines which division of the quarter note should receive the duration value of one. Since the smallest duration that MusAssist supports is  sixteenth  notes, \verb.<divisions>. is set to four to indicate that one fourth of a quarter note will receive the smallest possible duration of one.
+
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
+\subsection{Notes and Chords}
+\label{sec:xmlnotes}
+A pitched note element in MusicXML has the following form:
+
+\begin{verbatim}
+<note>
+    <chord/>+
+    <pitch>
+        <step>NOTE_NAME</step>
+        <alter>ACCIDENTAL</alter>
+        <octave>OCTAVE</octave>
+    </pitch>
+    <duration>DURATION</duration>
+    <tie type="start"/>*
+    <tie type="stop"/>*
+    <voice>1</voice>
+    <type>TYPE</type>
+    <dot/>+
+    <notations>*
+        <tied type="start"/>*
+        <tied type="stop"/>*
+    </notations>*
+</note>
+\end{verbatim}
+
+\noindent (full details \href{https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/note/}{here})
+
+The * and + symbols are not part of the MusicXML code, and indicate optional lines. The * indicate lines that create a start and/or stop tie for the note. If a start or stop tie is used, it must be declared in the \verb.<notations>. element. If the note is not tied either way, the \verb.<notations>. element can be left off completely. The + denotes the optional chord and dot tags. The chord tag is included if the current note is part of a chord with the previous note, and the dot tag is included when the note has a dotted duration (e.g. dotted quarter note).
+
+NOTE\_NAME is taken from the set \{A,B,C,D,E,F,G\}, and ACCIDENTAL is taken from the set $\{-2,-1,0,1,2\}$. ACCIDENTAL indicates the chromatic alteration of the pitch in the number of semitones. For instance, -2 indicates a double flat, and 1 indicates a single sharp. (MusicXML also supports additional values for ACCIDENTAL, such as 0.5 for microtones, that MusAssist does not support.) OCTAVE is an integer between 0 and 9 inclusive, though MusAssist only supports octaves 1 through 8.
+
+DURATION is a positive integer that indicates the number of division units this note should have. Recall from \Cref{sec:xmlheader} that in a translated MusAssist program, a DURATION value of 1 indicates a sixteenth note. Thus, a quarter note would have a DURATION value of 4, and so on.
+
+TYPE is the graphical type of the note based on its duration (excluding dotted durations). The possible MusAssist durations give that TYPE is taken from the set \{16th, eighth, quarter, half,  whole\} (``16th" is indeed represented numerically in MusicXML).
+
+Finally, the \verb.<voice>. value is set to 1 for all MusAssist elements, as multiple voicing (the ability to have simultaneous lines occurring in a single measure) is a more advanced notation element that MusAssist does not currently support. 
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \subsection{Rests}
@@ -1497,47 +1536,7 @@ A rest element in MusicXML has the following form:
 </note>
 \end{verbatim}
 
-Notice that a rest is a special kind of \verb.<note>. element, with the \verb.<rest/>. tag instead of pitch information. The \verb.<voice>. value is set to 1 for all MusAssist elements, as the voice type is a more advanced notation element that MusAssist does not currently support. Multiple voicing would mean the ability to have simultaneous lines occurring in a single measure, which is certainly a features MusAssist could strive to support in the future.
-
-
-
-%--------------------------------------------------------------------------------------------------------------------------------------------------------
-\subsection{Notes and Chords}
-
-\begin{verbatim}
-<note>
-    <pitch>
-        <step>NOTE_NAME</step>
-        <alter>ACCIDENTAL</alter>
-        <octave>OCTAVE</octave>
-    </pitch>
-    <duration>DURATION</duration>
-    <voice>1</voice>
-    <type>TYPE</type>
-</note>
-\end{verbatim}
-
-%--------------------------------------------------------------------------------------------------------------------------------------------------------
-\subsection{Tied Notes}
-
-\begin{verbatim}
-<note>
-    <pitch>
-        <step>NOTE_NAME</step>
-        <alter>ACCIDENTAL</alter>
-        <octave>OCTAVE</octave>
-    </pitch>
-    <duration>DURATION</duration>
-    <tie type="start"/>
-    <tie type="stop"/>
-    <voice>1</voice>
-    <type>TYPE</type>
-    <notations>
-        <tied type="start"/>
-        <tied type="stop"/>
-    </notations>
-</note>
-\end{verbatim}
+A rest is a special kind of \verb.<note>. element, with the \verb.<rest/>. tag instead of pitch information. Thus, DURATION and TYPE take on the same values as in \Cref{sec:xmlnotes}. A rest cannot be tied, nor can it be part of a chord.
 
 \section{MusicXML Code Generation}
 
