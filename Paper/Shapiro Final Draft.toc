@@ -14,14 +14,14 @@
 \contentsline {subsection}{\numberline {2.2.5}mimium}{11}{subsection.2.2.5}%
 \contentsline {section}{\numberline {2.3}Survey of Internal DSLs for Music}{12}{section.2.3}%
 \contentsline {subsection}{\numberline {2.3.1}MusicXML}{12}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}HMusic}{12}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.2}HMusic}{13}{subsection.2.3.2}%
 \contentsline {subsection}{\numberline {2.3.3}T-calculus}{13}{subsection.2.3.3}%
 \contentsline {section}{\numberline {2.4}Applications in Algorithmic Composition}{14}{section.2.4}%
 \contentsline {subsection}{\numberline {2.4.1}Skini}{14}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}Advantages of using DSLs over Virtual Machines (VMs) for Music}{14}{subsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.4.2}Advantages of using DSLs over Virtual Machines (VMs) for Music}{15}{subsection.2.4.2}%
 \contentsline {section}{\numberline {2.5}Applications in HCI}{15}{section.2.5}%
 \contentsline {subsection}{\numberline {2.5.1}Computational Counterpoint Marks}{15}{subsection.2.5.1}%
-\contentsline {subsection}{\numberline {2.5.2}Research through Design}{15}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.2}Research through Design}{16}{subsection.2.5.2}%
 \contentsline {section}{\numberline {2.6}Summary}{16}{section.2.6}%
 \contentsline {chapter}{\numberline {3}Language Features}{17}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Rests}{17}{section.3.1}%
