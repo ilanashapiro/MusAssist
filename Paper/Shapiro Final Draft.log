@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  27 APR 2022 20:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  28 APR 2022 12:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -812,165 +812,151 @@ File: images/maj_seconds.png Graphic file (type png)
 <use images/maj_seconds.png>
 Package pdftex.def Info: images/maj_seconds.png  used on input line 1143.
 (pdftex.def)             Requested size: 215.0023pt x 115.52408pt.
-<images/min_thirds.png, id=725, 403.5075pt x 216.81pt>
+ [41 <./images/maj_seconds.png>]
+<images/min_thirds.png, id=731, 403.5075pt x 216.81pt>
 File: images/min_thirds.png Graphic file (type png)
 <use images/min_thirds.png>
 Package pdftex.def Info: images/min_thirds.png  used on input line 1154.
 (pdftex.def)             Requested size: 215.0023pt x 115.52408pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<images/maj_sixths.png, id=726, 403.5075pt x 216.81pt>
+<images/maj_sixths.png, id=732, 403.5075pt x 216.81pt>
 File: images/maj_sixths.png Graphic file (type png)
 <use images/maj_sixths.png>
 Package pdftex.def Info: images/maj_sixths.png  used on input line 1165.
 (pdftex.def)             Requested size: 215.0023pt x 115.52408pt.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[41 <./images/maj_seconds.png>]
-<images/min_sevenths.png, id=733, 403.5075pt x 216.81pt>
+ [42 <./images/min_thirds.png> <./images/maj_sixths.png>]
+<images/min_sevenths.png, id=742, 403.5075pt x 216.81pt>
 File: images/min_sevenths.png Graphic file (type png)
 <use images/min_sevenths.png>
-Package pdftex.def Info: images/min_sevenths.png  used on input line 1176.
+Package pdftex.def Info: images/min_sevenths.png  used on input line 1177.
 (pdftex.def)             Requested size: 215.0023pt x 115.52408pt.
- [42 <./images/min_thirds.png> <./images/maj_sixths.png> <./images/min_sevenths
-.png>] [43] [44]
-<images/asc_fifths_intervals.png, id=758, 1064.97874pt x 138.5175pt>
+ [43 <./images/min_sevenths.png>]
+Overfull \hbox (26.85439pt too wide) in paragraph at lines 1215--1216
+[][]\OT1/cmtt/m/n/10 (enumFromTo MusAST.F MusAST.B)[]\OT1/cmr/m/n/10 , and the 
+oc-tave func-tion to get ap-plied in [][]\OT1/cmtt/m/n/10 generateToneWithinSca
+le
+ []
+
+[44] [45]
+<images/asc_fifths_intervals.png, id=762, 1064.97874pt x 138.5175pt>
 File: images/asc_fifths_intervals.png Graphic file (type png)
 <use images/asc_fifths_intervals.png>
 Package pdftex.def Info: images/asc_fifths_intervals.png  used on input line 12
-48.
+49.
 (pdftex.def)             Requested size: 430.00462pt x 55.92807pt.
-<images/desc_fifths_intervals.png, id=759, 1064.97874pt x 138.5175pt>
+<images/desc_fifths_intervals.png, id=763, 1064.97874pt x 138.5175pt>
 File: images/desc_fifths_intervals.png Graphic file (type png)
 <use images/desc_fifths_intervals.png>
 Package pdftex.def Info: images/desc_fifths_intervals.png  used on input line 1
-254.
+255.
 (pdftex.def)             Requested size: 430.00462pt x 55.92807pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<images/asc_56_intervals.png, id=760, 1064.97874pt x 138.5175pt>
+<images/asc_56_intervals.png, id=764, 1064.97874pt x 138.5175pt>
 File: images/asc_56_intervals.png Graphic file (type png)
 <use images/asc_56_intervals.png>
-Package pdftex.def Info: images/asc_56_intervals.png  used on input line 1260.
+Package pdftex.def Info: images/asc_56_intervals.png  used on input line 1261.
 (pdftex.def)             Requested size: 430.00462pt x 55.92807pt.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<images/desc_56_intervals.png, id=761, 1064.97874pt x 138.5175pt>
+<images/desc_56_intervals.png, id=765, 1064.97874pt x 138.5175pt>
 File: images/desc_56_intervals.png Graphic file (type png)
 <use images/desc_56_intervals.png>
-Package pdftex.def Info: images/desc_56_intervals.png  used on input line 1266.
+Package pdftex.def Info: images/desc_56_intervals.png  used on input line 1267.
 
 (pdftex.def)             Requested size: 430.00462pt x 55.92807pt.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[45 <./images/asc_fifths_intervals.png>]
-Overfull \hbox (21.49144pt too wide) in paragraph at lines 1280--1280
+ [46 <./images/asc_fifths_intervals.png> <./images/desc_fifths_intervals.png> <
+./images/asc_56_intervals.png> <./images/desc_56_intervals.png>]
+Overfull \hbox (21.49144pt too wide) in paragraph at lines 1281--1281
 []\OT1/cmtt/m/n/10 (tonicTriad, octIncVal, evenIndexIntervalChange, oddIndexInt
 ervalChange, evenIndexInv,[] 
  []
 
 
-Overfull \hbox (16.24149pt too wide) in paragraph at lines 1280--1280
-[]    \OT1/cmtt/m/n/10 MusAST.Desc56     -> (tonicSecondInvTriad, -2, -3, 1, Mu
-sAST.Root, MusAST.Second)[] 
- []
-
-
-Overfull \hbox (10.99153pt too wide) in paragraph at lines 1280--1280
+Overfull \hbox (10.99153pt too wide) in paragraph at lines 1281--1281
 []    \OT1/cmtt/m/n/10 MusAST.AscFifths  -> (tonicSecondInvTriad, 1, 4, -3, Mus
 AST.Root, MusAST.Second)[] 
  []
 
-<images/desc56-example.png, id=772, 1213.53375pt x 90.3375pt>
+
+Overfull \hbox (16.24149pt too wide) in paragraph at lines 1281--1281
+[]    \OT1/cmtt/m/n/10 MusAST.Desc56     -> (tonicSecondInvTriad, -2, -3, 1, Mu
+sAST.Root, MusAST.Second)[] 
+ []
+
+<images/desc56-example.png, id=782, 1213.53375pt x 90.3375pt>
 File: images/desc56-example.png Graphic file (type png)
 <use images/desc56-example.png>
-Package pdftex.def Info: images/desc56-example.png  used on input line 1286.
+Package pdftex.def Info: images/desc56-example.png  used on input line 1287.
 (pdftex.def)             Requested size: 473.0077pt x 35.21217pt.
 
-Overfull \hbox (43.00308pt too wide) in paragraph at lines 1286--1287
+Overfull \hbox (43.00308pt too wide) in paragraph at lines 1287--1288
  [][] 
  []
 
-[46 <./images/desc_fifths_intervals.png> <./images/asc_56_intervals.png> <./ima
-ges/desc_56_intervals.png>]
 <images/asc_fifths_octave_grid.png, id=784, 257.96375pt x 279.0425pt>
 File: images/asc_fifths_octave_grid.png Graphic file (type png)
 <use images/asc_fifths_octave_grid.png>
 Package pdftex.def Info: images/asc_fifths_octave_grid.png  used on input line 
-1299.
-(pdftex.def)             Requested size: 171.99922pt x 186.05908pt.
-<images/asc_fifths_octave_analysis.png, id=786, 750.805pt x 594.22pt>
-File: images/asc_fifths_octave_analysis.png Graphic file (type png)
-<use images/asc_fifths_octave_analysis.png>
-Package pdftex.def Info: images/asc_fifths_octave_analysis.png  used on input l
-ine 1308.
-(pdftex.def)             Requested size: 301.00192pt x 238.22781pt.
-
+1300.
+(pdftex.def)             Requested size: 129.00269pt x 139.54645pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[47 <./images/desc56-example.png> <./images/asc_fifths_octave_grid.png>]
-Overfull \hbox (5.74158pt too wide) in paragraph at lines 1327--1327
+[47 <./images/desc56-example.png>]
+<images/asc_fifths_octave_analysis.png, id=794, 750.805pt x 594.22pt>
+File: images/asc_fifths_octave_analysis.png Graphic file (type png)
+<use images/asc_fifths_octave_analysis.png>
+Package pdftex.def Info: images/asc_fifths_octave_analysis.png  used on input l
+ine 1309.
+(pdftex.def)             Requested size: 301.00192pt x 238.22781pt.
+ [48 <./images/asc_fifths_octave_grid.png> <./images/asc_fifths_octave_analysis
+.png>]
+Overfull \hbox (5.74158pt too wide) in paragraph at lines 1328--1328
 []            \OT1/cmtt/m/n/10 then (take ((nextIndexInSeq - 1) `div` 2 + 4) cM
 ajScaleNotesDesc, succ)[] 
  []
 
 
-Overfull \hbox (73.99098pt too wide) in paragraph at lines 1327--1327
+Overfull \hbox (73.99098pt too wide) in paragraph at lines 1328--1328
 []    \OT1/cmtt/m/n/10 else let (succ2Cases, succCases) = splitAt ((nextIndexIn
 Seq - 7) `div` 2) cMajScaleNotesDesc[] 
  []
 
-[48 <./images/asc_fifths_octave_analysis.png>]
 LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 1
-329.
-
+330.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1329.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1330.
 
 
-Overfull \hbox (41.7414pt too wide) in paragraph at lines 1333--1334
+Overfull \hbox (41.7414pt too wide) in paragraph at lines 1334--1335
 [][][]\OT1/cmtt/m/n/10 let (succ2Cases, succCases) = splitAt ((nextIndexInSeq -
  7) `div` 2) cMajScaleNotesDesc 
  []
 
-<images/desc_fifths_octave_grid.png, id=806, 436.63126pt x 456.70625pt>
+[49]
+<images/desc_fifths_octave_grid.png, id=811, 436.63126pt x 456.70625pt>
 File: images/desc_fifths_octave_grid.png Graphic file (type png)
 <use images/desc_fifths_octave_grid.png>
 Package pdftex.def Info: images/desc_fifths_octave_grid.png  used on input line
- 1343.
+ 1344.
 (pdftex.def)             Requested size: 171.99922pt x 179.90569pt.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<images/desc_fifths_octave_analysis.png, id=807, 614.295pt x 473.77pt>
+<images/desc_fifths_octave_analysis.png, id=812, 614.295pt x 473.77pt>
 File: images/desc_fifths_octave_analysis.png Graphic file (type png)
 <use images/desc_fifths_octave_analysis.png>
 Package pdftex.def Info: images/desc_fifths_octave_analysis.png  used on input 
-line 1350.
+line 1351.
 (pdftex.def)             Requested size: 301.00192pt x 232.14932pt.
+
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[49] [50 <./images/desc_fifths_octave_grid.png> <./images/desc_fifths_octave_an
-alysis.png>]
-Overfull \hbox (63.49107pt too wide) in paragraph at lines 1367--1367
+[50 <./images/desc_fifths_octave_grid.png>]
+Overfull \hbox (63.49107pt too wide) in paragraph at lines 1368--1368
 []        \OT1/cmtt/m/n/10 let (pred2Cases, predCases) = splitAt ((nextIndexInS
 eq - 7) `div` 2) cMajScaleNotesAsc[] 
  []
 
 
-Overfull \hbox (36.49144pt too wide) in paragraph at lines 1371--1372
+Overfull \hbox (36.49144pt too wide) in paragraph at lines 1372--1373
 [][][]\OT1/cmtt/m/n/10 let (pred2Cases, predCases) = splitAt ((nextIndexInSeq -
  7) `div` 2) cMajScaleNotesAsc 
  []
@@ -978,111 +964,109 @@ Overfull \hbox (36.49144pt too wide) in paragraph at lines 1371--1372
 <images/asc56_octave_grid.png, id=822, 272.01625pt x 246.9225pt>
 File: images/asc56_octave_grid.png Graphic file (type png)
 <use images/asc56_octave_grid.png>
-Package pdftex.def Info: images/asc56_octave_grid.png  used on input line 1379.
+Package pdftex.def Info: images/asc56_octave_grid.png  used on input line 1380.
 
 (pdftex.def)             Requested size: 171.99922pt x 156.13844pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 <images/asc56_octave_analysis.png, id=823, 603.25375pt x 409.53pt>
 File: images/asc56_octave_analysis.png Graphic file (type png)
 <use images/asc56_octave_analysis.png>
 Package pdftex.def Info: images/asc56_octave_analysis.png  used on input line 1
-385.
+386.
 (pdftex.def)             Requested size: 301.00192pt x 204.33957pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[51 <./images/asc56_octave_grid.png>]
-Overfull \hbox (0.49162pt too wide) in paragraph at lines 1398--1398
+[51 <./images/desc_fifths_octave_analysis.png>]
+Overfull \hbox (0.49162pt too wide) in paragraph at lines 1399--1399
 []        \OT1/cmtt/m/n/10 then (take (if nextIndexInSeq == 1 then 2 else 1) cM
 ajScaleNotesAsc, pred)[] 
  []
 
-<images/desc56_octave_grid.png, id=830, 334.24875pt x 334.24875pt>
+[52 <./images/asc56_octave_grid.png> <./images/asc56_octave_analysis.png>]
+<images/desc56_octave_grid.png, id=837, 334.24875pt x 334.24875pt>
 File: images/desc56_octave_grid.png Graphic file (type png)
 <use images/desc56_octave_grid.png>
-Package pdftex.def Info: images/desc56_octave_grid.png  used on input line 1406
+Package pdftex.def Info: images/desc56_octave_grid.png  used on input line 1407
 .
 (pdftex.def)             Requested size: 171.99922pt x 172.00487pt.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-<images/desc56_octave_analysis.png, id=831, 767.86874pt x 372.39125pt>
+<images/desc56_octave_analysis.png, id=838, 767.86874pt x 372.39125pt>
 File: images/desc56_octave_analysis.png Graphic file (type png)
 <use images/desc56_octave_analysis.png>
 Package pdftex.def Info: images/desc56_octave_analysis.png  used on input line 
-1412.
+1413.
 (pdftex.def)             Requested size: 430.00462pt x 208.54335pt.
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[52 <./images/asc56_octave_analysis.png>]
-Overfull \hbox (21.49144pt too wide) in paragraph at lines 1436--1436
+[53 <./images/desc56_octave_grid.png> <./images/desc56_octave_analysis.png>]
+Overfull \hbox (21.49144pt too wide) in paragraph at lines 1437--1437
 []        \OT1/cmtt/m/n/10 then if nextIndexInSeq <= 6 then (take nextIndexInSe
 q cMajScaleNotesAsc, pred)[] 
  []
 
 
-Overfull \hbox (79.24094pt too wide) in paragraph at lines 1436--1436
+Overfull \hbox (79.24094pt too wide) in paragraph at lines 1437--1437
 []                \OT1/cmtt/m/n/10 else let (pred2Cases, predCases) = splitAt (
 nextIndexInSeq - 7) cMajScaleNotesAsc[] 
  []
 
-[53 <./images/desc56_octave_grid.png> <./images/desc56_octave_analysis.png>]
 [54] [55]
 Chapter 6.
 [56
 
 ]
-Overfull \hbox (36.15167pt too wide) in paragraph at lines 1488--1489
+Overfull \hbox (36.15167pt too wide) in paragraph at lines 1489--1490
 []\OT1/cmr/m/n/10 The ad-di-tion of the header at-tributes was de-layed un-til 
 code gen-er-a-tion due to the NUM[]ACCIDENTALS
  []
 
 
-Overfull \hbox (24.819pt too wide) in paragraph at lines 1488--1489
+Overfull \hbox (24.819pt too wide) in paragraph at lines 1489--1490
 \OT1/cmr/m/n/10 the header at-tributes must be ad-justed ac-cord-ingly. Thus, t
 he helper func-tion [][]\OT1/cmtt/m/n/10 globalHeaderCode fifths
  []
 
 [57] [58]
-Overfull \hbox (67.4932pt too wide) in paragraph at lines 1565--1566
+Overfull \hbox (67.4932pt too wide) in paragraph at lines 1566--1567
 \OT1/cmr/m/n/10 MusicXML mea-sures are de-noted by the open-ing tag [][]\OT1/cm
 tt/m/n/10 </measure> []\OT1/cmr/m/n/10 and the clos-ing tag [][]\OT1/cmtt/m/n/1
 0 <measure number="NUMBER">[]\OT1/cmr/m/n/10 ,
  []
 
 [59]
-Overfull \hbox (42.49126pt too wide) in paragraph at lines 1625--1625
+Overfull \hbox (42.49126pt too wide) in paragraph at lines 1626--1626
 []\OT1/cmtt/m/n/10 breakUpNoteValRationally [] _ _ = return $ error "cannot gen
 erate accurate note divisions"[] 
  []
 
 
-Overfull \hbox (26.7414pt too wide) in paragraph at lines 1625--1625
+Overfull \hbox (26.7414pt too wide) in paragraph at lines 1626--1626
 []\OT1/cmtt/m/n/10 breakUpNoteValRationally (noteVal:noteVals) remainingTimeInM
 easure isFromMeasStart = do[] 
  []
 
 [60]
-Overfull \hbox (0.49162pt too wide) in paragraph at lines 1654--1654
+Overfull \hbox (0.49162pt too wide) in paragraph at lines 1655--1655
 []          \OT1/cmtt/m/n/10 ["\t\t</measure>", "\t\t<measure number=\"" ++ sho
 w incMeasNum ++ "\">"][] 
  []
 
 
-Overfull \hbox (54.24315pt too wide) in paragraph at lines 1658--1659
+Overfull \hbox (54.24315pt too wide) in paragraph at lines 1659--1660
 []\OT1/cmr/m/n/10 Like at the end of [][]\OT1/cmtt/m/n/10 transInstrs[]\OT1/cmr
 /m/n/10 , the trans-la-tion of [][]\OT1/cmtt/m/n/10 NewMeasure []\OT1/cmr/m/n/1
 0 calls [][]\OT1/cmtt/m/n/10 generateNoteValueRationalDivisions
  []
 
 [61]
-Overfull \hbox (1.29103pt too wide) in paragraph at lines 1667--1668
+Overfull \hbox (1.29103pt too wide) in paragraph at lines 1668--1669
 \OT1/cmr/m/n/10 means this is the user's first in-struc-tion. If this is the ca
 se, we sim-ply call [][]\OT1/cmtt/m/n/10 globalHeaderCode fifths
  []
 
 [62]
-Overfull \hbox (71.21675pt too wide) in paragraph at lines 1703--1704
+Overfull \hbox (71.21675pt too wide) in paragraph at lines 1704--1705
 \OT1/cmr/m/n/10 all but the last el-e-ment of the spilled note di-vi-sions, and
  pass this into [][]\OT1/cmtt/m/n/10 generateTiedNotesFromDivisions
  []
@@ -1090,15 +1074,15 @@ Overfull \hbox (71.21675pt too wide) in paragraph at lines 1703--1704
 [63]
 Chapter 7.
 
-Overfull \hbox (0.49162pt too wide) in paragraph at lines 1733--1733
+Overfull \hbox (0.49162pt too wide) in paragraph at lines 1734--1734
 []\OT1/cmtt/m/n/10 chords1 = ([Bbb5, Db5, C5] half) ([C#5, E5] half) (C6 min tr
 iad inv:first quarter)[] 
  []
 
-<images/program1.png, id=923, 823.075pt x 550.055pt>
+<images/program1.png, id=924, 823.075pt x 550.055pt>
 File: images/program1.png Graphic file (type png)
 <use images/program1.png>
-Package pdftex.def Info: images/program1.png  used on input line 1737.
+Package pdftex.def Info: images/program1.png  used on input line 1738.
 (pdftex.def)             Requested size: 430.00462pt x 287.36475pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
@@ -1142,12 +1126,12 @@ dsdatascience . com /
 [68
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1755.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1756.
  [69]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1755.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1756.
  (./Shapiro Final Draft.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1755.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1755.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1756.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1756.
 
 Package rerunfilecheck Info: File `"Shapiro Final Draft".out' has not changed.
 (rerunfilecheck)             Checksum: A9068573EA8F71BD7882333158E669AE;2745.
@@ -1155,7 +1139,7 @@ Package rerunfilecheck Info: File `"Shapiro Final Draft".out' has not changed.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1755.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1756.
  ) 
 Here is how much of TeX's memory you used:
  12814 strings out of 480608
@@ -1164,7 +1148,7 @@ Here is how much of TeX's memory you used:
  28225 multiletter control sequences out of 15000+600000
  541131 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 45i,13n,46p,1701b,466s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 45i,13n,46p,1701b,462s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX warning (dest): name{Hfootnote.1} has been referenced but does not exi
 st, replaced by a fixed one
 
@@ -1186,10 +1170,10 @@ xmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2020/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2020/texm
 f-dist/fonts/type1/public/musixtex-fonts/musix11.pfb></usr/local/texlive/2020/t
 exmf-dist/fonts/type1/public/musixtex-fonts/musix16.pfb>
-Output written on "Shapiro Final Draft.pdf" (70 pages, 2081592 bytes).
+Output written on "Shapiro Final Draft.pdf" (70 pages, 2081547 bytes).
 PDF statistics:
- 1091 PDF objects out of 1200 (max. 8388607)
- 901 compressed objects within 10 object streams
+ 1092 PDF objects out of 1200 (max. 8388607)
+ 902 compressed objects within 10 object streams
  244 named destinations out of 1000 (max. 500000)
  586 words of extra memory for PDF output out of 10000 (max. 10000000)
 

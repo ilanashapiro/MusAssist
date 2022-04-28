@@ -57,8 +57,8 @@
 \contentsline {subsubsection}{Minor}{38}{section*.27}%
 \contentsline {section}{\numberline {5.2}Intermediate Expressions}{40}{section.5.2}%
 \contentsline {subsection}{\numberline {5.2.1}Chord Templates}{40}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Cadences}{44}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Harmonic Sequences}{45}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.2}Cadences}{45}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Harmonic Sequences}{46}{subsection.5.2.3}%
 \contentsline {chapter}{\numberline {6}Code Generation}{56}{chapter.6}%
 \contentsline {section}{\numberline {6.1}MusicXML Syntax}{56}{section.6.1}%
 \contentsline {subsection}{\numberline {6.1.1}Header Code}{56}{subsection.6.1.1}%
