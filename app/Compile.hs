@@ -10,9 +10,9 @@ You can load this file into ghci with
 and then run
     run "test1.musassist"
 and so on, or you can compile it on the command line with
-    ghc --make -O CompileM.hs
+    ghc --make -O Compile.hs
 and run
-    ./CompileM test1.musassist
+    ./Compile test1.musassist
 -}
 
 module Main where

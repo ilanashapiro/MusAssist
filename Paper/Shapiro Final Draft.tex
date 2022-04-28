@@ -61,7 +61,7 @@ With these ideas in mind, we present MusAssist, a DSL devised as a compositional
 
 The target language of the MusAssist compiler is MusicXML, itself a DSL that is an extension of  XML (Extensible Markup Language), a markup language similar to HTML. MusicXML is accepted by most major notation software programs (such as MuseScore). Thus, once a user has described a composition in MusAssist, they can open the resulting MusicXML file in MuseScore or another program for further customization and editing. MusAssist does not attempt to replace existing DSLs. Rather, it $assists$ users in music composition by providing them with a set of easy-to-use instructions and musical templates that would otherwise be tedious to write out by hand in a musical score. This is why MusAssist is compiled to MusicXML rather than an uneditable PDF format. MusAssist may also be particularly helpful to music students as an educational tool where they can easily see the relationship between a musical expression and its written form, such as a cadence template and the chords that result from expanding it.
 
-In order to use MusAssist, the user need not have any understanding of computing, though they should have a solid knowledge of music theory up through chord and cadence types, as well as harmonic sequences. In order to  comprehend this paper, in addition to music theory, users should have a background in basic programming languages theory and compilers.
+In order to use MusAssist, the user need not have any understanding of computing, though they should have a solid knowledge of music theory up through chord and cadence types, as well as harmonic sequences. In order to  comprehend this paper, in addition to music theory, users should have a background in basic programming languages theory and compilers. MusAssist's source code repository can be accessed \href{https://github.com/ilanashapiro/MusAssist}{here}.
 
 \chapter{Background}
 \label{chap:background}
@@ -233,7 +233,7 @@ Martinez presents a novel approach  for extending the traditional staff domain (
 
 Martinez extends CWMN to  the  interactive  domain through the creation of abstract-verbal statements called  called  \textit{Computational  Counterpoint Marks} on the score  phonetic-dimension. Computational  Counterpoint Marks are human-readable annotations acting  as expression-marks added  to a  score.  They accurately describe the logic of an interaction between the performer and the  computer. This  enhances the accompanied  graphic  signs,  leading  to a  unified and human-readable representation of an interactive  piece's  performance logic. Furthermore, novel score annotations can also be  understood by a computer via  the  digital  score. This means that the musical score itself actually becomes the source  code of a piece's  performance logic, which allows the  computer to perform live  during a concert. Finally, Martinez considers  the time domain. Specifically, he proposes symbolic rather  than absolute time representation that is  based on traditional score notation. Martinez's  model maps symbolic time  to  absolute time through an estimate based on updates during performance about the current  symbolic time \citeparen{martinez_2021}.
 
-Like Computational Counterpoint Marks, MusAssist seeks to bridge the divide between human musicians and computers, though in the notation domain rather than the live performance domain. Just like resulting musical score when Computational Counterpoint Marks are added, the compiled MusicXML file from MusAssist's syntax is readable by both humans and computers. In MusAssist's case, this unification occurs through music notation software.
+Like Computational Counterpoint Marks, MusAssist seeks to bridge the divide between human musicians and computers, though in the notation domain rather than the live performance domain. Just like resulting musical score when Computational Counterpoint Marks are added, the compiled MusicXML file from MusAssist's syntax is readable by both humans and computers. In MusAssist's case, this divide is bridged through music notation software.
  
 \subsection{Research through Design}
 The development of Nishino et al.'s original external DSL LCSynth was approached through the HCI method `Research through Design' (RtD),   in which designers and researchers develop ``a product that transforms the world from its current state to a preferred state" and ``the artifacts produced in this type of research become design exemplars, providing an appropriate conduit for research findings to easily transfer to the HCI research and practice communities.” RtD places an emphasis on the contribution of knowledge to academia  rather than the design of a commercial product \citeparen{nishino_2012}.
@@ -244,7 +244,7 @@ Nishimo et al. use RtD to develop a new DSL focusing on the problem of microsoun
  
 
 \section{Summary}
-DSLs are a fascinating and effective way to bridge the conceptual gap between computing and music. Since Wang introduced ChucK in 2008, external and internal DSLs utilizing programming paradigms including functional programming, object-oriented programming, synchronous programming, strongly-timed programming, and mostly-strongly-timed programming have made advances in handling issues in microsound synthesis and signal processing, such as in the LCSynth, LC, and mimium languages. On a higher level, DSLs like PyTabs, Skini, and Computational Counterpoint Marks have addressed the areas of music notation representation and algorithmic composition, as well as intersect with the field of HCI. Finally, the novel concepts of live coding and laptop music are considered with the DSLs HMusic and even LC. 
+DSLs are a fascinating and effective way to bridge the conceptual gap between computing and music. Since Wang introduced ChucK in 2008, external and internal DSLs utilizing programming paradigms including functional programming, object-oriented programming, synchronous programming, strongly-timed programming, and mostly-strongly-timed programming have made advances in handling issues in microsound synthesis and signal processing, such as in the LCSynth, LC, and mimium languages. On a higher level, DSLs like PyTabs, Skini, and Computational Counterpoint Marks have addressed the areas of music notation representation and algorithmic composition, as well as intersect with the field of HCI. Finally, the novel concepts of live coding and laptop music are considered with the DSLs HMusic and even LC. None of these DSLs address the unique niche in music notation that MusAssist fills that combines easy to use syntax with complex musical templates matching the abstraction levels of the musical structures they describe. 
 
 %----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 \chapter{Language Features}
@@ -270,7 +270,7 @@ sixteenth, eighth, dotted_eighth, quarter, dotted_quarter, half, dotted_half, wh
 
 An example of a MusAssist rest is \verb.(rest dotted_quarter).
 
-This expression translates to the following when loaded into the MuseScore notation software:
+This expression translates to the following when compiled and loaded into the MuseScore notation software:
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.38\textwidth]{images/rest}
@@ -308,7 +308,7 @@ F,C,G,D,E,A,B
 
 Examples of MusAssist notes are \verb.(Cbb5 eighth)., \verb.(D#5 eighth)., and \verb.(A2 quarter).
 
-These expressions,  respectively, translate to the following when loaded into MuseScore:
+These expressions,  respectively, translate to the following when compiled and loaded into MuseScore:
 
 \begin{figure}[h!]
 \centering
@@ -343,7 +343,7 @@ The syntax for a custom chord is as follows
 
 Examples of MusAssist custom chords are \verb.([Bb5, Dbb6, C5] half). and  \verb.([C##1, E5] sixteenth).
 
-These expressions,  respectively, translate to the following when loaded into in MuseScore:
+These expressions,  respectively, translate to the following when compiled and loaded into in MuseScore:
 
 \begin{figure}[h!]
 \centering
@@ -360,7 +360,7 @@ These expressions,  respectively, translate to the following when loaded into in
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 \section{Chord Templates}
-\label{sec:chordtemplates}
+\label{sec:chordtemplatessyntax}
 The syntax for a chord template is as follows
 
 \begin{verbatim}
@@ -397,9 +397,9 @@ triad, seventh
 \end{verbatim}
 
 
-Examples of MusAssist harmonic sequences are \verb.(C6 min triad inv:first quarter). and  \\\verb.(F\#4 halfdim seventh inv:third eighth).
+Examples of MusAssist harmonic sequences are \verb.(C6 min triad inv:first quarter). and  \\\verb.(F#4 halfdim seventh inv:third eighth).
 
-These expressions,  respectively, translate to the following when loaded into MuseScore:
+These expressions,  respectively, translate to the following when compiled and loaded into MuseScore:
 
 \begin{figure}[h!]
 \centering
@@ -429,9 +429,9 @@ Unlike chord templates, here \param{QUALITY} is taken from one of the following 
 \begin{verbatim}
 maj, min
 \end{verbatim}
-\noindent and \param{ACCIDENTAL} is taken from the same restricted options as in \Cref{chordtemplates}. \param{ACCIDENTAL}  continues remain optional, with natural implied when it is left out.
+\noindent and \param{ACCIDENTAL} is taken from the same restricted options as in \Cref{sec:chordtemplatessyntax}. \param{ACCIDENTAL}  continues remain optional, with natural implied when it is left out.
 
-\noindent This is because together, \verb.<NOTENAME><ACCIDENTAL><OCTAVE> <QUALITY>. determine the local key (and the start octave) of the harmonic sequence. A key can only be major or minor, and a key in MusAssist cannot be described with a double sharp or flat, as such key signatures may introduce triple sharps or flats, which recall are not supported. 
+This is because together, \verb.<NOTENAME><ACCIDENTAL><OCTAVE> <QUALITY>. determine the local key (and the start octave) of the harmonic sequence. A key can only be major or minor, and a key in MusAssist cannot be described with a double sharp or flat, as such key signatures may introduce triple sharps or flats, which recall are not supported. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -466,7 +466,7 @@ Descending 5-6    & I$^{6 \atop 4}$ & V                & vi$^{6 \atop 4}$ & iii 
 
 This is demonstrated in each of the following examples, all in C major. Each has length fifteen, to demonstrate the entire 14-chord sequences and also return to the first chord. Principles of smooth voice leading were used for all sequences.
 
-The following figures were created with the following MusAssist expressions, respectively: \\\verb.(AscFifths C4 maj quarter length:15)., \verb.(DescFifths C4 maj quarter length:15)., \\\verb.(Asc56 C4 maj quarter length:15)., \verb.(Desc56 C6 maj quarter length:15). When loaded into MuseScore, they look like:
+The following figures were created with the following MusAssist expressions, respectively: \\\verb.(AscFifths C4 maj quarter length:15)., \verb.(DescFifths C4 maj quarter length:15)., \\\verb.(Asc56 C4 maj quarter length:15)., \verb.(Desc56 C6 maj quarter length:15).. When compiled and loaded into MuseScore, they look like:
 
 \begin{figure}[h!]
 \centering
@@ -498,8 +498,7 @@ The following figures were created with the following MusAssist expressions, res
 
 In most music theory settings, the ascending fifths sequence would terminate after five chords (i.e. before it reaches a root position diminished  triad). However, MusAssist does not stop at this chord based on the principle that users should be able to generate sequences of any length. Terminating this sequence after five chords is up to the user.
 
-Furthermore, a minor descending fifths sequence would generally have the final appearance of scale degree seven raised, since it is leading back to the tonic. However, MusAssist does not do this based on the principle that all sequences should follow the pattern they are given, for any arbitrary length. It is up to the user to raise the final scale degree seven in a minor descending fifths sequence.
-
+Furthermore, a minor descending fifths sequence would generally have the final appearance of scale degree seven raised, since it is leading back to the tonic. However, MusAssist does not do this based on the principle that all sequences should follow the pattern they are given, for any arbitrary length. 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 \section{Cadences}
@@ -517,7 +516,7 @@ PerfAuthCadence, ImperfAuthCadence, HalfCadence, PlagalCadence, DeceptiveCadence
 
 \param{NOTENAME}, \param{OCTAVE}, and \param{DURATION} are taken from the same options as in \Cref{sec:notes}. 
 
-\param{ACCIDENTAL} is taken from the same restricted options as in \Cref{sec:chordtemplates} and \param{QUALITY} is taken from the same restricted options as in \Cref{sec:harmseq}.
+\param{ACCIDENTAL} is taken from the same restricted options as in \Cref{sec:chordtemplatessyntax} and \param{QUALITY} is taken from the same restricted options as in \Cref{sec:harmseq}.
 
 \noindent Together, \verb.<NOTENAME><ACCIDENTAL><OCTAVE> <QUALITY>. determine the local key (and the start octave) of the cadences. Recall that a key can only be major or minor, and a key cannot be in a double sharp or flat due to the potential for triple sharps or flats to appear in the key.
 
@@ -533,9 +532,9 @@ The music theory of cadences is outside the scope of this paper, but good refere
 
 Again, the cadences are written in the upper voices only, in keyboard voice leading style, due to MusAssist's current lack of support for multiple clefs. Principles of smooth voice leading were applied throughout.
 
-From a music theory standpoint, based on the principles of functional harmony, there are several ways to represent each of these cadences. In MusAssist, the following representations were chosen for each cadence. The major version is presented first, and the minor version is after that, in parentheses.
+From a music theory standpoint, based on the principles of functional harmony, there are several ways to represent each of these cadences. In MusAssist, the following representations were chosen. The major version is presented first, and the minor version is after that, in parentheses.
 
-\begin{table}
+\begin{table}[h!]
 \begin{tabular}{|l|l|l|l|l|}
 \hline
 Perfect Authentic & Imperfect Authentic & Plagal & Deceptive & Half \\ \hline
@@ -549,11 +548,11 @@ IV-V-I (iv-V-i)
 \label{table:cadences}
 \end{table}
 
-The five possible cadence types in MusAssist demonstrated in the following examples. 
+The five possible cadence types in MusAssist are demonstrated in the following examples. 
 
 \noindent\verb.(PerfAuthCadence Eb5 min sixteenth)., \verb.(ImperfAuthCadence F#5 min quarter)., \\\verb.(DeceptiveCadence B4 maj eighth)., \verb.(HalfCadence G#5 min whole)., \verb.(PlagalCadence C5 maj half).
 
-These MusAssist expressions,  respectively, translate to the following when loaded into the MuseScore notation software. Notice the doubled root in the perfect authentic cadence in an attempt to simulate the 4-5-1 bass line, as well as to preserve the 2-1 downward step in the uppermost voice required for this cadence. 
+These MusAssist expressions,  respectively, translate to the following when  compiled and loaded into the MuseScore notation software. Notice the doubled root in the perfect authentic cadence in an attempt to simulate the 4-5-1 bass line, as well as to preserve the 2-1 downward step in the uppermost voice required for this cadence. 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.7\textwidth]{images/perfauth}
@@ -568,7 +567,7 @@ These MusAssist expressions,  respectively, translate to the following when load
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.5\textwidth]{images/deceptive}
+\includegraphics[width=0.7\textwidth]{images/deceptive}
   \caption{Deceptive Cadence in B major}
 \end{figure}
 
@@ -596,7 +595,7 @@ label123_' = (D4 whole) (Ab4 quarter) (rest whole) ([Bbb5, Db5, C5] half)
 label123_'
 \end{verbatim}
 
-will translate to the following when loaded into MuseScore:
+will translate to the following when compiled and loaded into MuseScore:
 
 \begin{figure}[h!]
 \centering
@@ -614,7 +613,7 @@ The syntax for a key signature change is as follows
 SET_KEY <NOTENAME><ACCIDENTAL><QUALITY>
 \end{verbatim}
 
-\noindent where \param{NOTENAME} is taken from the same options as in \Cref{sec:notes}, \param{ACCIDENTAL} is taken from the same restricted options as in \Cref{sec:chordtemplates} and \param{QUALITY} is taken from the same restricted options as in \Cref{sec:harmseq}. Again, accidentals and qualities are restricted because keys must be major or minor, and cannot be built on a double sharp or flat due to the problem of such keys introducing triple sharps or flats.
+\noindent where \param{NOTENAME} is taken from the same options as in \Cref{sec:notes}, \param{ACCIDENTAL} is taken from the same restricted options as in \Cref{sec:chordtemplatessyntax} and \param{QUALITY} is taken from the same restricted options as in \Cref{sec:harmseq}. Again, accidentals and qualities are restricted because keys must be major or minor, and cannot be built on a double sharp or flat due to the problem of such keys introducing triple sharps or flats.
 
 A key signature also cannot have double sharps or flats, which could happen even if the key signature is not built on a double sharp or flat note. This means that the following key signatures, though they are built on seemingly valid notes, are actually invalid:
 \begin{verbatim}
@@ -640,7 +639,7 @@ SET_KEY Amaj
 SET_KEY Cmaj
 \end{verbatim}
 
-will translate to the following when loaded into MuseScore:
+will translate to the following when compiled and loaded into MuseScore:
 
 \begin{figure}[h!]
 \centering
@@ -660,7 +659,7 @@ NEW_MEASURE
 (E4 eighth)
 \end{verbatim}
 
-will translate to the following when loaded into MuseScore:
+will translate to the following when compiled and loaded into MuseScore:
 
 \begin{figure}[h!]
 \centering
@@ -675,7 +674,7 @@ A new measure MusAssist instruction must occur by itself on its own line.
 \section{Comments}
 Comments are designated with \verb.//.. Any text after the comment indicator is ignored by the complier. For instance:\\ \verb.// this is a comment.
 
-MusAssist also supports multiline comments. Any text enclosed between the multiline comment symbols \verb.//*. and \verb.*\\. is ignored by the compiler. For instance:
+MusAssist also supports multiline comments. Any text enclosed between the multiline comment symbols \verb.//*. and \verb.*//. is ignored by the compiler. For instance:
 \begin{verbatim}
 //* This 
 is 
@@ -699,7 +698,7 @@ left >>: v = left >> return v
 
 were defined to generate the results of the parse.
 
-The following sections discuss the parsing of the concrete syntax from \Cref{chap:langfeatures} into abstract syntax. The abstract syntax was carefully designed to best model musical structures organically.
+The following sections discuss the parsing of the concrete syntax from \Cref{chap:langfeatures} into abstract syntax. The abstract syntax was carefully designed to best model musical structures organically. MusAssist's parser can be found \href{https://github.com/ilanashapiro/MusAssist/blob/main/app/Parser.hs}{here}, and its abstract  syntax can be found \href{https://github.com/ilanashapiro/MusAssist/blob/main/app/MusAssistAST.hs}{here}.
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Note Names}
 Recall from \Cref{sec:notes} that the set of all possible values for the concrete syntax \param{NOTENAME} is:
@@ -707,8 +706,8 @@ Recall from \Cref{sec:notes} that the set of all possible values for the concret
 F,C,G,D,E,A,B
 \end{verbatim}
 
-These are parsed, respectively, into the abstract syntax \verb.NoteName. (a custom Haskell algebraic data type, or ADT, defined below:
-
+These are parsed, respectively, into the abstract syntax \verb.NoteName. (a custom Haskell algebraic data type, or ADT, defined as follows:
+\newpage
 \begin{verbatim}
 data NoteName = 
     F
@@ -720,7 +719,7 @@ data NoteName =
     | B
 \end{verbatim}
 
-The reason that an ADT was created for note names, rather than a simple type alias for String was not used for note names, was so that (1) correctness could be enforced for the possible note names and (2) so that custom orderings, as well as the ability to take  successors and predecessors, can be defined for the note names. As will be discussed in \Cref{chap:ir}, two orderings will be needed for note names, which are accomplished through deriving \verb.Ord. and implementing a custom instance of the \verb.Enum. typeclass. For now, simply notice that the \verb.NoteName. ADT lists the notes in the order of sharps.
+The reason that an ADT was created for note names, rather than a simple type alias for String, was so that (1) correctness could be enforced for the possible note names and (2) so that custom orderings, as well as the ability to take  successors and predecessors, can be defined for the note names. As will be discussed in \Cref{chap:ir}, two orderings will be needed for note names, which are accomplished through deriving \verb.Ord. and also implementing a custom instance of the \verb.Enum. typeclass. For now, simply notice that the \verb.NoteName. ADT lists the notes in the order of sharps.
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Accidentals}
 Recall from \Cref{sec:notes} that the set of all possible values for the concrete syntax \param{ACCIDENTAL} is:
@@ -728,7 +727,7 @@ Recall from \Cref{sec:notes} that the set of all possible values for the concret
 #, ##, b, bb
 \end{verbatim}
 
-These are parsed into the abstract syntax \verb.Accidental. (a custom Haskell ADT) defined below. Recall that \param{ACCIDENTAL} is always an optional parameter in the  concrete syntax. The mappings from concrete to abstract syntax are as one would expect semantically, and when the user leaves out the \param{ACCIDENTAL} parameter after \param{NOTENAME}, the result of the parse is \verb.Natural.
+These are parsed into the abstract syntax \verb.Accidental. (a custom Haskell ADT) defined below. Recall that \param{ACCIDENTAL} is always an optional parameter in the  concrete syntax. The mappings from concrete to abstract syntax are as one would expect semantically, and when the user leaves out the \param{ACCIDENTAL} parameter after \param{NOTENAME}, the result of the parse is \verb.Natural..
 
 \begin{verbatim}
 data Accidental = 
@@ -742,7 +741,7 @@ data Accidental =
 Like notes, accidentals were not represented in the abstract syntax with a String alias in order to (1) enforce correctness for the limited possible values and (2) enforce a custom ordering. As will be discussed in \Cref{sec:chordtemplates}, one ordering (as well as the ability to take successors and predecessors) will be needed for accidentals, which is accomplished through deriving \verb.Enum..
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Octaves}
-Recall from \Cref{sec:notes} that the set of all possible values for the concrete syntax \param{ACCIDENTAL} is:
+Recall from \Cref{sec:notes} that the set of all possible values for the concrete syntax \param{OCTAVE} is:
 \begin{verbatim}
 1,2,3,4,5,6,7,8
 \end{verbatim}
@@ -756,7 +755,7 @@ type Octave = Int
 An Int type alias, rather than a custom ADT, was chosen for octaves as the constraint of  1-8 is simple to enforce in a later stage, and no custom ordering is needed beyond what is already provided by Int.
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Inversions}
-Recall from \Cref{sec:chordtemplates} that the set of all possible values for the concrete syntax \param{INVERSION} is:
+Recall from \Cref{sec:chordtemplatessyntax} that the set of all possible values for the concrete syntax \param{INVERSION} is:
 \begin{verbatim}
 root, first, second, third
 \end{verbatim}
@@ -812,7 +811,7 @@ data Duration =
     | Whole 
 \end{verbatim}
 
-Durations were not represented in the abstract syntax with a String alias in order to (1) enforce correctness for the limited possible values and (2) enforce a custom ordering. \verb.Duration. derives \verb.Ord., which enforces for the ordering of durations from smallest to largest, as seen in the data deffinition. Of note, durations are not represented as floats as MusAssist does not support arbitrarily complex durations, and ordered custom data types are easier to work with than floats.
+Durations were not represented in the abstract syntax with a String alias in order to (1) enforce correctness for the limited possible values and (2) enforce a custom ordering. \verb.Duration. derives \verb.Ord., which enforces the ordering of durations from smallest to largest, as seen in the data definition. Of note, durations are not represented as floats as MusAssist does not support arbitrarily complex durations, and ordered custom data types are easier to work with than floats.
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Qualities}
@@ -902,7 +901,7 @@ A tone (i.e. a ``sounding," or non-rest, note) is comprised of a note name, acci
 data Tone = Tone NoteName Accidental Octave 
 \end{verbatim}
 
-The parsers for note name, accidental, and octave are thus combined to create a parser for tones:\newpage
+The parsers for note name, accidental, and octave are thus combined to create a parser for tones:
 
 \begin{verbatim}
 parseTone :: Parsec String () Tone 
@@ -926,7 +925,7 @@ data IntermediateExpr =
   | FinalExpr Expr
 \end{verbatim}
 
-Parsers for the musical building blocks described in the previous sections of this chapter are combined, similar to in \Cref{sec:tones}, to create parsers for each \verb.IntermediateExpr.
+Parsers for the musical building blocks described in the previous sections of this chapter are combined, similar to \Cref{sec:tones}, to create parsers for each \verb.IntermediateExpr.
 
 As the ADT demonstrates, the templates to expand are notes, chord templates, cadence, harmonic sequences, and labels. In \Cref{chap:ir}, they will be each expanded to a value of type \verb.Expr., a custom Haskell ADT describing the building blocks of all musical expressions:
 
@@ -939,7 +938,7 @@ data Expr =
 
 Any template described in \verb.IntermediateExpr. will get expanded to the \verb.Expr.s it contains. Another way of thinking about this is that \verb.IntermediateExpr.s get ``lowered" to \verb.Expr.s.
 
-An \verb.IntermediateExpr. of type \verb.FinalExpr. simply unwrapped to the \verb.Expr. The concrete syntax that parses to \verb.FinalExpr. is that for rests and custom chords. 
+An \verb.IntermediateExpr. of type \verb.FinalExpr. is simply unwrapped to the \verb.Expr. it contains. The concrete syntax that parses to \verb.FinalExpr. is that for rests and custom chords. 
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Intermediate Instructions}
@@ -964,7 +963,7 @@ data Instr =
   | Assign Label [Expr] 
 \end{verbatim}
 
-Like \verb.Expr., \verb.Instr.. is not included in the parse result. \verb.IRKeySignature. is a template describing a key signature that gets expanded (or ``lowered") from its description to the number of sharps and flats held in \verb.KeySignature. Every other \verb.IntermediateInstr. simply maps 1-1 to its corresponding \verb.Instr., with \verb.IntermediateExpr. parameters expanded to \verb.Expr. as necessary. Again, this will be explained in great detail in \Cref{chap:ir}.
+Like \verb.Expr., \verb.Instr. is not included in the parse result. \verb.IRKeySignature. is a template describing a key signature that gets expanded (or ``lowered") from its description to the number of sharps and flats held in \verb.KeySignature. Every other \verb.IntermediateInstr. simply maps 1-1 to its corresponding \verb.Instr., with \verb.IntermediateExpr. parameters expanded to \verb.Expr. as necessary. Again, this will be explained in great detail in \Cref{chap:ir}.
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Final Remarks}
@@ -991,11 +990,11 @@ We must call \verb.parseChordTemplate. before \verb.parseNote., because \verb.pa
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \chapter{Intermediate Representations}
 \label{chap:ir}
-This chapter discusses the expansions (or ``lowerings") of the musical templates described in the ADTs \verb.IntermediateInstr. and \verb.IntermediateExpr. 
+This chapter discusses the expansions (or ``lowerings") of the musical templates described in the ADTs \verb.IntermediateInstr. and \verb.IntermediateExpr.. The code for the expansions can be found \href{https://github.com/ilanashapiro/MusAssist/blob/main/app/IRConversion.hs}{here}
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Intermediate Instructions}
-The \verb.IntermediateInstr.s \verb.IRNewMeasure, IRWrite [IntermediateExpr],. and \\\verb.IRAssign Label [IntermediateExpr]. all have straightforward conversions to \verb.Instr.. 
+The intermediate instructions \verb.IRNewMeasure, IRWrite [IntermediateExpr],. and \\\verb.IRAssign Label [IntermediateExpr]. all have straightforward conversions to \verb.Instr.. 
 
 \verb.IRNewMeasure. simply gets translated to \verb.NewMeasure., \verb.IRWrite [IntermediateExpr]. gets translated to \verb.Write [Expr]., and \verb.IRAssign Label [IntermediateExpr]. gets translated to \verb.Assign Label [Expr]. (The expansion of the \verb.IntermediateExpr.s in the lists is discussed in \Cref{sec:irexpr}). 
 
@@ -1007,48 +1006,47 @@ The expansion of template instructions occurs in \verb.expandIntermediateInstr.
 The logic for the number of sharps or flats in a key signature is divided based on the two possible key signature qualities: major and minor. 
 \subsubsection{Major}
 
-In order to determine the number of sharps or flats for a major key, the possible valid keys (i.e. keys with 0-7 sharps or flats) were listed and divided into keys with 0 or more sharps (\Cref{major_sharp}), and keys with 0 or more flats (\Cref{major_flat}). (If an invalid key is given, an error is thrown).
+In order to determine the number of sharps or flats for a major key, the possible valid keys (i.e. keys with 0-7 sharps or flats) were listed and divided into keys with 0 or more sharps (\Cref{major_sharp_keys}), and keys with 0 or more flats (\Cref{major_flat_keys}). (If an invalid key is given, an error is thrown).
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.9\textwidth]{images/major_sharp}
 \caption{Major Keys with 0-7 Sharps}
-\label{major_sharp}
+\label{major_sharp_keys}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.9\textwidth]{images/major_flat}
 \caption{Major Keys with 0-7 Flats}
-\label{major_flat}
+\label{major_flat_keys}
 \end{figure}
 
 \newpage
 
 Let a \textit{flat key signature} have at least one flat, and let a \textit{sharp key signature} have at least one sharp.
 
-In \Cref{major_sharp}, we see that the number of sharps in a sharp major key signature corresponds to the $index$ of the note name of last sharp appearing in the key signature, in the order of sharps. 
+In \Cref{major_sharp_keys}, we see that the number of sharps in a sharp major key signature corresponds to the $index$ of the note name of last sharp appearing in the key signature, in the order of sharps. 
 
-Similarly, in \Cref{major_flat}, we see that the number of flats in a flat major key signature corresponds to $7-(i-1)$, where $i$ is the the index of the key signature's note name in the order of sharps. The ``seven-minus" calculation comes from the fact that the order of flats (BEADGCF) is simply the reverse of the order of sharps (FCGDAEB), and there are seven possible sharps or flats because there are seven possible note names. 
+Similarly, in \Cref{major_flat_keys}, we see that the number of flats in a flat major key signature corresponds to $7-(i-1)$, where $i$ is the index of the key signature's note name in the order of sharps. The ``seven-minus" calculation comes from the fact that the order of flats (BEADGCF) is simply the reverse of the order of sharps (FCGDAEB), and there are seven possible sharps or flats because there are seven possible note names. 
 
 In order to support this logic, a list of \verb.NoteNames. in the order of sharps called \verb.globalOrderOfSharps. was created.
 
-The question now becomes how to determine the last sharp in a sharp major key signature. The first step is to determine which key signatures are flat or sharp, given only the key signature's description of note name and accidental. Examining Figures \ref{major_sharp} and \ref{major_flat} again, we notice the following patterns:
+The question now becomes how to determine the last sharp in a sharp major key signature. The first step is to determine which key signatures are flat or sharp, given only the key signature's description of note name and accidental. Examining Figures \ref{major_sharp_keys} and \ref{major_flat_keys} again, we notice the following patterns:
 \begin{enumerate}
-\item  Any key  signature with a flat in its name (i.e. A\musFlat \; major) is a flat key signature. However, the only valid key signatures with flats in their names (i.e. those that do not have double sharps or flats and thus appear in Figures \ref{major_sharp} and \ref{major_flat}) are those whose note name $n$ satisfies $n \geq $\;C in the order of sharps.
-\item  Any key  signature with a sharp in its name (i.e. C\musSharp \; major) is a sharp key signature. However, the only valid key signatures with sharps in their names (i.e. those that do not have double sharps or flats and thus appear in Figures \ref{major_sharp} and \ref{major_flat}) are those whose note name $n$ satisfies $n \leq $\;C in the order of sharps.
+\item  Any key  signature with a flat in its name (i.e. A\musFlat \; major) is a flat key signature. However, the only valid key signatures with flats in their names (i.e. those that do not have double sharps or flats and thus appear in Figures \ref{major_sharp_keys} and \ref{major_flat_keys}) are those whose note name $n$ satisfies $n \geq $\;C in the order of sharps.
+\item  Any key  signature with a sharp in its name (i.e. C\musSharp \; major) is a sharp key signature. However, the only valid key signatures with sharps in their names (i.e. those that do not have double sharps or flats and thus appear in Figures \ref{major_sharp_keys} and \ref{major_flat_keys}) are those whose note name $n$ satisfies $n \leq $\;C in the order of sharps.
 \item  C major and F major are special cases. C major has zero sharps or flats, and F  major has one flat.
 \item  Any other key signature (which must have a natural in its name, i.e. G major) is a sharp key signature.
 \end{enumerate}
 
-%%%%%%% PUT IN REFERENCE TO GITHUB LINKS TO FILES
-If we are in a sharp key signature, the rule from music theory is that the last sharp is half a step down from the tonic (i.e. key) note name. However, to determine the name of the note below a given note, we must define a second ordering of the ADT \verb.NoteName. Recall that \verb.NoteName., but uses the order of sharps for this. Thus, to order note names in the order they occur in a scale (i.e. CDEFGAB), we create a custom instance of the \verb.ENUM. typeclass for \verb.NoteName. (see: \href{https://github.com/ilanashapiro/MusAssist/blob/main/app/MusAssistAST.hs#L21}{here}). Notably, making \verb.NoteName. an instance of \verb.ENUM. does not define a second set of comparison definitions that defy \verb.NoteName.'s derivation of \verb.Ord. (i.e. F is still less than C), but it gives us access to the functions \verb.succ. and \verb.pred. that will return the previous or next \verb.NoteName. based on the scale ordering CDEFGAB. In \verb.NoteName.'s custom instance of \verb.Enum., \verb.succ. and \verb.pred. are both defined circularly. Thus, \verb.succ B. is C, and \verb.pred C. is B.
+If we are in a sharp key signature, the rule from music theory is that the last sharp is half a step down from the tonic (i.e. key) note name. However, to determine the name of the note below a given note, we must define a second ordering of the ADT \verb.NoteName.. Recall that \verb.NoteName. already derives \verb.Ord., but uses the order of sharps for this. Thus, to order note names in the order they occur in a scale (i.e. CDEFGAB), we create a custom instance of the \verb.Enum. typeclass for \verb.NoteName. (see: \href{https://github.com/ilanashapiro/MusAssist/blob/main/app/MusAssistAST.hs#L21}{here}). Notably, making \verb.NoteName. an instance of \verb.Enum. does not define a second set of comparison definitions that defy \verb.NoteName.'s derivation of \verb.Ord. (i.e. F is still less than C), but it gives us access to the functions \verb.succ. and \verb.pred. that will return the previous or next \verb.NoteName. based on the scale ordering CDEFGAB. In \verb.NoteName.'s custom instance of \verb.Enum., \verb.succ. and \verb.pred. are both defined circularly. Thus, \verb.succ B. is C, and \verb.pred C. is B.
 
 Thus, if we are in a sharp key signature, to determine the name of the last sharp in the key, we can simply call \verb.pred. on the tonic (i.e. key) note name. To get the index of this resulting \verb.NoteName. in the order of sharps, we simply look up its index in the list \verb.globalOrderOfSharps. (accounting of course for the zero-indexing of lists).
 
 To summarize, the logic of determining the number of sharps or flats in a major key is:
 \begin{enumerate}
-\item Any key  signature with a flat in its name, and whose note name $n$ satisfies $n \geq $\;C in the order of sharps, is a valid flat key signature. We look up the index of $n$ in \verb.globalOrderOfSharps. to get $i$, and the key thus has $7-(i-1)$ flats.
+\item Any key  signature with a flat in its name, and whose note name $n$ satisfies $n \geq $\;C in the order of sharps, is a valid flat key signature. We look up the index of $n$ in \verb.globalOrderOfSharps. (accounting for the zero-indexing of \verb.globalOrderOfSharps.) to get $i$, and the key thus has $7-(i-1)$ flats.
 \item Any key  signature with a sharp in its name, and whose note name $n$ satisfies $n \leq $\;C in the order of sharps, is a valid sharp key signature. \verb.pred n. gives us $n'$, the note name of the last sharp in the key signature. The index of $n'$ in \verb.globalOrderOfSharps. tells us how many sharps the key signature has (accounting for the zero-indexing of \verb.globalOrderOfSharps.)
 
 \item Any key  signature with a natural in its name is a key signature. C major (zero sharps or flats) and F major (one flat) are special cases. All other such key signatures are sharp key signatures, and the number of sharps is determined in the same way as just discussed.
@@ -1107,33 +1105,32 @@ Minor keys in red are invalid (i.e. contain double sharps or flats). However, th
 \item If $a=\musFlat$, then if $n \geq$ D in the order of sharps, the accidental of its relative major is \musNatural. Otherwise, it is \musFlat.
 \end{enumerate}
 
-Since we go up a minor third from $n$, the tonic of the minor key, to get  the note name of the relative major, we simply call \verb.succ. twice on $n$ to get the note name of the relative major.
+Finally, since we go up a minor third from $n$, the tonic of the minor key, to get  the note name of the relative major, we simply call \verb.succ. twice on $n$ to get the note name of the relative major.
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Intermediate Expressions}
 \label{sec:irexpr}
 
-The \verb.IntermediateExpr.s \verb.FinalExpr Expr., \verb.Note Tone Duration., \verb.Label Label. have relatively simple expansions. 
+The intermediate expressions \verb.FinalExpr Expr., \verb.Note Tone Duration., \verb.Label Label. have relatively simple expansions. 
 
 For \verb.FinalExpr.s, the \verb.Expr. parameter is simply returned (think of this as ``unwrapping" \verb.FinalExpr Expr.). 
 
-A \verb.Note. will get expanded to a single-tone \verb.Chord.
+A \verb.Note. will get expanded to a single-tone \verb.Chord..
 
-In terms of \verb.Label.s, when the \verb.IntermediateInstr. \verb.IRAssign Label [IntermediateExpr]. gets translated to the the \verb.IntermediateInstr. \verb.Assign Label [Expr]., the list of expanded \verb.Expr.s is stored in a symbol table mapped to the label name. Then, when expanding \verb.Label., the label name is simply queried in the symbol table, and the list of expanded expressions for that label is returned to replace the label reference. This desugaring step must occur in the intermediate representations stage of the compiler rather than the code generation stage for reasons that will be discussed in \Cref{chap:codegen}.
-%-----DISCUSS THE REASON ABOUT BEATS WITHIN MEASURE
+In terms of \verb.Label.s, when the intermediate instruction \verb.IRAssign Label [IntermediateExpr]. gets translated to the  intermediate instruction \verb.Assign Label [Expr]., the list of expanded \verb.Expr.s is stored in a symbol table mapped to the label name. Then, when expanding \verb.Label., the label name is simply queried in the symbol table, and the list of expanded expressions for that label is returned to replace the label reference. This desugaring step must occur in the intermediate representations stage of the compiler rather than the code generation stage for reasons that will be discussed in \Cref{chap:codegen}.
 
 All the other templates described in \verb.IntermediateExpr. have more complex expansions. On a high level, a \verb.ChordTemplate. will get expanded to a multi-note \verb.Chord., and \verb.Cadence. and a \verb.HarmonicSequence. each will get expanded to a list of multi-note \verb.Chord.s.
 
-The expansion of template expressions occurs in \verb.expandIntermediateExpr.
+The expansion of template expressions occurs in \verb.expandIntermediateExpr..
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \subsection{Chord Templates}
 \label{sec:chordtemplates}
 Recall that a chord template contains information about its root note, quality, type, inversion, and duration. It will get expanded to the list of notes (i.e. tones) that it describes.
 
-Expansion of chord templates begins with validity checks: that (1) the chord root is not a double sharp or flat (MusAssist does not support this), and (2) that the chord is not a half diminished triad (impossible according to music theory). After this, each of the notes of the chord is determined.
+Expansion of chord templates begins with validity checks: that (1) the chord root is not a double sharp or flat (MusAssist does not support this), and (2) that the chord is not a half diminished triad (impossible according to music theory). After this, each of the notes of the chord are determined.
 
-To do this, a helper function called \verb.generateToneWithinScale. was created. This function, given the tonic tone and quality (either major or minor), will generate the tone within that diatonic scale given the desired interval from the tonic (must be between 1 and 6, i.e. within one octave of the tonic). 
+To do this, a helper function called \verb.generateToneWithinScale. was created. This function, given the tonic tone and quality (either major or minor), will generate the tone within that diatonic scale given the desired interval from the tonic (must be between 0 and 6, i.e. within one octave of the tonic). 
 
 In \verb.generateToneWithinScale., determining the note name of the desired tone within the scale based on interval is straightforward: simply apply \verb.succ. to the tonic note $n$ times, where $n$ is the interval from the tonic. Recall that \verb.succ. is defined in the custom Enum instance of the NoteName ADT and is based on the order of notes in a scale, not the order of sharps like the \verb.Ord. derivation is.
 
