@@ -556,7 +556,7 @@ These MusAssist expressions,  respectively, translate to the following when  com
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.7\textwidth]{images/perfauth}
-  \caption{Perfect Authentic Cadence in E\musFlat minor}
+  \caption{Perfect Authentic Cadence in E\musFlat\; minor}
 \end{figure}
 
 \begin{figure}[h!]
@@ -1337,7 +1337,7 @@ We have thus split the result sets into \verb.(succ2Cases, succCases). In order 
 
 The special octave key names and their respective associated octave alteration functions are thus determined for the ascending fifths sequence. An identical analysis can be applied to the remaining sequences to determine their octave information.
 
-For the descending fifths sequences, Figures \ref{fig:desc_fifths_octave_grid} and \ref{fig:desc_fifths_octave_analysis} similarly describe the relationship between chord index and octave number relative to the first chord in the sequence. Notice here that rather than \verb.succ. and \verb.succ2., we have \verb.pred. and \verb.pred2. (shorthand for \verb!pred . pred!), indicating that octave numbers are lowered by one or two from the first chord, depending on the chord index.
+For the descending fifths sequence, Figures \ref{fig:desc_fifths_octave_grid} and \ref{fig:desc_fifths_octave_analysis} similarly describe the relationship between chord index and octave number relative to the first chord in the sequence. Notice here that rather than \verb.succ. and \verb.succ2., we have \verb.pred. and \verb.pred2. (shorthand for \verb!pred . pred!), indicating that octave numbers are lowered by one or two from the first chord, depending on the chord index.
 
 \begin{figure}[h!]
 \centering
@@ -1353,7 +1353,7 @@ For the descending fifths sequences, Figures \ref{fig:desc_fifths_octave_grid} a
   \label{fig:desc_fifths_octave_analysis}
 \end{figure}
 \newpage
-Like the ascending fifths sequence, here we can similarly use the conclusions from Figures \ref{fig:desc_fifths_octave_grid} and \ref{fig:desc_fifths_octave_analysis} to write the following code to determine the special octave cases (i.e. key names) and their associated respective functions for the descending fifths sequence.
+Like the ascending fifths sequence, here we can similarly use the conclusions from Figures \ref{fig:desc_fifths_octave_grid} and \ref{fig:desc_fifths_octave_analysis} to write the following code to determine the special octave cases (i.e. key names) and their respective associated alteration functions for the descending fifths sequence.
 
 \begin{verbatim}
     if even nextIndexInSeq 
@@ -1367,26 +1367,30 @@ Like the ascending fifths sequence, here we can similarly use the conclusions fr
             else (predCases, pred)
 \end{verbatim}
 
-Notice that here we also have to split the result sets for $f(i) = \frac{i-7}{2}$ when $i \in \{9,11,13\}$. Just like before, we have $f(i) \cap f(i)' = \emptyset$, and $f(i) \cup f(i)' =$ C major scale. We can thus definitely the split  the relation into two cases to make it a function with the following line:
+Notice that here we also have to split the result sets for $f(i) = \frac{i-7}{2}$ when $i \in \{9,11,13\}$. Just like before, we have $f(i) \cap f(i)' = \emptyset$, and $f(i) \cup f(i)' =$ C major scale. We can thus definitively split  the relation into two cases to make it a function with the following line:
 
 \verb.let (pred2Cases, predCases) = splitAt ((nextIndexInSeq - 7) `div` 2) cMajScaleNotesAsc.
 
 and depending which result set the tonic note name is in, we know to return that result set and its associated octave alteration function (i.e. either \verb.(pred2Cases, pred2). or \verb.(predCases, pred).).
 
-We continue this analysis for the ascending 5-6 sequence.
+We continue this analysis for the ascending 5-6 sequence in Figures \ref{fig:asc_56_octave_grid} and \ref{fig:asc_56_octave_analysis}.
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.4\textwidth]{images/asc56_octave_grid}
   \caption{Ascending 5-6 Octave Table}
+  \label{fig:asc_56_octave_grid}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.7\textwidth]{images/asc56_octave_analysis}
   \caption{Ascending 5-6 Octave Analysis}
+  \label{fig:asc_56_octave_analysis}
 \end{figure}
 \newpage
+
+From these tables, we come up with the following code:
 
 \begin{verbatim}
     if even nextIndexInSeq 
@@ -1398,20 +1402,22 @@ We continue this analysis for the ascending 5-6 sequence.
     else ([], const nextTonicOctave)  
 \end{verbatim}
 
-Note that here, we do not need to split up the  result sets for any of the relations,  as they are all functions to begin with (i.e. each index maps to a single result set). However, we do have one new case: the final line, \verb.([], const nextTonicOctave)., in which no special octave cases exist for that index. Specifically, in this case, the index 5 chord in the ascending 5-6 sequence (i.e. the sixth chord due to zero-indexing) is simply the first chord again, albeit in a different inversion, and thus always has the same octave number as the first chord, no matter the key name. \verb.const nextTonicOctave. is therefore placeholder for this case when there is  no special octave function to be applied.
+\noindent Note that here, we do not need to split up the  result sets for any of the relations,  as they are all functions to begin with (i.e. each index maps to a single result set). However, we do have one new case: the final line, \verb.([], const nextTonicOctave)., in which no special octave cases exist for that index. Specifically, in this case, the index 5 chord in the ascending 5-6 sequence (i.e. the sixth chord due to zero-indexing) is simply the first chord again, albeit in a different inversion, and thus always has the same octave number as the first chord, no matter the key name. \verb.const nextTonicOctave. is therefore a placeholder for this case when there is  no special octave function to be applied.
          
-Finally, we apply the analysis one more time for the descending 5-6 sequence.
+Finally, we apply the analysis one more time for the descending 5-6 sequence, as see in Figures \ref{fig:desc_56_octave_grid} and  \ref{fig:desc_56_octave_analysis}.
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.4\textwidth]{images/desc56_octave_grid}
   \caption{Descending 5-6 Octave Table}
+  \label{fig:desc_56_octave_grid}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=\textwidth]{images/desc56_octave_analysis}
   \caption{Descending 5-6 Octave Analysis}
+  \label{fig:desc_56_octave_analysis}
 \end{figure}
 \newpage
 
@@ -1436,38 +1442,38 @@ Note that for the first time, we have three octave function cases: \verb.pred., 
     else ([], const nextTonicOctave) 
 \end{verbatim}
 
-Here, we must split two relations, $f_1(i) = i-7$, where $i \in \{8,10,12\}$, and $f_2(i) = 1$, where $i =13$, into two respective result sets in order to make them functions. Just like before, we have $f_1(i) \cap f_1(i)' = f_2(i) \cap f_2(i)' = \emptyset$ for the respective valid values of $i$, as well as $f_1(i) \cup f_1(i)' = f_2(i) \cup f_2(i)' =$ C major scale, for the respective valid values of $i$. We can thus definitely the split both relations into two cases to make them each a function, with the following lines taken from the above code:
+Here, we must split two relations, $f_1(i) = i-7$, where $i \in \{8,10,12\}$, and $f_2(i) = 1$, where $i =13$, into two respective result sets in order to make them functions. Just like before, we have $f_1(i) \cap f_1(i)' = f_2(i) \cap f_2(i)' = \emptyset$ for the respective valid values of $i$, as well as $f_1(i) \cup f_1(i)' = f_2(i) \cup f_2(i)' =$ C major scale, for the respective valid values of $i$. We can thus definitively split both relations into two cases to make them each a function, with the following lines taken from the above code:
 
-\verb.let (pred2Cases, predCases) = splitAt (nextIndexInSeq - 7) cMajScaleNotesAsc. \\(for $i \in \{8,10,12\}$)
+\noindent \verb.let (pred2Cases, predCases) = splitAt (nextIndexInSeq - 7) cMajScaleNotesAsc. \\(for $i \in \{8,10,12\}$)
 
 \noindent and 
 
-\verb.let (pred2Cases, predCases) = splitAt 1 cMajScaleNotesAsc. \\(for $i =13$)
+\noindent \verb.let (pred2Cases, predCases) = splitAt 1 cMajScaleNotesAsc. \\(for $i =13$)
 
 Just as before, depending which result set the tonic note name is in, we know to return that result set and its associated octave alteration function (i.e. for both $f_1$ and $f_2$, either \verb.(pred2Cases, pred2). or \verb.(predCases, pred).).
 
-Finally, notice that the \verb.const. function appears once again in the final line of the above code: \verb.([], const nextTonicOctave).  This is again the case in which no special octave cases exist for that index. Specifically, just like the ascending 5-6 sequence, the index 5 chord in the descending 5-6 sequence (i.e. the sixth chord due to zero-indexing) is simply the first chord again, albeit in a different inversion, and thus always has the same octave number as the first chord, no matter the key name.
+Finally, notice that the \verb.const. function appears once again in the final line of the above code: \verb.([], const nextTonicOctave)..  This again is the situation in which no special octave cases exist for that index. Specifically, just like the ascending 5-6 sequence, the index 5 chord in the descending 5-6 sequence (i.e. the sixth chord due to zero-indexing) is simply the first chord again, albeit in a different inversion, and thus always has the same octave number as the first chord, no matter the key name.
 
 We have thus determined how to find the interval and inversion of a chord in the sequence from the previous chord, and how to find the octave number of a chord in the sequence. Importantly, the interval analysis holds for any representation of these harmonic sequences, as this is what defines the sequence. However, the inversion and octave analysis holds only for MusAssist's chosen representation of the sequences, as a different inversion pattern would deeply alter both of these analyses.
 
-We are now ready to generate the sequences. A generic sequence-generator helper function called \verb.generateSeq n. given $n$, the length (number of chords) in the sequence, was written to generate the sequence. \verb.generateSeq n. determines the next index  in the sequence (resetting to zero each  time the sequence repeats after 14 chords), either  increments or decrements the tonic octave number after each cycle, determines the note name of the next chordal root based on the interval rule from the previous chord for that sequence, and determines the inversion based on the index. The special octave cases and associated octave functions are passed in based on the previously discussed analysis. \verb.generateSeq n. now has enough information to call  \verb.generateTriadWithinScale. to generate the desired chord for that index in the sequence, and then recurses to the next chord in the sequence until $n$ goes to zero. 
+We are now ready to generate the sequences. A generic sequence-generator helper function called \verb.generateSeq n. was written that, given $n$ (the length, or number of chords) in the sequence, generates the sequence. \verb.generateSeq n. determines the next index  in the sequence (resetting to zero each  time the sequence repeats after 14 chords), either  increments or decrements the tonic octave number after each cycle, determines the note name of the next chordal root based on the interval rule from the previous chord for that sequence, and determines the inversion based on the index. The special octave cases and associated octave functions are passed in based on the previously discussed analysis. \verb.generateSeq n. now has enough information to call  \verb.generateTriadWithinScale. to generate the desired chord for that index in the sequence, and then recurses to the next chord in the sequence until $n$ goes to zero. 
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \chapter{Code Generation}
 \label{chap:codegen}
-We are finally ready to generate MusicXML code from the abstract syntax. In order to do so, we must first comprehend MusicXML's syntax. 
+We are finally ready to generate MusicXML code from the abstract syntax. In order to do so, we must first comprehend MusicXML's concrete syntax. 
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{MusicXML Syntax}
 This section gives an overview of MusicXML's syntax as pertains to translations from MusAssist. A full and more detailed reference of MusicXML's syntax can be found \href{https://www.w3.org/2021/06/musicxml40/}{here}.
 
-Throughout the section, words in all caps (e.g. DURATION) are parameters.
+\noindent Throughout the section, words in all caps (e.g. DURATION) are parameters.
 
 \subsection{Header Code}
 \label{sec:xmlheader}
 Static MusicXML header code is generated for all MusAssist files that handles encoding, print and midi settings, and layout defaults. The tempo is also set to \musQuarter=80bpm. The header code can be found \href{https://github.com/ilanashapiro/MusAssist/blob/main/app/Compile.hs}{here}. This code was generated by exporting an empty MuseScore file to MusicXML.
 
-However, a critical part of the MusicXML header is left off the static header code until code generation: the program attributes. (This can be found (see \href{https://github.com/ilanashapiro/MusAssist/blob/main/app/MusicXMLgen.hs}{here}).
+However, a critical part of the MusicXML header is left off the static header code until code generation: the program attributes. (This can be found \href{https://github.com/ilanashapiro/MusAssist/blob/main/app/MusicXMLgen.hs}{here}).
 
 \begin{verbatim}
 <attributes>
@@ -1486,7 +1492,7 @@ However, a critical part of the MusicXML header is left off the static header co
 </attributes>
 \end{verbatim}
 
-The addition of the header attributes was delayed until code generation due to the NUM\_ACCIDENTALS parameter. By default, NUM\_ACCIDENTALS is set to zero, indicating a key signature of C major/A minor. However, if the user's first command is to set the key signature to something else, then the header attributes must be adjusted accordingly. Thus, the helper function \verb.globalHeaderCode fifths. that takes as a parameter the number of sharps or flats was created. \verb.fifths., which represents NUM\_ACCIDENTALS, is an integer taken from $[-7,7]$. Negative values indicate flats, while positive values indicates sharps.
+The addition of the header attributes was delayed until code generation due to the NUM\_ACCIDENTALS parameter. By default, NUM\_ACCIDENTALS is set to zero, indicating a key signature of C major/A minor. However, if the user's first command is to set the key signature to something else, then the header attributes must be adjusted accordingly. Thus, the helper function \verb.globalHeaderCode fifths. was created, that takes as a parameter the number of sharps or flats. \verb.fifths., which represents NUM\_ACCIDENTALS, is an integer taken from $[-7,7]$. Negative values indicate flats, while positive values indicates sharps.
 
 As for the remainder of the attributes code, the following sets the time signature to common time:
 \begin{verbatim}
@@ -1509,7 +1515,7 @@ Finally, notice the \verb.<divisions>4</divisions>. element at the top. The \ver
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \subsection{Notes and Chords}
 \label{sec:xmlnotes}
-A pitched note element in MusicXML has the following form:
+A pitched note element in MusicXML has the following form. (The \verb.*. and \verb.+. symbols are not part of the MusicXML code, and indicate optional lines. )
 
 \begin{verbatim}
 <note>
@@ -1534,13 +1540,13 @@ A pitched note element in MusicXML has the following form:
 
 \noindent (full details \href{https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/note/}{here})
 
-The * and + symbols are not part of the MusicXML code, and indicate optional lines. The * indicate lines that create a start and/or stop tie for the note. If a start or stop tie is used, it must be declared in the \verb.<notations>. element. If the note is not tied either way, the \verb.<notations>. element can be left off completely. The + denotes the optional chord and dot tags. The chord tag is included if the current note is part of a chord with the previous note, and the dot tag is included when the note has a dotted duration (e.g. dotted quarter note).
+The \verb.*. indicate lines that create a start and/or stop tie for the note. If a start or stop tie is used, it must be declared in the \verb.<notations>. element. If the note is not tied either way, the \verb.<notations>. element can be left off completely. The \verb.+. denotes the optional chord and dot tags. The \verb.<chord>. tag is included if the current note is part of a chord with the previous note, and the \verb.<dot>. tag is included when the note has a dotted duration (e.g. dotted quarter note).
 
 NOTE\_NAME is taken from the set \{A,B,C,D,E,F,G\}, and ACCIDENTAL is taken from the set $\{-2,-1,0,1,2\}$. ACCIDENTAL indicates the chromatic alteration of the pitch in the number of semitones. For instance, -2 indicates a double flat, and 1 indicates a single sharp. (MusicXML also supports additional values for ACCIDENTAL, such as 0.5 for microtones, that MusAssist does not support.) OCTAVE is an integer between 0 and 9 inclusive, though MusAssist only supports octaves 1 through 8.
 
 DURATION is a positive integer that indicates the number of division units this note should have. Recall from \Cref{sec:xmlheader} that in a translated MusAssist program, a DURATION value of 1 indicates a sixteenth note. Thus, a quarter note would have a DURATION value of 4, and so on.
 
-TYPE is the graphical type of the note based on its duration (excluding dotted durations). The possible MusAssist durations give that TYPE is taken from the set \{16th, eighth, quarter, half,  whole\} (``16th" is indeed represented numerically in MusicXML).
+TYPE is the graphical type of the note based on its duration (excluding dotted durations). The possible MusAssist durations give that TYPE is taken from the set \{\verb.16th, eighth, quarter, half, whole.\} (``16th" is indeed represented numerically in MusicXML).
 
 Finally, the \verb.<voice>. value is set to 1 for all MusAssist elements, as multiple voicing (the ability to have simultaneous lines occurring in a single measure) is a more advanced notation element that MusAssist does not currently support. 
 
@@ -1563,12 +1569,12 @@ A rest is a special kind of \verb.<note>. element, with the \verb.<rest/>. tag i
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \subsection{Measures}
 \label{sec:xmlmeasure}
-MusicXML measures are denoted by the opening tag \verb.</measure>. and the closing tag \verb.<measure number="NUMBER">., where NUMBER is a positive integer. All code within these tags belongs to that measure.
+MusicXML measures are denoted by the opening tag \verb.<measure number="NUMBER">. and the closing tag \verb.</measure>, where NUMBER is a positive integer. All code within these tags belongs to that measure.
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \subsection{Key Signatures}
 \label{sec:xmlkeysig}
-When the  key signature is changed after the beginning of the piece, the following  code is inserted at the beginning of the measure (i.e. directly after the opening \verb.</measure>. tag):
+When the  key signature is changed after the beginning of the piece, the following  code is inserted at the beginning of the measure (i.e. directly after the opening \verb.<measure number="NUMBER">. tag):
 
 \begin{verbatim}
 <attributes>
@@ -1578,11 +1584,11 @@ When the  key signature is changed after the beginning of the piece, the followi
 </attributes>
 \end{verbatim}
 
-Like in the header code, NUM\_ACCIDENTALS is an integer taken from $[-7,7]$.
+Like in the header code in \Cref{sec:xmlheader}, NUM\_ACCIDENTALS is an integer taken from $[-7,7]$.
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{MusicXML Code Generation}
-We are now ready to make the final translation from abstract syntax to MusicXML.
+We are now ready to make the final translation from abstract syntax to MusicXML. The source code can be found \href{https://github.com/ilanashapiro/MusAssist/blob/main/app/MusicXMLgen.hs}{here}.
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \subsection{State}
@@ -1593,20 +1599,24 @@ type MeasureCounter = IORef.IORef Int
 type KeySignature = IORef.IORef (Int, Int)
 \end{verbatim}
 
-Here, key signature is represented as a pair of (num sharps, num flats). At least one of (num sharps, num flats) should be zero. 
+Here, key signature is represented as a pair of (num sharps, num flats). At least one of (num sharps, num flats) should be zero, and each should be an integer taken from $[-7,7]$. 
 
-The 3-tuple of the IORefs for beat, measure, and key signature constitute the program state: \\\verb.type State = (BeatCounter, MeasureCounter, KeySignature). \verb.State. is passed around to each code generation function. 
+\noindent The 3-tuple of the IORefs for beat, measure, and key signature constitute the program state: 
+
+\verb.type State = (BeatCounter, MeasureCounter, KeySignature). 
+
+\noindent\verb.State. is passed around to each code generation function. 
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \subsection{Instructions Translation}
 
-Code generation begins with the function \verb.transInstrs.. Here, we translate the input list of instructions (i.e. the list of the ADT \verb.INSTR.) that is the result of the intermediate expansions. After doing so, we pad the final measure with rests if needed. To accomplish the measure padding, we create a helper function called \verb.generateNoteValueRationalDivisions.. (This function will later also be used for tied notes that spill into the next measure).
+Code generation begins with the function \verb.transInstrs.. Here, we translate the input list of instructions (i.e. the list of the ADT \verb.Instr.) that is the result of the intermediate expansions. After doing so, we pad the final measure with rests if needed. To accomplish the measure padding, we create a helper function called \verb.generateNoteValueRationalDivisions.. (This function will later also be used for tied notes that spill into the next measure).
 
-\verb.generateNoteValueRationalDivisions. uses a bimap (i.e. a map that supports two-way query) called \verb.globalDurationIntBimap. that maps values from the ADT \verb.Duration. to their associated numerical duration values in the MusicXML code. Again, these numbers are based on the value given to the \verb.<divisions>. element in the header. In other words, \verb.Sixteenth. gets mapped to 1, \verb.Eighth. gets mapped to 2, etc. \verb.generateNoteValueRationalDivisions. passes in the durations values from \verb.globalDurationIntBimap. in descending order, from greatest to least, to the helper function \verb.breakUpNoteValRationally. 
+\verb.generateNoteValueRationalDivisions. uses a bimap (i.e. a map that supports two-way query) called \verb.globalDurationIntBimap. that maps values from the ADT \verb.Duration. to their associated numerical duration values in the MusicXML code. Again, these numerical duration values are based on the value given to the \verb.<divisions>. element in the header. In other words, \verb.Sixteenth. gets mapped to 1, \verb.Eighth. gets mapped to 2, etc. \verb.generateNoteValueRationalDivisions. passes in the numerical duration values from \verb.globalDurationIntBimap. in descending order, from greatest to least, to the helper function \verb.breakUpNoteValRationally. 
 
- \verb.breakUpNoteValRationally. breaks up the given duration value into ``valid" duration values (i.e. into the numerical values that map to the values defined in the ADT \verb.Duration. in \verb.globalDurationIntBimap.). In order for this to work,  \verb.breakUpNoteValRationally. greedily breaks up the input duration value: it continually attempts to fill the input duration on the current level of recursion with the largest value from the list (i.e. the values from \verb.globalDurationIntBimap.) that is passed in. This is why the values from \verb.globalDurationIntBimap. are ordered from greatest to least before they are passed in. 
+ \verb.breakUpNoteValRationally. breaks up the given duration value into ``valid" duration values (i.e. into the numerical values that map to the values  in \verb.globalDurationIntBimap. that are defined in the ADT \verb.Duration.). In order for this to work,  \verb.breakUpNoteValRationally. greedily breaks up the input duration value: it continually attempts to fill the input duration on the current level of recursion with the largest value from the list (i.e. the values from \verb.globalDurationIntBimap.) that is passed in. This is why the values from \verb.globalDurationIntBimap. are ordered from greatest to least before they are passed in. 
 
-\verb.breakUpNoteValRationally. returns this ``rational break-up" of the given duration as a list of (\verb.Duration. ADT value, duration integer value) pairs, ordered either greatest to least (if we are at the beginning of a measure, like in the case of spilled  tied notes), or least to greatest (if we are not at the beginning of the measure, like in the cases of the first part of tied notes, or when we generate measure padding of rests for a partially filled measure). This ordering of rest values following standard music notation practices. 
+\verb.breakUpNoteValRationally. returns this ``rational break-up" of the given duration as a list of (\verb.Duration. ADT value, duration integer value) pairs, ordered either greatest to least (if we are at the beginning of a measure, like in the case of spilled  tied notes), or least to greatest (if we are not at the beginning of the measure, like in the cases of the first part of tied notes, or when we generate measure padding of rests for a partially filled measure). This ordering of rest values follows standard music notation practices. 
 
 The implementation of \verb.breakUpNoteValRationally. is as follows.
 
@@ -1631,7 +1641,7 @@ After the duration is broken up rationally, the helper function \verb.generateRe
 \subsection{Individual Instruction Translation}
 Going one level down, \verb.transInstrs. calls \verb.transInstr. to generate MusicXML code for each \verb.Instr. in the instructions list. This means we pattern match to four cases: \verb.KeySignature Int Int., \verb.NewMeasure., \verb.Write [Expr]., and \verb.Assign Label [Expr]. 
 
-As MusicXML code is generated, the current beat and measure number are handled in the function \verb.updateBeat. Whenever \verb.updateBeat. is called, the current beat IORef is incremented given the note duration parameter passed into the function. If we have reached the end of the measure (i.e. the updated beat count equals the time per measure) then we generate new measure code (see \Cref{sec:xmlmeasure}), increment the IORef for measure number, and reset the current beat to zero. Time per measure is set at 16 for all programs, since the enforced time signature for a MusAssist program is common time, which has 16 sixteenth notes. 
+As MusicXML code is generated, the current beat and measure number are handled in the function \verb.updateBeat.. Whenever \verb.updateBeat. is called, the current beat IORef is incremented given the note duration parameter passed into the function. If we have reached the end of the measure (i.e. the updated beat count equals the time per measure) then we generate new measure code (see \Cref{sec:xmlmeasure}), increment the IORef for measure number, and reset the current beat IORef to zero. Time per measure is set at 16 for all programs, since the enforced time signature for a MusAssist program is common time, which has 16 sixteenth notes. 
 
 \verb.updateBeat. is called whenever a note or rest is written, and returns new measure code (which is an empty list if we are not starting a new measure). The implementation of \verb.updateBeat. is as follows.
 
@@ -1656,14 +1666,14 @@ updateBeat noteDuration (currBeatCt, measureCt, _) = do
 
 Returning to \verb.transInstr., the translation of the instruction \verb.Assign Label [Expr]. does not generate any MusicXML code. 
 
-Like at the end of \verb.transInstrs., the translation of \verb.NewMeasure. calls \verb.generateNoteValueRationalDivisions. and \verb.generateRestsFromDivisions. to pad the rest of the current measure if necessary, and then generates MusicXML code to create a new measure. 
+Like at the end of \verb.transInstrs., the translation of \verb.NewMeasure. calls \verb.generateNoteValueRationalDivisions. and \verb.generateRestsFromDivisions. to pad the rest of the current measure with rests if necessary, and then generates MusicXML code to create a new measure. 
 
 The translation of \verb.Write [Exprs]. simply calls the function \verb.transExpr. (which will be discussed shortly) to unwrap and translate the expressions it contains, and concatenates the results to generate the resulting list of MusicXML codelines.
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \subsubsection{Key Signatures}
 
-The last case for \verb.transInstr., \verb.KeySignature Int Int., is slightly more complicated. After performing an error check that the key signature is valid (i.e. one or both of the arguments to \verb.KeySignature. must be zero, as a key signature cannot have sharps and flats), the current key signature, beat in the measure, and measure number are read from the IORefs in \verb.State.. If the new key signature is the same as the current one, empty code is returned, and \verb.State. is not updated. Otherwise, we pad the measure with rests if needed using \verb.generateNoteValueRationalDivisions. and \verb.generateRestsFromDivisions. 
+The last case for \verb.transInstr., \verb.KeySignature Int Int., is slightly more complicated. After performing an error check that the key signature is valid (i.e. one or both of the arguments to \verb.KeySignature. must be zero, as a key signature cannot have sharps and flats, and the non-zero argument must be an integer taken from $[-7,7]$), the current key signature, beat in the measure, and measure number are read from the IORefs in \verb.State.. If the new key signature is the same as the current one, empty code is returned, and \verb.State. is not updated. Otherwise, we pad the measure with rests if needed using \verb.generateNoteValueRationalDivisions. and \verb.generateRestsFromDivisions. 
 
 Then, we check if this key signature change occurs at the beginning of the first measure, which means this is the user's first instruction. If this is the case, we simply call \verb.globalHeaderCode fifths. from \Cref{sec:xmlheader}. Otherwise, we pad the current measure with rests and generate a new measure using \verb.generateNoteValueRationalDivisions., \verb.generateRestsFromDivisions., and \verb.updateBeat.. Then, finally, we generate MusicXML code for the new key signature (see \Cref{sec:xmlmeasure}), as MusicXML does not support mid-measure key signature changes. 
 
@@ -1679,15 +1689,15 @@ In the translation of \verb.Rest.s, we  have two cases:
 \begin{enumerate}
 \item The rest fits in the current measure. Here, we simply generate code for the entire rest (see \Cref{sec:xmlrest}).
 
-\item The rest spills over into the next measure. Here, we break up the rest duration into two pieces (1) what fits in the current measure (the ``initial duration", and (2) what  spills over (the ``spilled duration"). Then, we call \verb.generateRestsFromDivisions. twice, to generate rationally broken-up rests for for the initial duration and for the spilled duration. After we break up the initial rest duration rationally, we call \verb.updateBeat. to generate new measure code, and then we break up the spilled rests. 
+\item The rest spills over into the next measure. Here, we break up the rest duration into two pieces (1) what fits in the current measure (the ``initial duration"), and (2) what  spills over (the ``spilled duration"). Then, we break up the initial rest duration rationally,  call \verb.updateBeat. to generate new measure code, and break up the spilled rests rationally. Finally, we call \verb.generateRestsFromDivisions. twice to generate rationally broken-up rest MusicXML code for the initial duration and for the spilled duration. 
 
-\item Finally, we return initial rest code, new measure code, and spilled rest code. 
+\item We return a list with initial rest code, new measure code, and spilled rest code. 
 \end{enumerate}
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \subsubsection{Chords}
 
-In the translation of \verb.Chord.s, we first generate code for all the pitches. Recall that if \verb.[Tone]. has one element, then this \verb.Chord. is simply a note. All subsequent \verb.Tone.s in the list will receive a \verb.<chord/>. tag in the MusicXML translation (see: \Cref{sec:xmlnotes}). We accomplish this by using the Haskell function \verb.zipWith., and then \verb.concat., for all the tones in the list with their corresponding list indices. In other words, we zip together the tones and the list \verb.[0..]., which contains their indices. An index greater than zero tells us this tone is part of a chord.
+In the translation of \verb.Chord.s, we first generate code for all the pitches. Recall that if \verb.[Tone]. has one element, then this \verb.Chord. is simply a note. All subsequent \verb.Tone.s in the list will receive a \verb.<chord/>. tag in the MusicXML code (see: \Cref{sec:xmlnotes}). We accomplish this by using the Haskell function \verb.zipWith., and then \verb.concat., for all the tones in the list with their corresponding list indices. In other words, we zip together the tones and the list \verb![0..]!, which contains their indices. An index greater than zero tells us this tone is part of a multi-note chord.
 
 We then have two cases:
 \begin{enumerate}
@@ -1699,12 +1709,12 @@ We then have two cases:
 
 \item Call \verb.generateNoteValueRationalDivisions. for the initial duration. Take the head of the initial note divisions list, and create a chord from it with start tie only. Then, we call the helper function \verb.generateTiedNotesFromDivisions. on the remaining initial note divisions. \verb.generateTiedNotesFromDivisions. takes in a list of pitches code and a list of (\verb.Duration. ADT value, duration integer value) pairs, and generates chords from these pitches and durations that each have with both start and stop ties.
 
-\item Call \verb.updateBeat., to generate new measure code. 
+\item Call \verb.updateBeat. to generate new measure code. 
 
-\item Call \verb.generateNoteValueRationalDivisions. for the initial duration. Call \verb.init. to take all but the last element of the spilled note divisions, and pass this into \verb.generateTiedNotesFromDivisions. to generate chords with both start and stop ties. Finally, take the last element of the spilled note divisions, and create a chord with stop tie only.
+\item Call \verb.generateNoteValueRationalDivisions. for the spilled duration. Call \verb.init. to take all but the last element of the spilled note divisions, and pass this into \verb.generateTiedNotesFromDivisions. to generate chords with both start and stop ties. Finally, take the last element of the spilled note divisions, and create a chord with stop tie only.
 \end{enumerate}
 
-\item Finally, we return the first initial note code with start tie only, remaining initial notes code with double ties, new measure code,  spilled notes code with double ties, and the final spilled note code with stop tie only.
+\item Finally, we return a list with the first initial chord code with start tie only, remaining initial chords code with double ties, new measure code,  spilled chords code with double ties, and the final spilled chord code with stop tie only.
 \end{enumerate}
 
 
@@ -1742,12 +1752,12 @@ notes1 chords1 (AscFifths G3 min quarter length:5) chords1
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \chapter{Future Work and Conclusion}
 \section{Future Work}
-Ideally, in the future MusAssist would support more complex musical states and elements including custom time signature and mid-composition time signature changes (similar to the behavior currently implemented for key signatures), clef changes within a part, multiple-clef parts (i.e. piano), multiple voicing within a part, custom parts (i.e. instruments), and multiple parts. Custom and changeable time signature would allow for the users to experiment with metric modulation, something that is currently impossible with the fixed common time setup. Clef changes within a part, both manual and automatic when a note extends too many ledger lines beyond a clef, would allow the score to be more nicely formatted and readable for the user. Support for two-clef piano would allow the MusAssist compiler to successfully modify how it generates cadences and harmonic sequences to include the essential baseline, in addition to the harmonization already implemented. Multiple voicing would allow for the user to create more complex musical lines, particularly with counterpoint. The latter two goals (custom parts and multiple parts) are somewhat outside MusAssist's goal as a music compositional aid, as this extends beyond the realm of music theory. However, users may enjoy this increased flexibility when composing.
+Ideally, in the future MusAssist would support more complex musical states and elements including custom time signature and mid-composition time signature changes (similar to the behavior currently implemented for key signatures), clef changes within a part, multiple-clef parts (i.e. piano), multiple voicing within a part, custom parts (i.e. instruments), and multiple parts. Custom and changeable time signature would allow for the users to experiment with metric modulation, something that is currently impossible with the fixed common time setup. Clef changes within a part, both manual and automatic when a note extends too many ledger lines beyond a clef, would allow the score to be more nicely formatted and readable for the user. Support for two-clef piano would allow the MusAssist compiler to successfully modify how it generates cadences and harmonic sequences to include the essential baseline, in addition to the harmonization already implemented. Multiple voicing would allow for the user to create more complex musical lines, particularly with counterpoint. The latter two goals (custom parts and multiple parts) are somewhat outside MusAssist's goal as a music compositional aid, as this extends beyond the realm of music theory. However, users may enjoy this increased flexibility when composing. Finally, in line with its goal of offering the user complex musical templates, it would be ideal for MusAssist to provide support for key modulation; e.g. generating a sequence of chords that successfully modulates from one key to another key.
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Conclusion}
-MusAssist is an external DSL whose Haskell-based compiler translates it to MusicXML that can be loaded into a major music notation software for further editing. Its syntax is simple and models the flow of thought a composer would have when writing music by hand. MusAssist fills a niche in the realm of musical DSLs by serving as a music compositional aid that is not intended to allow to the user to write a fully expressive musical piece, but rather to more easily create musical expressions that would be tedious to write by hand. The additional features described in the previous section would make the language align even more robustly with this goal. MuseScore can be further valuable as an education tool to music theory students, allowing them to visualize musical structures from the definitions that they describe in MusAssist.
+MusAssist is an external DSL whose Haskell-based compiler translates it to MusicXML that can be loaded into a major music notation software for further editing. Its syntax is simple and models the flow of thought a composer would have when writing music by hand. MusAssist fills a unique niche in the realm of musical DSLs by serving as a music compositional aid that allows the user to write specifications for complex musical templates at the levels of abstraction of the musical structures they describe. MusAssist is not intended to allow to the user to write a fully expressive musical piece, but rather to more easily create musical expressions that would be tedious to write by hand. For this reason, the output MusicXML file of a compiled MusAssist program is intentionally editable, rather than a static PDF format like a language such as LilyPond generates. MuseScore can be further valuable as an education tool to music theory students, allowing them to visualize musical structures from the definitions that they describe in MusAssist.
 
-Clearly, DSLs are a powerful mechanism to push the boundaries of  computational creativity in the field of music. Unfortunately, DSLs for music have not been studied extensively  and  remain an extremely comparatively small area of research, though scholars such as  Wang continue to lead  research in institutions such as Stanford's CCRMA (Center for Computer Research in Music and Acoustics). By continuing to examine the creative expressive power of DSLs  in  music, we can continue to increase our understanding of the creative capabilities and extent of customization possible for  a programming language.
+Clearly, DSLs are a powerful mechanism to push the boundaries of  computational creativity in the field of music. Scholars such as  Ge Wang continue to lead  research in institutions such as Stanford's CCRMA (Center for Computer Research in Music and Acoustics). By continuing to examine the creative expressive power of DSLs  in  music, we can continue to increase our understanding of the creative capabilities and extent of customization possible for  a programming language.
 
 \bibinput{referencesexercisebib} 
 \bibliography{referencesexercisebib}
