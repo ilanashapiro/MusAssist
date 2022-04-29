@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  28 APR 2022 18:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  28 APR 2022 19:36
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -600,17 +600,17 @@ Overfull \hbox (17.41034pt too wide) in paragraph at lines 345--346
  sixteenth) 
  []
 
-<images/custom1.png, id=501, 367.3725pt x 204.765pt>
-File: images/custom1.png Graphic file (type png)
-<use images/custom1.png>
-Package pdftex.def Info: images/custom1.png  used on input line 351.
-(pdftex.def)             Requested size: 163.40385pt x 91.07794pt.
-<images/custom2.png, id=502, 348.30125pt x 118.4425pt>
+<images/custom2.png, id=501, 348.30125pt x 118.4425pt>
 File: images/custom2.png Graphic file (type png)
 <use images/custom2.png>
-Package pdftex.def Info: images/custom2.png  used on input line 357.
+Package pdftex.def Info: images/custom2.png  used on input line 351.
 (pdftex.def)             Requested size: 163.40385pt x 55.56676pt.
-[20 <./images/a2.png> <./images/custom1.png> <./images/custom2.png>]
+<images/custom1.png, id=502, 367.3725pt x 204.765pt>
+File: images/custom1.png Graphic file (type png)
+<use images/custom1.png>
+Package pdftex.def Info: images/custom1.png  used on input line 357.
+(pdftex.def)             Requested size: 163.40385pt x 91.07794pt.
+[20 <./images/a2.png> <./images/custom2.png> <./images/custom1.png>]
 <images/cmintriad.png, id=514, 314.17375pt x 131.49126pt>
 File: images/cmintriad.png Graphic file (type png)
 <use images/cmintriad.png>
@@ -1194,7 +1194,7 @@ xmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2020/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2020/texm
 f-dist/fonts/type1/public/musixtex-fonts/musix11.pfb></usr/local/texlive/2020/t
 exmf-dist/fonts/type1/public/musixtex-fonts/musix16.pfb>
-Output written on "Shapiro Final Draft.pdf" (71 pages, 2225996 bytes).
+Output written on "Shapiro Final Draft.pdf" (71 pages, 2225876 bytes).
 PDF statistics:
  1119 PDF objects out of 1200 (max. 8388607)
  926 compressed objects within 10 object streams

@@ -348,13 +348,13 @@ These expressions,  respectively, translate to the following when compiled and l
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.38\textwidth]{images/custom1}
+\includegraphics[width=0.38\textwidth]{images/custom2}
 \caption{Half note chord with notes B\musFlat6, D\musDoubleFlat6, and C5 }
 \end{figure}
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.38\textwidth]{images/custom2}
+\includegraphics[width=0.38\textwidth]{images/custom1}
 \caption{Sixteenth note chord with notes C\musDoubleSharp 1 and E5}
 \end{figure}
 \newpage
@@ -810,7 +810,7 @@ Durations were not represented in the abstract syntax with a String alias in ord
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Qualities}
 
-Recall from \Cref{sec:chordtemplates}  that the set of all possible values for the concrete syntax \param{QUALITY} is:
+Recall from \Cref{sec:chordtemplatessyntax}  that the set of all possible values for the concrete syntax \param{QUALITY} is:
 \begin{verbatim}
 maj, min, aug, dim, halfdim
 \end{verbatim}
@@ -830,7 +830,7 @@ An ADT was better than a String alias to represent qualities in order to best en
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Chord Types}
 
-Recall from \Cref{sec:chordtemplates}  that the set of all possible values for the concrete syntax \param{CHORDTYPE} is:
+Recall from \Cref{sec:chordtemplatessyntax}  that the set of all possible values for the concrete syntax \param{CHORDTYPE} is:
 \begin{verbatim}
 triad, seventh
 \end{verbatim}
@@ -848,7 +848,7 @@ An ADT was better than a String alias to represent qualities in order to best en
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Cadence Types}
 
-Recall from \Cref{sec:chordtemplates}  that the set of all possible values for the concrete syntax \param{CADENCETYPE} is:
+Recall from \Cref{sec:chordtemplatessyntax}  that the set of all possible values for the concrete syntax \param{CADENCETYPE} is:
 \begin{verbatim}
 PerfAuthCadence, ImperfAuthCadence, HalfCadence, PlagalCadence, DeceptiveCadence
 \end{verbatim}
@@ -868,7 +868,7 @@ An ADT was better than a String alias to represent cadence types in order to bes
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Harmonic Sequence Types}
-Recall from \Cref{sec:harmseq}  that the set of all possible values for the concrete syntax \param{HARMSEQTYPE} is:
+Recall from \Cref{sec:chordtemplatessyntax}  that the set of all possible values for the concrete syntax \param{HARMSEQTYPE} is:
 
 \begin{verbatim}
 AscFifths, DescFifths, Asc56, Desc56
