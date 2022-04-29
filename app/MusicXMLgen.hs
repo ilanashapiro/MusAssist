@@ -304,8 +304,9 @@ transInstr state (MusAST.KeySignature numSharps numFlats) =
 
     IORef.writeIORef keySig (numSharps, numFlats)
     let remainingTimeInMeasure = globalTimePerMeasure - currentBeatCount
-        isStartFirstMeasure    = currentBeatCount == 0 && measureNum == 1
-        keySigFifthsVal = if numSharps > 0 then numSharps else -numFlats
+        isStartMeasure         = currentBeatCount == 0 
+        isStartFirstMeasure    = isStartMeasure && measureNum == 1
+        keySigFifthsVal        = if numSharps > 0 then numSharps else -numFlats
 
     -- i.e. we have NOT already changed the key sig in meas 1
     -- bc if the key sig is set at beginning of piece, don't go to the next measure to do it
@@ -323,9 +324,9 @@ transInstr state (MusAST.KeySignature numSharps numFlats) =
             "\t</attributes>"]
     restPaddingDivisions <- generateNoteValueRationalDivisions remainingTimeInMeasure False
     measurePadding       <- generateRestsFromDivisions restPaddingDivisions
-    newMeasureCode       <- updateBeat remainingTimeInMeasure state
+    newMeasureCode       <- updateBeat remainingTimeInMeasure state 
 
-    return $ measurePadding ++ newMeasureCode ++ newKeySigCode
+    return $ if isStartMeasure then newKeySigCode else measurePadding ++ newMeasureCode ++ newKeySigCode
 
 transInstr state (MusAST.Write exprs)
   | exprs == [] = return []

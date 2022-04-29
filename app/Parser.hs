@@ -212,10 +212,10 @@ left >>: v = left >> return v
 --------------------------------------------------------------------------------
 langDef :: Token.LanguageDef ()
 langDef = Token.LanguageDef
-  { Token.commentStart    = "//*"
-  , Token.commentEnd      = "*//"
+  { Token.commentStart    = ""
+  , Token.commentEnd      = ""
   , Token.commentLine     = "//"
-  , Token.nestedComments  = True
+  , Token.nestedComments  = False
   , Token.identStart      = letter -- identifier must start with a letter
   , Token.identLetter     = alphaNum <|> oneOf "_'" -- identifier can end with alphanum, or with _ or with '
   , Token.opStart         = oneOf "=" 
