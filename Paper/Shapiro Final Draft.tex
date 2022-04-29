@@ -1717,8 +1717,9 @@ At this point, all the MusicXML code has been generated, and we are ready to ope
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \chapter{Sample Programs}
-The following examples show MusAssist syntax, and the result of opening the compiled MusicXML code in MuseScore.
+The following examples show MusAssist syntax, and the result of opening the compiled MusicXML code in MuseScore. The two examples were created to demonstrate (1) the complexity that MusAssist is capable of and (2) that MusAssist programs can certainly sound diatonic and pleasing to the ear.
 
+\section{Example 1}
 \begin{verbatim}
 SET_KEY Amaj
 (D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest sixteenth)           
@@ -1740,8 +1741,40 @@ notes1 chords1 (AscFifths G3 min quarter length:5) chords1
 \begin{figure}[h!]
 \centering
 \includegraphics[width=\textwidth]{images/program1}
-  %\caption{}
+\caption{Example 1}
+\label{fig:ex1}
 \end{figure}
+
+\newpage
+
+\Cref{fig:ex1} sounds rather atonal when played, but is presented to demonstrated the full complexity of MusAssist's features. Notice how MusAssist automatically breaks up the tied note rationally in mm. 19-20.
+
+\section{Example 2}
+
+\begin{verbatim}
+SET_KEY Amaj
+SET_KEY Amaj
+(D4 eighth) (F#4 eighth) (A4 eighth) (F#4 eighth) (D4 quarter) (D4 maj triad inv:first quarter) 
+(rest half) // comment!!!
+notes1 = (E5 sixteenth) (B4 sixteenth) (G#4 sixteenth) (B4 sixteenth) (E5 sixteenth) 
+notes2 = (F5 sixteenth) (E4 maj triad inv:second eighth) (DeceptiveCadence A4 maj eighth) 
+chords1 = ([Bbb4, Db5, Fb5] dotted_quarter) (A4 maj triad inv:root eighth) 
+chords2 = ([A4, C5, D5, F5] half) (C4 aug seventh inv:third quarter) 
+chords3 = (C4 aug triad inv:second eighth) (B#3 maj seventh inv:third eighth)
+chords1 chords2 chords3 (rest half) notes1 notes2 (rest eighth)
+SET_KEY Gmin
+(DescFifths G5 min eighth length:15) (rest quarter)
+(rest sixteenth) (HalfCadence G4 maj half)
+\end{verbatim}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{images/program2}
+\caption{Example 2}
+\label{fig:ex2}
+\end{figure}
+
+\Cref{fig:ex2} sounds much more diatonic and pleasing to the ear, but is not as complex as \Cref{fig:ex1}. Notice how the key signature at the beginning of the score does not change twice, though the command appears consecutively in the code. Also notice how  we represented the same A major triad in m. 2 in two ways: as a custom collection of enharmonic notes, and then as a chord template.
 
 %--------------------------------------------------------------------------------------------------------------------------------------------------------
 \chapter{Future Work and Conclusion}

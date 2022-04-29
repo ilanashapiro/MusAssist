@@ -75,6 +75,8 @@
 \contentsline {subsubsection}{Rests}{62}{section*.51}%
 \contentsline {subsubsection}{Chords}{62}{section*.52}%
 \contentsline {chapter}{\numberline {7}Sample Programs}{64}{chapter.7}%
-\contentsline {chapter}{\numberline {8}Future Work and Conclusion}{66}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Future Work}{66}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Conclusion}{66}{section.8.2}%
+\contentsline {section}{\numberline {7.1}Example 1}{64}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Example 2}{65}{section.7.2}%
+\contentsline {chapter}{\numberline {8}Future Work and Conclusion}{67}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Future Work}{67}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Conclusion}{68}{section.8.2}%
