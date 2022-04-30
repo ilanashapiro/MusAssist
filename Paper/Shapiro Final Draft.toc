@@ -1,82 +1,82 @@
-\contentsline {chapter}{\numberline {1}Introduction}{3}{chapter.1}%
-\contentsline {chapter}{\numberline {2}Background}{5}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Programming Paradigms Used in Music DSLs}{6}{section.2.1}%
-\contentsline {subsection}{\numberline {2.1.1}Declarative Programming}{6}{subsection.2.1.1}%
-\contentsline {subsection}{\numberline {2.1.2}Functional Programming}{7}{subsection.2.1.2}%
-\contentsline {subsection}{\numberline {2.1.3}Object-Oriented Programming}{7}{subsection.2.1.3}%
-\contentsline {subsection}{\numberline {2.1.4}Synchronous Programming}{8}{subsection.2.1.4}%
-\contentsline {subsection}{\numberline {2.1.5}Strongly-Timed Programming}{8}{subsection.2.1.5}%
-\contentsline {section}{\numberline {2.2}Survey of External DSLs for Music}{9}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}LilyPond}{9}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}PyTabs}{9}{subsection.2.2.2}%
-\contentsline {subsection}{\numberline {2.2.3}LCSynth}{10}{subsection.2.2.3}%
-\contentsline {subsection}{\numberline {2.2.4}LC}{10}{subsection.2.2.4}%
-\contentsline {subsection}{\numberline {2.2.5}mimium}{11}{subsection.2.2.5}%
-\contentsline {section}{\numberline {2.3}Survey of Internal DSLs for Music}{12}{section.2.3}%
-\contentsline {subsection}{\numberline {2.3.1}MusicXML}{12}{subsection.2.3.1}%
-\contentsline {subsection}{\numberline {2.3.2}HMusic}{13}{subsection.2.3.2}%
-\contentsline {subsection}{\numberline {2.3.3}T-calculus}{13}{subsection.2.3.3}%
-\contentsline {section}{\numberline {2.4}Applications in Algorithmic Composition}{14}{section.2.4}%
-\contentsline {subsection}{\numberline {2.4.1}Skini}{14}{subsection.2.4.1}%
-\contentsline {subsection}{\numberline {2.4.2}Advantages of using DSLs over Virtual Machines (VMs) for Music}{15}{subsection.2.4.2}%
-\contentsline {section}{\numberline {2.5}Applications in HCI}{15}{section.2.5}%
-\contentsline {subsection}{\numberline {2.5.1}Computational Counterpoint Marks}{15}{subsection.2.5.1}%
-\contentsline {subsection}{\numberline {2.5.2}Research through Design}{16}{subsection.2.5.2}%
-\contentsline {section}{\numberline {2.6}Summary}{16}{section.2.6}%
-\contentsline {chapter}{\numberline {3}Language Features}{18}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Rests}{18}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Notes}{19}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Custom Chords}{20}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Chord Templates}{21}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Harmonic Sequences}{22}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Cadences}{24}{section.3.6}%
-\contentsline {section}{\numberline {3.7}Labeled Expressions}{25}{section.3.7}%
-\contentsline {section}{\numberline {3.8}Key Signatures}{26}{section.3.8}%
-\contentsline {section}{\numberline {3.9}New Measures}{27}{section.3.9}%
-\contentsline {section}{\numberline {3.10}Comments}{27}{section.3.10}%
-\contentsline {chapter}{\numberline {4}Lexing and Parsing}{28}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Note Names}{28}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Accidentals}{29}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Octaves}{29}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Inversions}{30}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Length}{30}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Labels}{30}{section.4.6}%
-\contentsline {section}{\numberline {4.7}Durations}{30}{section.4.7}%
-\contentsline {section}{\numberline {4.8}Qualities}{31}{section.4.8}%
-\contentsline {section}{\numberline {4.9}Chord Types}{31}{section.4.9}%
-\contentsline {section}{\numberline {4.10}Cadence Types}{32}{section.4.10}%
-\contentsline {section}{\numberline {4.11}Harmonic Sequence Types}{32}{section.4.11}%
-\contentsline {section}{\numberline {4.12}Tones}{33}{section.4.12}%
-\contentsline {section}{\numberline {4.13}Intermediate Expressions}{33}{section.4.13}%
-\contentsline {section}{\numberline {4.14}Intermediate Instructions}{34}{section.4.14}%
-\contentsline {section}{\numberline {4.15}Final Remarks}{34}{section.4.15}%
-\contentsline {chapter}{\numberline {5}Intermediate Representations}{36}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Intermediate Instructions}{36}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}Key Signatures}{36}{subsection.5.1.1}%
-\contentsline {subsubsection}{Major}{36}{section*.24}%
-\contentsline {subsubsection}{Minor}{38}{section*.27}%
-\contentsline {section}{\numberline {5.2}Intermediate Expressions}{40}{section.5.2}%
-\contentsline {subsection}{\numberline {5.2.1}Chord Templates}{40}{subsection.5.2.1}%
-\contentsline {subsection}{\numberline {5.2.2}Cadences}{45}{subsection.5.2.2}%
-\contentsline {subsection}{\numberline {5.2.3}Harmonic Sequences}{46}{subsection.5.2.3}%
-\contentsline {chapter}{\numberline {6}Code Generation}{56}{chapter.6}%
-\contentsline {section}{\numberline {6.1}MusicXML Syntax}{56}{section.6.1}%
-\contentsline {subsection}{\numberline {6.1.1}Header Code}{56}{subsection.6.1.1}%
-\contentsline {subsection}{\numberline {6.1.2}Notes and Chords}{57}{subsection.6.1.2}%
-\contentsline {subsection}{\numberline {6.1.3}Rests}{58}{subsection.6.1.3}%
-\contentsline {subsection}{\numberline {6.1.4}Measures}{59}{subsection.6.1.4}%
-\contentsline {subsection}{\numberline {6.1.5}Key Signatures}{59}{subsection.6.1.5}%
-\contentsline {section}{\numberline {6.2}MusicXML Code Generation}{59}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}State}{59}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Instructions Translation}{60}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}Individual Instruction Translation}{61}{subsection.6.2.3}%
-\contentsline {subsubsection}{Key Signatures}{62}{section*.50}%
-\contentsline {subsection}{\numberline {6.2.4}Expression Translation}{62}{subsection.6.2.4}%
-\contentsline {subsubsection}{Rests}{62}{section*.51}%
-\contentsline {subsubsection}{Chords}{62}{section*.52}%
-\contentsline {chapter}{\numberline {7}Sample Programs}{64}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Example 1}{64}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Example 2}{65}{section.7.2}%
-\contentsline {chapter}{\numberline {8}Future Work and Conclusion}{67}{chapter.8}%
-\contentsline {section}{\numberline {8.1}Future Work}{67}{section.8.1}%
-\contentsline {section}{\numberline {8.2}Conclusion}{68}{section.8.2}%
+\contentsline {chapter}{\numberline {1}Introduction}{4}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Background}{6}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Programming Paradigms Used in Music DSLs}{7}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Declarative Programming}{7}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Functional Programming}{8}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Object-Oriented Programming}{8}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.1.4}Synchronous Programming}{9}{subsection.2.1.4}%
+\contentsline {subsection}{\numberline {2.1.5}Strongly-Timed Programming}{9}{subsection.2.1.5}%
+\contentsline {section}{\numberline {2.2}Survey of External DSLs for Music}{10}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}LilyPond}{10}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}PyTabs}{10}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}LCSynth}{11}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.2.4}LC}{11}{subsection.2.2.4}%
+\contentsline {subsection}{\numberline {2.2.5}mimium}{12}{subsection.2.2.5}%
+\contentsline {section}{\numberline {2.3}Survey of Internal DSLs for Music}{13}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}MusicXML}{13}{subsection.2.3.1}%
+\contentsline {subsection}{\numberline {2.3.2}HMusic}{14}{subsection.2.3.2}%
+\contentsline {subsection}{\numberline {2.3.3}T-calculus}{14}{subsection.2.3.3}%
+\contentsline {section}{\numberline {2.4}Applications in Algorithmic Composition}{15}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Skini}{15}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Advantages of using DSLs over Virtual Machines (VMs) for Music}{16}{subsection.2.4.2}%
+\contentsline {section}{\numberline {2.5}Applications in HCI}{16}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}Computational Counterpoint Marks}{16}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Research through Design}{17}{subsection.2.5.2}%
+\contentsline {section}{\numberline {2.6}Summary}{17}{section.2.6}%
+\contentsline {chapter}{\numberline {3}Language Features}{19}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Rests}{19}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Notes}{20}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Custom Chords}{21}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Chord Templates}{22}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Harmonic Sequences}{23}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Cadences}{25}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Labeled Expressions}{26}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Key Signatures}{27}{section.3.8}%
+\contentsline {section}{\numberline {3.9}New Measures}{28}{section.3.9}%
+\contentsline {section}{\numberline {3.10}Comments}{28}{section.3.10}%
+\contentsline {chapter}{\numberline {4}Lexing and Parsing}{29}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Note Names}{29}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Accidentals}{30}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Octaves}{30}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Inversions}{31}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Length}{31}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Labels}{31}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Durations}{31}{section.4.7}%
+\contentsline {section}{\numberline {4.8}Qualities}{32}{section.4.8}%
+\contentsline {section}{\numberline {4.9}Chord Types}{32}{section.4.9}%
+\contentsline {section}{\numberline {4.10}Cadence Types}{33}{section.4.10}%
+\contentsline {section}{\numberline {4.11}Harmonic Sequence Types}{33}{section.4.11}%
+\contentsline {section}{\numberline {4.12}Tones}{34}{section.4.12}%
+\contentsline {section}{\numberline {4.13}Intermediate Expressions}{34}{section.4.13}%
+\contentsline {section}{\numberline {4.14}Intermediate Instructions}{35}{section.4.14}%
+\contentsline {section}{\numberline {4.15}Final Remarks}{35}{section.4.15}%
+\contentsline {chapter}{\numberline {5}Intermediate Representations}{37}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Intermediate Instructions}{37}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Key Signatures}{37}{subsection.5.1.1}%
+\contentsline {subsubsection}{Major}{37}{section*.25}%
+\contentsline {subsubsection}{Minor}{39}{section*.28}%
+\contentsline {section}{\numberline {5.2}Intermediate Expressions}{41}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Chord Templates}{41}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Cadences}{46}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Harmonic Sequences}{47}{subsection.5.2.3}%
+\contentsline {chapter}{\numberline {6}Code Generation}{57}{chapter.6}%
+\contentsline {section}{\numberline {6.1}MusicXML Syntax}{57}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Header Code}{57}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Notes and Chords}{58}{subsection.6.1.2}%
+\contentsline {subsection}{\numberline {6.1.3}Rests}{59}{subsection.6.1.3}%
+\contentsline {subsection}{\numberline {6.1.4}Measures}{60}{subsection.6.1.4}%
+\contentsline {subsection}{\numberline {6.1.5}Key Signatures}{60}{subsection.6.1.5}%
+\contentsline {section}{\numberline {6.2}MusicXML Code Generation}{60}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}State}{60}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Instructions Translation}{61}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Individual Instruction Translation}{62}{subsection.6.2.3}%
+\contentsline {subsubsection}{Key Signatures}{63}{section*.51}%
+\contentsline {subsection}{\numberline {6.2.4}Expression Translation}{63}{subsection.6.2.4}%
+\contentsline {subsubsection}{Rests}{63}{section*.52}%
+\contentsline {subsubsection}{Chords}{63}{section*.53}%
+\contentsline {chapter}{\numberline {7}Sample Programs}{65}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Example 1}{65}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Example 2}{66}{section.7.2}%
+\contentsline {chapter}{\numberline {8}Future Work and Conclusion}{68}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Future Work}{68}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Conclusion}{69}{section.8.2}%
