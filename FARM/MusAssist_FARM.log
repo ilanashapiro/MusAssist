@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  3 MAY 2022 23:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  4 MAY 2022 23:54
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -935,30 +935,52 @@ Package caption Info: End \AtBeginDocument code.
 
 Excluding 'CCSXML' comment.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 20.74pt on input line 257.
+(Font)              scaled to size 20.74pt on input line 209.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 20.74pt on input line 257.
+(Font)              scaled to size 20.74pt on input line 209.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 257.
+(Font)              scaled to size 12.0pt on input line 209.
+LaTeX Font Info:    Trying to load font information for T1+LinuxBiolinumT-TLF o
+n input line 209.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/libertine/T1LinuxBiolinumT-TLF.fd
+File: T1LinuxBiolinumT-TLF.fd 2017/03/20 (autoinst) Font definitions for T1/Lin
+uxBiolinumT-TLF.
+)
+LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
+(Font)              scaled to size 10.0pt on input line 209.
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `LinuxBiolinumT-TLF' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 12.0pt on input line 257.
+(Font)              scaled to size 10.0pt on input line 209.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LinuxLibertineT-TLF' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 8.8pt on input line 257.
-LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 6.6pt on input line 257.
-
-(/usr/local/texlive/2020/texmf-dist/tex/latex/microtype/mt-msa.cfg
+(Font)              scaled to size 7.3pt on input line 209.
+ (/usr/local/texlive/2020/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
 (/usr/local/texlive/2020/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
+
+pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./sampleteaser.pdf): PDF inc
+lusion: found PDF version <1.6>, but at most version <1.5> allowed
+<sampleteaser.pdf, id=115, 2055.68pt x 511.9125pt>
+File: sampleteaser.pdf Graphic file (type pdf)
+<use sampleteaser.pdf>
+Package pdftex.def Info: sampleteaser.pdf  used on input line 209.
+(pdftex.def)             Requested size: 505.89pt x 125.97815pt.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
+(Font)              scaled to size 10.0pt on input line 209.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
+(Font)              scaled to size 8.0pt on input line 209.
 LaTeX Font Info:    Trying to load font information for TS1+LinuxLibertineT-TLF
- on input line 257.
+ on input line 209.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/libertine/TS1LinuxLibertineT-TLF.
 fd
@@ -966,113 +988,79 @@ File: TS1LinuxLibertineT-TLF.fd 2017/03/20 (autoinst) Font definitions for TS1/
 LinuxLibertineT-TLF.
 )
 LaTeX Font Info:    Font shape `TS1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 8.8pt on input line 257.
+(Font)              scaled to size 8.0pt on input line 209.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LinuxLibertineT-TLF' (encoding: TS1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    Trying to load font information for T1+LinuxBiolinumT-TLF o
-n input line 257.
-
-(/usr/local/texlive/2020/texmf-dist/tex/latex/libertine/T1LinuxBiolinumT-TLF.fd
-File: T1LinuxBiolinumT-TLF.fd 2017/03/20 (autoinst) Font definitions for T1/Lin
-uxBiolinumT-TLF.
-)
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 257.
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `LinuxBiolinumT-TLF' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
-LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 257.
-LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 7.3pt on input line 257.
-
-
-pdfTeX warning: /Library/TeX/texbin/pdflatex (file ./sampleteaser.pdf): PDF inc
-lusion: found PDF version <1.6>, but at most version <1.5> allowed
-<sampleteaser.pdf, id=120, 2055.68pt x 511.9125pt>
-File: sampleteaser.pdf Graphic file (type pdf)
-<use sampleteaser.pdf>
-Package pdftex.def Info: sampleteaser.pdf  used on input line 257.
-(pdftex.def)             Requested size: 505.89pt x 125.97815pt.
+(Font)              scaled to size 8.0pt on input line 209.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 10.0pt on input line 257.
+(Font)              scaled to size 12.0pt on input line 209.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 6.2pt on input line 257.
-LaTeX Font Info:    Font shape `TS1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 6.2pt on input line 257.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 8.0pt on input line 257.
-LaTeX Font Info:    Font shape `TS1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 257.
-LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 257.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 12.0pt on input line 257.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 7.3pt on input line 257.
+(Font)              scaled to size 7.3pt on input line 209.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/it' will be
-(Font)              scaled to size 10.0pt on input line 257.
+(Font)              scaled to size 10.0pt on input line 209.
 LaTeX Font Info:    Font shape `TS1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 257.
+(Font)              scaled to size 10.0pt on input line 209.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 10.0pt on input line 257.
+(Font)              scaled to size 10.0pt on input line 209.
 
-Overfull \hbox (3.11588pt too wide) in paragraph at lines 257--257
+Overfull \hbox (3.11588pt too wide) in paragraph at lines 209--209
  []\T1/LinuxLibertineT-TLF/b/it/10 CCS Con-cepts: \TS1/LinuxLibertineT-TLF/m/n/
 10 ˆ \T1/LinuxLibertineT-TLF/b/n/10 Com-puter sys-tems or-ga-ni-za-tion $\LMS/n
 txsy/m/n/10 !$ \T1/LinuxLibertineT-TLF/b/n/10 Em-
  []
 
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 257.
+(Font)              scaled to size 9.0pt on input line 209.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
-(Font)              scaled to size 9.0pt on input line 257.
+(Font)              scaled to size 9.0pt on input line 209.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 9.0pt on input line 257.
+(Font)              scaled to size 9.0pt on input line 209.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 257.
+(Font)              scaled to size 9.0pt on input line 209.
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 9.0pt on input line 257.
+(Font)              scaled to size 9.0pt on input line 209.
 
-Overfull \hbox (8.57014pt too wide) in paragraph at lines 257--257
-\T1/LinuxLibertineT-TLF/m/n/9 (-20) Pa-tel, Huifen Chan, Charles Palmer, John S
-mith, and Julius P. Kumquat.
+Overfull \hbox (6.56386pt too wide) in paragraph at lines 215--216
+\T1/LinuxLibertineT-TLF/m/n/10 (-20) the di-vide be-tween com-puter sci-ence an
+d mu-sic the-ory. MusAs-
  []
 
-[1.1{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [1.1{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
  <./sampleteaser.pdf>]
-LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 27
-2.
-
-(/usr/local/texlive/2020/texmf-dist/tex/latex/inconsolata/t1zi4.fd
+LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 22
+5.
+ (/usr/local/texlive/2020/texmf-dist/tex/latex/inconsolata/t1zi4.fd
 File: t1zi4.fd 2018/01/14 T1/zi4 (Inconsolata)
 )
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 10.0pt on input line 272.
+(Font)              scaled to size 10.0pt on input line 225.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `zi4' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 7.3pt on input line 287.
+(Font)              scaled to size 7.3pt on input line 254.
 
-Overfull \hbox (1.40663pt too wide) in paragraph at lines 326--330
+Overfull \hbox (1.40663pt too wide) in paragraph at lines 258--262
 \T1/LinuxLibertineT-TLF/m/n/10 (-20) fer-ence sub-mis-sion. Anonymizes the work
  and in-cludes
  []
 
 [2.2]
-Overfull \hbox (3.33664pt too wide) in paragraph at lines 451--454
+Overfull \hbox (3.33664pt too wide) in paragraph at lines 383--386
 []\T1/LinuxLibertineT-TLF/m/n/10 (-20) User-defined key-words are a comma-separ
 ated list of words
  []
 
 
-Overfull \hbox (5.99104pt too wide) in paragraph at lines 461--465
+Overfull \hbox (5.99104pt too wide) in paragraph at lines 393--397
 [][]\T1/zi4/m/n/10 section[]\T1/LinuxLibertineT-TLF/m/n/10 (-20) , [][]\T1/zi4/
 m/n/10 subsection[]\T1/LinuxLibertineT-TLF/m/n/10 (-20) , [][]\T1/zi4/m/n/10 su
 bsubsection[]\T1/LinuxLibertineT-TLF/m/n/10 (-20) , and [][]\T1/zi4/m/n/10 para
@@ -1082,213 +1070,212 @@ graph[]\T1/LinuxLibertineT-TLF/m/n/10 (-20) . They
 [3.3]
 
 Package natbib Warning: Citation `Lamport:LaTeX' on page 4 undefined on input l
-ine 547.
+ine 479.
 
-<sample-franklin.png, id=172, 411.5375pt x 323.2075pt>
+<sample-franklin.png, id=165, 411.5375pt x 323.2075pt>
 File: sample-franklin.png Graphic file (type png)
 <use sample-franklin.png>
-Package pdftex.def Info: sample-franklin.png  used on input line 588.
+Package pdftex.def Info: sample-franklin.png  used on input line 520.
 (pdftex.def)             Requested size: 240.94499pt x 189.23097pt.
-[4.4 <./sample-franklin.png>]
-Overfull \hbox (10.37471pt too wide) in paragraph at lines 632--632
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Overfull \hbox (10.37471pt too wide) in paragraph at lines 564--564
 []    \T1/zi4/m/n/10 \includegraphics[width=\textwidth]{sampleteaser}[] 
  []
 
-
-Overfull \hbox (18.46985pt too wide) in paragraph at lines 643--645
+[4.4 <./sample-franklin.png>]
+Overfull \hbox (18.46985pt too wide) in paragraph at lines 575--577
 \T1/LinuxLibertineT-TLF/m/n/10 (-20) with these two com-mands, placed just be-f
 ore the [][]\T1/zi4/m/n/10 \end{document}
  []
 
 
-Package natbib Warning: Citation `Abril07' on page 5 undefined on input line 66
-2.
+Package natbib Warning: Citation `Abril07' on page 5 undefined on input line 59
+4.
 
 
-Package natbib Warning: Citation `Cohen07' on page 5 undefined on input line 66
-3.
-
-
-Package natbib Warning: Citation `JCohen96' on page 5 undefined on input line 6
-64.
-
-
-Package natbib Warning: Citation `Kosiur01' on page 5 undefined on input line 6
-64.
-
-
-Package natbib Warning: Citation `Harel79' on page 5 undefined on input line 66
-6.
-
-
-Package natbib Warning: Citation `Editor00' on page 5 undefined on input line 6
-67.
-
-
-Package natbib Warning: Citation `Editor00a' on page 5 undefined on input line 
-668.
-
-
-Package natbib Warning: Citation `Spector90' on page 5 undefined on input line 
-670.
-
-
-Package natbib Warning: Citation `Douglass98' on page 5 undefined on input line
- 671.
-
-
-Package natbib Warning: Citation `Knuth97' on page 5 undefined on input line 67
-2.
-
-
-Package natbib Warning: Citation `Andler79' on page 5 undefined on input line 6
-74.
-
-
-Package natbib Warning: Citation `Hagerup1993' on page 5 undefined on input lin
-e 674.
-
-
-Package natbib Warning: Citation `Smith10' on page 5 undefined on input line 67
+Package natbib Warning: Citation `Cohen07' on page 5 undefined on input line 59
 5.
 
 
-Package natbib Warning: Citation `VanGundy07' on page 5 undefined on input line
- 676.
+Package natbib Warning: Citation `JCohen96' on page 5 undefined on input line 5
+96.
 
 
-Package natbib Warning: Citation `Harel78' on page 5 undefined on input line 67
+Package natbib Warning: Citation `Kosiur01' on page 5 undefined on input line 5
+96.
+
+
+Package natbib Warning: Citation `Harel79' on page 5 undefined on input line 59
+8.
+
+
+Package natbib Warning: Citation `Editor00' on page 5 undefined on input line 5
+99.
+
+
+Package natbib Warning: Citation `Editor00a' on page 5 undefined on input line 
+600.
+
+
+Package natbib Warning: Citation `Spector90' on page 5 undefined on input line 
+602.
+
+
+Package natbib Warning: Citation `Douglass98' on page 5 undefined on input line
+ 603.
+
+
+Package natbib Warning: Citation `Knuth97' on page 5 undefined on input line 60
+4.
+
+
+Package natbib Warning: Citation `Andler79' on page 5 undefined on input line 6
+06.
+
+
+Package natbib Warning: Citation `Hagerup1993' on page 5 undefined on input lin
+e 606.
+
+
+Package natbib Warning: Citation `Smith10' on page 5 undefined on input line 60
 7.
 
 
-Package natbib Warning: Citation `Bornmann2019' on page 5 undefined on input li
-ne 678.
+Package natbib Warning: Citation `VanGundy07' on page 5 undefined on input line
+ 608.
 
 
-Package natbib Warning: Citation `AnzarootPBM14' on page 5 undefined on input l
-ine 678.
-
-
-Package natbib Warning: Citation `Clarkson85' on page 5 undefined on input line
- 678.
-
-
-Package natbib Warning: Citation `anisi03' on page 5 undefined on input line 67
+Package natbib Warning: Citation `Harel78' on page 5 undefined on input line 60
 9.
 
 
+Package natbib Warning: Citation `Bornmann2019' on page 5 undefined on input li
+ne 610.
+
+
+Package natbib Warning: Citation `AnzarootPBM14' on page 5 undefined on input l
+ine 610.
+
+
+Package natbib Warning: Citation `Clarkson85' on page 5 undefined on input line
+ 610.
+
+
+Package natbib Warning: Citation `anisi03' on page 5 undefined on input line 61
+1.
+
+
 Package natbib Warning: Citation `Thornburg01' on page 5 undefined on input lin
-e 680.
+e 612.
 
 
 Package natbib Warning: Citation `Ablamowicz07' on page 5 undefined on input li
-ne 680.
+ne 612.
 
 
-Package natbib Warning: Citation `Poker06' on page 5 undefined on input line 68
-0.
+Package natbib Warning: Citation `Poker06' on page 5 undefined on input line 61
+2.
 
 
-Package natbib Warning: Citation `Obama08' on page 5 undefined on input line 68
-1.
+Package natbib Warning: Citation `Obama08' on page 5 undefined on input line 61
+3.
 
 
-Package natbib Warning: Citation `Novak03' on page 5 undefined on input line 68
-1.
+Package natbib Warning: Citation `Novak03' on page 5 undefined on input line 61
+3.
 
 
-Package natbib Warning: Citation `Lee05' on page 5 undefined on input line 681.
+Package natbib Warning: Citation `Lee05' on page 5 undefined on input line 613.
 
 
 
 Package natbib Warning: Citation `JoeScientist001' on page 5 undefined on input
- line 682.
+ line 614.
 
 
-Package natbib Warning: Citation `rous08' on page 5 undefined on input line 683
+Package natbib Warning: Citation `rous08' on page 5 undefined on input line 615
 .
 
 
 Package natbib Warning: Citation `SaeediMEJ10' on page 5 undefined on input lin
-e 684.
+e 616.
 
 
 Package natbib Warning: Citation `SaeediJETC10' on page 5 undefined on input li
-ne 684.
+ne 616.
 
 
 Package natbib Warning: Citation `Kirschmer:2010:AEI:1958016.1958018' on page 5
- undefined on input line 686.
+ undefined on input line 618.
 
 
 Package natbib Warning: Citation `MR781536' on page 5 undefined on input line 6
-87.
+19.
 
 
 Package natbib Warning: Citation `MR781537' on page 5 undefined on input line 6
-87.
+19.
 
 
 Package natbib Warning: Citation `2004:ITE:1009386.1010128' on page 5 undefined
- on input line 689.
+ on input line 621.
 
 
 Package natbib Warning: Citation `Kirschmer:2010:AEI:1958016.1958018' on page 5
- undefined on input line 689.
+ undefined on input line 621.
 
 
 Package natbib Warning: Citation `TUGInstmem' on page 5 undefined on input line
- 690.
+ 622.
 
 
 Package natbib Warning: Citation `Thornburg01' on page 5 undefined on input lin
-e 690.
+e 622.
 
 
 Package natbib Warning: Citation `CTANacmart' on page 5 undefined on input line
- 690.
+ 622.
 
 
-Package natbib Warning: Citation `R' on page 5 undefined on input line 691.
+Package natbib Warning: Citation `R' on page 5 undefined on input line 623.
 
 
 Package natbib Warning: Citation `UMassCitations' on page 5 undefined on input 
-line 691.
+line 623.
 
 
-Overfull \hbox (27.39621pt too wide) in paragraph at lines 715--718
+Overfull \hbox (27.39621pt too wide) in paragraph at lines 647--650
 \T1/LinuxLibertineT-TLF/m/n/10 (-20) If your work needs an ap-pen-dix, add it b
 e-fore the ``[][]\T1/zi4/m/n/10 \end{document}[]\T1/LinuxLibertineT-TLF/m/n/10 
 (-20) ''
  []
 
 
-Overfull \hbox (43.21486pt too wide) in paragraph at lines 740--740
+Overfull \hbox (43.21486pt too wide) in paragraph at lines 672--672
 []\T1/zi4/m/n/10 \documentclass[sigconf, language=english, language=german,[] 
  []
 
 
-Overfull \hbox (16.36226pt too wide) in paragraph at lines 742--750
+Overfull \hbox (16.36226pt too wide) in paragraph at lines 674--682
 \T1/LinuxLibertineT-TLF/m/n/10 (-20) the main lan-guage of the pa-per. The com-
 mands [][]\T1/zi4/m/n/10 \translatedXXX[]\T1/LinuxLibertineT-TLF/m/n/10 (-20) ,
 
  []
 
-
-Underfull \vbox (badness 1102) has occurred while \output is active []
-
- [5.5]
+[5.5]
 LaTeX Font Info:    Font shape `T1/zi4/b/n' will be
-(Font)              scaled to size 10.0pt on input line 759.
-
-Processing 'acks' comment.
+(Font)              scaled to size 10.0pt on input line 691.
+ Processing 'acks' comment.
 \openout3 = `comment.cut'.
 
  Comment 'acks' writing to comment.cut.
 Straight input of comment.cut. (./comment.cut)
 No file MusAssist_FARM.bbl.
 
-Overfull \hbox (1.43195pt too wide) in paragraph at lines 788--793
+Overfull \hbox (1.43195pt too wide) in paragraph at lines 720--725
 \T1/LinuxLibertineT-TLF/m/n/10 (-20) Lorem ip-sum do-lor sit amet, con-secte-tu
 r adip-isc-ing elit. Morbi
  []
@@ -1296,30 +1283,38 @@ r adip-isc-ing elit. Morbi
 
 Package natbib Warning: There were undefined citations.
 
+
+Overfull \vbox (2.31001pt too high) has occurred while \output is active []
+
 Package atenddvi Info: Last page = 6.
+
 [6.6]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 814.
-Package atveryend Info: Executing hook `AfterLastShipout' on input line 814.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 746.
+Package atveryend Info: Executing hook `AfterLastShipout' on input line 746.
  (./MusAssist_FARM.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 814.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 814.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 746.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 746.
 Package rerunfilecheck Info: File `MusAssist_FARM.out' has not changed.
-(rerunfilecheck)             Checksum: EA91501EEFB0FD0471733E7AD6075C4A;4202.
+(rerunfilecheck)             Checksum: 8108BF6148A8E2AD41EE090CFE6CA296;4051.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
  ) 
 Here is how much of TeX's memory you used:
- 19541 strings out of 480608
- 296997 string characters out of 5903631
- 613820 words of memory out of 5000000
- 34560 multiletter control sequences out of 15000+600000
- 705054 words of font info for 313 fonts, out of 8000000 for 9000
+ 19466 strings out of 480608
+ 295419 string characters out of 5903631
+ 608652 words of memory out of 5000000
+ 34484 multiletter control sequences out of 15000+600000
+ 685193 words of font info for 285 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 63i,12n,100p,805b,603s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,11n,100p,1209b,603s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/inconsolata/i4-t1-4.enc}{
 /usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/libertine/lbtn_oexx6f.enc}{/
-usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/libertine/lbtn_ki75ao.enc}{/u
-sr/local/texlive/2020/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}{/us
-r/local/texlive/2020/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/usr
-/local/texlive/2020/texmf-dist/fonts/enc/dvips/libertine/lbtn_naooyc.enc}{/usr/
+usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/libertine/lbtn_7grukw.enc}{/u
+sr/local/texlive/2020/texmf-dist/fonts/enc/dvips/libertine/lbtn_naooyc.enc}{/us
+r/local/texlive/2020/texmf-dist/fonts/enc/dvips/libertine/lbtn_ki75ao.enc}{/usr
+/local/texlive/2020/texmf-dist/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{/usr/
 local/texlive/2020/texmf-dist/fonts/enc/dvips/libertine/lbtn_76gpa5.enc}{/usr/l
 ocal/texlive/2020/texmf-dist/fonts/enc/dvips/libertine/lbtn_nh77jq.enc}</usr/lo
 cal/texlive/2020/texmf-dist/fonts/type1/public/inconsolata/Inconsolata-zi4b.pfb
@@ -1336,10 +1331,10 @@ pe1/public/libertine/LinLibertineTI.pfb></usr/local/texlive/2020/texmf-dist/fon
 ts/type1/public/newtx/txexs.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1
 /public/newtx/txmiaX.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public
 /newtx/txsys.pfb>
-Output written on MusAssist_FARM.pdf (6 pages, 738589 bytes).
+Output written on MusAssist_FARM.pdf (6 pages, 731304 bytes).
 PDF statistics:
- 277 PDF objects out of 1000 (max. 8388607)
- 229 compressed objects within 3 object streams
- 45 named destinations out of 1000 (max. 500000)
- 56571 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 272 PDF objects out of 1000 (max. 8388607)
+ 224 compressed objects within 3 object streams
+ 44 named destinations out of 1000 (max. 500000)
+ 53491 words of extra memory for PDF output out of 61914 (max. 10000000)
 

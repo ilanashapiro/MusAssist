@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  29 APR 2022 17:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  4 MAY 2022 12:50
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1170,7 +1170,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1796.
 Here is how much of TeX's memory you used:
  12842 strings out of 480608
  217680 string characters out of 5903631
- 485133 words of memory out of 5000000
+ 485149 words of memory out of 5000000
  28246 multiletter control sequences out of 15000+600000
  541131 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1196,7 +1196,7 @@ xmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2020/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2020/texm
 f-dist/fonts/type1/public/musixtex-fonts/musix11.pfb></usr/local/texlive/2020/t
 exmf-dist/fonts/type1/public/musixtex-fonts/musix16.pfb>
-Output written on "Shapiro Final Draft.pdf" (72 pages, 2227402 bytes).
+Output written on "Shapiro Final Draft.pdf" (72 pages, 2227897 bytes).
 PDF statistics:
  1124 PDF objects out of 1200 (max. 8388607)
  930 compressed objects within 10 object streams
