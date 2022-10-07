@@ -613,10 +613,6 @@ INPUT C:\Users\Illana\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmmi6.tf
 INPUT C:\Users\Illana\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmsy8.tfm
 INPUT C:\Users\Illana\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmsy6.tfm
 INPUT C:\Users\Illana\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmr7t.tfm
-INPUT .\icmc2021template.bbl
-INPUT icmc2021template.bbl
-INPUT .\icmc2021template.bbl
-INPUT icmc2021template.bbl
 INPUT C:\Users\Illana\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmb7t.vf
 INPUT C:\Users\Illana\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmb8r.tfm
 INPUT C:\Users\Illana\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmr7t.vf
@@ -625,6 +621,10 @@ INPUT C:\Users\Illana\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmr7t.
 INPUT C:\Users\Illana\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmr8r.tfm
 INPUT C:\Users\Illana\AppData\Local\Programs\MiKTeX\fonts\vf\adobe\times\ptmr7t.vf
 INPUT C:\Users\Illana\AppData\Local\Programs\MiKTeX\fonts\tfm\adobe\times\ptmr8r.tfm
+INPUT .\icmc2021template.bbl
+INPUT icmc2021template.bbl
+INPUT .\icmc2021template.bbl
+INPUT icmc2021template.bbl
 INPUT icmc2021template.aux
 INPUT .\icmc2021template.out
 INPUT .\icmc2021template.out

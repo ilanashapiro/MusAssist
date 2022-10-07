@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.7) (preloaded format=pdflatex 2022.10.4)  6 OCT 2022 17:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.7) (preloaded format=pdflatex 2022.10.4)  7 OCT 2022 15:52
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -280,12 +280,12 @@ LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 19
  (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-Overfull \hbox (3.84525pt too wide) in paragraph at lines 226--234
+Overfull \hbox (3.84525pt too wide) in paragraph at lines 230--238
 []\OT1/ptm/m/n/10 Fundamentally, MusAs-sist sup-ports notes (in-clud-ing rests)
  []
 
 
-Overfull \hbox (2.37523pt too wide) in paragraph at lines 256--260
+Overfull \hbox (2.37523pt too wide) in paragraph at lines 260--264
 []\OT1/ptm/m/n/10 Michael Good's Mu-sicXML is an Internet-friendly, XML-
  []
 
@@ -294,24 +294,26 @@ Overfull \hbox (2.37523pt too wide) in paragraph at lines 256--260
 
 
 ]
-Overfull \hbox (6.60527pt too wide) in paragraph at lines 269--274
+Overfull \hbox (6.60527pt too wide) in paragraph at lines 273--278
 \OT1/ptm/m/n/10 How-ever, its flex-i-bil-ity and ex-pres-sive-ness make Mu-sicXML
  []
 
 
-Overfull \hbox (1.88477pt too wide) in paragraph at lines 269--274
+Overfull \hbox (1.88477pt too wide) in paragraph at lines 273--278
 \OT1/ptm/m/n/10 user-friendly syn-tax and high-level mu-si-cal the-o-ret-i-cal tem-
  []
 
 
-Overfull \hbox (0.82614pt too wide) in paragraph at lines 294--295
-[]\OT1/ptm/m/n/10 The first para-graph in each sec-tion should not be in-dented,
+Overfull \hbox (5.89522pt too wide) in paragraph at lines 279--284
+\OT1/ptm/m/n/10 Wen Nien-huys and Jan Nieuwen-huizen, is sim-i-lar to MusAs-
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 3492) has occurred while \output is active []
 
  [2]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 Package epstopdf Info: Source file: <figure.eps>
 (epstopdf)                    date: 2017-12-01 16:28:24
 (epstopdf)                    size: 620133 bytes
@@ -319,41 +321,43 @@ Package epstopdf Info: Source file: <figure.eps>
 (epstopdf)                    date: 2018-11-06 10:46:34
 (epstopdf)                    size: 19429 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=figure-eps-converted-to.pdf figure.eps>
-(epstopdf)             \includegraphics on input line 353.
+(epstopdf)             \includegraphics on input line 388.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./figure-eps-converted-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<figure-eps-converted-to.pdf, id=87, 127.47626pt x 88.33pt>
+<figure-eps-converted-to.pdf, id=96, 127.47626pt x 88.33pt>
 File: figure-eps-converted-to.pdf Graphic file (type pdf)
 <use figure-eps-converted-to.pdf>
-Package pdftex.def Info: figure-eps-converted-to.pdf  used on input line 353.
+Package pdftex.def Info: figure-eps-converted-to.pdf  used on input line 388.
 (pdftex.def)             Requested size: 209.97983pt x 145.50502pt.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 368.
+(Font)              <8> on input line 403.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 368.
-
-Overfull \hbox (2.37593pt too wide) in paragraph at lines 380--382
+(Font)              <6> on input line 403.
+[3 <./figure-eps-converted-to.pdf>]
+Overfull \hbox (2.37593pt too wide) in paragraph at lines 415--417
 []\OT1/ptm/m/n/10 Reference num-bers in the text should ap-pear within square
  []
 
-(icmc2021template.bbl) [3 <./figure-eps-converted-to.pdf>] (icmc2021template.aux)
+(icmc2021template.bbl) [4
+
+] (icmc2021template.aux)
 Package rerunfilecheck Info: File `icmc2021template.out' has not changed.
-(rerunfilecheck)             Checksum: 72A45482C98C0D8EDA2BB9E7E04C1A7E;2875.
+(rerunfilecheck)             Checksum: 22277FB56B4D8323F0F9D5083D082203;3272.
  ) 
 Here is how much of TeX's memory you used:
- 10048 strings out of 478338
- 166369 string characters out of 2836228
- 498507 words of memory out of 3000000
- 28302 multiletter control sequences out of 15000+600000
+ 10052 strings out of 478338
+ 166427 string characters out of 2836228
+ 497463 words of memory out of 3000000
+ 28303 multiletter control sequences out of 15000+600000
  487336 words of font info for 57 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  72i,14n,77p,543b,453s stack positions out of 10000i,1000n,20000p,200000b,80000s
 {C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on icmc2021template.pdf (3 pages, 135601 bytes).
+Output written on icmc2021template.pdf (4 pages, 140808 bytes).
 PDF statistics:
- 154 PDF objects out of 1000 (max. 8388607)
- 28 named destinations out of 1000 (max. 500000)
- 142 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 167 PDF objects out of 1000 (max. 8388607)
+ 31 named destinations out of 1000 (max. 500000)
+ 158 words of extra memory for PDF output out of 10000 (max. 10000000)
 

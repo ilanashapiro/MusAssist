@@ -219,9 +219,13 @@ When writing music, composers must manually transition from musical theoretical 
 This process can be tedious and slow, requiring the composer to expand complex structures, such as cadences and sequences,
 by hand to the notes that they constitute. The level of abstraction of the musical theoretical structure is 
 higher than what the composer actually writes. 
-MusAssist, an external, declarative domain specific language (DSL) for music notation, attempts bridge the divide between
-theory and notation. Users describe a composition in MusAssist's straightforward syntax, and the MusAssist compiler writes out the 
-music via these instructions.
+
+Domain specific languages, or DSLs, 
+are programming languages highly specialized for a specific application and thus characterized by limited expressiveness.
+An $external$ $DSL$ has custom syntax that is separated from the primary language of its application. 
+MusAssist is an external, declarative domain specific language (DSL) for music notation that attempts bridge the divide between
+music theory and notation. Users describe a composition in MusAssist's straightforward syntax, and 
+the MusAssist compiler writes out the music via these instructions.
 
 Fundamentally, MusAssist supports notes (including rests) and custom chords (i.e. any desired collection of notes)
 in the octave and key of choice, as well as change the key signature or start a new measure at any
@@ -251,7 +255,7 @@ algorithmic/generative processes for automated or semi-automatic composition and
 real-time music performance." %\citeparen{wang_2008}. 
 Since then, researchers have taken advantage of the increased flexibility afforded to DSLs via their limited expressiveness to create
 music DSLs tailored towards notation, algorithmic composition, signal processing, live coding with music performance, and more. In the 
- notation domain, MusicXML and LilyPond stand out.
+ notation domain, MusicXML, LilyPond, and PyTabs stand out.
 
 Michael Good's MusicXML is an Internet-friendly, XML-based, declarative DSL capable of representing Western music 
 notation and sheet music since c. 1600. 
@@ -273,8 +277,8 @@ its flexibility and expressiveness make MusicXML an excellent target
 compilation language for MusAssist's user-friendly syntax and high-level musical theoretical templates.
 
 LilyPond, an external declarative DSL created by Han-Wen Nienhuys and 
-Jan Nieuwenhuizen, is more similar to MusAssist. It features a "modular, extensible and programmable 
-compiler" written in Scheme to generate music notation of excellent quality and supports the mixing of text and music elements. 
+Jan Nieuwenhuizen, is similar to MusAssist. It features a "modular, extensible and programmable 
+compiler" written in Scheme to generate Western music notation of excellent quality and supports the mixing of text and music elements. 
 Text-based \textit{musical expressions}, or fragments of music with 
 set durations, are compiled to an aesthetically formatted score.
 
@@ -286,12 +290,43 @@ notation software (unlike LilyPond's compiler, which produces a static, printabl
 taking in a file with a formal representation of the desired music).
 %\cite{nienhuys_nieuwenhuizen_2003}.
 
-\section{Typeset Text}\label{sec:typeset_text}
+Simic et al.'s external, declarative DSL PyTabs similarly is geared toward music notation, but in a different
+domain than MusAssist. Specifically, 
+the authors attempt to solve visual problem of  tablature  notation, 
+and the lack of standardization of how  to specify note duration in this format, by consolidating 
+these issues into a formal language. Tablature notation is outside the scope of MusAssist's focus on Western 
+musical theoretical structures.
+ % \citeparen{simic_bal_dejanovic_vaderna}.
 
-\subsection{Normal or Body Text}\label{subsec:body}
-Please use a 10~pt (point) Times family font (i.e., Times New Roman). Sans-serif fonts or non-proportional fonts can be used only for special purposes, such as distinguishing source code text.
+\section{Language Features}\label{sec:language_features}
+\subsection{Low-Level Fundamentals}
+On the most basic level, MusAssist supports individual notes and rests. Rests are  
+given a duration from sixteenth to whole note, and notes are further defined by note name (A to G), 
+accidental (from double flat to double flat), and octave (1 to 8, after the range of a piano).
+Finally, users can also define ``custom chords,'' or collections of user-defined notes.
+These are not considered templates as the high-level description of the chord is not given.
 
-The first paragraph in each section should not be indented, but all other paragraphs should be. (Again, these have all been set in the styles provided.)
+\subsection{High-Level Templates}
+MusAssist's supports templates for chords, cadences, harmonic sequences at the abstraction
+level of the musical theoretical structures they define. 
+
+Chords are specified by root note (defined as the fundamental note is),
+quality (major, minor, augmented, diminished, or half diminished), 
+inversion (root, first, second, or third), and chord type (triad or seventh). 
+Half diminished and third inversion options apply to seventh chords only. 
+
+Cadences are specified by cadence type (perfect or imperfect authentic, half, plagal, 
+or deceptive) and key (defined by a fundamental note and a quality, either major or minor).
+
+Finally, harmonic sequences 
+
+\subsection{Additional Features}
+Beyond compositional elements, users can set the key signature at the beginning
+of any measure up to seven sharps or flats by specificing note name, accidental, and quality (sharp or flat).
+Users can also start a new measure or create a blank measure. Finally,
+users can label MusAssist expressions and reuse them later in the program. MusAssist
+comments are designated with \verb!\\!.
+
 
 % this inserts a column-break
 %\pagebreak
