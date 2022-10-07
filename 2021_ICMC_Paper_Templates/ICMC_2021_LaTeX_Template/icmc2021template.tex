@@ -10,6 +10,7 @@
 \usepackage{ifpdf}
 \usepackage{soul}
 \usepackage[english]{babel}
+\usepackage{enumitem}
 %\usepackage{cite}
 
 
@@ -197,7 +198,7 @@
 \capstarttrue
 %
 \begin{abstract}
-MusAssist is an external DSL devised as a compositional aid for music notation. 
+MusAssist is an external, declarative domain specific language for music notation. 
 Users can change key signatures, start a new measure, and describe musical structures 
 such as notes, rests, and custom chords in MusAssist’s straightforward syntax much in 
 the same way they would when composing. MusAssist is unique in that users can also describe 
@@ -214,40 +215,76 @@ MusAssist matches that of the theoretical musical structure it describes (e.g. u
 %
 
 \section{Introduction}\label{sec:introduction}
-MusAssist is an external domain specific language devised as a compositional aid for music
-notation. It organically models a composer’s flow of thought by framing its syntax around the musical expressions
-a composer conceives when writing. Users describe musical structures in MusAssist’s simple and
-straightforward syntax just as they would when composing. In other words, users
-describe a composition in MusAssist, and MusAssist writes out the music via these instructions.
+When writing music, composers must manually transition from musical theoretical concepts to notes on a page.
+This process can be tedious and slow, requiring the composer to expand complex structures, such as cadences and sequences,
+by hand to the notes that they constitute. The level of abstraction of the musical theoretical structure is 
+higher than what the composer actually writes. 
+MusAssist, an external, declarative domain specific language (DSL) for music notation, attempts bridge the divide between
+theory and notation. Users describe a composition in MusAssist's straightforward syntax, and the MusAssist compiler writes out the 
+music via these instructions.
+
 Fundamentally, MusAssist supports notes (including rests) and custom chords (i.e. any desired collection of notes)
 in the octave and key of choice, as well as change the key signature or start a new measure at any
-point. MusAssist is unique in that users can also describe complex musical templates;
-specifically, templates for chords (all types of triads and seventh chords in any inversion), cadences
-(perfect authentic, imperfect authentic, plagal, half, deceptive), and harmonic sequences (ascending
-fifths, descending fifths, ascending 5-6, descending 5-6) of a desired length. The level of abstraction of a 
-template in MusAssist matches that of the musical structure it describes (e.g. users can define a high-level harmonic 
-sequence without needing to lower the level of abstraction to chords and notes). This allows users to write 
-out a specification precisely at the conceptual level of the structure. The musical expression 
-described by this specification will then be completely expanded out (i.e. the level of abstraction will be 
+point. MusAssist is unique in that users can also write specifications for complex musical templates \textit{at the same level of abstraction
+as the musical theoretical structures they describe}. MusAssist supports \textbf{chords} (all triads and seventh chords in any inversion), \textbf{cadences}
+(perfect authentic, imperfect authentic, plagal, half, deceptive), and \textbf{harmonic sequences} (ascending
+fifths, descending fifths, ascending 5-6, descending 5-6) of a desired length. The musical expression 
+described by this specification is completely expanded out (i.e. the level of abstraction is
 fully lowered) by the Haskell-based MusAssist compiler.
 
 The target language of the MusAssist compiler is MusicXML, itself a DSL that is an extension of
 XML (Extensible Markup Language). MusicXML is accepted by most major notation software programs (such as MuseScore). 
-Thus, once a user has described a composition in MusAssist, they can open the resulting MusicXML file in MuseScore or another
+Thus users can open can open the resulting MusicXML file of a compiled MusAssist composition in MuseScore or another
 program for further customization and editing, thus bypassing the need to write out complex musical templates by hand at a 
 note- and chord-level of abstraction. Beyond a professional music compositional aid, MusAssist may be particularly 
-helpful to music students as an educational tool, enabling them to visualize the relationship between a theortical musical structure 
+helpful to music theory students as an educational tool, enabling them to visualize the relationship between a theortical musical structure 
 and its expanded form, such as a cadence and the chords resulting from its expansion.
 
-A MusAssist user need not have any computing background, though they should understand
-music theory through chord and cadence types, as well as harmonic sequences.
 
-This template includes all the information about formatting manuscripts for the ICMC 2021 Conference. When preparing your submission, please use either the MS-Office or LaTeX templates provided. Please follow these guidelines to give the final proceedings a uniform look. Authors will be {\em required} to make any necessary typographic corrections and changes before publication. If you have any questions, please contact the ICMC 2021 Organizers.
+\section{Related Work}\label{sec:related_work}
 
-This template can be downloaded from the ICMC 2021 web site (\texttt{http://icmc2021.org/}).
+The era of music DSLs began in 2008 with Ge Wang's ChucK audio processing language, which  
+spans the application domains of ``methods for sound synthesis, physical modeling of real-time world artifacts and spaces (e.g., 
+musical instruments, environmental sounds), analysis and information retrieval of sound and music, to 
+mapping and crafting of new controllers and interfaces (both software and physical) for music, 
+algorithmic/generative processes for automated or semi-automatic composition and accompaniment, [and] 
+real-time music performance." %\citeparen{wang_2008}. 
+Since then, researchers have taken advantage of the increased flexibility afforded to DSLs via their limited expressiveness to create
+music DSLs tailored towards notation, algorithmic composition, signal processing, live coding with music performance, and more. In the 
+ notation domain, MusicXML and LilyPond stand out.
 
-\section{Page size and format}\label{sec:page_size}
-The proceedings will be formatted as {\em portrait A4-size paper (21.0cm $\times$ 29.7cm)}. All material on each page should fit within a rectangle of 17.2cm $\times$ 25.2cm, centered on the page, beginning 2.0cm from the top of the page and ending with 2.5cm from the bottom. The left and right margins should be 1.9cm. The text should be in two 8.2cm columns with a 0.8cm gutter. All {\em text} must be in a two-column format, and justified.
+Michael Good's MusicXML is an Internet-friendly, XML-based, declarative DSL capable of representing Western music 
+notation and sheet music since c. 1600. 
+It acts as an "interchange format for applications in music notation, music analysis, music information retrieval, 
+and musical performance," thus supporting sharing between specialized applications. %\cite{good_2013}
+
+MusicXML attempts to emulate for online sheet music and music software what the popular MIDI format 
+did for electronic instruments. It is derived from XML in order to help solve the music 
+interchange problem: to create a standardized method to represent complex, structured data in order to support 
+smooth interchange between "musical notation, performance, analysis, and retrieval applications." XML has the 
+desired qualities of "straightforward usability over the Internet, ease of creating documents, and human readability" 
+that translate directly into the musical domain, and it is more powerful and expressive 
+than MIDI. %\cite{good_2001}
+
+MusicXML is more expressive than MusAssist, but the
+level of abstraction of all musical elements is extremely low (i.e. chords must be written out 
+as individual notes) and its syntax is very difficult and tedious to write by hand. However,
+its flexibility and expressiveness make MusicXML an excellent target 
+compilation language for MusAssist's user-friendly syntax and high-level musical theoretical templates.
+
+LilyPond, an external declarative DSL created by Han-Wen Nienhuys and 
+Jan Nieuwenhuizen, is more similar to MusAssist. It features a "modular, extensible and programmable 
+compiler" written in Scheme to generate music notation of excellent quality and supports the mixing of text and music elements. 
+Text-based \textit{musical expressions}, or fragments of music with 
+set durations, are compiled to an aesthetically formatted score.
+
+LilyPond and MusAssist are both music notation DSLs tailored to non-programming audiences. However, 
+they differ in two fundamental areas: 
+(1) MusAssist is more expressive than LilyPond as it supports complex music templates at the levels of abstraction of the 
+musical structures they represent and (2) the output of the MusAssist compiler is intentionally editable via
+notation software (unlike LilyPond's compiler, which produces a static, printable PostScript or PDF file by 
+taking in a file with a formal representation of the desired music).
+%\cite{nienhuys_nieuwenhuizen_2003}.
 
 \section{Typeset Text}\label{sec:typeset_text}
 
