@@ -12,8 +12,10 @@
 \usepackage[english]{babel}
 \usepackage{enumitem}
 \usepackage{musicography}
+\usepackage{amsmath}
+\usepackage{caption}
+\captionsetup{skip=5pt}
 %\usepackage{cite}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%% Some useful packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%% See related documentation %%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -329,24 +331,28 @@ Based on the principles of functional harmony, there are several ways to represe
 In MusAssist, the following representations were chosen. The major version is presented first, 
 and the minor version after that, in parentheses.
 
-\begin{table}[h!]
-\begin{tabular}{|l|l|l|l|l|}
+\begin{table}[h]
+  \begin{center}
+    \renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|l|l|}
 \hline
-Perfect Authentic & Imperfect Authentic & Plagal & Deceptive & Half \\ \hline
-IV-V-I (iv-V-i) 
-& IV-vii$^{\text{o}{6 \atop 4}}$-I$^{6 \atop 4}$ (iv-vii$^{\text{o}{6 \atop 4}}$-i$^{6 \atop 4}$)
-& IV$^{6 \atop 4}$-I (iv$^{6 \atop 4}$-I)        
-& IV-V$^{6 \atop 4}$-vi$^{6 \atop 4}$ (iv-V$^{6 \atop 4}$-VI$^{6 \atop 4}$)
-& IV-ii$^6$-V (iv-ii$^{\text{o}6}$-V)
-\\ \hline
+Perfect Authentic & IV-V-I (iv-V-i) \\ \hline
+Imperfect Authentic & IV-vii$^{\text{o}{6 \atop 4}}$-I$^{6 \atop 4}$ (iv-vii$^{\text{o}{6 \atop 4}}$-i$^{6 \atop 4}$) \\ \hline
+Plagal & IV$^{6 \atop 4}$-I (iv$^{6 \atop 4}$-I) \\ \hline
+Deceptive & IV-V$^{6 \atop 4}$-vi$^{6 \atop 4}$ (iv-V$^{6 \atop 4}$-VI$^{6 \atop 4}$) \\ \hline
+Half & IV-ii$^6$-V (iv-ii$^{\text{o}6}$-V) \\ \hline
 \end{tabular}
+\caption{MusAssist Cadences Summary}
+\end{center}
 \label{table:cadences}
+\vspace{-7mm}
 \end{table}
 
-All cadences except perfect authentic are built exclusively with triads,
-which also doubles the root in the final chord to simulate the 4-5-1 bass line
+All cadences except perfect authentic are built exclusively with triads.
+Perfect authentic cadences also double the root in the final chord to simulate the 4-5-1 bass line
 as well as to preserve the requisite 2-1 downward step in the uppermost voice. 
-The MusAssist syntax \noindent\verb.(PerfAuthCadence Eb5 min sixteenth). 
+The MusAssist syntax \\
+\noindent\verb.(PerfAuthCadence Eb5 min sixteenth). \\
 produces such a cadence when compiled and loaded into MuseScore notation software in %%FIGURE X.
 \begin{figure}[h!]
 \centering
@@ -366,10 +372,11 @@ name, MusAssist chooses a chord inversion and voice leading pattern such that ea
 align with the direction of its name (i.e. ascending sequences will ascend directionally).
 
 The chord progressions chosen for each sequence are summarized in %%%TABLE X
-(all in major, for the sake of example, but they can certainly be minor as well). 
+(all in major for sake of example, but their inverse in minor is also supported). 
 Each sequence consists of fourteen chords before it repeats in the subsequent octave.
 
 \begin{table}[h!]
+  \begin{center}
   \begin{tabular}{|l|llllllllllllll|}
   \hline
   Ascending Fifths  & I$^{6 \atop 4}$ & V                & ii$^{6 \atop 4}$ & vi                & iii$^{6 \atop 4}$ & vii$^\text{o}$   & IV$^{6 \atop 4}$ & I               & V$^{6 \atop 4}$             & ii                          & vi$^{6 \atop 4}$ & iii              & vii$^{\text{o}{6 \atop 4}}$ & IV              \\ \hline
@@ -377,6 +384,9 @@ Each sequence consists of fourteen chords before it repeats in the subsequent oc
   Ascending 5-6     & I               & vi$^6$           & ii               & vii$^{\text{o}6}$ & iii               & I$^6$            & IV               & ii$^6$          & V                           & iii$^6$                     & vi               & IV$^6$           & vii$^\text{o}$              & V$^6$           \\ \hline
   Descending 5-6    & I$^{6 \atop 4}$ & V                & vi$^{6 \atop 4}$ & iii & IV$^{6 \atop 4}$  & I                & ii$^{6 \atop 4}$ & vi              & vii$^{\text{o}{6 \atop 4}}$ & IV                          & V$^{6 \atop 4}$  & ii               & iii$^{6 \atop 4}$           & vii$^\text{o}$  \\ \hline
   \end{tabular}
+\end{center}
+\caption{MusAssist Harmonic Sequences Summary}
+\label{table:harmseq}
 \end{table}
 
 
