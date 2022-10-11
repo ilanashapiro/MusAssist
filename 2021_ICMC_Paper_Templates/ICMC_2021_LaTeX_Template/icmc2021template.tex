@@ -11,6 +11,7 @@
 \usepackage{soul}
 \usepackage[english]{babel}
 \usepackage{enumitem}
+\usepackage{musicography}
 %\usepackage{cite}
 
 
@@ -225,7 +226,8 @@ are programming languages highly specialized for a specific application and thus
 An $external$ $DSL$ has custom syntax that is separated from the primary language of its application. 
 MusAssist is an external, declarative domain specific language (DSL) for music notation that attempts bridge the divide between
 music theory and notation. Users describe a composition in MusAssist's straightforward syntax, and 
-the MusAssist compiler writes out the music via these instructions.
+the MusAssist compiler writes out the music via these instructions. MusAssist's declarative programming 
+paradigm was chosen to correspond with the declarative nature of handwritten music. 
 
 Fundamentally, MusAssist supports notes (including rests) and custom chords (i.e. any desired collection of notes)
 in the octave and key of choice, as well as change the key signature or start a new measure at any
@@ -303,22 +305,80 @@ musical theoretical structures.
 On the most basic level, MusAssist supports individual notes and rests. Rests are  
 given a duration from sixteenth to whole note, and notes are further defined by note name (A to G), 
 accidental (from double flat to double flat), and octave (1 to 8, after the range of a piano).
+Just as in normal notation, the absence of an accidental indicates natural quality.
 Finally, users can also define ``custom chords,'' or collections of user-defined notes.
 These are not considered templates as the high-level description of the chord is not given.
 
 \subsection{High-Level Templates}
-MusAssist's supports templates for chords, cadences, harmonic sequences at the abstraction
-level of the musical theoretical structures they define. 
+MusAssist's supports templates for chords, cadences, harmonic sequences, specified at the abstraction
+level of the musical theoretical structures they represent. 
 
-Chords are specified by root note (defined as the fundamental note is),
+Just as in music theory, chords are specified by root note (defined as the fundamental note is),
 quality (major, minor, augmented, diminished, or half diminished), 
 inversion (root, first, second, or third), and chord type (triad or seventh). 
-Half diminished and third inversion options apply to seventh chords only. 
+Half diminished and third inversion options apply to seventh chords only. The root note 
+cannot have a double accidental, as this can introduce triple accidentals in the chord, which MusAssist
+does not support.
 
 Cadences are specified by cadence type (perfect or imperfect authentic, half, plagal, 
-or deceptive) and key (defined by a fundamental note and a quality, either major or minor).
+or deceptive) and key (defined by a fundamental note and a quality, either major or minor). 
+Currently, MusAssist only supports a single treble clef line. Thus, cadences are written out in the 
+upper voices only, in keyboard voice leading style and incorporating principles of smooth voice leading.
 
-Finally, harmonic sequences 
+Based on the principles of functional harmony, there are several ways to represent each cadence. 
+In MusAssist, the following representations were chosen. The major version is presented first, 
+and the minor version after that, in parentheses.
+
+\begin{table}[h!]
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+Perfect Authentic & Imperfect Authentic & Plagal & Deceptive & Half \\ \hline
+IV-V-I (iv-V-i) 
+& IV-vii$^{\text{o}{6 \atop 4}}$-I$^{6 \atop 4}$ (iv-vii$^{\text{o}{6 \atop 4}}$-i$^{6 \atop 4}$)
+& IV$^{6 \atop 4}$-I (iv$^{6 \atop 4}$-I)        
+& IV-V$^{6 \atop 4}$-vi$^{6 \atop 4}$ (iv-V$^{6 \atop 4}$-VI$^{6 \atop 4}$)
+& IV-ii$^6$-V (iv-ii$^{\text{o}6}$-V)
+\\ \hline
+\end{tabular}
+\label{table:cadences}
+\end{table}
+
+All cadences except perfect authentic are built exclusively with triads,
+which also doubles the root in the final chord to simulate the 4-5-1 bass line
+as well as to preserve the requisite 2-1 downward step in the uppermost voice. 
+The MusAssist syntax \noindent\verb.(PerfAuthCadence Eb5 min sixteenth). 
+produces such a cadence when compiled and loaded into MuseScore notation software in %%FIGURE X.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.7\textwidth]{images/perfauth}
+  \caption{Perfect Authentic Cadence in E\musFlat\; minor}
+\end{figure}
+
+Finally, harmonic sequences are specified by harmonic sequence type (ascending fifths,
+descending fifths, ascending 5-6, descending 5-6), key (just as in cadences), duration of each chord,
+and length of the sequence. 
+
+Harmonic sequences can be implemented in several ways depending on desired inversion scheme. 
+Since MusAssist does not yet support multi-line composition, harmonic sequences are 
+writte like cadences in keyboard-style voice leading. Though the
+upper-voice harmonization of a harmonic sequence need not follow the direction in the sequence’s
+name, MusAssist chooses a chord inversion and voice leading pattern such that each sequence does
+align with the direction of its name (i.e. ascending sequences will ascend directionally).
+
+The chord progressions chosen for each sequence are summarized in %%%TABLE X
+(all in major, for the sake of example, but they can certainly be minor as well). 
+Each sequence consists of fourteen chords before it repeats in the subsequent octave.
+
+\begin{table}[h!]
+  \begin{tabular}{|l|llllllllllllll|}
+  \hline
+  Ascending Fifths  & I$^{6 \atop 4}$ & V                & ii$^{6 \atop 4}$ & vi                & iii$^{6 \atop 4}$ & vii$^\text{o}$   & IV$^{6 \atop 4}$ & I               & V$^{6 \atop 4}$             & ii                          & vi$^{6 \atop 4}$ & iii              & vii$^{\text{o}{6 \atop 4}}$ & IV              \\ \hline
+  Descending Fifths & I               & IV$^{6 \atop 4}$ & vii$^\text{o}$   & iii$^{6 \atop 4}$ & vi                & ii$^{6 \atop 4}$ & V                & I$^{6 \atop 4}$ & IV                          & vii$^{\text{o}{6 \atop 4}}$ & iii              & vi$^{6 \atop 4}$ & ii                          & V$^{6 \atop 4}$ \\ \hline
+  Ascending 5-6     & I               & vi$^6$           & ii               & vii$^{\text{o}6}$ & iii               & I$^6$            & IV               & ii$^6$          & V                           & iii$^6$                     & vi               & IV$^6$           & vii$^\text{o}$              & V$^6$           \\ \hline
+  Descending 5-6    & I$^{6 \atop 4}$ & V                & vi$^{6 \atop 4}$ & iii & IV$^{6 \atop 4}$  & I                & ii$^{6 \atop 4}$ & vi              & vii$^{\text{o}{6 \atop 4}}$ & IV                          & V$^{6 \atop 4}$  & ii               & iii$^{6 \atop 4}$           & vii$^\text{o}$  \\ \hline
+  \end{tabular}
+\end{table}
+
 
 \subsection{Additional Features}
 Beyond compositional elements, users can set the key signature at the beginning
@@ -326,6 +386,10 @@ of any measure up to seven sharps or flats by specificing note name, accidental,
 Users can also start a new measure or create a blank measure. Finally,
 users can label MusAssist expressions and reuse them later in the program. MusAssist
 comments are designated with \verb!\\!.
+
+The tempo for all MusAssist programs
+is set at \musQuarter\;= 80bpm and cannot currently be customized or changed.
+
 
 
 % this inserts a column-break

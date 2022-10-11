@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.7) (preloaded format=pdflatex 2022.10.4)  7 OCT 2022 15:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.7) (preloaded format=pdflatex 2022.10.4)  11 OCT 2022 10:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -73,7 +73,52 @@ Package: enumitem 2019/06/20 v3.9 Customized lists
 \enit@inbox=\box51
 \enit@count@id=\count195
 \enitdp@description=\count196
-) (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
+) (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/musicography\musicography.sty
+Package: musicography 2020/01/29 Symbols for music writing with pdflatex
+ (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/l3packages/xparse\xparse.sty (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/l3kernel\expl3.sty
+Package: expl3 2022-07-04 L3 programming layer (loader) 
+ (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
+File: l3backend-pdftex.def 2022-07-01 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count197
+\l__pdf_internal_box=\box52
+))
+Package: xparse 2022-06-22 L3 Experimental document command parser
+) (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/stackengine\stackengine.sty
+Package: stackengine 2021/07/22 v4.11\ Stacking text and objects in convenient ways
+ (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count198
+) (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/listofitems\listofitems.sty (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/generic/listofitems\listofitems.tex
+\loi_cnt_foreach_nest=\count199
+\loi_nestcnt=\count266
+)
+Package: listofitems 2019/08/21 v1.63 Grab items in lists using user-specified sep char (CT)
+) (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/tools\calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count267
+\calc@Bcount=\count268
+\calc@Adimen=\dimen144
+\calc@Bdimen=\dimen145
+\calc@Askip=\skip51
+\calc@Bskip=\skip52
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count269
+\calc@Cskip=\skip53
+)
+\c@@stackindex=\count270
+\@boxshift=\skip54
+\stack@tmplength=\skip55
+\temp@stkl=\skip56
+\@stackedboxwidth=\skip57
+\@addedbox=\box53
+\@anchorbox=\box54
+\@insetbox=\box55
+\se@backgroundbox=\box56
+\stackedbox=\box57
+\@centerbox=\box58
+\c@ROWcellindex@=\count271
+)) (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
 Package: hyperref 2022-06-20 v7.00s Hypertext links for LaTeX
  (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
 Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
@@ -109,11 +154,11 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
  (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
-\c@section@level=\count197
+\c@section@level=\count272
 )
-\@linkdim=\dimen144
-\Hy@linkcounter=\count198
-\Hy@pagecounter=\count199
+\@linkdim=\dimen146
+\Hy@linkcounter=\count273
+\Hy@pagecounter=\count274
  (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
 File: pd1enc.def 2022-06-20 v7.00s Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
@@ -123,7 +168,7 @@ Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 ) (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/generic/etexcmds\etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
-\Hy@SavedSpaceFactor=\count266
+\Hy@SavedSpaceFactor=\count275
  (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
 File: puenc.def 2022-06-20 v7.00s Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
@@ -137,21 +182,21 @@ Package hyperref Info: Plain pages OFF on input line 4177.
 Package hyperref Info: Backreferencing OFF on input line 4182.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4408.
-\c@Hy@tempcnt=\count267
+\c@Hy@tempcnt=\count276
  (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip16
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4746.
-\XeTeXLinkMargin=\dimen145
+\XeTeXLinkMargin=\dimen147
  (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
  (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
-\Fld@menulength=\count268
-\Field@Width=\dimen146
-\Fld@charsize=\dimen147
+\Fld@menulength=\count277
+\Field@Width=\dimen148
+\Fld@charsize=\dimen149
 Package hyperref Info: Hyper figures OFF on input line 6024.
 Package hyperref Info: Link nesting OFF on input line 6029.
 Package hyperref Info: Hyper index ON on input line 6032.
@@ -163,9 +208,9 @@ Package hyperref Info: PDF/A mode OFF on input line 6054.
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
-\Hy@abspage=\count269
-\c@Item=\count270
-\c@Hfootnote=\count271
+\Hy@abspage=\count278
+\c@Item=\count279
+\c@Hfootnote=\count280
 )
 Package hyperref Info: Driver: hpdftex.
  (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
@@ -174,8 +219,8 @@ File: hpdftex.def 2022-06-20 v7.00s Hyperref driver for pdfTeX
 Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend package
 with kernel methods
 )
-\Fld@listcount=\count272
-\c@bookmark@seq@number=\count273
+\Fld@listcount=\count281
+\c@bookmark@seq@number=\count282
  (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfilecheck.sty
 Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
  (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounter\uniquecounter.sty
@@ -183,7 +228,7 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 285.
 )
-\Hy@SectionHShift=\skip51
+\Hy@SectionHShift=\skip58
 ) (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
  (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
@@ -197,40 +242,36 @@ Package graphics Info: Driver file: pdftex.def on input line 107.
  (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
 File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
 ))
-\Gin@req@height=\dimen148
-\Gin@req@width=\dimen149
+\Gin@req@height=\dimen150
+\Gin@req@width=\dimen151
 ) (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/oberdiek\hypcap.sty
 Package: hypcap 2016/05/16 v1.12 Adjusting the anchors of captions (HO)
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 97.
-LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 194.
+Package hyperref Info: Option `colorlinks' set `true' on input line 98.
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 195.
  (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
-) (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
-File: l3backend-pdftex.def 2022-07-01 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count274
-\l__pdf_internal_box=\box52
 ) (icmc2021template.aux)
 \openout1 = `icmc2021template.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 194.
-LaTeX Font Info:    ... okay on input line 194.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 194.
-LaTeX Font Info:    ... okay on input line 194.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 194.
-LaTeX Font Info:    ... okay on input line 194.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 194.
-LaTeX Font Info:    ... okay on input line 194.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 194.
-LaTeX Font Info:    ... okay on input line 194.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 194.
-LaTeX Font Info:    ... okay on input line 194.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 194.
-LaTeX Font Info:    ... okay on input line 194.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 194.
-LaTeX Font Info:    ... okay on input line 194.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 194.
-LaTeX Font Info:    ... okay on input line 194.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 195.
+LaTeX Font Info:    ... okay on input line 195.
  (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/graphics\color.sty
 Package: color 2022/01/06 v1.3d Standard LaTeX Color (DPC)
  (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
@@ -238,23 +279,22 @@ File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package color Info: Driver file: pdftex.def on input line 149.
  (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex-dev/graphics\mathcolor.ltx))
-Package hyperref Info: Link coloring ON on input line 194.
- (icmc2021template.out) (icmc2021template.out)
+Package hyperref Info: Link coloring ON on input line 195.
 \@outlinefile=\write3
 \openout3 = `icmc2021template.out'.
 
  (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count275
-\scratchdimen=\dimen150
-\scratchbox=\box53
-\nofMPsegments=\count276
-\nofMParguments=\count277
+\scratchcounter=\count283
+\scratchdimen=\dimen152
+\scratchbox=\box59
+\nofMPsegments=\count284
+\nofMParguments=\count285
 \everyMPshowfont=\toks24
-\MPscratchCnt=\count278
-\MPscratchDim=\dimen151
-\MPnumerator=\count279
-\makeMPintoPDFobject=\count280
+\MPscratchCnt=\count286
+\MPscratchDim=\dimen153
+\MPnumerator=\count287
+\makeMPintoPDFobject=\count288
 \everyMPtoPDFconversion=\toks25
 ) (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -269,23 +309,23 @@ Package grfext Info: Graphics extension search list:
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 198.
+(Font)              <7> on input line 199.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 198.
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 198.
+(Font)              <5> on input line 199.
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 199.
  (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 198.
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 199.
  (C:\Users\Illana\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-Overfull \hbox (3.84525pt too wide) in paragraph at lines 230--238
+Overfull \hbox (3.84525pt too wide) in paragraph at lines 232--240
 []\OT1/ptm/m/n/10 Fundamentally, MusAs-sist sup-ports notes (in-clud-ing rests)
  []
 
 
-Overfull \hbox (2.37523pt too wide) in paragraph at lines 260--264
+Overfull \hbox (2.37523pt too wide) in paragraph at lines 262--266
 []\OT1/ptm/m/n/10 Michael Good's Mu-sicXML is an Internet-friendly, XML-
  []
 
@@ -294,26 +334,189 @@ Overfull \hbox (2.37523pt too wide) in paragraph at lines 260--264
 
 
 ]
-Overfull \hbox (6.60527pt too wide) in paragraph at lines 273--278
+Overfull \hbox (6.60527pt too wide) in paragraph at lines 275--280
 \OT1/ptm/m/n/10 How-ever, its flex-i-bil-ity and ex-pres-sive-ness make Mu-sicXML
  []
 
 
-Overfull \hbox (1.88477pt too wide) in paragraph at lines 273--278
+Overfull \hbox (1.88477pt too wide) in paragraph at lines 275--280
 \OT1/ptm/m/n/10 user-friendly syn-tax and high-level mu-si-cal the-o-ret-i-cal tem-
  []
 
 
-Overfull \hbox (5.89522pt too wide) in paragraph at lines 279--284
+Overfull \hbox (5.89522pt too wide) in paragraph at lines 281--286
 \OT1/ptm/m/n/10 Wen Nien-huys and Jan Nieuwen-huizen, is sim-i-lar to MusAs-
  []
 
+c:/Users/Illana/Documents/MusAssist/2021_ICMC_Paper_Templates/ICMC_2021_LaTeX_Template/icmc2021template.tex:337: Undefined control sequence.
+l.337 & IV-vii$^{\text
+                      {o}{6 \atop 4}}$-I$^{6 \atop 4}$ (iv-vii$^{\text{o}{6 ...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
-Underfull \vbox (badness 3492) has occurred while \output is active []
+c:/Users/Illana/Documents/MusAssist/2021_ICMC_Paper_Templates/ICMC_2021_LaTeX_Template/icmc2021template.tex:337: Undefined control sequence.
+l.337 ...atop 4}}$-I$^{6 \atop 4}$ (iv-vii$^{\text
+                                                  {o}{6 \atop 4}}$-i$^{6 \at...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
- [2]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+c:/Users/Illana/Documents/MusAssist/2021_ICMC_Paper_Templates/ICMC_2021_LaTeX_Template/icmc2021template.tex:340: Undefined control sequence.
+l.340 & IV-ii$^6$-V (iv-ii$^{\text
+                                  {o}6}$-V)
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
 
+
+c:/Users/Illana/Documents/MusAssist/2021_ICMC_Paper_Templates/ICMC_2021_LaTeX_Template/icmc2021template.tex:344: Package hypcap Error: You have forgotten to use \caption.
+
+See the hypcap package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.344 \end{table}
+                 
+\global 
+
+
+Overfull \hbox (225.5857pt too wide) in paragraph at lines 333--344
+[][]
+ []
+
+
+c:/Users/Illana/Documents/MusAssist/2021_ICMC_Paper_Templates/ICMC_2021_LaTeX_Template/icmc2021template.tex:353: LaTeX Error: File `images/perfauth' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.353 ...ics[width=0.7\textwidth]{images/perfauth}
+                                                  
+I could not locate the file with any of these extensions:
+.pdf,.jpeg,.png,.eps
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (0.26564pt too wide) in paragraph at lines 346--356
+[]\OT1/ptm/m/n/10 All ca-dences ex-cept per-fect au-then-tic are built ex-clu-sively
+ []
+
+
+Overfull \hbox (48.82648pt too wide) in paragraph at lines 346--356
+\OT1/ptm/m/n/10 MusAs-sist syn-tax [][]\OT1/pcr/m/n/10 (PerfAuthCadence Eb5 min sixteenth)
+ []
+
+
+Overfull \hbox (3.05621pt too wide) in paragraph at lines 368--371
+[]\OT1/ptm/m/n/10 The chord pro-gres-sions cho-sen for each se-quence are sum-
+ []
+
+c:/Users/Illana/Documents/MusAssist/2021_ICMC_Paper_Templates/ICMC_2021_LaTeX_Template/icmc2021template.tex:375: Undefined control sequence.
+l.375 ...         & iii$^{6 \atop 4}$ & vii$^\text
+                                                  {o}$   & IV$^{6 \atop 4}$ ...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+c:/Users/Illana/Documents/MusAssist/2021_ICMC_Paper_Templates/ICMC_2021_LaTeX_Template/icmc2021template.tex:375: Undefined control sequence.
+l.375 ...atop 4}$ & iii              & vii$^{\text
+                                                  {o}{6 \atop 4}}$ & IV     ...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+c:/Users/Illana/Documents/MusAssist/2021_ICMC_Paper_Templates/ICMC_2021_LaTeX_Template/icmc2021template.tex:376: Undefined control sequence.
+l.376 ...          & IV$^{6 \atop 4}$ & vii$^\text
+                                                  {o}$   & iii$^{6 \atop 4}$...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+c:/Users/Illana/Documents/MusAssist/2021_ICMC_Paper_Templates/ICMC_2021_LaTeX_Template/icmc2021template.tex:376: Undefined control sequence.
+l.376 ...IV                          & vii$^{\text
+                                                  {o}{6 \atop 4}}$ & iii    ...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+c:/Users/Illana/Documents/MusAssist/2021_ICMC_Paper_Templates/ICMC_2021_LaTeX_Template/icmc2021template.tex:377: Undefined control sequence.
+l.377 ...         & ii               & vii$^{\text
+                                                  {o}6}$ & iii              ...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+c:/Users/Illana/Documents/MusAssist/2021_ICMC_Paper_Templates/ICMC_2021_LaTeX_Template/icmc2021template.tex:377: Undefined control sequence.
+l.377 ...          & IV$^6$           & vii$^\text
+                                                  {o}$              & V$^6$ ...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+c:/Users/Illana/Documents/MusAssist/2021_ICMC_Paper_Templates/ICMC_2021_LaTeX_Template/icmc2021template.tex:378: Undefined control sequence.
+l.378 ...\atop 4}$ & vi              & vii$^{\text
+                                                  {o}{6 \atop 4}}$ & IV     ...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+c:/Users/Illana/Documents/MusAssist/2021_ICMC_Paper_Templates/ICMC_2021_LaTeX_Template/icmc2021template.tex:378: Undefined control sequence.
+l.378 ... iii$^{6 \atop 4}$           & vii$^\text
+                                                  {o}$  \\ \hline
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+c:/Users/Illana/Documents/MusAssist/2021_ICMC_Paper_Templates/ICMC_2021_LaTeX_Template/icmc2021template.tex:380: Package hypcap Error: You have forgotten to use \caption.
+
+See the hypcap package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.380 \end{table}
+                 
+\global 
+
+
+Overfull \hbox (245.53622pt too wide) in paragraph at lines 373--380
+[][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[2]
+pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.434 \begin{table}[h]
+                      
 Package epstopdf Info: Source file: <figure.eps>
 (epstopdf)                    date: 2017-12-01 16:28:24
 (epstopdf)                    size: 620133 bytes
@@ -321,43 +524,77 @@ Package epstopdf Info: Source file: <figure.eps>
 (epstopdf)                    date: 2018-11-06 10:46:34
 (epstopdf)                    size: 19429 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=figure-eps-converted-to.pdf figure.eps>
-(epstopdf)             \includegraphics on input line 388.
+(epstopdf)             \includegraphics on input line 452.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./figure-eps-converted-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<figure-eps-converted-to.pdf, id=96, 127.47626pt x 88.33pt>
+<figure-eps-converted-to.pdf, id=32, 127.47626pt x 88.33pt>
 File: figure-eps-converted-to.pdf Graphic file (type pdf)
 <use figure-eps-converted-to.pdf>
-Package pdftex.def Info: figure-eps-converted-to.pdf  used on input line 388.
+Package pdftex.def Info: figure-eps-converted-to.pdf  used on input line 452.
 (pdftex.def)             Requested size: 209.97983pt x 145.50502pt.
+
+LaTeX Warning: Reference `fig:example' on page 3 undefined on input line 457.
+
+
+LaTeX Warning: Reference `tab:example' on page 3 undefined on input line 457.
+
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 403.
+(Font)              <8> on input line 467.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 403.
-[3 <./figure-eps-converted-to.pdf>]
-Overfull \hbox (2.37593pt too wide) in paragraph at lines 415--417
+(Font)              <6> on input line 467.
+[3
+pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.471 
+       <./figure-eps-converted-to.pdf>]
+
+LaTeX Warning: Citation `Someone:09' on page 4 undefined on input line 480.
+
+
+LaTeX Warning: Citation `Someone:04' on page 4 undefined on input line 480.
+
+
+LaTeX Warning: Citation `Someone:13' on page 4 undefined on input line 480.
+
+
+Overfull \hbox (2.37593pt too wide) in paragraph at lines 479--481
 []\OT1/ptm/m/n/10 Reference num-bers in the text should ap-pear within square
  []
 
-(icmc2021template.bbl) [4
+No file icmc2021template.bbl.
+[4
 
 ] (icmc2021template.aux)
-Package rerunfilecheck Info: File `icmc2021template.out' has not changed.
-(rerunfilecheck)             Checksum: 22277FB56B4D8323F0F9D5083D082203;3272.
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+Package rerunfilecheck Warning: File `icmc2021template.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `icmc2021template.out':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  C1542976E21770FFC00A5C97A66BE31A;3152.
  ) 
 Here is how much of TeX's memory you used:
- 10052 strings out of 478338
- 166427 string characters out of 2836228
- 497463 words of memory out of 3000000
- 28303 multiletter control sequences out of 15000+600000
- 487336 words of font info for 57 fonts, out of 8000000 for 9000
+ 11029 strings out of 478338
+ 182087 string characters out of 2836228
+ 514561 words of memory out of 3000000
+ 29252 multiletter control sequences out of 15000+600000
+ 488232 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 72i,14n,77p,543b,453s stack positions out of 10000i,1000n,20000p,200000b,80000s
-{C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on icmc2021template.pdf (4 pages, 140808 bytes).
+ 72i,14n,77p,543b,447s stack positions out of 10000i,1000n,20000p,200000b,80000s
+{C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/musixtex-fonts/musix11.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/musixtex-fonts/musix16.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
+Output written on icmc2021template.pdf (4 pages, 169761 bytes).
 PDF statistics:
- 167 PDF objects out of 1000 (max. 8388607)
- 31 named destinations out of 1000 (max. 500000)
- 158 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 120 PDF objects out of 1000 (max. 8388607)
+ 28 named destinations out of 1000 (max. 500000)
+ 6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
