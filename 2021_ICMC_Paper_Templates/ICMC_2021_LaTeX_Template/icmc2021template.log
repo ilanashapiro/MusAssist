@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.7) (preloaded format=pdflatex 2022.10.4)  12 OCT 2022 13:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.7) (preloaded format=pdflatex 2022.10.4)  12 OCT 2022 14:10
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -578,31 +578,75 @@ Overfull \hbox (256.0748pt too wide) in paragraph at lines 474--475
  []
 
 [3 <./images/program1.png>]
+Overfull \hbox (348.68748pt too wide) in paragraph at lines 495--495
+[]  \OT1/pcr/m/n/10 (D4 eighth) (F#4 eighth) (A4 eighth) (F#4 eighth) (D4 quarter) (D4 maj triad inv:first quarter)[] 
+ []
 
-LaTeX Warning: Reference `fig:ex2' on page 4 undefined on input line 483.
+
+Overfull \hbox (282.68748pt too wide) in paragraph at lines 495--495
+[]  \OT1/pcr/m/n/10 notes1 = (E5 sixteenth) (B4 sixteenth) (G#4 sixteenth) (B4 sixteenth) (E5 sixteenth)[] 
+ []
 
 
-Overfull \hbox (3.84485pt too wide) in paragraph at lines 491--496
+Overfull \hbox (312.68748pt too wide) in paragraph at lines 495--495
+[]  \OT1/pcr/m/n/10 notes2 = (F5 sixteenth) (E4 maj triad inv:second eighth) (DeceptiveCadence A4 maj eighth)[] 
+ []
+
+
+Overfull \hbox (222.68748pt too wide) in paragraph at lines 495--495
+[]  \OT1/pcr/m/n/10 chords1 = ([Bbb4, Db5, Fb5] dotted_quarter) (A4 maj triad inv:root eighth)[] 
+ []
+
+
+Overfull \hbox (186.68748pt too wide) in paragraph at lines 495--495
+[]  \OT1/pcr/m/n/10 chords2 = ([A4, C5, D5, F5] half) (C4 aug seventh inv:third quarter)[] 
+ []
+
+
+Overfull \hbox (240.68748pt too wide) in paragraph at lines 495--495
+[]  \OT1/pcr/m/n/10 chords3 = (C4 aug triad inv:second eighth) (B#3 maj seventh inv:third eighth)[] 
+ []
+
+
+Overfull \hbox (156.68748pt too wide) in paragraph at lines 495--495
+[]  \OT1/pcr/m/n/10 chords1 chords2 chords3 (rest half) notes1 notes2 (rest eighth)[] 
+ []
+
+
+Overfull \hbox (84.68748pt too wide) in paragraph at lines 495--495
+[]  \OT1/pcr/m/n/10 (DescFifths G5 min eighth length:15) (rest quarter)[] 
+ []
+
+
+Overfull \hbox (30.68748pt too wide) in paragraph at lines 495--495
+[]  \OT1/pcr/m/n/10 (rest sixteenth) (HalfCadence G4 maj half)[] 
+ []
+
+
+LaTeX Warning: Reference `fig:ex2' on page 4 undefined on input line 499.
+
+
+Overfull \hbox (3.84485pt too wide) in paragraph at lines 507--512
 []\OT1/ptm/m/n/10 MusAssist con-crete syn-tax is parsed into ab-stract syn-
  []
 
 
-Overfull \hbox (7.45505pt too wide) in paragraph at lines 491--496
+Overfull \hbox (7.45505pt too wide) in paragraph at lines 507--512
 \OT1/ptm/m/n/10 tax, rep-re-sented as Haskell al-ge-braic data types. Parser
  []
 
 
-Overfull \hbox (2.57542pt too wide) in paragraph at lines 491--496
+Overfull \hbox (2.57542pt too wide) in paragraph at lines 507--512
 \OT1/ptm/m/n/10 com-bi-na-tors were cho-sen for their flex-i-bil-ity and easy
  []
 
 
-Overfull \hbox (0.41522pt too wide) in paragraph at lines 501--503
+Overfull \hbox (0.41522pt too wide) in paragraph at lines 517--519
 []\OT1/ptm/m/n/10 The low-level ab-stract syn-tax re-sult-ing from the fully
  []
 
 
-Overfull \hbox (5.28467pt too wide) in paragraph at lines 518--540
+Overfull \hbox (5.28467pt too wide) in paragraph at lines 534--556
 \OT1/ptm/m/n/10 sig-na-ture and mid-composition time sig-na-ture changes (sim-
  []
 
@@ -616,7 +660,7 @@ Package epstopdf Info: Source file: <figure.eps>
 (epstopdf)                    date: 2018-11-06 10:46:34
 (epstopdf)                    size: 19429 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=figure-eps-converted-to.pdf figure.eps>
-(epstopdf)             \includegraphics on input line 601.
+(epstopdf)             \includegraphics on input line 617.
 Package epstopdf Info: Output file is already uptodate.
 
 
@@ -624,10 +668,10 @@ pdfTeX warning: pdflatex (file ./figure-eps-converted-to.pdf): PDF inclusion: fo
 <figure-eps-converted-to.pdf, id=161, 127.47626pt x 88.33pt>
 File: figure-eps-converted-to.pdf Graphic file (type pdf)
 <use figure-eps-converted-to.pdf>
-Package pdftex.def Info: figure-eps-converted-to.pdf  used on input line 601.
+Package pdftex.def Info: figure-eps-converted-to.pdf  used on input line 617.
 (pdftex.def)             Requested size: 209.97983pt x 145.50502pt.
 [5 <./figure-eps-converted-to.pdf>]
-Overfull \hbox (2.37593pt too wide) in paragraph at lines 628--630
+Overfull \hbox (2.37593pt too wide) in paragraph at lines 644--646
 []\OT1/ptm/m/n/10 Reference num-bers in the text should ap-pear within square
  []
 
@@ -649,7 +693,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  72i,21n,77p,543b,461s stack positions out of 10000i,1000n,20000p,200000b,80000s
 {C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/musixtex-fonts/musix11.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/musixtex-fonts/musix16.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on icmc2021template.pdf (6 pages, 479937 bytes).
+Output written on icmc2021template.pdf (6 pages, 480606 bytes).
 PDF statistics:
  248 PDF objects out of 1000 (max. 8388607)
  50 named destinations out of 1000 (max. 500000)
