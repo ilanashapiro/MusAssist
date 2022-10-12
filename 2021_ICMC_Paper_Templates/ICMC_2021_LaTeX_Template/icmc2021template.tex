@@ -13,6 +13,7 @@
 \usepackage{enumitem}
 \usepackage{musicography}
 \usepackage{amsmath}
+\usepackage{arydshln}
 \usepackage{caption}
 \captionsetup{skip=5pt}
 %\usepackage{cite}
@@ -288,10 +289,11 @@ set durations, are compiled to an aesthetically formatted score.
 
 LilyPond and MusAssist are both music notation DSLs tailored to non-programming audiences. However, 
 they differ in two fundamental areas: 
-(1) MusAssist is more expressive than LilyPond as it supports complex music templates at the levels of abstraction of the 
-musical structures they represent and (2) the output of the MusAssist compiler is intentionally editable via
-notation software (unlike LilyPond's compiler, which produces a static, printable PostScript or PDF file by 
-taking in a file with a formal representation of the desired music).
+(1) MusAssist supports complex music templates at the levels of abstraction of the 
+musical structures they represent, whereas LilyPond only supports 
+more granular, low level composition of individual notes and chords, and (2) the output of the MusAssist compiler is intentionally editable via
+notation software, unlike LilyPond's compiler, which produces a static, printable PostScript or PDF file by 
+taking in a file with a formal representation of the desired music.
 %\cite{nienhuys_nieuwenhuizen_2003}.
 
 Simic et al.'s external, declarative DSL PyTabs similarly is geared toward music notation, but in a different
@@ -327,9 +329,9 @@ or deceptive) and key (defined by a fundamental note and a quality, either major
 Currently, MusAssist only supports a single treble clef line. Thus, cadences are written out in the 
 upper voices only, in keyboard voice leading style and incorporating principles of smooth voice leading.
 
-Based on the principles of functional harmony, there are several ways to represent each cadence. 
+Based on the principles of functional harmony, there are several ways to represent a cadence. 
 In MusAssist, the following representations were chosen. The major version is presented first, 
-and the minor version after that, in parentheses.
+and the minor after that, in parentheses.
 
 \begin{table}[h]
   \begin{center}
@@ -351,13 +353,13 @@ Half & IV-ii$^6$-V (iv-ii$^{\text{o}6}$-V) \\ \hline
 All cadences except perfect authentic are built exclusively with triads.
 Perfect authentic cadences also double the root in the final chord to simulate the 4-5-1 bass line
 as well as to preserve the requisite 2-1 downward step in the uppermost voice. 
-The MusAssist syntax \\
+This is demonstrated in \figref{fig:perfauth}, produced with the MusAssist syntax \\
 \noindent\verb.(PerfAuthCadence Eb5 min sixteenth). \\
-produces such a cadence when compiled and loaded into MuseScore notation software in %%FIGURE X.
+when compiled and loaded into MuseScore notation software.
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.7\textwidth]{images/perfauth}
-  \caption{Perfect Authentic Cadence in E\musFlat\; minor}
+\includegraphics[width=0.45\textwidth]{images/perfauth}
+  \caption{Perfect Authentic Cadence in E\musFlat\; minor \label{fig:perfauth}}
 \end{figure}
 
 Finally, harmonic sequences are specified by harmonic sequence type (ascending fifths,
@@ -366,7 +368,8 @@ and length of the sequence. Since MusAssist does not yet support multi-line comp
 writte like cadences in keyboard-style voice leading. Though the
 upper-voice harmonization of a harmonic sequence need not follow the direction in the sequence’s
 name, MusAssist chooses a chord inversion and voice leading pattern such that each sequence does
-align with the direction of its name (i.e. ascending sequences will ascend directionally).
+align with the direction of its name (i.e. ascending sequences will ascend directionally) 
+and also maximizes smooth voice leading.
 
 In music theory, harmonic sequences can be implemented in several ways depending on desired inversion scheme. 
 The chosen chord progressions for each MusAssist sequence are summarized in \tabref{table:harmseq}.
@@ -375,21 +378,41 @@ Each consists of fourteen distinct chords before repeating in the subsequent oct
 
 \begin{table}[h!]
   \begin{center}
-  \begin{tabular}{|l|llllllllllllll|}
+  \begin{tabular}{|c|@{}c@{}|}
   \hline
-  Ascending Fifths  & I$^{6 \atop 4}$ & V                & ii$^{6 \atop 4}$ & vi                & iii$^{6 \atop 4}$ & vii$^\text{o}$   & IV$^{6 \atop 4}$ & I               & V$^{6 \atop 4}$             & ii                          & vi$^{6 \atop 4}$ & iii              & vii$^{\text{o}{6 \atop 4}}$ & IV              \\ \hline
-  Descending Fifths & I               & IV$^{6 \atop 4}$ & vii$^\text{o}$   & iii$^{6 \atop 4}$ & vi                & ii$^{6 \atop 4}$ & V                & I$^{6 \atop 4}$ & IV                          & vii$^{\text{o}{6 \atop 4}}$ & iii              & vi$^{6 \atop 4}$ & ii                          & V$^{6 \atop 4}$ \\ \hline
-  Ascending 5-6     & I               & vi$^6$           & ii               & vii$^{\text{o}6}$ & iii               & I$^6$            & IV               & ii$^6$          & V                           & iii$^6$                     & vi               & IV$^6$           & vii$^\text{o}$              & V$^6$           \\ \hline
-  Descending 5-6    & I$^{6 \atop 4}$ & V                & vi$^{6 \atop 4}$ & iii & IV$^{6 \atop 4}$  & I                & ii$^{6 \atop 4}$ & vi              & vii$^{\text{o}{6 \atop 4}}$ & IV                          & V$^{6 \atop 4}$  & ii               & iii$^{6 \atop 4}$           & vii$^\text{o}$  \\ \hline
+  Ascending Fifths  & \renewcommand{\arraystretch}{1.5}
+                    \begin{tabular}{lllll} 
+                        I$^{6 \atop 4}$ & V                & ii$^{6 \atop 4}$            & vi              & iii$^{6 \atop 4}$ \\ \hdashline
+                        vii$^\text{o}$  & IV$^{6 \atop 4}$ & I                           & V$^{6 \atop 4}$ & ii                \\ \hdashline
+                        vi$^{6 \atop 4}$ & iii             & vii$^{\text{o}{6 \atop 4}}$ & IV              
+                    \end{tabular} \\ \hline 
+  Descending Fifths & \renewcommand{\arraystretch}{1.5}
+                    \begin{tabular}{lllll} 
+                      I                & IV$^{6 \atop 4}$ & vii$^\text{o}$  & iii$^{6 \atop 4}$ & vi                          \\ \hdashline
+                      ii$^{6 \atop 4}$ & V                & I$^{6 \atop 4}$ & IV                & vii$^{\text{o}{6 \atop 4}}$ \\ \hdashline
+                      iii              & vi$^{6 \atop 4}$ & ii              & V$^{6 \atop 4}$
+                    \end{tabular} \\ \hline
+  Ascending 5-6     & \renewcommand{\arraystretch}{1.5}
+                    \begin{tabular}{lllll} 
+                      I     & vi$^6$ & ii              & vii$^{\text{o}6}$ & iii      \\ \hdashline
+                      I$^6$ & IV     & ii$^6$          & V                 & iii$^6$  \\ \hdashline 
+                      vi    & IV$^6$ & vii$^\text{o}$  & V$^6$           
+                    \end{tabular} \\ \hline
+  Descending 5-6    & \renewcommand{\arraystretch}{1.5}
+                    \begin{tabular}{lllll} 
+                      I$^{6 \atop 4}$ & V                & vi$^{6 \atop 4}$ & iii                         & IV$^{6 \atop 4}$ \\ \hdashline 
+                      I               & ii$^{6 \atop 4}$ & vi               & vii$^{\text{o}{6 \atop 4}}$ & IV               \\ \hdashline 
+                      V$^{6 \atop 4}$  & ii               & iii$^{6 \atop 4}$           & vii$^\text{o}$  
+                    \end{tabular} \\ \hline
   \end{tabular}
-  \caption{MusAssist Harmonic Sequences Summary}
+  
+  \caption{MusAssist Harmonic Sequences Summary\label{table:harmseq}}
+  
 \end{center}
-\label{table:harmseq}
+
 \end{table}
 
-These inversion schemes were chosen to maximise smooth voice leading and desired direction of the
-sequence given its keyboard style implementation. 
-
+\vspace{-8mm}
 \subsection{Additional Features}
 Beyond compositional elements, users can set the key signature at the beginning
 of any measure up to seven sharps or flats by specificing note name, accidental, and quality (sharp or flat).
@@ -397,26 +420,96 @@ Users can also start a new measure or create a blank measure. Finally,
 users can label MusAssist expressions and reuse them later in the program. MusAssist
 comments are designated with \verb!\\!.
 
-The tempo for all MusAssist programs
+All compiled MusAssist programs adhere to standard notation style. Tied notes and rests 
+are broken up greedily into valid durations ordered either greatest to least (for tied
+notes/rests spilling into the beginnings of measures), or least to greatest in all
+other cases. The tempo for all MusAssist programs
 is set at \musQuarter\;= 80bpm and cannot currently be customized or changed.
 
+\section{Sample Programs}
+The following examples present MusAssist syntax followed by the result of
+ opening the compiled MusicXML code in MuseScore. 
+They demonstrate (1) the complexity that MusAssist is capable of and (2) 
+that MusAssist programs can certainly sound diatonic and pleasing to the ear.
+
+\section{Example 1}
+\begin{figure}[h!]
+\begin{verbatim}
+SET_KEY Amaj
+(D4 whole) (F#4 quarter) (Ab4 quarter) 
+      (G#4 eighth) (rest sixteenth)           
+// this is a comment
+notes1 = (D4 whole) (F#4 quarter) 
+      (Ab4 quarter) (G#4 eighth) (rest whole)  
+// note without b or # is considered 
+  to be natural chords1 = ([Bbb5, Db5, C5] half) ([C#5, E5] half) 
+      (C6 min triad inv:first quarter) 
+(F#4 halfdim seventh inv:second eighth)
+(D4 whole) (F#4 quarter) (Ab4 quarter) (G##4 eighth) (rest sixteenth)
+([Bbb5, Db5, C5] half) ([C#5, E5] half) (C6 min triad inv:first quarter) 
+(F#4 halfdim seventh inv:second eighth)
+SET_KEY Dmin
+NEW_MEASURE
+(DescFifths G5 min quarter length:15) (PerfAuthCadence Eb5 min half)
+notes1 chords1 (AscFifths G3 min quarter length:5) chords1 
+(PerfAuthCadence Eb5 min sixteenth) chords1
+\end{verbatim}
+\caption{MusAssist Syntax}
+\end{figure}
+kjsfdh sdkhf dskhf lsakj hdfakjs,d fhkwaj,es hdfuakwj,smdh luawksj,mdh 
+kjsfdh sdkhf dskhf lsakj hdfakjs,d fhkwaj,es hdfuakwj,smdh luawksj,mdh 
+kjsfdh sdkhf dskhf lsakj hdfakjs,d fhkwaj,es hdfuakwj,smdh luawksj,mdh 
+kjsfdh sdkhf dskhf lsakj hdfakjs,d fhkwaj,es hdfuakwj,smdh luawksj,mdh 
+kjsfdh sdkhf dskhf lsakj hdfakjs,d fhkwaj,es hdfuakwj,smdh luawksj,mdh 
+kjsfdh sdkhf dskhf lsakj hdfakjs,d fhkwaj,es hdfuakwj,smdh luawksj,mdh 
+kjsfdh sdkhf dskhf lsakj hdfakjs,d fhkwaj,es hdfuakwj,smdh luawksj,mdh 
+kjsfdh sdkhf dskhf lsakj hdfakjs,d fhkwaj,es hdfuakwj,smdh luawksj,mdh 
+kjsfdh sdkhf dskhf lsakj hdfakjs,d fhkwaj,es hdfuakwj,smdh luawksj,mdh 
+kjsfdh sdkhf dskhf lsakj hdfakjs,d fhkwaj,es hdfuakwj,smdh luawksj,mdh 
+kjsfdh sdkhf dskhf lsakj hdfakjs,d fhkwaj,es hdfuakwj,smdh luawksj,mdh 
+kjsfdh sdkhf dskhf lsakj hdfakjs,d fhkwaj,es hdfuakwj,smdh luawksj,mdh 
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=\textwidth]{images/program1}
+\caption{Example 1}
+\label{fig:ex1}
+\end{figure}
+
+\newpage
+
+\figref{fig:ex1} sounds rather atonal when played, but is presented to demonstrated the full complexity of MusAssist's features. Notice how MusAssist automatically breaks up the tied note rationally in mm. 19-20.
+
+\figref{fig:ex2} sounds much more diatonic and pleasing to the ear, but is not as complex as \figref{fig:ex1}. Notice how the key signature at the beginning of the score does not change twice, though the command appears consecutively in the code. Also notice how  we represented the same A major triad in m. 2 in two ways: as a custom collection of enharmonic notes, and then as a chord template.
+
+
 \section{Compiler Structure}
+
 The MusAssist compiler is written in Haskell. Its high-level structure is as follows: 
+
 \begin{enumerate}
   \item MusAssist concrete syntax is parsed into abstract syntax, represented as 
-  Haskell algebraic data types. Parsering is achieved with parser combinators from Parsec, an industrial 
-  strength parser library, and Parsec’s helper module Token is used for lexing. The parse 
-  preserves the abstraction level of all templates.
+  Haskell algebraic data types. Parser combinators were chosen for their flexibility
+  and easy customization. Parsec, an industrial strength parser library, is used, and 
+  Parsec’s helper module Token handles lexing. The parse preserves the abstraction 
+  level of all templates.
 
   \item Templates are expanded until the abstraction level is fully lowered to notes and
-  rests, correlating to the low-level abstraction of the target language MusicXML.
+  rests. The result is abstract syntax whose low-level abstraction
+  matches that of the target language MusicXML. 
 
-  \item The abstract syntax resulting from the fully expanded templates is translated to MusicXML. 
+  \item The low-level abstract syntax resulting from the fully expanded templates is 
+  translated to MusicXML.
 \end{enumerate}
+
 The resulting MusicXML file can then be opened in music notation software, such as MuseScore,
 for viewing and further editing. 
 
 \section{Template Expansion Logic}
+MusAssist's most powerful feature is its ability to formalize musical theoretical templates 
+to automate their expansion so the user can specify them at the elevated level of abstraction 
+of the musical structures they describe. This section summarizes the logic underlying the expansions.
+
 \subsection{Chords}
 \subsection{Cadences}
 \subsection{Harmonic Sequences}
