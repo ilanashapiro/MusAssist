@@ -363,7 +363,7 @@ transInstrs instrs = do
       lastInstrSeq  = last instrSeqs
       lastCodeLine  = if null lastInstrSeq then [] else last lastInstrSeq -- null if last instr is Assign
 
-  -- this is the remaining header code for the MusicXML file that was started in CompileM.hs
+  -- this is the remaining header code for the MusicXML file that was started in Compile.hs
   -- we set it here to have key sig of no sharps and flats, if the user's first instruction 
   -- was not to set a custom key sig for the start of the piece
   remainingHeaderCode <- if firstCodeLine /= "\t<attributes>" then globalHeaderCode 0 else return []

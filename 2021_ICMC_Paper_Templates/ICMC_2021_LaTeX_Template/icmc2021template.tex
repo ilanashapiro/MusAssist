@@ -308,14 +308,14 @@ On the most basic level, MusAssist supports individual notes and rests. Rests ar
 given a duration from sixteenth to whole note, and notes are further defined by note name (A to G), 
 accidental (from double flat to double flat), and octave (1 to 8, after the range of a piano).
 Just as in normal notation, the absence of an accidental indicates natural quality.
-Finally, users can also define ``custom chords,'' or collections of user-defined notes.
+Finally, users can also define ``custom chords,'' or user-defined collections of individual notes.
 These are not considered templates as the high-level description of the chord is not given.
 
 \subsection{High-Level Templates}
-MusAssist's supports templates for chords, cadences, harmonic sequences, specified at the abstraction
-level of the musical theoretical structures they represent. 
+MusAssist's supports templates for chords, cadences, harmonic sequences, specified uniquely
+at the abstraction level of the musical theoretical structures they represent. 
 
-Just as in music theory, chords are specified by root note (defined as the fundamental note is),
+Precisely as in music theory, chords are specified by root note (defined as the fundamental note is),
 quality (major, minor, augmented, diminished, or half diminished), 
 inversion (root, first, second, or third), and chord type (triad or seventh). 
 Half diminished and third inversion options apply to seventh chords only. The root note 
@@ -362,18 +362,16 @@ produces such a cadence when compiled and loaded into MuseScore notation softwar
 
 Finally, harmonic sequences are specified by harmonic sequence type (ascending fifths,
 descending fifths, ascending 5-6, descending 5-6), key (just as in cadences), duration of each chord,
-and length of the sequence. 
-
-Harmonic sequences can be implemented in several ways depending on desired inversion scheme. 
-Since MusAssist does not yet support multi-line composition, harmonic sequences are 
+and length of the sequence. Since MusAssist does not yet support multi-line composition, harmonic sequences are 
 writte like cadences in keyboard-style voice leading. Though the
 upper-voice harmonization of a harmonic sequence need not follow the direction in the sequence’s
 name, MusAssist chooses a chord inversion and voice leading pattern such that each sequence does
 align with the direction of its name (i.e. ascending sequences will ascend directionally).
 
-The chord progressions chosen for each sequence are summarized in %%%TABLE X
-(all in major for sake of example, but their inverse in minor is also supported). 
-Each sequence consists of fourteen chords before it repeats in the subsequent octave.
+In music theory, harmonic sequences can be implemented in several ways depending on desired inversion scheme. 
+The chosen chord progressions for each MusAssist sequence are summarized in \tabref{table:harmseq}.
+All sequences are shown in major for the sake of example, but their inverse in minor is equally supported. 
+Each consists of fourteen distinct chords before repeating in the subsequent octave. 
 
 \begin{table}[h!]
   \begin{center}
@@ -384,11 +382,13 @@ Each sequence consists of fourteen chords before it repeats in the subsequent oc
   Ascending 5-6     & I               & vi$^6$           & ii               & vii$^{\text{o}6}$ & iii               & I$^6$            & IV               & ii$^6$          & V                           & iii$^6$                     & vi               & IV$^6$           & vii$^\text{o}$              & V$^6$           \\ \hline
   Descending 5-6    & I$^{6 \atop 4}$ & V                & vi$^{6 \atop 4}$ & iii & IV$^{6 \atop 4}$  & I                & ii$^{6 \atop 4}$ & vi              & vii$^{\text{o}{6 \atop 4}}$ & IV                          & V$^{6 \atop 4}$  & ii               & iii$^{6 \atop 4}$           & vii$^\text{o}$  \\ \hline
   \end{tabular}
+  \caption{MusAssist Harmonic Sequences Summary}
 \end{center}
-\caption{MusAssist Harmonic Sequences Summary}
 \label{table:harmseq}
 \end{table}
 
+These inversion schemes were chosen to maximise smooth voice leading and desired direction of the
+sequence given its keyboard style implementation. 
 
 \subsection{Additional Features}
 Beyond compositional elements, users can set the key signature at the beginning
@@ -400,6 +400,52 @@ comments are designated with \verb!\\!.
 The tempo for all MusAssist programs
 is set at \musQuarter\;= 80bpm and cannot currently be customized or changed.
 
+\section{Compiler Structure}
+The MusAssist compiler is written in Haskell. Its high-level structure is as follows: 
+\begin{enumerate}
+  \item MusAssist concrete syntax is parsed into abstract syntax, represented as 
+  Haskell algebraic data types. Parsering is achieved with parser combinators from Parsec, an industrial 
+  strength parser library, and Parsec’s helper module Token is used for lexing. The parse 
+  preserves the abstraction level of all templates.
+
+  \item Templates are expanded until the abstraction level is fully lowered to notes and
+  rests, correlating to the low-level abstraction of the target language MusicXML.
+
+  \item The abstract syntax resulting from the fully expanded templates is translated to MusicXML. 
+\end{enumerate}
+The resulting MusicXML file can then be opened in music notation software, such as MuseScore,
+for viewing and further editing. 
+
+\section{Template Expansion Logic}
+\subsection{Chords}
+\subsection{Cadences}
+\subsection{Harmonic Sequences}
+
+\section{Future Work}
+Ideally, in the future MusAssist would support more complex musical states and elements including
+custom time signature and mid-composition time signature changes (similar to the behavior
+currently implemented for key signatures), clef changes within a part, multiple-clef parts (e.g.
+piano), multiple voicing within a part, custom parts (i.e. instruments), and multiple part compositions.
+Custom and changeable time signature would allow for the users to experiment with metric modulation,
+something that is currently impossible with the fixed common time setup. Clef changes within a
+part, both manual and automatic when a note extends too many ledger lines beyond a clef, would
+allow the score to be more aesthetically formatted and readable for the user. Support for two-clef piano
+would allow the MusAssist compiler to successfully modify how it generates cadences and harmonic
+sequences to include the essential baseline, in addition to the harmonization already implemented.
+Multiple voicing would allow for the user to create more complex musical lines, particularly with
+counterpoint. The latter two goals (custom parts and multiple parts) are somewhat outside MusAs-
+sist’s goal as a music compositional aid, as this extends beyond the realm of music theory. However,
+users may enjoy this increased flexibility when composing. Furthermore, in line with its goal of
+offering the user complex musical templates, it would be ideal for MusAssist to provide support for
+key modulation; e.g. generating a sequence of chords that successfully modulates from one key to
+another key. More complex/non-classical chords, such as all flavors of suspended, ninth, eleventh,
+and thirteen chords (often seen in jazz) are a future goal as well. It would also be ideal for MusAssist
+to be able to generate scales in any key, of any type (i.e. major, harmonic minor, octatonic etc),
+and of any length. Finally, MusAssist would in the future support more complex rhythms where
+any number of notes could be grouped over any number of beats (i.e. triplet, which is three eighths
+over a quarter note, or a 4:3 rhythm of four eighths over three quarter notes)
+
+\section{Conclusion}
 
 
 % this inserts a column-break

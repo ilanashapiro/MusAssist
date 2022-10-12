@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.7) (preloaded format=pdflatex 2022.10.4)  11 OCT 2022 11:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.7) (preloaded format=pdflatex 2022.10.4)  11 OCT 2022 17:19
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -438,11 +438,16 @@ Overfull \hbox (5.89522pt too wide) in paragraph at lines 283--288
  []
 
 
+Overfull \hbox (1.05498pt too wide) in paragraph at lines 315--317
+\OT1/ptm/m/n/10 monic se-quences, spec-i-fied uniquely at the ab-strac-tion level
+ []
+
+
 Package amsmath Warning: Foreign command \atop;
 (amsmath)                \frac or \genfrac should be used instead
 (amsmath)                 on input line 340.
 
-<images/perfauth.png, id=92, 880.28876pt x 118.4425pt>
+<images/perfauth.png, id=120, 880.28876pt x 118.4425pt>
 File: images/perfauth.png Graphic file (type png)
 <use images/perfauth.png>
 Package pdftex.def Info: images/perfauth.png  used on input line 359.
@@ -457,20 +462,54 @@ Overfull \hbox (0.26564pt too wide) in paragraph at lines 351--362
 []\OT1/ptm/m/n/10 All ca-dences ex-cept per-fect au-then-tic are built ex-clu-sively
  []
 
-[2 <./images/perfauth.png>]
-Overfull \hbox (3.05621pt too wide) in paragraph at lines 374--377
-[]\OT1/ptm/m/n/10 The chord pro-gres-sions cho-sen for each se-quence are sum-
+
+Package caption Warning: \label without proper reference on input line 387.
+See the caption package documentation for explanation.
+
+
+LaTeX Warning: Reference `table:harmseq' on page 2 undefined on input line 372.
+
+
+Overfull \hbox (5.48529pt too wide) in paragraph at lines 371--375
+\OT1/ptm/m/n/10 The cho-sen chord pro-gres-sions for each MusAs-sist se-quence
  []
 
-
-Overfull \hbox (242.40569pt too wide) in paragraph at lines 380--387
+[2 <./images/perfauth.png>]
+Overfull \hbox (242.40569pt too wide) in paragraph at lines 378--385
  [] 
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Overfull \hbox (3.4257pt too wide) in paragraph at lines 390--392
+[]\OT1/ptm/m/n/10 These in-ver-sion schemes were cho-sen to max-imise smooth
+ []
+
+
+Overfull \hbox (3.84485pt too wide) in paragraph at lines 406--410
+[]\OT1/ptm/m/n/10 MusAssist con-crete syn-tax is parsed into ab-stract syn-
+ []
+
+
+Overfull \hbox (10.58505pt too wide) in paragraph at lines 406--410
+\OT1/ptm/m/n/10 tax, rep-re-sented as Haskell al-ge-braic data types. Parser-
+ []
+
+
+Overfull \hbox (1.46556pt too wide) in paragraph at lines 414--415
+[]\OT1/ptm/m/n/10 The ab-stract syn-tax re-sult-ing from the fully ex-panded
+ []
+
+
+Overfull \hbox (5.28467pt too wide) in paragraph at lines 425--447
+\OT1/ptm/m/n/10 sig-na-ture and mid-composition time sig-na-ture changes (sim-
+ []
+
+
+Underfull \vbox (badness 2961) has occurred while \output is active []
 
  [3]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 Package epstopdf Info: Source file: <figure.eps>
 (epstopdf)                    date: 2017-12-01 16:28:24
 (epstopdf)                    size: 620133 bytes
@@ -478,37 +517,42 @@ Package epstopdf Info: Source file: <figure.eps>
 (epstopdf)                    date: 2018-11-06 10:46:34
 (epstopdf)                    size: 19429 bytes
 (epstopdf)             Command: <miktex-epstopdf --outfile=figure-eps-converted-to.pdf figure.eps>
-(epstopdf)             \includegraphics on input line 462.
+(epstopdf)             \includegraphics on input line 508.
 Package epstopdf Info: Output file is already uptodate.
 
 
 pdfTeX warning: pdflatex (file ./figure-eps-converted-to.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<figure-eps-converted-to.pdf, id=110, 127.47626pt x 88.33pt>
+<figure-eps-converted-to.pdf, id=142, 127.47626pt x 88.33pt>
 File: figure-eps-converted-to.pdf Graphic file (type pdf)
 <use figure-eps-converted-to.pdf>
-Package pdftex.def Info: figure-eps-converted-to.pdf  used on input line 462.
+Package pdftex.def Info: figure-eps-converted-to.pdf  used on input line 508.
 (pdftex.def)             Requested size: 209.97983pt x 145.50502pt.
-
-Overfull \hbox (2.37593pt too wide) in paragraph at lines 489--491
+[4 <./figure-eps-converted-to.pdf>]
+Overfull \hbox (2.37593pt too wide) in paragraph at lines 535--537
 []\OT1/ptm/m/n/10 Reference num-bers in the text should ap-pear within square
  []
 
-(icmc2021template.bbl) [4 <./figure-eps-converted-to.pdf>] (icmc2021template.aux)
+(icmc2021template.bbl) [5
+
+] (icmc2021template.aux)
+
+LaTeX Warning: There were undefined references.
+
 Package rerunfilecheck Info: File `icmc2021template.out' has not changed.
-(rerunfilecheck)             Checksum: 22277FB56B4D8323F0F9D5083D082203;3272.
+(rerunfilecheck)             Checksum: B9AFCB9D2E3FDC69BB2BA3FE49E71C3A;4303.
  ) 
 Here is how much of TeX's memory you used:
- 13051 strings out of 478338
- 217801 string characters out of 2836228
+ 13071 strings out of 478338
+ 218047 string characters out of 2836228
  544411 words of memory out of 3000000
- 31238 multiletter control sequences out of 15000+600000
+ 31247 multiletter control sequences out of 15000+600000
  489643 words of font info for 65 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  72i,14n,77p,543b,454s stack positions out of 10000i,1000n,20000p,200000b,80000s
 {C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/musixtex-fonts/musix11.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/public/musixtex-fonts/musix16.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmb8a.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmr8a.pfb><C:/Users/Illana/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/utmri8a.pfb>
-Output written on icmc2021template.pdf (4 pages, 213425 bytes).
+Output written on icmc2021template.pdf (5 pages, 222049 bytes).
 PDF statistics:
- 188 PDF objects out of 1000 (max. 8388607)
- 34 named destinations out of 1000 (max. 500000)
- 163 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 228 PDF objects out of 1000 (max. 8388607)
+ 45 named destinations out of 1000 (max. 500000)
+ 219 words of extra memory for PDF output out of 10000 (max. 10000000)
 
