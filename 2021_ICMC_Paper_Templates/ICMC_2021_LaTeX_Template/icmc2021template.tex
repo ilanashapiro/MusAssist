@@ -18,6 +18,10 @@
 \captionsetup{skip=5pt}
 %\usepackage{cite}
 
+
+\usepackage{calc}
+\newlength{\maxcollen}
+
 %%%%%%%%%%%%%%%%%%%%%%%% Some useful packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%% See related documentation %%%%%%%%%%%%%%%%%%%%%%%%%%
 %\usepackage{amsmath} % popular packages from Am. Math. Soc. Please use the 
@@ -378,28 +382,29 @@ Each consists of fourteen distinct chords before repeating in the subsequent oct
 
 \begin{table}[h!]
   \begin{center}
+    \setlength{\maxcollen}{\widthof{vii$^{\text{o}{6 \atop 4}}$}}
   \begin{tabular}{|c|@{}c@{}|}
   \hline
   Ascending Fifths  & \renewcommand{\arraystretch}{1.5}
-                    \begin{tabular}{lllll} 
+                    \begin{tabular}{p{\maxcollen}p{\maxcollen}p{\maxcollen}p{\maxcollen}p{\maxcollen}} 
                         I$^{6 \atop 4}$ & V                & ii$^{6 \atop 4}$            & vi              & iii$^{6 \atop 4}$ \\ \hdashline
                         vii$^\text{o}$  & IV$^{6 \atop 4}$ & I                           & V$^{6 \atop 4}$ & ii                \\ \hdashline
                         vi$^{6 \atop 4}$ & iii             & vii$^{\text{o}{6 \atop 4}}$ & IV              
                     \end{tabular} \\ \hline 
   Descending Fifths & \renewcommand{\arraystretch}{1.5}
-                    \begin{tabular}{lllll} 
+                    \begin{tabular}{p{\maxcollen}p{\maxcollen}p{\maxcollen}p{\maxcollen}p{\maxcollen}} 
                       I                & IV$^{6 \atop 4}$ & vii$^\text{o}$  & iii$^{6 \atop 4}$ & vi                          \\ \hdashline
                       ii$^{6 \atop 4}$ & V                & I$^{6 \atop 4}$ & IV                & vii$^{\text{o}{6 \atop 4}}$ \\ \hdashline
                       iii              & vi$^{6 \atop 4}$ & ii              & V$^{6 \atop 4}$
                     \end{tabular} \\ \hline
   Ascending 5-6     & \renewcommand{\arraystretch}{1.5}
-                    \begin{tabular}{lllll} 
+                    \begin{tabular}{p{\maxcollen}p{\maxcollen}p{\maxcollen}p{\maxcollen}p{\maxcollen}} 
                       I     & vi$^6$ & ii              & vii$^{\text{o}6}$ & iii      \\ \hdashline
                       I$^6$ & IV     & ii$^6$          & V                 & iii$^6$  \\ \hdashline 
                       vi    & IV$^6$ & vii$^\text{o}$  & V$^6$           
                     \end{tabular} \\ \hline
   Descending 5-6    & \renewcommand{\arraystretch}{1.5}
-                    \begin{tabular}{lllll} 
+                    \begin{tabular}{p{\maxcollen}p{\maxcollen}p{\maxcollen}p{\maxcollen}p{\maxcollen}} 
                       I$^{6 \atop 4}$ & V                & vi$^{6 \atop 4}$ & iii                         & IV$^{6 \atop 4}$ \\ \hdashline 
                       I               & ii$^{6 \atop 4}$ & vi               & vii$^{\text{o}{6 \atop 4}}$ & IV               \\ \hdashline 
                       V$^{6 \atop 4}$  & ii               & iii$^{6 \atop 4}$           & vii$^\text{o}$  
