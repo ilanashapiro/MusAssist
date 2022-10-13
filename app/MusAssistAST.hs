@@ -85,6 +85,15 @@ data Quality =
     | HalfDiminished -- seventh chords only
   deriving (Eq, Show, Read)
 
+data ScaleType =
+    MajorScale
+    | NaturalMinor
+    | HarmonicMinor
+    | MelodicMinor
+    | Chromatic
+    | Octatonic
+  deriving (Eq, Show, Read)
+  
 data ChordType = 
      Triad 
      | Seventh
@@ -133,6 +142,7 @@ data IntermediateExpr =
   | ChordTemplate Tone Quality ChordType Inversion Duration -- Predefined chords: these all happen in root position
   | Cadence CadenceType Tone Quality Duration -- quality is major/minor ONLY. det the start note and key of the cadence
   | HarmonicSequence HarmonicSequenceType Tone Quality Duration Length -- quality is major/minor ONLY. det the start note and key of the seq
+  | Scale Tone ScaleType Duration Length
   | Label Label -- labels referring to exprs. syntactic sugar for the expressions they contain. these get desugared before code generation
   | FinalExpr Expr
    deriving (Eq, Show, Read)

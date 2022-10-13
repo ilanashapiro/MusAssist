@@ -98,6 +98,9 @@ expandIntermediateExpr :: SymbolTable -> MusAST.IntermediateExpr -> IO [MusAST.E
 -- | Notes get expanded to become single-element chords
 expandIntermediateExpr _ (MusAST.Note tone duration) = return [MusAST.Chord [tone] duration]
 
+
+expandIntermediateExpr symbolTable (MusAST.Scale tone scaleType duration length) = undefined
+    
 -- | Predefined chords
 expandIntermediateExpr _ (MusAST.ChordTemplate (MusAST.Tone rootNoteName rootAccidental rootOctave) quality chordType inversion duration) = 
     if rootAccidental == MusAST.DoubleFlat || rootAccidental == MusAST.DoubleSharp then return [error "Cannot build chord on a double flat or sharp"]
