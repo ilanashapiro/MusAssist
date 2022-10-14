@@ -99,10 +99,11 @@ expandIntermediateExpr :: SymbolTable -> MusAST.IntermediateExpr -> IO [MusAST.E
 expandIntermediateExpr _ (MusAST.Note tone duration) = return [MusAST.Chord [tone] duration]
 
 -- | Predefined chords
-expandIntermediateExpr _ (MusAST.ChordTemplate (MusAST.Tone rootNoteName rootAccidental rootOctave) quality chordType inversion duration) = 
-    if rootAccidental == MusAST.DoubleFlat || rootAccidental == MusAST.DoubleSharp then return [error "Cannot build chord on a double flat or sharp"]
-    else if chordType == MusAST.Triad && quality == MusAST.HalfDiminished then return [error "Cannot have a half diminished triad"] else do
-    let tonicTone = (MusAST.Tone rootNoteName rootAccidental rootOctave)
+expandIntermediateExpr _ (MusAST.ChordTemplate (MusAST.Tone rootNoteName rootAccidental rootOctave) quality chordType inversion duration) 
+    | rootAccidental == MusAST.DoubleFlat || rootAccidental == MusAST.DoubleSharp = return [error "Cannot build chord on a double flat or sharp"]
+    | chordType == MusAST.Triad && quality == MusAST.HalfDiminished = return [error "Cannot have a half diminished triad"]
+    | otherwise = do
+    let tonicTone = MusAST.Tone rootNoteName rootAccidental rootOctave
         toneQualityWithinScale = case quality of -- can only get tones within a valid (i.e. major/minor) scale
             MusAST.Major     -> MusAST.Major
             MusAST.Augmented -> MusAST.Major
@@ -187,9 +188,10 @@ expandIntermediateExpr symbolTable (MusAST.Cadence cadenceType (MusAST.Tone toni
 -- | Quality is major/minor ONLY. tone+quality determines the start note and key of the harmseq
 --   Duration is length of each chord, length is number of chords in the sequence
 --   The seq chords all happen in root position
-expandIntermediateExpr symbolTable (MusAST.HarmonicSequence harmSeqType tonicTone tonicQuality duration length) = 
-    if tonicQuality `notElem` globalValidKeyQualities then return $ error "Harmonic Seq quality must be major or minor only" else 
-    if length < 1 then return $ error "Harmonic Seq must have length at least 1 " else do 
+expandIntermediateExpr symbolTable (MusAST.HarmonicSequence harmSeqType tonicTone tonicQuality duration length) 
+    | tonicQuality `notElem` globalValidKeyQualities = return $ error "Harmonic Seq quality must be major or minor only"  
+    | length < 1 = return $ error "Harmonic Seq must have length at least 1 " 
+    | otherwise = do 
     tonicRootTriadList <- expandIntermediateExpr symbolTable (MusAST.ChordTemplate tonicTone tonicQuality MusAST.Triad MusAST.Root duration) 
     tonicSecondInvTriadList <- expandIntermediateExpr symbolTable (MusAST.ChordTemplate tonicTone tonicQuality MusAST.Triad MusAST.Second duration) 
 
@@ -269,6 +271,30 @@ expandIntermediateExpr symbolTable (MusAST.HarmonicSequence harmSeqType tonicTon
     (finalSeq, _, _, _) <- generateSeq length
     return finalSeq
 
+-- | Predefied scales
+expandIntermediateExpr symbolTable (MusAST.Scale noteName accidental scaleType (MusAST.Tone startNoteName startAcc startOctave) direction duration length) 
+    | length < 1 = return $ error "Scale must have length at least 1 " 
+    | scaleType == MusAST.Chromatic = undefined
+    | otherwise = do -- major, natural/melodic/harmonic minor
+        let firstTone = MusAST.Tone startNoteName startAcc startOctave
+            octIncVal = case direction of
+                MusAST.Descending -> -1
+                MusAST.Ascending -> 1
+            generateScale 1 = return ([firstTone], 0, 0, startOctave) -- ([first chord], first interval from tonic, starting index in seq w/ 0-indexing, initial tonic octave)
+            generateScale n = do
+                (remainingScale, previousIntervalFromTonic, previousIndexInScale, previousTonicOctave) <- generateScale (n-1) 
+                let nextIndexInScale = (previousIndexInScale + 1) `mod` 7 -- All maj/min scales are 7 notes long
+                    nextTonicOctave = if nextIndexInScale == 0 then previousTonicOctave + octIncVal else previousTonicOctave -- the octave changes every cycle of the scale
+                    nextTonicTone = (MusAST.Tone tonicNoteName tonicAcc nextTonicOctave)
+                    
+                    intervalFromTonic = (previousIntervalFromTonic + 1) `mod` 7
+                    
+                    (specialOctCasesForIndex, octFunc) = specialOctCasesFunc nextIndexInSeq nextTonicOctave
+
+                triad <- generateTriadWithinScale symbolTable nextTonicTone tonicQuality duration intervalFromTonic specialOctCasesForIndex octFunc inversion
+                return $ (remainingSeq ++ [triad], intervalFromTonic, nextIndexInSeq, nextTonicOctave) -- the seq cycles after 14 chords, but an octave up
+        return $ []
+    
 -- | Replace a label with its stored expressions
 expandIntermediateExpr symbolTableIORef (MusAST.Label label) = do
     symbolTable <- IORef.readIORef symbolTableIORef
