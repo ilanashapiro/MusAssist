@@ -11,6 +11,7 @@ and then run
     run "test1.musassist"
 and so on, or you can compile it on the command line with
     ghc --make -O Compile.hs
+    ****AS OF OCT 2022: ghc --make -O Compile.hs -package bimap -package parsec
 and run
     ./Compile test1.musassist
 -}

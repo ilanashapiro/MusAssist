@@ -26,13 +26,13 @@ extra-source-files:
     README.md
 
 executable MusAssist
-    main-is:          CompileM.hs
+    main-is:          Compile.hs
 
     -- Modules included in this executable, other than Main.
-    -- other-modules:
+    other-modules:   IRConversion, MusAssistAST, MusicXMLgen, Parser
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
-    build-depends:    base ^>=4.14.3.0, bimap >=0.4.0, extra >=1.7.12, parsec >= 3.1.15.0
+    build-depends:    base >=4.16.3.0, bimap >=0.4.0, extra >=1.7.12, parsec >= 3.1.15.0, containers, filepath, bimap >= 0.5.0
     hs-source-dirs:   app
     default-language: Haskell2010
