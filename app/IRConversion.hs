@@ -53,26 +53,27 @@ globalStepsFromTonicToAccInfoMap = Map.fromList
      (6, (take 2 globalOrderOfSharps, pred, Just MusAST.Minor))]   -- sevenths
 
 generateToneWithinScale :: MusAST.Tone -> MusAST.Quality -> Int -> [MusAST.NoteName] -> (MusAST.Octave -> MusAST.Octave) -> IO MusAST.Tone
-generateToneWithinScale tonicTone tonicQuality intervalVal specialOctaveCases octFunc = 
-    if intervalVal < 0 || intervalVal > 6 then return $ error "Can't generate tone outside single scale range" else 
-    if tonicQuality `notElem` globalValidKeyQualities then return $ error "Can't generate tone given invalid key quality (not major or minor)" else do
-    let (MusAST.Tone tonicNoteName tonicAccidental tonicOctave) = tonicTone
-        noteName   = applyN succ tonicNoteName intervalVal
-        (specialAccidentalCases, accFunc, accFuncValidQuality) = 
-            case (Map.lookup intervalVal globalStepsFromTonicToAccInfoMap) of 
-                Just accInfo -> accInfo 
-                Nothing      -> error "Invalid inverval for tone within scale generation"
-        computedAcc = if tonicNoteName `elem` specialAccidentalCases then accFunc tonicAccidental else tonicAccidental
-        accAdjustedForKey = case accFuncValidQuality of 
-            Nothing             -> computedAcc
-            Just MusAST.Major   -> 
-                if tonicQuality == MusAST.Major then computedAcc 
-                 else pred computedAcc -- i.e if valid quality is major, and we want minor, go down half step
-            Just MusAST.Minor   -> 
-                if tonicQuality == MusAST.Minor then computedAcc 
-                else succ computedAcc -- i.e if valid quality is minor, and we want major, go up half step
-        octave     = if tonicNoteName `elem` specialOctaveCases then octFunc tonicOctave else tonicOctave
-    return $ MusAST.Tone noteName accAdjustedForKey octave
+generateToneWithinScale tonicTone tonicQuality intervalVal specialOctaveCases octFunc 
+    | intervalVal < 0 || intervalVal > 6 = return $ error "Can't generate tone outside single scale range" 
+    | tonicQuality `notElem` globalValidKeyQualities = return $ error "Can't generate tone given invalid key quality (not major or minor)" 
+    | otherwise = do
+        let (MusAST.Tone tonicNoteName tonicAccidental tonicOctave) = tonicTone
+            noteName   = applyN succ tonicNoteName intervalVal
+            (specialAccidentalCases, accFunc, accFuncValidQuality) = 
+                case Map.lookup intervalVal globalStepsFromTonicToAccInfoMap of 
+                    Just accInfo -> accInfo 
+                    Nothing      -> error "Invalid inverval for tone within scale generation"
+            computedAcc = if tonicNoteName `elem` specialAccidentalCases then accFunc tonicAccidental else tonicAccidental
+            accAdjustedForKey = case accFuncValidQuality of 
+                Nothing             -> computedAcc
+                Just MusAST.Major   -> 
+                    if tonicQuality == MusAST.Major then computedAcc 
+                    else pred computedAcc -- i.e if valid quality is major, and we want minor, go down half step
+                Just MusAST.Minor   -> 
+                    if tonicQuality == MusAST.Minor then computedAcc 
+                    else succ computedAcc -- i.e if valid quality is minor, and we want major, go up half step
+            octave     = if tonicNoteName `elem` specialOctaveCases then octFunc tonicOctave else tonicOctave
+        return $ MusAST.Tone noteName accAdjustedForKey octave
 
 generateTriadWithinScale :: SymbolTable -> MusAST.Tone -> MusAST.Quality -> MusAST.Duration -> Int -> [MusAST.NoteName] -> (MusAST.Octave -> MusAST.Octave) -> MusAST.Inversion -> IO MusAST.Expr
 generateTriadWithinScale symbolTable tonicTone tonicQuality duration intervalVal specialOctaveCases octFunc inversion = do
@@ -103,49 +104,50 @@ expandIntermediateExpr _ (MusAST.ChordTemplate (MusAST.Tone rootNoteName rootAcc
     | rootAccidental == MusAST.DoubleFlat || rootAccidental == MusAST.DoubleSharp = return [error "Cannot build chord on a double flat or sharp"]
     | chordType == MusAST.Triad && quality == MusAST.HalfDiminished = return [error "Cannot have a half diminished triad"]
     | otherwise = do
-    let tonicTone = MusAST.Tone rootNoteName rootAccidental rootOctave
-        toneQualityWithinScale = case quality of -- can only get tones within a valid (i.e. major/minor) scale
-            MusAST.Major     -> MusAST.Major
-            MusAST.Augmented -> MusAST.Major
-            _                -> MusAST.Minor
-        generateToneFromTonic = generateToneWithinScale tonicTone toneQualityWithinScale
-    
-    (MusAST.Tone thirdNoteName thirdAccidental thirdOctave) <- generateToneFromTonic 2 [MusAST.A, MusAST.B] succ
-    (MusAST.Tone fifthNoteName fifthAccidental fifthOctave) <- generateToneFromTonic 4 (enumFromTo MusAST.F MusAST.B) succ 
+        print $ show (enumFromTo MusAST.C MusAST.B)
+        let tonicTone = MusAST.Tone rootNoteName rootAccidental rootOctave
+            toneQualityWithinScale = case quality of -- can only get tones within a valid (i.e. major/minor) scale
+                MusAST.Major     -> MusAST.Major
+                MusAST.Augmented -> MusAST.Major
+                _                -> MusAST.Minor
+            generateToneFromTonic = generateToneWithinScale tonicTone toneQualityWithinScale
+        
+        (MusAST.Tone thirdNoteName thirdAccidental thirdOctave) <- generateToneFromTonic 2 [MusAST.A, MusAST.B] succ
+        (MusAST.Tone fifthNoteName fifthAccidental fifthOctave) <- generateToneFromTonic 4 (enumFromTo MusAST.F MusAST.B) succ 
 
-    let adjustedFifthAcc = case quality of
-            MusAST.Augmented      -> succ fifthAccidental
-            MusAST.Diminished     -> pred fifthAccidental
-            MusAST.HalfDiminished -> pred fifthAccidental
-            _                     -> fifthAccidental 
-        
-        triadNoteNames   = [rootNoteName, thirdNoteName, fifthNoteName]
-        triadAccidentals = [rootAccidental, thirdAccidental, adjustedFifthAcc]
-        triadOctaves     = [rootOctave, thirdOctave, fifthOctave]
-        inversionVal     = convertInversionToInt inversion
-        
-    if chordType == MusAST.Triad 
-        then if inversionVal > 2 then return [error "Cannot have third inversion triad"] else 
-            let invertedTriadOctaves = incrementFirstNElems inversionVal triadOctaves
-                 -- NOTE: musescore doesn't care which note is on "top" of the chord in the musicXML: only that the correct notes are in the chord
-                 -- thus, we don't need to rotate the array of triad tones to fit the inversion in the musicXML code
-                invertedTriadTones = zipWith3 (\noteName accidental octave -> MusAST.Tone noteName accidental octave) triadNoteNames triadAccidentals invertedTriadOctaves
-             in return [MusAST.Chord invertedTriadTones duration]
-    else do
-        (MusAST.Tone seventhNoteName seventhAccidental seventhOctave) <- generateToneFromTonic 6 (enumFromTo MusAST.D MusAST.B) succ 
-        let adjustedSeventhAcc = case quality of
-                MusAST.Augmented  -> pred seventhAccidental -- since augmented is generated w.r.t. major key
-                MusAST.Diminished -> pred seventhAccidental -- since dim is generated w.r.t. minor key
-                _                 -> seventhAccidental 
+        let adjustedFifthAcc = case quality of
+                MusAST.Augmented      -> succ fifthAccidental
+                MusAST.Diminished     -> pred fifthAccidental
+                MusAST.HalfDiminished -> pred fifthAccidental
+                _                     -> fifthAccidental 
             
-            invertedSeventhOctaves = incrementFirstNElems inversionVal (triadOctaves ++ [seventhOctave])
-            invertedSeventhTones   = 
-                zipWith3 (\noteName accidental octave -> MusAST.Tone noteName accidental octave) 
-                    (triadNoteNames ++ [seventhNoteName])
-                    (triadAccidentals ++ [adjustedSeventhAcc])
-                    invertedSeventhOctaves
+            triadNoteNames   = [rootNoteName, thirdNoteName, fifthNoteName]
+            triadAccidentals = [rootAccidental, thirdAccidental, adjustedFifthAcc]
+            triadOctaves     = [rootOctave, thirdOctave, fifthOctave]
+            inversionVal     = convertInversionToInt inversion
+            
+        if chordType == MusAST.Triad 
+            then if inversionVal > 2 then return [error "Cannot have third inversion triad"] else 
+                let invertedTriadOctaves = incrementFirstNElems inversionVal triadOctaves
+                    -- NOTE: musescore doesn't care which note is on "top" of the chord in the musicXML: only that the correct notes are in the chord
+                    -- thus, we don't need to rotate the array of triad tones to fit the inversion in the musicXML code
+                    invertedTriadTones = zipWith3 (\noteName accidental octave -> MusAST.Tone noteName accidental octave) triadNoteNames triadAccidentals invertedTriadOctaves
+                in return [MusAST.Chord invertedTriadTones duration]
+        else do
+            (MusAST.Tone seventhNoteName seventhAccidental seventhOctave) <- generateToneFromTonic 6 (enumFromTo MusAST.D MusAST.B) succ 
+            let adjustedSeventhAcc = case quality of
+                    MusAST.Augmented  -> pred seventhAccidental -- since augmented is generated w.r.t. major key
+                    MusAST.Diminished -> pred seventhAccidental -- since dim is generated w.r.t. minor key
+                    _                 -> seventhAccidental 
+                
+                invertedSeventhOctaves = incrementFirstNElems inversionVal (triadOctaves ++ [seventhOctave])
+                invertedSeventhTones   = 
+                    zipWith3 (\noteName accidental octave -> MusAST.Tone noteName accidental octave) 
+                        (triadNoteNames ++ [seventhNoteName])
+                        (triadAccidentals ++ [adjustedSeventhAcc])
+                        invertedSeventhOctaves
 
-        return [MusAST.Chord invertedSeventhTones duration]
+            return [MusAST.Chord invertedSeventhTones duration]
        
 -- | Quality is major/minor ONLY. tone+quality determines the start note and key of the cadence
 expandIntermediateExpr symbolTable (MusAST.Cadence cadenceType (MusAST.Tone tonicNoteName tonicAccidental tonicOctave) quality duration) = 
@@ -271,7 +273,7 @@ expandIntermediateExpr symbolTable (MusAST.HarmonicSequence harmSeqType tonicTon
     (finalSeq, _, _, _) <- generateSeq length
     return finalSeq
 
--- | Predefied scales
+| Predefied scales
 expandIntermediateExpr symbolTable (MusAST.Scale noteName accidental scaleType (MusAST.Tone startNoteName startAcc startOctave) direction duration length) 
     | length < 1 = return $ error "Scale must have length at least 1 " 
     | scaleType == MusAST.Chromatic = undefined
@@ -291,8 +293,8 @@ expandIntermediateExpr symbolTable (MusAST.Scale noteName accidental scaleType (
                     
                     (specialOctCasesForIndex, octFunc) = specialOctCasesFunc nextIndexInSeq nextTonicOctave
 
-                triad <- generateTriadWithinScale symbolTable nextTonicTone tonicQuality duration intervalFromTonic specialOctCasesForIndex octFunc inversion
-                return $ (remainingSeq ++ [triad], intervalFromTonic, nextIndexInSeq, nextTonicOctave) -- the seq cycles after 14 chords, but an octave up
+                note <- generateToneWithinScale tonicTone tonicQuality (length - n) specialOctaveCases octFunc 
+                return $ (remainingScale ++ [note], intervalFromTonic, nextIndexInScale, nextTonicOctave) -- the seq cycles after 14 chords, but an octave up
         return $ []
     
 -- | Replace a label with its stored expressions
