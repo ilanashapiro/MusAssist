@@ -273,12 +273,14 @@ expandIntermediateExpr symbolTable (MusAST.HarmonicSequence harmSeqType tonicTon
     (finalSeq, _, _, _) <- generateSeq length
     return finalSeq
 
-| Predefied scales
-expandIntermediateExpr symbolTable (MusAST.Scale noteName accidental scaleType (MusAST.Tone startNoteName startAcc startOctave) direction duration length) 
+-- | Predefied scales
+expandIntermediateExpr symbolTable (MusAST.Scale tonicNoteName tonicAcc scaleType (MusAST.Tone startNoteName startAcc startOctave) direction duration length) 
     | length < 1 = return $ error "Scale must have length at least 1 " 
     | scaleType == MusAST.Chromatic = undefined
     | otherwise = do -- major, natural/melodic/harmonic minor
-        let firstTone = MusAST.Tone startNoteName startAcc startOctave
+        let startTone = MusAST.Tone startNoteName startAcc startOctave
+            startToneIndexRaw = fromEnum startNoteName - fromEnum tonicNoteName 
+            startToneIndex = if startToneIndexRaw < 0 then startToneIndexRaw + 7 else startToneIndexRaw -- zero-based index of start note in scale
             octIncVal = case direction of
                 MusAST.Descending -> -1
                 MusAST.Ascending -> 1
@@ -287,14 +289,14 @@ expandIntermediateExpr symbolTable (MusAST.Scale noteName accidental scaleType (
                 (remainingScale, previousIntervalFromTonic, previousIndexInScale, previousTonicOctave) <- generateScale (n-1) 
                 let nextIndexInScale = (previousIndexInScale + 1) `mod` 7 -- All maj/min scales are 7 notes long
                     nextTonicOctave = if nextIndexInScale == 0 then previousTonicOctave + octIncVal else previousTonicOctave -- the octave changes every cycle of the scale
-                    nextTonicTone = (MusAST.Tone tonicNoteName tonicAcc nextTonicOctave)
+                    nextTonicTone = MusAST.Tone tonicNoteName tonicAcc nextTonicOctave
                     
                     intervalFromTonic = (previousIntervalFromTonic + 1) `mod` 7
                     
                     (specialOctCasesForIndex, octFunc) = specialOctCasesFunc nextIndexInSeq nextTonicOctave
 
                 note <- generateToneWithinScale tonicTone tonicQuality (length - n) specialOctaveCases octFunc 
-                return $ (remainingScale ++ [note], intervalFromTonic, nextIndexInScale, nextTonicOctave) -- the seq cycles after 14 chords, but an octave up
+                return $ (remainingScale ++ [note], intervalFromTonic, nextIndexInScale, nextTonicOctave) -- the scale cycles after 7 notes, but an octave up
         return $ []
     
 -- | Replace a label with its stored expressions
