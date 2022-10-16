@@ -158,3 +158,4 @@ data IntermediateInstr =
   | IRWrite [IntermediateExpr]
   | IRAssign Label [IntermediateExpr] -- labeled expressions. syntactic sugar for the expressions they contain. these get desugared before code generation
     deriving (Eq, Show, Read)
+-- IRWrite [Scale C Natural MajorScale (Tone E Natural 5) Ascending Quarter 10]

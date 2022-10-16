@@ -104,14 +104,13 @@ expandIntermediateExpr _ (MusAST.ChordTemplate (MusAST.Tone rootNoteName rootAcc
     | rootAccidental == MusAST.DoubleFlat || rootAccidental == MusAST.DoubleSharp = return [error "Cannot build chord on a double flat or sharp"]
     | chordType == MusAST.Triad && quality == MusAST.HalfDiminished = return [error "Cannot have a half diminished triad"]
     | otherwise = do
-        print $ show (enumFromTo MusAST.C MusAST.B)
         let tonicTone = MusAST.Tone rootNoteName rootAccidental rootOctave
             toneQualityWithinScale = case quality of -- can only get tones within a valid (i.e. major/minor) scale
                 MusAST.Major     -> MusAST.Major
                 MusAST.Augmented -> MusAST.Major
                 _                -> MusAST.Minor
             generateToneFromTonic = generateToneWithinScale tonicTone toneQualityWithinScale
-        
+
         (MusAST.Tone thirdNoteName thirdAccidental thirdOctave) <- generateToneFromTonic 2 [MusAST.A, MusAST.B] succ
         (MusAST.Tone fifthNoteName fifthAccidental fifthOctave) <- generateToneFromTonic 4 (enumFromTo MusAST.F MusAST.B) succ 
 
@@ -262,13 +261,13 @@ expandIntermediateExpr symbolTable (MusAST.HarmonicSequence harmSeqType tonicTon
                 nextTonicOctave = if nextIndexInSeq == 0 then previousTonicOctave + octIncVal else previousTonicOctave -- the octave changes every cycle of the seq
                 nextTonicTone = (MusAST.Tone tonicNoteName tonicAcc nextTonicOctave)
                 
-                intervalFromTonic = (previousIntervalFromTonic + (if n `mod` 2 == 0 then evenIndexIntervalChange else oddIndexIntervalChange)) `mod` 7
+                nextIntervalFromTonic = (previousIntervalFromTonic + (if n `mod` 2 == 0 then evenIndexIntervalChange else oddIndexIntervalChange)) `mod` 7
                 inversion = if n `mod` 2 == 0 then evenIndexInv else oddIndexInv
                 
                 (specialOctCasesForIndex, octFunc) = specialOctCasesFunc nextIndexInSeq nextTonicOctave
 
-            triad <- generateTriadWithinScale symbolTable nextTonicTone tonicQuality duration intervalFromTonic specialOctCasesForIndex octFunc inversion
-            return $ (remainingSeq ++ [triad], intervalFromTonic, nextIndexInSeq, nextTonicOctave) -- the seq cycles after 14 chords, but an octave up
+            triad <- generateTriadWithinScale symbolTable nextTonicTone tonicQuality duration nextIntervalFromTonic specialOctCasesForIndex octFunc inversion
+            return $ (remainingSeq ++ [triad], nextIntervalFromTonic, nextIndexInSeq, nextTonicOctave) -- the seq cycles after 14 chords, but an octave up
         
     (finalSeq, _, _, _) <- generateSeq length
     return finalSeq
@@ -276,28 +275,48 @@ expandIntermediateExpr symbolTable (MusAST.HarmonicSequence harmSeqType tonicTon
 -- | Predefied scales
 expandIntermediateExpr symbolTable (MusAST.Scale tonicNoteName tonicAcc scaleType (MusAST.Tone startNoteName startAcc startOctave) direction duration length) 
     | length < 1 = return $ error "Scale must have length at least 1 " 
-    | scaleType == MusAST.Chromatic = undefined
+    | scaleType `elem` [MusAST.Chromatic, MusAST.Octatonic] = undefined
     | otherwise = do -- major, natural/melodic/harmonic minor
         let startTone = MusAST.Tone startNoteName startAcc startOctave
-            startToneIndexRaw = fromEnum startNoteName - fromEnum tonicNoteName 
-            startToneIndex = if startToneIndexRaw < 0 then startToneIndexRaw + 7 else startToneIndexRaw -- zero-based index of start note in scale
-            octIncVal = case direction of
-                MusAST.Descending -> -1
-                MusAST.Ascending -> 1
-            generateScale 1 = return ([firstTone], 0, 0, startOctave) -- ([first chord], first interval from tonic, starting index in seq w/ 0-indexing, initial tonic octave)
-            generateScale n = do
-                (remainingScale, previousIntervalFromTonic, previousIndexInScale, previousTonicOctave) <- generateScale (n-1) 
-                let nextIndexInScale = (previousIndexInScale + 1) `mod` 7 -- All maj/min scales are 7 notes long
-                    nextTonicOctave = if nextIndexInScale == 0 then previousTonicOctave + octIncVal else previousTonicOctave -- the octave changes every cycle of the scale
-                    nextTonicTone = MusAST.Tone tonicNoteName tonicAcc nextTonicOctave
-                    
-                    intervalFromTonic = (previousIntervalFromTonic + 1) `mod` 7
-                    
-                    (specialOctCasesForIndex, octFunc) = specialOctCasesFunc nextIndexInSeq nextTonicOctave
+            startIntervalFromTonicRaw = fromEnum startNoteName - fromEnum tonicNoteName -- may be negative
+            startIntervalFromTonic = if startIntervalFromTonicRaw < 0 then startIntervalFromTonicRaw + 7 else startIntervalFromTonicRaw -- zero-based index of start note in scale
 
-                note <- generateToneWithinScale tonicTone tonicQuality (length - n) specialOctaveCases octFunc 
-                return $ (remainingScale ++ [note], intervalFromTonic, nextIndexInScale, nextTonicOctave) -- the scale cycles after 7 notes, but an octave up
-        return $ []
+            specialOctCasesFunc 0 = []
+            specialOctCasesFunc nextIndexInScale = enumFromTo (toEnum (7 - nextIndexInScale)) MusAST.B -- 1 = B; 2 = A,B; 3 = A,B,C; ...
+
+            adjustedToneQuality intervalFromTonic = case scaleType of 
+                        MusAST.MajorScale -> MusAST.Major
+                        MusAST.NaturalMinor -> MusAST.Minor
+                        MusAST.HarmonicMinor -> if intervalFromTonic == 7 then MusAST.Major else MusAST.Minor
+                        _ -> if direction == MusAST.Ascending && intervalFromTonic `elem` [5,6] then MusAST.Major -- melodic minor
+                                                else MusAST.Minor
+
+                        -- generateToneWithinScale tonicTone tonicQuality intervalVal specialOctaveCases octFunc 
+
+            tonicTone = MusAST.Tone tonicNoteName tonicAcc startOctave
+
+        MusAST.Tone _ expectedStartAcc _ <- generateToneWithinScale tonicTone (adjustedToneQuality startIntervalFromTonic) startIntervalFromTonic [] (const startOctave)
+        
+        if expectedStartAcc /= startAcc then return $ error ("Desired start note " ++ show startNoteName ++ show startAcc ++ " is not in " ++ show tonicNoteName ++ show tonicAcc ++ " scale")
+        else do
+            let (octIncVal, octFunc) = case direction of
+                                        MusAST.Descending -> (-1, pred)
+                                        MusAST.Ascending -> (1, succ)
+
+                generateScale 1 = return ([MusAST.Chord [startTone] duration], startIntervalFromTonic, 0, startOctave) -- ([first note], first interval from tonic, starting index in seq w/ 0-indexing, initial tonic octave)
+                generateScale n = do
+                    (remainingScale, previousIntervalFromTonic, previousIndexInScale, previousTonicOctave) <- generateScale (n-1) 
+                    let nextIndexInScale = (previousIndexInScale + 1) `mod` 7 -- All maj/min scales are 7 notes long
+                        nextScaleOctave = if nextIndexInScale == 0 then previousTonicOctave + octIncVal else previousTonicOctave -- the octave changes every cycle of the scale
+                        nextStartScaleTone = MusAST.Tone startNoteName startAcc nextScaleOctave
+                        nextIntervalFromTonic = (previousIntervalFromTonic + 1) `mod` 7
+                        specialOctCasesForIndex = specialOctCasesFunc nextIndexInScale 
+
+                    tone <- generateToneWithinScale tonicTone (adjustedToneQuality nextIntervalFromTonic) nextIntervalFromTonic specialOctCasesForIndex octFunc 
+                    let note = MusAST.Chord [tone] duration
+                    return $ (remainingScale ++ [note], nextIntervalFromTonic, nextIndexInScale, nextScaleOctave) -- the scale cycles after 7 notes, but an octave up
+            (finalSeq, _, _, _) <- generateScale length
+            return finalSeq
     
 -- | Replace a label with its stored expressions
 expandIntermediateExpr symbolTableIORef (MusAST.Label label) = do
