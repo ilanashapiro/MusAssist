@@ -267,7 +267,7 @@ expandIntermediateExpr symbolTable (MusAST.HarmonicSequence harmSeqType tonicTon
                 (specialOctCasesForIndex, octFunc) = specialOctCasesFunc nextIndexInSeq nextTonicOctave
 
             triad <- generateTriadWithinScale symbolTable nextTonicTone tonicQuality duration nextIntervalFromTonic specialOctCasesForIndex octFunc inversion
-            return $ (remainingSeq ++ [triad], nextIntervalFromTonic, nextIndexInSeq, nextTonicOctave) -- the seq cycles after 14 chords, but an octave up
+            return (remainingSeq ++ [triad], nextIntervalFromTonic, nextIndexInSeq, nextTonicOctave) -- the seq cycles after 14 chords, but an octave up
         
     (finalSeq, _, _, _) <- generateSeq length
     return finalSeq
@@ -281,13 +281,26 @@ expandIntermediateExpr symbolTable (MusAST.Scale tonicNoteName tonicAcc scaleTyp
         else if startAcc `notElem` [MusAST.Natural, MusAST.Sharp] 
             then return $ error "Ascending chromatic scale must contain only naturals and sharps"
         else do
-            startTone = MusAST.Tone startNoteName startAcc startOctave
-            generateScale 1 = return ([MusAST.Chord [startTone] duration], startNoteName, startOctave) -- ([first note], first note name, first note octave)
-            generateScale n = do
-                (remainingScale, prevNoteName, prevOctave) <- generateScale (n-1) 
-                -- if prev  
-                let note = MusAST.Chord [tone] duration
-                return $ (remainingScale ++ [note], startNoteName, nextOctave) 
+            let startTone = MusAST.Tone startNoteName startAcc startOctave
+                generateScale :: (Monad m) => Int -> m ([MusAST.Expr], MusAST.Tone)
+                generateScale 1 = return ([MusAST.Chord [startTone] duration], startTone) -- ([first note i.e. single note chord], first tone)
+                generateScale n = do
+                    (remainingScale, prevTone) <- generateScale (n-1) 
+                    let MusAST.Tone prevNoteName prevAcc prevOct = prevTone
+                        -- return the note name and accidental of the next note in the chromatic scale
+                        getNextNote singleNoteCases chromScaleAcc directionFunc =
+                            if prevNoteName `elem` singleNoteCases || prevAcc == chromScaleAcc then (directionFunc prevNoteName, MusAST.Natural)
+                            else (prevNoteName, chromScaleAcc)
+                        (nextNoteName, nextAcc) = 
+                            case direction of 
+                                MusAST.Ascending -> getNextNote [MusAST.E, MusAST.B] MusAST.Sharp succ
+                                MusAST.Descending -> getNextNote [MusAST.C, MusAST.F] MusAST.Flat pred
+                        nextOct = if fromEnum MusAST.C - fromEnum nextNoteName == 0 then (if direction == MusAST.Ascending then succ else pred) prevOct else prevOct
+                        nextTone = MusAST.Tone nextNoteName nextAcc nextOct
+                        nextNote = MusAST.Chord [nextTone] duration
+                    return (remainingScale ++ [nextNote], nextTone) 
+            (finalScale, _) <- generateScale length
+            return finalScale        
     | otherwise = do -- major, natural/melodic/harmonic minor
         let startTone = MusAST.Tone startNoteName startAcc startOctave
             startIntervalFromTonicRaw = fromEnum startNoteName - fromEnum tonicNoteName -- may be negative
@@ -324,9 +337,9 @@ expandIntermediateExpr symbolTable (MusAST.Scale tonicNoteName tonicAcc scaleTyp
 
                     tone <- generateToneWithinScale nextTonicTone (adjustedToneQuality nextIntervalFromTonic) nextIntervalFromTonic specialOctCasesForIndex octFunc 
                     let note = MusAST.Chord [tone] duration
-                    return $ (remainingScale ++ [note], nextIntervalFromTonic, nextTonicOctave) -- the scale cycles after 7 notes, but an octave up
-            (finalSeq, _, _) <- generateScale length
-            return finalSeq
+                    return (remainingScale ++ [note], nextIntervalFromTonic, nextTonicOctave) -- the scale cycles after 7 notes, but an octave up
+            (finalScale, _, _) <- generateScale length
+            return finalScale
     
 -- | Replace a label with its stored expressions
 expandIntermediateExpr symbolTableIORef (MusAST.Label label) = do
