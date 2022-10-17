@@ -275,7 +275,19 @@ expandIntermediateExpr symbolTable (MusAST.HarmonicSequence harmSeqType tonicTon
 -- | Predefied scales
 expandIntermediateExpr symbolTable (MusAST.Scale tonicNoteName tonicAcc scaleType (MusAST.Tone startNoteName startAcc startOctave) direction duration length) 
     | length < 1 = return $ error "Scale must have length at least 1 " 
-    | scaleType `elem` [MusAST.Chromatic, MusAST.Octatonic] = undefined
+    | scaleType == MusAST.Chromatic = 
+        if direction == MusAST.Descending && startAcc `notElem` [MusAST.Natural, MusAST.Flat] 
+            then return $ error "Descending chromatic scale must contain only naturals and flats"
+        else if startAcc `notElem` [MusAST.Natural, MusAST.Sharp] 
+            then return $ error "Ascending chromatic scale must contain only naturals and sharps"
+        else do
+            startTone = MusAST.Tone startNoteName startAcc startOctave
+            generateScale 1 = return ([MusAST.Chord [startTone] duration], startNoteName, startOctave) -- ([first note], first note name, first note octave)
+            generateScale n = do
+                (remainingScale, prevNoteName, prevOctave) <- generateScale (n-1) 
+                -- if prev  
+                let note = MusAST.Chord [tone] duration
+                return $ (remainingScale ++ [note], startNoteName, nextOctave) 
     | otherwise = do -- major, natural/melodic/harmonic minor
         let startTone = MusAST.Tone startNoteName startAcc startOctave
             startIntervalFromTonicRaw = fromEnum startNoteName - fromEnum tonicNoteName -- may be negative
@@ -302,7 +314,7 @@ expandIntermediateExpr symbolTable (MusAST.Scale tonicNoteName tonicAcc scaleTyp
                                         MusAST.Descending -> (-1, pred)
                                         MusAST.Ascending -> (1, succ)
 
-                generateScale 1 = return ([MusAST.Chord [startTone] duration], startIntervalFromTonic, tonicOctave) -- ([first note], first interval from tonic, starting index in seq w/ 0-indexing, initial note octave)
+                generateScale 1 = return ([MusAST.Chord [startTone] duration], startIntervalFromTonic, tonicOctave) -- ([first note], first interval from tonic, initial tonic octave)
                 generateScale n = do
                     (remainingScale, previousIntervalFromTonic, previousTonicOctave) <- generateScale (n-1) 
                     let nextIntervalFromTonic = (previousIntervalFromTonic + 1) `mod` 7 -- All maj/min scales are 7 notes long 
