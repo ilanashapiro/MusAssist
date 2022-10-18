@@ -84,17 +84,16 @@ parseExpr =
 parseChordTemplate :: Parsec String () IntermediateExpr
 parseChordTemplate = ChordTemplate <$> parseTone <*> parseQuality <*> parseChordType <*> parseChordForm <*> parseInversion <*> parseDuration <* spaces 
 
-parseArpeggio :: Parsec String () IntermediateExpr
-parseArpeggio = undefined 
-
 parseScale :: Parsec String () IntermediateExpr
-parseScale = undefined 
+parseScale = Scale <$> parseNoteName <*> parseAccidental <*> parseScaleType <*> parseTone <*> parseDirection <*> parseDuration <*> parseLength <* spaces
+
+-- Scale NoteName Accidental ScaleType Tone Direction Duration Length
 
 parseCadence :: Parsec String () IntermediateExpr
 parseCadence = Cadence <$> parseCadenceType <*> parseTone <*> parseQuality <*> parseDuration <* spaces 
 
 parseHarmSeq :: Parsec String () IntermediateExpr
-parseHarmSeq = HarmonicSequence <$> parseHarmSeqType <*> parseTone <*> parseQuality <*> parseDuration <*> (string "length:" *> natural >>=: fromIntegral) <* spaces
+parseHarmSeq = HarmonicSequence <$> parseHarmSeqType <*> parseTone <*> parseQuality <*> parseDuration <*> parseLength <* spaces
 
 parseNote :: Parsec String () IntermediateExpr 
 parseNote = Note <$> parseTone <*> parseDuration <* spaces
@@ -126,9 +125,35 @@ parseDuration = do
   let parseNonDotted = choice $ map (try . symbol) ["sixteenth", "eighth", "quarter", "half", "whole"]
       parseDotted    = symbol "dotted_" *> parseNonDotted
   durationStr <- (parseNonDotted >>=: lowerCaseToSentenceCase) 
-                 <|> (parseDotted >>=: ((++) "Dotted") . lowerCaseToSentenceCase)
+             <|> (parseDotted    >>=: ((++) "Dotted") . lowerCaseToSentenceCase)
   let ast = read durationStr :: Duration
   return ast
+
+parseLength :: Parsec String () Int 
+parseLength = string "length:" *> natural >>=: fromIntegral
+
+parseDirection :: Parsec String () Direction 
+parseDirection = (symbol "ascending"  >>: Ascending) 
+             <|> (symbol "descending" >>: Descending)
+             <?> "expected direction"
+
+parseScaleType :: Parsec String () ScaleType 
+parseScaleType = 
+  try (symbol "major"          >>: MajorScale) -- have to "try" here bc "m" is prefix of major, minor, and melodic
+  <|> try (symbol "minor"      >>: NaturalMinor)
+  <|> (symbol "melodic minor"  >>: MelodicMinor)
+  <|> (symbol "harmonic minor" >>: HarmonicMinor)
+  <|> (symbol "chromatic"      >>: Chromatic)
+  <?> "expected scale type"
+
+
+--              data ScaleType =
+--     MajorScale
+--     | NaturalMinor
+--     | HarmonicMinor
+--     | MelodicMinor
+--     | Chromatic
+--   deriving (Eq, Show, Read)
 
 parseNoteName :: Parsec String () NoteName
 parseNoteName = do
@@ -147,11 +172,11 @@ parseAccidental = do
     
 parseQuality :: Parsec String () Quality 
 parseQuality = 
-  try (symbol "maj"      >>: Major) -- have to "try" here bc "m" is prefix of both maj and min
-  <|> (symbol "min"      >>: Minor)
-  <|> (symbol "aug"      >>: Augmented)
-  <|> (symbol "dim"      >>: Diminished)
-  <|> (symbol "halfdim"  >>: HalfDiminished)
+  try (symbol "major"           >>: Major) -- have to "try" here bc "m" is prefix of both maj and min
+  <|> (symbol "minor"           >>: Minor)
+  <|> (symbol "augmented"       >>: Augmented)
+  <|> (symbol "diminished"      >>: Diminished)
+  <|> (symbol "half diminished" >>: HalfDiminished)
   <?> "expected quality"
 
 parseInversion :: Parsec String () Inversion
