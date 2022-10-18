@@ -101,8 +101,8 @@
 			</note>
 			<note>
 				<pitch>
-					<step>D</step>
-					<alter>0</alter>
+					<step>F</step>
+					<alter>1</alter>
 					<octave>5</octave>
 				</pitch>
 				<duration>2</duration>
@@ -111,17 +111,7 @@
 			</note>
 			<note>
 				<pitch>
-					<step>C</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>2</duration>
-				<voice>1</voice>
-				<type>eighth</type>
-			</note>
-			<note>
-				<pitch>
-					<step>B</step>
+					<step>G</step>
 					<alter>0</alter>
 					<octave>5</octave>
 				</pitch>
@@ -141,41 +131,9 @@
 			</note>
 			<note>
 				<pitch>
-					<step>G</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>2</duration>
-				<voice>1</voice>
-				<type>eighth</type>
-			</note>
-			<note>
-				<pitch>
-					<step>F</step>
-					<alter>1</alter>
-					<octave>3</octave>
-				</pitch>
-				<duration>2</duration>
-				<voice>1</voice>
-				<type>eighth</type>
-			</note>
-			<note>
-				<pitch>
-					<step>E</step>
-					<alter>0</alter>
-					<octave>3</octave>
-				</pitch>
-				<duration>2</duration>
-				<voice>1</voice>
-				<type>eighth</type>
-			</note>
-		</measure>
-		<measure number="2">
-			<note>
-				<pitch>
-					<step>D</step>
-					<alter>0</alter>
-					<octave>4</octave>
+					<step>B</step>
+					<alter>-1</alter>
+					<octave>5</octave>
 				</pitch>
 				<duration>2</duration>
 				<voice>1</voice>
@@ -185,7 +143,49 @@
 				<pitch>
 					<step>C</step>
 					<alter>0</alter>
-					<octave>4</octave>
+					<octave>6</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<pitch>
+					<step>D</step>
+					<alter>0</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<pitch>
+					<step>E</step>
+					<alter>0</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+		</measure>
+		<measure number="2">
+			<note>
+				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<pitch>
+					<step>G</step>
+					<alter>0</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>2</duration>
 				<voice>1</voice>

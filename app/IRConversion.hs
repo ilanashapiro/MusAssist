@@ -315,8 +315,7 @@ expandIntermediateExpr symbolTable (MusAST.Scale tonicNoteName tonicAcc scaleTyp
                         _ -> if direction == MusAST.Ascending && intervalFromTonic `elem` [5,6] then MusAST.Major -- melodic minor
                              else MusAST.Minor
 
-            (tonicOctToStartComparison, tonicOctFunc) = if direction == MusAST.Descending then ((>), succ) else ((<), pred)
-            tonicOctave = if tonicOctToStartComparison (fromEnum startNoteName) (fromEnum tonicNoteName) then tonicOctFunc startOctave else startOctave
+            tonicOctave = if fromEnum startNoteName < fromEnum tonicNoteName then startOctave - 1 else startOctave -- set tonic to be below the start note
             tonicTone = MusAST.Tone tonicNoteName tonicAcc tonicOctave
 
         MusAST.Tone _ expectedStartAcc _ <- generateToneWithinScale tonicTone (adjustedToneQuality startIntervalFromTonic) startIntervalFromTonic [] (const startOctave)
@@ -324,24 +323,25 @@ expandIntermediateExpr symbolTable (MusAST.Scale tonicNoteName tonicAcc scaleTyp
         if expectedStartAcc /= startAcc 
             then return $ error ("Desired start note " ++ show startNoteName ++ show startAcc ++ " is not in " ++ show tonicNoteName ++ show tonicAcc ++ show scaleType ++ " scale")
         else do
-            let (noteAndOctIncVal, octFunc) = case direction of
-                                        MusAST.Descending -> (-1, pred)
-                                        MusAST.Ascending -> (1, succ)
-
+            let noteAndOctIncVal = if direction == MusAST.Descending then -1 else 1
                 generateScale 1 = return ([MusAST.Chord [startTone] duration], startIntervalFromTonic, tonicOctave) -- ([first note], first interval from tonic, initial tonic octave)
                 generateScale n = do
                     (remainingScale, previousIntervalFromTonic, previousTonicOctave) <- generateScale (n-1) 
                     let nextIntervalFromTonic = (previousIntervalFromTonic + noteAndOctIncVal) `mod` 7 -- All maj/min scales are 7 notes long 
-                        nextTonicOctave = if nextIntervalFromTonic == 0 then previousTonicOctave + noteAndOctIncVal else previousTonicOctave -- the octave changes every cycle of the scale
+                        -- the tonic is always set below the start note, whether it's ascending or descending
+                        -- if it's descending, the tonic is already in the right octave, so we wait until we get 1 note below it to lower the octave
+                        -- if it's ascending, the tonic needs to be raised as soon as we reach it
+                        tonicIncCutoffInterval = if direction == MusAST.Descending then 6 else 0
+                        nextTonicOctave = 
+                            if nextIntervalFromTonic == tonicIncCutoffInterval then previousTonicOctave + noteAndOctIncVal 
+                            else previousTonicOctave -- the octave changes every cycle of the scale
                         nextTonicTone = MusAST.Tone tonicNoteName tonicAcc nextTonicOctave
                         
                         specialOctCases = 
                             if nextIntervalFromTonic == 0 then [] 
-                            else case direction of
-                                    MusAST.Descending -> enumFromTo MusAST.C (toEnum (nextIntervalFromTonic - 1)) -- 0 = [], 1 = [C]; 2 = [C,D]; 3 = [C,D,E]; ...
-                                    MusAST.Ascending -> enumFromTo (toEnum (7 - nextIntervalFromTonic)) MusAST.B -- 0 = [], 1 = [B]; 2 = [A,B]; 3 = [G,A,B]; ...
-                    print $ show specialOctCases
-                    tone <- generateToneWithinScale nextTonicTone (adjustedToneQuality nextIntervalFromTonic) nextIntervalFromTonic specialOctCases octFunc 
+                            else enumFromTo (toEnum (7 - nextIntervalFromTonic)) MusAST.B -- 0 = [], 1 = [B]; 2 = [A,B]; 3 = [G,A,B]; ...
+
+                    tone <- generateToneWithinScale nextTonicTone (adjustedToneQuality nextIntervalFromTonic) nextIntervalFromTonic specialOctCases succ 
                     let note = MusAST.Chord [tone] duration
                     return (remainingScale ++ [note], nextIntervalFromTonic, nextTonicOctave) -- the scale cycles after 7 notes, but an octave up
             (finalScale, _, _) <- generateScale length
