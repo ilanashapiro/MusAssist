@@ -88,7 +88,7 @@ generateTriadWithinScale symbolTable tonicTone tonicQuality duration intervalVal
                 else MusAST.Minor
             _           -> error "Can't generate triad in invalid scale quality (i.e. not major or minor)"
     tone <- generateToneWithinScale tonicTone tonicQuality intervalVal specialOctaveCases octFunc
-    triadList <- expandIntermediateExpr symbolTable (MusAST.ChordTemplate tone quality MusAST.Triad inversion duration) 
+    triadList <- expandIntermediateExpr symbolTable (MusAST.ChordTemplate tone quality MusAST.Triad MusAST.ClosedChord inversion duration) 
     return $ head triadList
 
 -----------------------------------------------------------------------------------------
@@ -100,7 +100,7 @@ expandIntermediateExpr :: SymbolTable -> MusAST.IntermediateExpr -> IO [MusAST.E
 expandIntermediateExpr _ (MusAST.Note tone duration) = return [MusAST.Chord [tone] duration]
 
 -- | Predefined chords
-expandIntermediateExpr _ (MusAST.ChordTemplate (MusAST.Tone rootNoteName rootAccidental rootOctave) quality chordType inversion duration) 
+expandIntermediateExpr _ (MusAST.ChordTemplate (MusAST.Tone rootNoteName rootAccidental rootOctave) quality chordType chordForm inversion duration) 
     | rootAccidental == MusAST.DoubleFlat || rootAccidental == MusAST.DoubleSharp = return [error "Cannot build chord on a double flat or sharp"]
     | chordType == MusAST.Triad && quality == MusAST.HalfDiminished = return [error "Cannot have a half diminished triad"]
     | otherwise = do
@@ -125,13 +125,17 @@ expandIntermediateExpr _ (MusAST.ChordTemplate (MusAST.Tone rootNoteName rootAcc
             triadOctaves     = [rootOctave, thirdOctave, fifthOctave]
             inversionVal     = convertInversionToInt inversion
             
+            getChordInForm tones = case chordForm of
+                MusAST.ClosedChord -> [MusAST.Chord tones duration]
+                MusAST.Arpeggio -> map (\tone -> MusAST.Chord [tone] duration) tones
+
         if chordType == MusAST.Triad 
             then if inversionVal > 2 then return [error "Cannot have third inversion triad"] else 
                 let invertedTriadOctaves = incrementFirstNElems inversionVal triadOctaves
                     -- NOTE: musescore doesn't care which note is on "top" of the chord in the musicXML: only that the correct notes are in the chord
                     -- thus, we don't need to rotate the array of triad tones to fit the inversion in the musicXML code
                     invertedTriadTones = zipWith3 (\noteName accidental octave -> MusAST.Tone noteName accidental octave) triadNoteNames triadAccidentals invertedTriadOctaves
-                in return [MusAST.Chord invertedTriadTones duration]
+                in return $ getChordInForm invertedTriadTones
         else do
             (MusAST.Tone seventhNoteName seventhAccidental seventhOctave) <- generateToneFromTonic 6 (enumFromTo MusAST.D MusAST.B) succ 
             let adjustedSeventhAcc = case quality of
@@ -146,14 +150,14 @@ expandIntermediateExpr _ (MusAST.ChordTemplate (MusAST.Tone rootNoteName rootAcc
                         (triadAccidentals ++ [adjustedSeventhAcc])
                         invertedSeventhOctaves
 
-            return [MusAST.Chord invertedSeventhTones duration]
+            return $ getChordInForm invertedSeventhTones
        
 -- | Quality is major/minor ONLY. tone+quality determines the start note and key of the cadence
 expandIntermediateExpr symbolTable (MusAST.Cadence cadenceType (MusAST.Tone tonicNoteName tonicAccidental tonicOctave) quality duration) = 
     if quality `notElem` globalValidKeyQualities then (return $ error "Cadence quality must be major or minor only") 
     else do
         let tonicRootTone = MusAST.Tone tonicNoteName tonicAccidental tonicOctave
-        tonicRootTriadList <- expandIntermediateExpr symbolTable (MusAST.ChordTemplate tonicRootTone quality MusAST.Triad MusAST.Root duration)
+        tonicRootTriadList <- expandIntermediateExpr symbolTable (MusAST.ChordTemplate tonicRootTone quality MusAST.Triad MusAST.ClosedChord MusAST.Root duration)
         let tonicRootTriad = head tonicRootTriadList
             generateTriad = generateTriadWithinScale symbolTable tonicRootTone quality duration 
         fourthSecondInvTriad <- generateTriad 3 (enumFromTo MusAST.C MusAST.F) pred MusAST.Second
@@ -168,7 +172,7 @@ expandIntermediateExpr symbolTable (MusAST.Cadence cadenceType (MusAST.Tone toni
                 
             if cadenceType == MusAST.PerfAuth then return $ [fourthRootTriad, fifthRootTriad, tonicDoubledRootChord] 
             else do
-                tonicFirstInvTriadList <- expandIntermediateExpr symbolTable (MusAST.ChordTemplate tonicRootTone quality MusAST.Triad MusAST.First duration)
+                tonicFirstInvTriadList <- expandIntermediateExpr symbolTable (MusAST.ChordTemplate tonicRootTone quality MusAST.Triad MusAST.ClosedChord MusAST.First duration)
                 let tonicFirstInvTriad = head tonicFirstInvTriadList
                 majSeventhSecondInvDimTriad <- generateTriadWithinScale symbolTable tonicRootTone MusAST.Major duration 6 [MusAST.C] pred MusAST.Second -- we want major seventh whether or not key is maj or min
                 
@@ -193,8 +197,8 @@ expandIntermediateExpr symbolTable (MusAST.HarmonicSequence harmSeqType tonicTon
     | tonicQuality `notElem` globalValidKeyQualities = return $ error "Harmonic Seq quality must be major or minor only"  
     | length < 1 = return $ error "Harmonic Seq must have length at least 1 " 
     | otherwise = do 
-    tonicRootTriadList <- expandIntermediateExpr symbolTable (MusAST.ChordTemplate tonicTone tonicQuality MusAST.Triad MusAST.Root duration) 
-    tonicSecondInvTriadList <- expandIntermediateExpr symbolTable (MusAST.ChordTemplate tonicTone tonicQuality MusAST.Triad MusAST.Second duration) 
+    tonicRootTriadList <- expandIntermediateExpr symbolTable (MusAST.ChordTemplate tonicTone tonicQuality MusAST.Triad MusAST.ClosedChord MusAST.Root duration) 
+    tonicSecondInvTriadList <- expandIntermediateExpr symbolTable (MusAST.ChordTemplate tonicTone tonicQuality MusAST.Triad MusAST.ClosedChord MusAST.Second duration) 
 
     let (MusAST.Tone tonicNoteName tonicAcc initialTonicOctave) = tonicTone
         tonicRootTriad = head tonicRootTriadList

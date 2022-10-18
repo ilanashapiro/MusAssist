@@ -103,6 +103,11 @@ data ChordType =
      | Seventh
   deriving (Eq, Show, Read)
 
+data ChordForm = 
+     ClosedChord 
+     | Arpeggio
+  deriving (Eq, Show, Read)
+
 -- all resulting chords in root position
 data CadenceType = 
   PerfAuth 
@@ -143,7 +148,7 @@ data Instr =
 -- templates to get expanded: these are the direct results of the parse
 data IntermediateExpr = 
   Note Tone Duration -- these get expanded to become single-element chords
-  | ChordTemplate Tone Quality ChordType Inversion Duration -- Predefined chords: these all happen in root position
+  | ChordTemplate Tone Quality ChordType ChordForm Inversion Duration -- Predefined chords: these all happen in root position
   | Cadence CadenceType Tone Quality Duration -- quality is major/minor ONLY. det the start note and key of the cadence
   | HarmonicSequence HarmonicSequenceType Tone Quality Duration Length -- quality is major/minor ONLY. det the start note and key of the seq
   | Scale NoteName Accidental ScaleType Tone Direction Duration Length
@@ -157,4 +162,3 @@ data IntermediateInstr =
   | IRWrite [IntermediateExpr]
   | IRAssign Label [IntermediateExpr] -- labeled expressions. syntactic sugar for the expressions they contain. these get desugared before code generation
     deriving (Eq, Show, Read)
--- IRWrite [Scale C Natural MajorScale (Tone E Natural 5) Ascending Quarter 10]

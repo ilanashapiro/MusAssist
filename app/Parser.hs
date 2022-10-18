@@ -82,7 +82,13 @@ parseExpr =
     <?> "Expected expression"
 
 parseChordTemplate :: Parsec String () IntermediateExpr
-parseChordTemplate = ChordTemplate <$> parseTone <*> parseQuality <*> parseChordType <*> parseInversion <*> parseDuration <* spaces -- CAN I REMOVE SPACES????
+parseChordTemplate = ChordTemplate <$> parseTone <*> parseQuality <*> parseChordType <*> return ClosedChord <*> parseInversion <*> parseDuration <* spaces 
+
+parseArpeggio :: Parsec String () IntermediateExpr
+parseArpeggio = undefined 
+
+parseScale :: Parsec String () IntermediateExpr
+parseScale = undefined 
 
 parseCadence :: Parsec String () IntermediateExpr
 parseCadence = Cadence <$> parseCadenceType <*> parseTone <*> parseQuality <*> parseDuration <* spaces 
@@ -150,26 +156,26 @@ parseQuality =
 
 parseInversion :: Parsec String () Inversion
 parseInversion =  do
-  inversionStr <- string "inv:" *> (choice $ map (try . symbol) ["root", "first", "second", "third"]) >>=: lowerCaseToSentenceCase
+  inversionStr <- string "inv:" *> choice (map (try . symbol) ["root", "first", "second", "third"]) >>=: lowerCaseToSentenceCase
   let ast = read inversionStr :: Inversion
   return ast
 
 parseChordType :: Parsec String () ChordType
 parseChordType = do
-  chordTypeStr <- (choice $ map (try . symbol) ["triad", "seventh"]) >>=: lowerCaseToSentenceCase
+  chordTypeStr <- choice (map (try . symbol) ["triad", "seventh"]) >>=: lowerCaseToSentenceCase
   let ast = read chordTypeStr :: ChordType
   return ast
 
 parseCadenceType :: Parsec String () CadenceType
 parseCadenceType = do
-  cadenceTypeStr <-  ((choice $ map (try . symbol) ["PerfAuth", "ImperfAuth", "Plagal", "Deceptive"]) <* symbol "Cadence") 
+  cadenceTypeStr <-  (choice (map (try . symbol) ["PerfAuth", "ImperfAuth", "Plagal", "Deceptive"]) <* symbol "Cadence") 
                       <|> (symbol "HalfCadence" >>: "HalfCad")
   let ast = read cadenceTypeStr :: CadenceType
   return ast
 
 parseHarmSeqType :: Parsec String () HarmonicSequenceType
 parseHarmSeqType = do
-  harmSeqTypeStr <- (choice $ map (try . symbol) ["AscFifths", "DescFifths", "Asc56", "Desc56"])
+  harmSeqTypeStr <- choice (map (try . symbol) ["AscFifths", "DescFifths", "Asc56", "Desc56"])
   let ast = read harmSeqTypeStr :: HarmonicSequenceType
   return ast
 
