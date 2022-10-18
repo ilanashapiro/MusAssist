@@ -82,7 +82,7 @@ parseExpr =
     <?> "Expected expression"
 
 parseChordTemplate :: Parsec String () IntermediateExpr
-parseChordTemplate = ChordTemplate <$> parseTone <*> parseQuality <*> parseChordType <*> parseChordForm <*> parseInversion <*> parseDuration <* spaces 
+parseChordTemplate = ChordTemplate <$> parseTone <*> parseQuality <*> parseChordType <*> parseChordForm <* comma <*> parseInversion <* comma <*> parseDuration <* spaces 
 
 parseScale :: Parsec String () IntermediateExpr
 parseScale = Scale <$> parseNoteName <*> parseAccidental <*> parseScaleType <*> parseTone <*> parseDirection <*> parseDuration <*> parseLength <* spaces
@@ -90,10 +90,10 @@ parseScale = Scale <$> parseNoteName <*> parseAccidental <*> parseScaleType <*> 
 -- Scale NoteName Accidental ScaleType Tone Direction Duration Length
 
 parseCadence :: Parsec String () IntermediateExpr
-parseCadence = Cadence <$> parseCadenceType <*> parseTone <*> parseQuality <*> parseDuration <* spaces 
+parseCadence = Cadence <$> parseCadenceType <* comma <*> parseTone <*> parseQuality <* comma <*> parseDuration <* spaces 
 
 parseHarmSeq :: Parsec String () IntermediateExpr
-parseHarmSeq = HarmonicSequence <$> parseHarmSeqType <*> parseTone <*> parseQuality <*> parseDuration <*> parseLength <* spaces
+parseHarmSeq = HarmonicSequence <$> parseHarmSeqType <* comma <*> parseTone <*> parseQuality <* comma <*> parseDuration <* comma <*> parseLength <* spaces
 
 parseNote :: Parsec String () IntermediateExpr 
 parseNote = Note <$> parseTone <*> parseDuration <* spaces
@@ -130,7 +130,7 @@ parseDuration = do
   return ast
 
 parseLength :: Parsec String () Int 
-parseLength = string "length:" *> natural >>=: fromIntegral
+parseLength = symbol "length" *> symbol "=" *> natural >>=: fromIntegral
 
 parseDirection :: Parsec String () Direction 
 parseDirection = (symbol "ascending"  >>: Ascending) 
@@ -181,13 +181,14 @@ parseQuality =
 
 parseInversion :: Parsec String () Inversion
 parseInversion =  do
-  inversionStr <- string "inv:" *> choice (map (try . symbol) ["root", "first", "second", "third"]) >>=: lowerCaseToSentenceCase
+  inversionStr <- choice (map (try . symbol) ["root", "first", "second", "third"]) <* symbol "inversion" >>=: lowerCaseToSentenceCase
   let ast = read inversionStr :: Inversion
   return ast
 
+-- NEED TO FIX THESE 2 FUNCS FOR CONSTRAINTS!!!!!!!
 parseChordType :: Parsec String () ChordType
 parseChordType = do
-  chordTypeStr <- choice (map (try . symbol) ["triad", "seventh"]) >>=: lowerCaseToSentenceCase
+  chordTypeStr <- choice (map symbol ["triad", "seventh"]) >>=: lowerCaseToSentenceCase
   let ast = read chordTypeStr :: ChordType
   return ast
 
@@ -198,7 +199,7 @@ parseChordForm = (symbol "chord" >>: ClosedChord)
 
 parseCadenceType :: Parsec String () CadenceType
 parseCadenceType = do
-  cadenceTypeStr <-  (choice (map (try . symbol) ["Plagal", "Deceptive"]) <* symbol "Cadence") 
+  cadenceTypeStr <-  (choice (map (try . symbol) ["Plagal", "Deceptive"]) <* symbol "Cadence")
                       <|> (symbol "Perfect Authentic Cadence" >>: "PerfAuth")
                       <|> (symbol "Imperfect Authentic Cadence" >>: "ImperfAuth")
                       <|> (symbol "Half Cadence" >>: "HalfCad")
@@ -206,15 +207,16 @@ parseCadenceType = do
   return ast
 
 parseHarmSeqType :: Parsec String () HarmonicSequenceType
-parseHarmSeqType = do
-  harmSeqTypeStr <- (symbol "Ascending" <* ) 
-  <|> (symbol "Perfect Authentic Cadence" >>: "PerfAuth")
-                      <|> (symbol "Imperfect Authentic Cadence" >>: "ImperfAuth")
-                      <|> (symbol "Half Cadence" >>: "HalfCad")
+parseHarmSeqType = undefined
+-- do
+--   harmSeqTypeStr <- (symbol "Ascending" <* return "Asc" <*> ) 
+--   <|> (symbol "Perfect Authentic Cadence" >>: "PerfAuth")
+--                       <|> (symbol "Imperfect Authentic Cadence" >>: "ImperfAuth")
+--                       <|> (symbol "Half Cadence" >>: "HalfCad")
   
---   choice (map (try . symbol) ["Ascending Fifths", "Descending Fifths", "Ascending 5-6", "Descending 5-6"])
-  let ast = read harmSeqTypeStr :: HarmonicSequenceType
-  return ast
+-- --   choice (map (try . symbol) ["Ascending Fifths", "Descending Fifths", "Ascending 5-6", "Descending 5-6"])
+--   let ast = read harmSeqTypeStr :: HarmonicSequenceType
+--   return ast
 
 -- betweenDelimiters :: String -> String -> Parsec String () a -> Parsec String () a -- replace a with IntermediateExpression
 -- betweenDelimiters open close = between (symbol open) (symbol close)
@@ -240,6 +242,7 @@ natural           = Token.natural lexer
 symbol            = Token.symbol lexer
 parens            = Token.parens lexer
 brackets          = Token.brackets lexer
+comma             = Token.comma lexer
 commaSep1         = Token.commaSep1 lexer
 identifier        = Token.identifier lexer
 whiteSpace        = Token.whiteSpace lexer

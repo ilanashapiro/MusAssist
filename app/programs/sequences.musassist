@@ -1,7 +1,7 @@
-(AscFifths C4 maj quarter length:15) 
+(Ascending Fifths Sequence, C4 major, quarter, length=15) 
 NEW_MEASURE 
-(DescFifths C6 maj quarter length:15) 
+(Descending Fifths Sequence, C6 major, quarter length= 15) 
 NEW_MEASURE 
-(Asc56 C4 maj quarter length:15) 
+(Ascending 5-6 Sequence, C4 major, quarter, length  =15) 
 NEW_MEASURE 
-(Desc56 C6 maj quarter length:15) 
+(Descending 5-6 Sequence, C6 major, quarter, length=15) 
