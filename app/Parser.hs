@@ -82,7 +82,7 @@ parseExpr =
     <?> "Expected expression"
 
 parseChordTemplate :: Parsec String () IntermediateExpr
-parseChordTemplate = ChordTemplate <$> parseTone <*> parseQuality <*> parseChordType <*> return ClosedChord <*> parseInversion <*> parseDuration <* spaces 
+parseChordTemplate = ChordTemplate <$> parseTone <*> parseQuality <*> parseChordType <*> parseChordForm <*> parseInversion <*> parseDuration <* spaces 
 
 parseArpeggio :: Parsec String () IntermediateExpr
 parseArpeggio = undefined 
@@ -166,6 +166,11 @@ parseChordType = do
   let ast = read chordTypeStr :: ChordType
   return ast
 
+parseChordForm :: Parsec String () ChordForm
+parseChordForm = (symbol "chord" >>: ClosedChord)
+             <|> (symbol "arpeggio" >>: Arpeggio)
+             <?> "expected chord form"
+
 parseCadenceType :: Parsec String () CadenceType
 parseCadenceType = do
   cadenceTypeStr <-  (choice (map (try . symbol) ["PerfAuth", "ImperfAuth", "Plagal", "Deceptive"]) <* symbol "Cadence") 
@@ -208,10 +213,10 @@ identifier        = Token.identifier lexer
 whiteSpace        = Token.whiteSpace lexer
 
 infixl 1 >>=:
-left >>=: f = f <$> left
+left >>=: f = f <$> left -- flips order of args in fmap
 
 infixl 1 >>:
-left >>: v = left >> return v
+left >>: v = left >> return v -- sequentially compose two operations: left (a monad) and v (not a monad). result: v gets lifted to a monad
 
 --------------------------------------------------------------------------------
 -- Lexer

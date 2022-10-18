@@ -1,9 +1,9 @@
 SET_KEY Amaj
 (D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest sixteenth)           // this is a comment
 notes1 = (D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest whole)  // note without b or # is considered to be natural
-chords1 = ([Bbb5, Db5, C5] half) ([C#5, E5] half) (C6 min triad inv:first quarter) (F#4 halfdim seventh inv:second eighth)
+chords1 = ([Bbb5, Db5, C5] half) ([C#5, E5] half) (D6 min triad arpeggio inv:root eighth) (F#4 halfdim seventh chord inv:second eighth)
 (D4 whole) (F#4 quarter) (Ab4 quarter) (G##4 eighth) (rest sixteenth)  // note without b or # is considered to be natural
-([Bbb5, Db5, C5] half) ([C#5, E5] half) (C6 min triad inv:first quarter) (F#4 halfdim seventh inv:second eighth) (rest quarter)
+([Bbb5, Db5, C5] half) ([C#5, E5] half) (C6 min triad chord inv:first quarter) (F#4 halfdim seventh chord inv:second eighth) (rest quarter)
 SET_KEY Dmin
 NEW_MEASURE
 (DescFifths G5 min quarter length:15) (PerfAuthCadence Eb5 min half)
