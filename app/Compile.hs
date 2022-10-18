@@ -48,13 +48,11 @@ main = do
 
   -- Read in the .ast file containing Haskell code
   --   for a list of MusAssistAST values from the parse result
---   unprocessedAST <- case takeExtension fileName of 
---     ".musassist" -> do
---       text <- readFile fileName
---       Parser.parseFile fileName
---     ext -> error $ "unexpected extension " ++ show ext
-
-  let unprocessedAST = [MusAST.IRWrite [MusAST.Scale MusAST.G MusAST.Natural MusAST.MelodicMinor (MusAST.Tone MusAST.E MusAST.Natural 5) MusAST.Ascending MusAST.Eighth 10]]--, MusAST.Scale MusAST.C MusAST.Natural MusAST.Chromatic (MusAST.Tone MusAST.B MusAST.Natural 4) MusAST.Descending MusAST.Eighth 20]]
+  unprocessedAST <- case takeExtension fileName of 
+    ".musassist" -> do
+      text <- readFile fileName
+      Parser.parseFile fileName
+    ext -> error $ "unexpected extension " ++ show ext
 
   processedAST <- IRConversion.expandIntermediateInstrs unprocessedAST
 

@@ -1,0 +1,1 @@
+[MusAST.IRWrite [MusAST.Scale MusAST.G MusAST.Natural MusAST.MelodicMinor (MusAST.Tone MusAST.E MusAST.Natural 5) MusAST.Ascending MusAST.Eighth 10, MusAST.Scale MusAST.C MusAST.Natural MusAST.Chromatic (MusAST.Tone MusAST.B MusAST.Natural 4) MusAST.Descending MusAST.Eighth 20]]
