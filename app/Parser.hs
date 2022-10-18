@@ -198,14 +198,21 @@ parseChordForm = (symbol "chord" >>: ClosedChord)
 
 parseCadenceType :: Parsec String () CadenceType
 parseCadenceType = do
-  cadenceTypeStr <-  (choice (map (try . symbol) ["PerfAuth", "ImperfAuth", "Plagal", "Deceptive"]) <* symbol "Cadence") 
-                      <|> (symbol "HalfCadence" >>: "HalfCad")
+  cadenceTypeStr <-  (choice (map (try . symbol) ["Plagal", "Deceptive"]) <* symbol "Cadence") 
+                      <|> (symbol "Perfect Authentic Cadence" >>: "PerfAuth")
+                      <|> (symbol "Imperfect Authentic Cadence" >>: "ImperfAuth")
+                      <|> (symbol "Half Cadence" >>: "HalfCad")
   let ast = read cadenceTypeStr :: CadenceType
   return ast
 
 parseHarmSeqType :: Parsec String () HarmonicSequenceType
 parseHarmSeqType = do
-  harmSeqTypeStr <- choice (map (try . symbol) ["AscFifths", "DescFifths", "Asc56", "Desc56"])
+  harmSeqTypeStr <- (symbol "Ascending" <* ) 
+  <|> (symbol "Perfect Authentic Cadence" >>: "PerfAuth")
+                      <|> (symbol "Imperfect Authentic Cadence" >>: "ImperfAuth")
+                      <|> (symbol "Half Cadence" >>: "HalfCad")
+  
+--   choice (map (try . symbol) ["Ascending Fifths", "Descending Fifths", "Ascending 5-6", "Descending 5-6"])
   let ast = read harmSeqTypeStr :: HarmonicSequenceType
   return ast
 
