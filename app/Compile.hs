@@ -54,7 +54,7 @@ main = do
 --       Parser.parseFile fileName
 --     ext -> error $ "unexpected extension " ++ show ext
 
-  let unprocessedAST = [MusAST.IRWrite [MusAST.Scale MusAST.B MusAST.Natural MusAST.HarmonicMinor (MusAST.Tone MusAST.B MusAST.Natural 4) MusAST.Ascending MusAST.Quarter 10]]
+  let unprocessedAST = [MusAST.IRWrite [MusAST.Scale MusAST.G MusAST.Natural MusAST.MajorScale (MusAST.Tone MusAST.E MusAST.Natural 5) MusAST.Descending MusAST.Eighth 10]]--, MusAST.Scale MusAST.C MusAST.Natural MusAST.Chromatic (MusAST.Tone MusAST.B MusAST.Natural 4) MusAST.Descending MusAST.Eighth 20]]
 
   processedAST <- IRConversion.expandIntermediateInstrs unprocessedAST
 
