@@ -63,6 +63,7 @@ parseKeySig = do
   keyword "SET_KEY"
   noteName   <- parseNoteName
   accidental <- parseAccidental -- the maj/min only constriction on key sig gets checked during the IRConversion phase currently
+  spaces -- we need this bc spaces are not handled/consumed if there's no accidental (i.e. it's natural)
   quality    <- parseQuality
   let ast = IRKeySignature noteName accidental quality
   return ast
@@ -74,20 +75,21 @@ parseExpr =
 -- also it's important to do parseLabel first, because we HAVE to have parens after this 
   try parseLabel
   <|> parens 
-    (try parseChordTemplate -- overlapping prefixes means we need to use "try"
-      <|> try parseNote
-      <|> try parseCadence
-      <|> parseFinalExpr
-      <|> parseHarmSeq)
-    <?> "Expected expression"
+    (try parseChordTemplate) -- overlapping prefixes means we need to use "try"
+    --   <|> try parseNote
+    --   <|> try parseCadence
+    --   <|> parseFinalExpr
+    --   <|> parseHarmSeq)
+    -- <?> "Expected expression"
 
 parseChordTemplate :: Parsec String () IntermediateExpr
-parseChordTemplate = ChordTemplate <$> parseTone <*> parseQuality <*> parseChordType <*> parseChordForm <* comma <*> parseInversion <* comma <*> parseDuration <* spaces 
+parseChordTemplate = 
+    ChordTemplate <$> parseTone <*> parseQuality <*> parseChordTypeBeforeForm <*> parseChordFormAfterType <* comma 
+                                <*> parseInversion <* symbol "inversion" <* comma <*> parseDuration <* spaces 
 
 parseScale :: Parsec String () IntermediateExpr
-parseScale = Scale <$> parseNoteName <*> parseAccidental <*> parseScaleType <*> parseTone <*> parseDirection <*> parseDuration <*> parseLength <* spaces
-
--- Scale NoteName Accidental ScaleType Tone Direction Duration Length
+parseScale = Scale <$> parseNoteName <*> parseAccidental <*> parseScaleType <*> parseDirection 
+                                     <* symbol "scale" <* comma <* symbol "length" <* symbol "=" <*> parseTone <*> parseDuration <*> parseLength <* spaces
 
 parseCadence :: Parsec String () IntermediateExpr
 parseCadence = Cadence <$> parseCadenceType <* comma <*> parseTone <*> parseQuality <* comma <*> parseDuration <* spaces 
@@ -113,9 +115,8 @@ parseRest = do
 
 parseChord :: Parsec String () Expr
 parseChord = do
-  tones    <- brackets (commaSep1 parseTone <?> "A user-defined chord must have at least one note")
-  duration <- parseDuration
-  return $ Chord tones duration
+  tones <- brackets (commaSep1 parseTone <?> "A user-defined chord must have at least one note")
+  Chord tones <$> parseDuration
 
 parseTone :: Parsec String () Tone 
 parseTone = Tone <$> parseNoteName <*> parseAccidental <*> (natural >>=: \octave -> fromIntegral octave)
@@ -125,12 +126,12 @@ parseDuration = do
   let parseNonDotted = choice $ map (try . symbol) ["sixteenth", "eighth", "quarter", "half", "whole"]
       parseDotted    = symbol "dotted_" *> parseNonDotted
   durationStr <- (parseNonDotted >>=: lowerCaseToSentenceCase) 
-             <|> (parseDotted    >>=: ((++) "Dotted") . lowerCaseToSentenceCase)
+             <|> (parseDotted    >>=: (++) "Dotted" . lowerCaseToSentenceCase)
   let ast = read durationStr :: Duration
   return ast
 
 parseLength :: Parsec String () Int 
-parseLength = symbol "length" *> symbol "=" *> natural >>=: fromIntegral
+parseLength = symbol "length" >> symbol "=" >> natural >>=: fromIntegral
 
 parseDirection :: Parsec String () Direction 
 parseDirection = (symbol "ascending"  >>: Ascending) 
@@ -146,15 +147,6 @@ parseScaleType =
   <|> (symbol "chromatic"      >>: Chromatic)
   <?> "expected scale type"
 
-
---              data ScaleType =
---     MajorScale
---     | NaturalMinor
---     | HarmonicMinor
---     | MelodicMinor
---     | Chromatic
---   deriving (Eq, Show, Read)
-
 parseNoteName :: Parsec String () NoteName
 parseNoteName = do
   noteName <- choice $ map (try . string) ["F", "C", "G", "D", "A", "E", "B"] -- we do NOT want to remove trailing space
@@ -163,12 +155,11 @@ parseNoteName = do
 
 parseAccidental :: Parsec String () Accidental
 parseAccidental = do 
-  let parseAlteredAccidental = try (symbol "##" >>: DoubleSharp) 
+  let parseAccidental = try (symbol "##" >>: DoubleSharp) 
                               <|> try (symbol "#" >>: Sharp)
                               <|> try (symbol "bb" >>: DoubleFlat) 
                               <|> try (symbol "b" >>: Flat)
-  ast <- option Natural $ parseAlteredAccidental
-  return ast
+  option Natural parseAccidental
     
 parseQuality :: Parsec String () Quality 
 parseQuality = 
@@ -181,21 +172,23 @@ parseQuality =
 
 parseInversion :: Parsec String () Inversion
 parseInversion =  do
-  inversionStr <- choice (map (try . symbol) ["root", "first", "second", "third"]) <* symbol "inversion" >>=: lowerCaseToSentenceCase
+  inversionStr <- choice (map (try . symbol) ["root", "first", "second", "third"]) >>=: lowerCaseToSentenceCase
   let ast = read inversionStr :: Inversion
   return ast
 
--- NEED TO FIX THESE 2 FUNCS FOR CONSTRAINTS!!!!!!!
-parseChordType :: Parsec String () ChordType
-parseChordType = do
-  chordTypeStr <- choice (map symbol ["triad", "seventh"]) >>=: lowerCaseToSentenceCase
-  let ast = read chordTypeStr :: ChordType
-  return ast
+parseChordTypeBeforeForm :: Parsec String () ChordType
+parseChordTypeBeforeForm = do 
+        (lookAhead $ symbol "triad" >>: Triad)
+    <|> (lookAhead $ symbol "seventh" >>: choice (map (lookAhead . symbol) ["chord", "arpeggio"]) >>: Seventh)
+    <|> (lookAhead $ symbol "arpeggio" >>: Triad)
+    <?> "expecting chord type before form"
 
-parseChordForm :: Parsec String () ChordForm
-parseChordForm = (symbol "chord" >>: ClosedChord)
-             <|> (symbol "arpeggio" >>: Arpeggio)
-             <?> "expected chord form"
+parseChordFormAfterType :: Parsec String () ChordForm
+parseChordFormAfterType = do 
+        (symbol "triad" >>: ClosedChord)
+    <|> (symbol "seventh" >> ((symbol "chord" >>: ClosedChord) <|> (symbol "arpeggio" >>: Arpeggio))) -- >> doesn't lift to monad (otherwise we lift twice bc <<: lifts)
+    <|> (symbol "arpeggio" >>: Arpeggio)
+    <?> "expecting chord form after type"
 
 parseCadenceType :: Parsec String () CadenceType
 parseCadenceType = do
@@ -207,16 +200,14 @@ parseCadenceType = do
   return ast
 
 parseHarmSeqType :: Parsec String () HarmonicSequenceType
-parseHarmSeqType = undefined
--- do
---   harmSeqTypeStr <- (symbol "Ascending" <* return "Asc" <*> ) 
---   <|> (symbol "Perfect Authentic Cadence" >>: "PerfAuth")
---                       <|> (symbol "Imperfect Authentic Cadence" >>: "ImperfAuth")
---                       <|> (symbol "Half Cadence" >>: "HalfCad")
-  
--- --   choice (map (try . symbol) ["Ascending Fifths", "Descending Fifths", "Ascending 5-6", "Descending 5-6"])
---   let ast = read harmSeqTypeStr :: HarmonicSequenceType
---   return ast
+parseHarmSeqType = 
+    let parseSeqType = 
+            (symbol "Ascending Fifths" >>: AscFifths) 
+                <|> (symbol "Descending Fifths" >>: DescFifths)
+                <|> (symbol "Ascending 5-6" >>: Asc56)
+                <|> (symbol "Descending 5-6" >>: Desc56)
+                <?> "expected harmonic sequence type"
+    in parseSeqType <* symbol "Sequence"
 
 -- betweenDelimiters :: String -> String -> Parsec String () a -> Parsec String () a -- replace a with IntermediateExpression
 -- betweenDelimiters open close = between (symbol open) (symbol close)

@@ -1,5 +1,1 @@
-(C major scale startNote:Eb4 ascending quarter length:10)
-(C minor scale startNote:Eb4 ascending quarter length:10)
-(C melodic min scale startNote:Eb4 ascending quarter length:10)
-(C harmonic min scale startNote:Eb4 ascending quarter length:10)
-(C chromatic scale startNote:Eb4 ascending quarter length:10)
+(C major descending scale, startNote = Eb4, quarter, length=10)

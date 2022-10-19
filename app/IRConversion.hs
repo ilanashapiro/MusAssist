@@ -277,7 +277,7 @@ expandIntermediateExpr symbolTable (MusAST.HarmonicSequence harmSeqType tonicTon
     return finalSeq
 
 -- | Predefied scales
-expandIntermediateExpr symbolTable (MusAST.Scale tonicNoteName tonicAcc scaleType (MusAST.Tone startNoteName startAcc startOctave) direction duration length) 
+expandIntermediateExpr symbolTable (MusAST.Scale tonicNoteName tonicAcc scaleType direction (MusAST.Tone startNoteName startAcc startOctave) duration length) 
     | length < 1 = return $ error "Scale must have length at least 1 " 
     | scaleType == MusAST.Chromatic = 
         if direction == MusAST.Descending && startAcc `notElem` [MusAST.Natural, MusAST.Flat] 
@@ -388,7 +388,7 @@ expandIntermediateInstr symbolTableIORef (MusAST.IRKeySignature noteName acciden
             MusAST.Sharp -> 
                 if noteName <= MusAST.C
                     then convertSharpKeySig noteName
-                else return $ error "Key signature cannot have double flats"
+                else return $ error "Key signature cannot have double sharps"
             MusAST.Natural -> 
                 case noteName of
                     MusAST.C -> return $ MusAST.KeySignature 0 0

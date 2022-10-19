@@ -151,7 +151,7 @@ data IntermediateExpr =
   | ChordTemplate Tone Quality ChordType ChordForm Inversion Duration -- Predefined chords: these all happen in root position
   | Cadence CadenceType Tone Quality Duration -- quality is major/minor ONLY. det the start note and key of the cadence
   | HarmonicSequence HarmonicSequenceType Tone Quality Duration Length -- quality is major/minor ONLY. det the start note and key of the seq
-  | Scale NoteName Accidental ScaleType Tone Direction Duration Length
+  | Scale NoteName Accidental ScaleType Direction Tone Duration Length
   | Label Label -- labels referring to exprs. syntactic sugar for the expressions they contain. these get desugared before code generation
   | FinalExpr Expr
    deriving (Eq, Show, Read)
