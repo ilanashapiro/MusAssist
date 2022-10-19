@@ -2,16 +2,34 @@ module Parser (parse, parseFile, parseNamed, program) where
 
 import Text.Parsec
 import Text.Parsec.Char
+import Debug.Trace
+import Data.Functor.Identity
 import qualified Text.Parsec.Token as Token
 import qualified Data.Map as Map 
 import           Data.Char as Char
 import           Control.Monad.Extra
 import           Data.List          (dropWhileEnd)
 
+
+
+
 import MusAssistAST
 
+--------------------------------------------------------------------------------
+-- * Helper Functions
+--------------------------------------------------------------------------------
 lowerCaseToSentenceCase :: String -> String
-lowerCaseToSentenceCase s = (Char.toUpper $ head s) : tail s
+lowerCaseToSentenceCase s = Char.toUpper (head s) : tail s
+
+-- CREDIT for println and seeNext: https://www.reddit.com/r/haskelltil/comments/3el2d6/a_handy_function_for_debugging_in_parsec_by_what/
+println msg = trace (show msg) $ return ()
+
+-- peek next n chars in the parsing stream
+seeNext :: Int -> ParsecT String u Identity ()
+seeNext n = do
+  s <- getParserState
+  let out = take n (stateInput s)
+  println out
 
 --------------------------------------------------------------------------------
 -- * Parsing functions
@@ -73,14 +91,14 @@ parseExpr =
 -- since "half" is a prefix of "halfdim", this means that the parse will fail if we do parseNote before parseChordTemplate
 -- also it's important to do parseLabel first, because we HAVE to have parens after this 
   try parseLabel
-  <|> parens
-    (try parseChordTemplate -- overlapping prefixes means we need to use "try"
-      <|> try parseNote
-      <|> try parseCadence
-      <|> try parseScale
-      <|> parseFinalExpr
-      <|> parseHarmSeq)
-    <?> "Expected expression"
+  <|> parens parseScale
+    -- (try parseChordTemplate -- overlapping prefixes means we need to use "try"
+    --   <|> try parseNote
+    --   <|> try parseCadence
+    --   <|> try parseScale
+    --   <|> parseFinalExpr
+    --   <|> parseHarmSeq)
+    -- <?> "Expected expression"
 
 parseChordTemplate :: Parsec String () IntermediateExpr
 parseChordTemplate = 
@@ -88,9 +106,9 @@ parseChordTemplate =
                                 <*> parseInversion <* symbol "inversion" <* comma <*> parseDuration <* spaces 
 
 parseScale :: Parsec String () IntermediateExpr
-parseScale = Scale <$> parseNoteName <*> parseAccidental <*> parseScaleType <*> parseDirection 
-                                     <* symbol "scale" <* comma <*> parseStartNote <* comma
-                                     <*> parseDuration <* comma <*> parseLength <* spaces
+parseScale = Scale <$> parseScaleNoteName <*> parseScaleAccidental <*> parseScaleType 
+                                          <*> parseDirection <* symbol "scale" <* comma <*> parseStartNote <* comma
+                                          <*> parseDuration <* comma <*> parseLength <* spaces
 
 parseCadence :: Parsec String () IntermediateExpr
 parseCadence = Cadence <$> parseCadenceType <* comma <*> parseTone <*> parseQuality <* comma <*> parseDuration <* spaces 
@@ -121,7 +139,7 @@ parseChord = do
 
 parseTone :: Parsec String () Tone 
 parseTone = Tone <$> parseNoteName <*> parseAccidental <*> (natural >>=: \octave -> fromIntegral octave)
-
+  
 parseStartNote :: Parsec String () Tone 
 parseStartNote = symbol "startNote" >> symbol "=" >> parseTone
 
@@ -148,9 +166,23 @@ parseScaleType =
   <|> try (symbol "minor"      >>: NaturalMinor)
   <|> (symbol "melodic minor"  >>: MelodicMinor)
   <|> (symbol "harmonic minor" >>: HarmonicMinor)
-  <|> (symbol "chromatic"      >>: Chromatic)
+  <|> (symbol "Chromatic"      >>: Chromatic) -- Chromatic is sentence case in concrete syntax
+  <|> (symbol "Whole tone"    >>: WholeTone) -- Whole Tone is sentence case in concrete syntax
   <?> "expected scale type"
 
+lookAheadNonDiatonicScaleType :: ParsecT String () Identity String
+lookAheadNonDiatonicScaleType = choice (map (lookAhead . symbol) ["Chromatic", "Whole Tone"])
+
+parseScaleNoteName :: Parsec String () NoteName 
+parseScaleNoteName = (lookAheadNonDiatonicScaleType >>: C) -- use C as placeholder tonic note name for scales that have no tonic (currently: chromatic, whole tone)
+                -- have to use try bc note name "C" and nondiatonic type "Chromatic" share prefix
+                -- need to parse note name after nondiatonic scale type bc "Chromatic" is longer than "C", otherwise the parser can succeed incorrectly on prefix "C"
+                 <|> try parseNoteName 
+
+parseScaleAccidental :: Parsec String () Accidental 
+parseScaleAccidental = (lookAheadNonDiatonicScaleType >>: Natural) -- use C as placeholder tonic note name for scales that have no tonic (currently: chromatic, whole tone)
+                   <|> parseAccidental -- have to parse accidental second since this parse always succeeds (i.e. if there's no valid acc found, it defaults to natural)
+                 
 parseNoteName :: Parsec String () NoteName
 parseNoteName = do
   noteName <- choice $ map (try . string) ["F", "C", "G", "D", "A", "E", "B"] -- we do NOT want to remove trailing space

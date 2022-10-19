@@ -91,6 +91,7 @@ data ScaleType =
     | HarmonicMinor
     | MelodicMinor
     | Chromatic
+    | WholeTone
   deriving (Eq, Show, Read)
 
 data Direction =
