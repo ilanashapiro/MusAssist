@@ -376,8 +376,9 @@
 				<voice>1</voice>
 				<type>eighth</type>
 			</note>
+		</measure>
+		<measure number="4">
 			<note>
-				<chord/>
 				<pitch>
 					<step>D</step>
 					<alter>2</alter>
@@ -388,7 +389,6 @@
 				<type>eighth</type>
 			</note>
 			<note>
-				<chord/>
 				<pitch>
 					<step>F</step>
 					<alter>2</alter>
@@ -399,7 +399,6 @@
 				<type>eighth</type>
 			</note>
 			<note>
-				<chord/>
 				<pitch>
 					<step>A</step>
 					<alter>2</alter>
@@ -409,8 +408,6 @@
 				<voice>1</voice>
 				<type>eighth</type>
 			</note>
-		</measure>
-		<measure number="4">
 			<note>
 				<rest />
 				<duration>8</duration>
@@ -437,6 +434,8 @@
 				<voice>1</voice>
 				<type>16th</type>
 			</note>
+		</measure>
+		<measure number="5">
 			<note>
 				<pitch>
 					<step>G</step>
@@ -509,8 +508,6 @@
 				<voice>1</voice>
 				<type>eighth</type>
 			</note>
-		</measure>
-		<measure number="5">
 			<note>
 				<pitch>
 					<step>D</step>
@@ -615,9 +612,9 @@
 			</note>
 			<note>
 				<rest/>
-				<duration>8</duration>
+				<duration>2</duration>
 				<voice>1</voice>
-				<type>half</type>
+				<type>eighth</type>
 			</note>
 		</measure>
 		<measure number="6">

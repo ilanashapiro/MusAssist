@@ -1,10 +1,10 @@
-SET_KEY Amaj
-SET_KEY Amaj
-(D4 eighth) (F#4 eighth) (A4 eighth) (F#4 eighth) (D4 quarter) (D4 maj triad inv:first quarter) // this is a comment
+SET_KEY A major
+SET_KEY A major
+(D4 eighth) (F#4 eighth) (A4 eighth) (F#4 eighth) (D4 quarter) (D4 major triad, first inversion, quarter) // this is a comment
 (rest half) // note without b or # is considered to be natural
-notes1 = (E5 sixteenth) (B4 sixteenth) (G#4 sixteenth) (B4 sixteenth) (E5 sixteenth) (F5 sixteenth) (E4 maj triad inv:second eighth) (DeceptiveCadence A4 maj eighth) (rest eighth)
-chords1 = ([Bbb4, Db5, Fb5] dotted_quarter) (A4 maj triad inv:root eighth) ([A4, C5, D5, F5] half) (C4 aug seventh inv:third quarter) (C4 aug triad inv:second eighth) (B#3 maj seventh inv:third eighth)
+notes1 = (E5 sixteenth) (B4 sixteenth) (G#4 sixteenth) (B4 sixteenth) (E5 sixteenth) (F5 sixteenth) (E4 major triad, second inversion, eighth) (Deceptive Cadence, A4 major, eighth) (rest eighth)
+chords1 = ([Bbb4, Db5, Fb5] dotted_quarter) (A4 major triad, root inversion, eighth) ([A4, C5, D5, F5] half) (C4 augmented seventh chord, third inversion, quarter) (C4 augmented triad, second inversion, eighth) (B#3 major seventh arpeggio, third inversion, eighth)
 chords1 (rest half) notes1
-SET_KEY Gmin
-(DescFifths G5 min eighth length:15) (rest quarter)
-(rest sixteenth) (HalfCadence G4 maj half)
+SET_KEY G minor
+(Descending Fifths Sequence, G5 minor, eighth, length=15) (rest quarter)
+(rest sixteenth) (Half Cadence, G4 major, half)

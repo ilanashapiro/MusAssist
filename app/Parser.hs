@@ -63,7 +63,6 @@ parseKeySig = do
   keyword "SET_KEY"
   noteName   <- parseNoteName
   accidental <- parseAccidental -- the maj/min only constriction on key sig gets checked during the IRConversion phase currently
-  spaces -- we need this bc spaces are not handled/consumed if there's no accidental (i.e. it's natural)
   quality    <- parseQuality
   let ast = IRKeySignature noteName accidental quality
   return ast
@@ -74,13 +73,14 @@ parseExpr =
 -- since "half" is a prefix of "halfdim", this means that the parse will fail if we do parseNote before parseChordTemplate
 -- also it's important to do parseLabel first, because we HAVE to have parens after this 
   try parseLabel
-  <|> parens 
-    (try parseChordTemplate) -- overlapping prefixes means we need to use "try"
-    --   <|> try parseNote
-    --   <|> try parseCadence
-    --   <|> parseFinalExpr
-    --   <|> parseHarmSeq)
-    -- <?> "Expected expression"
+  <|> parens
+    (try parseChordTemplate -- overlapping prefixes means we need to use "try"
+      <|> try parseNote
+      <|> try parseCadence
+      <|> try parseScale
+      <|> parseFinalExpr
+      <|> parseHarmSeq)
+    <?> "Expected expression"
 
 parseChordTemplate :: Parsec String () IntermediateExpr
 parseChordTemplate = 
@@ -89,7 +89,8 @@ parseChordTemplate =
 
 parseScale :: Parsec String () IntermediateExpr
 parseScale = Scale <$> parseNoteName <*> parseAccidental <*> parseScaleType <*> parseDirection 
-                                     <* symbol "scale" <* comma <* symbol "length" <* symbol "=" <*> parseTone <*> parseDuration <*> parseLength <* spaces
+                                     <* symbol "scale" <* comma <*> parseStartNote <* comma
+                                     <*> parseDuration <* comma <*> parseLength <* spaces
 
 parseCadence :: Parsec String () IntermediateExpr
 parseCadence = Cadence <$> parseCadenceType <* comma <*> parseTone <*> parseQuality <* comma <*> parseDuration <* spaces 
@@ -120,6 +121,9 @@ parseChord = do
 
 parseTone :: Parsec String () Tone 
 parseTone = Tone <$> parseNoteName <*> parseAccidental <*> (natural >>=: \octave -> fromIntegral octave)
+
+parseStartNote :: Parsec String () Tone 
+parseStartNote = symbol "startNote" >> symbol "=" >> parseTone
 
 parseDuration :: Parsec String () Duration
 parseDuration = do
@@ -155,11 +159,12 @@ parseNoteName = do
 
 parseAccidental :: Parsec String () Accidental
 parseAccidental = do 
-  let parseAccidental = try (symbol "##" >>: DoubleSharp) 
-                              <|> try (symbol "#" >>: Sharp)
-                              <|> try (symbol "bb" >>: DoubleFlat) 
-                              <|> try (symbol "b" >>: Flat)
-  option Natural parseAccidental
+  let parseAccidental = try (string "##" >>: DoubleSharp) 
+                              <|> (string "#" >>: Sharp)
+                              <|> try (string "bb" >>: DoubleFlat) 
+                              <|> (string "b" >>: Flat)
+  ast <- option Natural parseAccidental
+  spaces >>: ast
     
 parseQuality :: Parsec String () Quality 
 parseQuality = 
