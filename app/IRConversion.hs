@@ -279,31 +279,29 @@ expandIntermediateExpr symbolTable (MusAST.HarmonicSequence harmSeqType tonicTon
 -- | Predefied scales
 expandIntermediateExpr symbolTable (MusAST.Scale tonicNoteName tonicAcc scaleType direction (MusAST.Tone startNoteName startAcc startOctave) duration length) 
     | length < 1 = return $ error "Scale must have length at least 1 "
-    | scaleType == MusAST.WholeTone = undefined
-        -- do
-        -- let startTone = MusAST.Tone startNoteName startAcc startOctave
-        --     wholeToneScaleType  
-        --     generateScale 1 = return ([MusAST.Chord [startTone] duration], startTone) -- ([first note i.e. single note chord], first tone)
-        --     generateScale n = do
-        --         (remainingScale, prevTone) <- generateScale (n-1) 
-        --         let MusAST.Tone prevNoteName prevAcc prevOct = prevTone
-        --             -- return the note name and accidental of the next note in the chromatic scale
-        --             getNextNote singleNoteCases chromScaleAcc directionFunc =
-        --                 if prevNoteName `elem` singleNoteCases || prevAcc == chromScaleAcc then (directionFunc prevNoteName, MusAST.Natural)
-        --                 else (prevNoteName, chromScaleAcc)
-        --             (nextNoteName, nextAcc) = 
-        --                 case direction of 
-        --                     MusAST.Ascending -> getNextNote [MusAST.E, MusAST.B] MusAST.Sharp succ
-        --                     MusAST.Descending -> getNextNote [MusAST.C, MusAST.F] MusAST.Flat pred
-        --             nextOct = 
-        --                 if fromEnum MusAST.C - fromEnum nextNoteName == 0 && nextAcc == MusAST.Natural
-        --                     then (if direction == MusAST.Ascending then succ else pred) prevOct 
-        --                 else prevOct
-        --             nextTone = MusAST.Tone nextNoteName nextAcc nextOct
-        --             nextNote = MusAST.Chord [nextTone] duration
-        --         return (remainingScale ++ [nextNote], nextTone) 
-        -- (finalScale, _) <- generateScale length
-        -- return finalScale 
+    | scaleType == MusAST.WholeTone = do
+        let startTone = MusAST.Tone startNoteName startAcc startOctave
+            generateScale 1 = return ([MusAST.Chord [startTone] duration], startTone) -- ([first note i.e. single note chord], first tone)
+            generateScale n = do
+                (remainingScale, prevTone) <- generateScale (n-1) 
+                let MusAST.Tone prevNoteName prevAcc prevOct = prevTone
+                    -- return the note name and accidental of the next note in the chromatic scale
+                    getNextNote singleNoteCases chromScaleAcc directionFunc =
+                        if prevNoteName `elem` singleNoteCases || prevAcc == chromScaleAcc then (directionFunc prevNoteName, MusAST.Natural)
+                        else (prevNoteName, chromScaleAcc)
+                    (nextNoteName, nextAcc) = 
+                        case direction of 
+                            MusAST.Ascending -> getNextNote [MusAST.E, MusAST.B] MusAST.Sharp succ
+                            MusAST.Descending -> getNextNote [MusAST.C, MusAST.F] MusAST.Flat pred
+                    nextOct = 
+                        if fromEnum MusAST.C - fromEnum nextNoteName == 0 && nextAcc == MusAST.Natural
+                            then (if direction == MusAST.Ascending then succ else pred) prevOct 
+                        else prevOct
+                    nextTone = MusAST.Tone nextNoteName nextAcc nextOct
+                    nextNote = MusAST.Chord [nextTone] duration
+                return (remainingScale ++ [nextNote], nextTone) 
+        (finalScale, _) <- generateScale length
+        return finalScale 
     | scaleType == MusAST.Chromatic = 
         if direction == MusAST.Descending && startAcc `notElem` [MusAST.Natural, MusAST.Flat] 
             then return $ error "Descending chromatic scale must contain only naturals and flats"
