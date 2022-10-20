@@ -91,13 +91,13 @@ parseExpr =
 -- since "half" is a prefix of "halfdim", this means that the parse will fail if we do parseNote before parseChordTemplate
 -- also it's important to do parseLabel first, because we HAVE to have parens after this 
   try parseLabel
-  <|> parens 
-    (try parseChordTemplate -- overlapping prefixes means we need to use "try"
-      <|> try parseNote
-      <|> try parseCadence
-      <|> try parseScale
-      <|> parseFinalExpr
-      <|> parseHarmSeq)
+  <|> parens parseScale
+    -- (try parseChordTemplate -- overlapping prefixes means we need to use "try"
+    --   <|> try parseNote
+    --   <|> try parseCadence
+    --   <|> try parseScale
+    --   <|> parseFinalExpr
+    --   <|> parseHarmSeq)
     <?> "Expected expression"
 
 parseChordTemplate :: Parsec String () IntermediateExpr
@@ -171,16 +171,18 @@ parseScaleType = do
   <?> "expected scale type"
 
 lookAheadNonDiatonicScaleType :: ParsecT String () Identity String
-lookAheadNonDiatonicScaleType = try $ choice (map (lookAhead . symbol) ["Chromatic", "Whole Tone"]) -- have to use "try", or else if start note is C, this will fail on "Chromatic" but still consume the C
+lookAheadNonDiatonicScaleType = try $ choice (map (lookAhead . symbol) ["Chromatic", "Whole tone"]) -- have to use "try", or else if start note is C, this will fail on "Chromatic" but still consume the C
 
 parseScaleNoteName :: Parsec String () NoteName 
-parseScaleNoteName = try (lookAheadNonDiatonicScaleType >>: C) -- use C as placeholder tonic note name for scales that have no tonic (currently: chromatic, whole tone)
+parseScaleNoteName = do
+    try (lookAheadNonDiatonicScaleType >>: C) -- use C as placeholder tonic note name for scales that have no tonic (currently: chromatic, whole tone)
                 -- have to use try bc note name "C" and nondiatonic type "Chromatic" share prefix
                 -- need to parse note name after nondiatonic scale type bc "Chromatic" is longer than "C", otherwise the parser can succeed incorrectly on prefix "C"
                  <|> try parseNoteName 
 
 parseScaleAccidental :: Parsec String () Accidental 
-parseScaleAccidental = try (lookAheadNonDiatonicScaleType >>: Natural) -- use C as placeholder tonic note name for scales that have no tonic (currently: chromatic, whole tone)
+parseScaleAccidental = do
+    try (lookAheadNonDiatonicScaleType >>: Natural) -- use C as placeholder tonic note name for scales that have no tonic (currently: chromatic, whole tone)
                    <|> parseAccidental -- have to parse accidental second since this parse always succeeds (i.e. if there's no valid acc found, it defaults to natural)
                  
 parseNoteName :: Parsec String () NoteName

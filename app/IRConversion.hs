@@ -285,23 +285,10 @@ expandIntermediateExpr symbolTable (MusAST.Scale tonicNoteName tonicAcc scaleTyp
             generateScale n = do
                 (remainingScale, prevTone) <- generateScale (n-1) 
                 let MusAST.Tone prevNoteName prevAcc prevOct = prevTone
-                    -- return the note name and accidental of the next note in the chromatic scale
-                    -- getNextNote singleNoteCases chromScaleAcc directionFunc =
-                    --     if prevNoteName `elem` singleNoteCases || prevAcc == chromScaleAcc then (directionFunc prevNoteName, MusAST.Natural)
-                    --     else (prevNoteName, chromScaleAcc)
-                    -- (nextNoteName, nextAcc) = 
-                    --     case direction of 
-                    --         MusAST.Ascending -> getNextNote [MusAST.E, MusAST.B] MusAST.Sharp succ
-                    --         MusAST.Descending -> getNextNote [MusAST.C, MusAST.F] MusAST.Flat pred
-                    -- nextOct = 
-                    --     if fromEnum MusAST.C - fromEnum nextNoteName == 0 && nextAcc == MusAST.Natural
-                    --         then (if direction == MusAST.Ascending then succ else pred) prevOct 
-                    --     else prevOct
-
-                    -- i.e., these are the cases where before/after this note in the whole tone scale, a note name is skipped
+                    -- i.e., these are the cases where after this note in the whole tone scale, a note name is skipped
                     prevNoteNameAtWholeToneSkip = case direction of
                         MusAST.Ascending  -> prevNoteName == MusAST.A && prevAcc == MusAST.Sharp || prevNoteName == MusAST.B 
-                        MusAST.Descending -> startNoteName == MusAST.D && startAcc == MusAST.Flat || startNoteName == MusAST.C
+                        MusAST.Descending -> prevNoteName == MusAST.D && startAcc == MusAST.Flat || prevNoteName == MusAST.C
                     
                     nextNoteNameFunc = case direction of
                         MusAST.Ascending  -> succ . (if prevNoteNameAtWholeToneSkip then succ else id)
@@ -319,7 +306,11 @@ expandIntermediateExpr symbolTable (MusAST.Scale tonicNoteName tonicAcc scaleTyp
                             else id
                     nextAcc = nextAccFunc prevAcc
 
-                    
+                    nextOctFunc = case direction of
+                        MusAST.Ascending  -> if prevNoteNameAtWholeToneSkip then succ else id
+                        MusAST.Descending -> if prevNoteNameAtWholeToneSkip then pred else id
+                    nextOct = nextOctFunc prevOct
+
                     nextTone = MusAST.Tone nextNoteName nextAcc nextOct
                     nextNote = MusAST.Chord [nextTone] duration
                 return (remainingScale ++ [nextNote], nextTone) 
@@ -344,15 +335,12 @@ expandIntermediateExpr symbolTable (MusAST.Scale tonicNoteName tonicAcc scaleTyp
                             case direction of 
                                 MusAST.Ascending -> getNextNote [MusAST.E, MusAST.B] MusAST.Sharp succ
                                 MusAST.Descending -> getNextNote [MusAST.C, MusAST.F] MusAST.Flat pred
-                        nextOct = 
-                            let -- the octave is always set to the C below or equal to the start note, whether it's ascending or descending
-                                -- if it's descending, the octave is already correct when we reach C, so we wait until we get 1 note below it to lower the octave
-                                -- if it's ascending, the octave needs to be raised as soon as we reach C
-                                octaveCutoffIntervalFromC = if direction == MusAST.Descending then 6 else 0
-                            in
-                                if fromEnum nextNoteName - fromEnum MusAST.C == octaveCutoffIntervalFromC && nextAcc == MusAST.Natural
-                                    then (if direction == MusAST.Ascending then succ else pred) prevOct 
-                                else prevOct
+                        
+                        nextOctFunc = case direction of 
+                            MusAST.Ascending  -> if prevNoteName == MusAST.B then succ else id
+                            MusAST.Descending -> if prevNoteName == MusAST.C then pred else id
+                        nextOct = nextOctFunc prevOct
+
                         nextTone = MusAST.Tone nextNoteName nextAcc nextOct
                         nextNote = MusAST.Chord [nextTone] duration
                     return (remainingScale ++ [nextNote], nextTone) 
