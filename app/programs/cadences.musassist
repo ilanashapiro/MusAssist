@@ -1,9 +1,22 @@
 // (Perfect Authentic Cadence, Eb5 minor, sixteenth) 
 // NEW_MEASURE
-(Imperfect Authentic Cadence, F#5 minor, quarter) 
+// (Imperfect Authentic Cadence, F#5 minor, quarter) 
 // NEW_MEASURE
 // (Deceptive Cadence, B4 major, eighth) 
 // NEW_MEASURE
 // (Half Cadence, G#5 minor, whole) 
 // NEW_MEASURE
-// (Plagal Cadence, C5 major, half)
+// (Plagal Cadence, B5 major, quarter)
+(Half Cadence, B5 major, quarter)
+NEW_MEASURE
+(Half Cadence, A5 major, quarter)
+NEW_MEASURE
+(Half Cadence, G5 major, quarter)
+NEW_MEASURE
+(Half Cadence, F5 major, quarter)
+NEW_MEASURE
+(Half Cadence, E5 major, quarter)
+NEW_MEASURE
+(Half Cadence, D5 major, quarter)
+NEW_MEASURE
+(Half Cadence, C5 major, quarter)
