@@ -91,13 +91,13 @@ parseExpr =
 -- since "half" is a prefix of "halfdim", this means that the parse will fail if we do parseNote before parseChordTemplate
 -- also it's important to do parseLabel first, because we HAVE to have parens after this 
   try parseLabel
-  <|> parens parseScale
-    -- (try parseChordTemplate -- overlapping prefixes means we need to use "try"
-    --   <|> try parseNote
-    --   <|> try parseCadence
-    --   <|> try parseScale
-    --   <|> parseFinalExpr
-    --   <|> parseHarmSeq)
+  <|> parens
+    (try parseChordTemplate -- overlapping prefixes means we need to use "try"
+      <|> try parseNote
+      <|> try parseCadence
+      <|> try parseScale
+      <|> parseFinalExpr
+      <|> parseHarmSeq)
     <?> "Expected expression"
 
 parseChordTemplate :: Parsec String () IntermediateExpr

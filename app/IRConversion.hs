@@ -73,6 +73,7 @@ generateToneWithinScale tonicTone tonicQuality intervalVal specialOctaveCases oc
                     if tonicQuality == MusAST.Minor then computedAcc 
                     else succ computedAcc -- i.e if valid quality is minor, and we want major, go up half step
             octave     = if tonicNoteName `elem` specialOctaveCases then octFunc tonicOctave else tonicOctave
+            -- octave     = if fromEnum noteName < fromEnum tonicNoteName then octFunc tonicOctave else tonicOctave
         return $ MusAST.Tone noteName accAdjustedForKey octave
 
 generateTriadWithinScale :: SymbolTable -> MusAST.Tone -> MusAST.Quality -> MusAST.Duration -> Int -> [MusAST.NoteName] -> (MusAST.Octave -> MusAST.Octave) -> MusAST.Inversion -> IO MusAST.Expr
@@ -88,6 +89,7 @@ generateTriadWithinScale symbolTable tonicTone tonicQuality duration intervalVal
                 else MusAST.Minor
             _           -> error "Can't generate triad in invalid scale quality (i.e. not major or minor)"
     tone <- generateToneWithinScale tonicTone tonicQuality intervalVal specialOctaveCases octFunc
+    -- print tonicTone
     triadList <- expandIntermediateExpr symbolTable (MusAST.ChordTemplate tone quality MusAST.Triad MusAST.ClosedChord inversion duration) 
     return $ head triadList
 
