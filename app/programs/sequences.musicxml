@@ -91,9 +91,73 @@
 	</attributes>
 			<note>
 				<pitch>
-					<step>C</step>
+					<step>B</step>
 					<alter>0</alter>
 					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>A</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>C</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>C</step>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -104,7 +168,7 @@
 				<pitch>
 					<step>E</step>
 					<alter>0</alter>
-					<octave>5</octave>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -114,8 +178,8 @@
 				<chord/>
 				<pitch>
 					<step>G</step>
-					<alter>0</alter>
-					<octave>4</octave>
+					<alter>1</alter>
+					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -124,8 +188,8 @@
 			<note>
 				<pitch>
 					<step>G</step>
-					<alter>0</alter>
-					<octave>4</octave>
+					<alter>1</alter>
+					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -136,7 +200,7 @@
 				<pitch>
 					<step>B</step>
 					<alter>0</alter>
-					<octave>4</octave>
+					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -146,72 +210,8 @@
 				<chord/>
 				<pitch>
 					<step>D</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>D</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>F</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>A</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>A</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>C</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>E</step>
-					<alter>0</alter>
-					<octave>5</octave>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -221,52 +221,9 @@
 		<measure number="2">
 			<note>
 				<pitch>
-					<step>E</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>G</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>B</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>B</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
 					<step>D</step>
-					<alter>0</alter>
-					<octave>5</octave>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -276,18 +233,8 @@
 				<chord/>
 				<pitch>
 					<step>F</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>F</step>
-					<alter>0</alter>
-					<octave>5</octave>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -297,7 +244,17 @@
 				<chord/>
 				<pitch>
 					<step>A</step>
-					<alter>0</alter>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>A</step>
+					<alter>1</alter>
 					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
@@ -308,18 +265,8 @@
 				<chord/>
 				<pitch>
 					<step>C</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<alter>0</alter>
-					<octave>5</octave>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -330,7 +277,17 @@
 				<pitch>
 					<step>E</step>
 					<alter>0</alter>
-					<octave>5</octave>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>E</step>
+					<alter>0</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -340,8 +297,51 @@
 				<chord/>
 				<pitch>
 					<step>G</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>B</step>
 					<alter>0</alter>
 					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>B</step>
+					<alter>0</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -351,52 +351,9 @@
 		<measure number="3">
 			<note>
 				<pitch>
-					<step>G</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>B</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>D</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>D</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
 					<step>F</step>
-					<alter>0</alter>
-					<octave>5</octave>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -406,18 +363,8 @@
 				<chord/>
 				<pitch>
 					<step>A</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>A</step>
-					<alter>0</alter>
-					<octave>5</octave>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -427,7 +374,17 @@
 				<chord/>
 				<pitch>
 					<step>C</step>
-					<alter>0</alter>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>C</step>
+					<alter>1</alter>
 					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
@@ -439,17 +396,7 @@
 				<pitch>
 					<step>E</step>
 					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>E</step>
-					<alter>0</alter>
-					<octave>5</octave>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -459,8 +406,18 @@
 				<chord/>
 				<pitch>
 					<step>G</step>
-					<alter>0</alter>
-					<octave>5</octave>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>G</step>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -471,7 +428,50 @@
 				<pitch>
 					<step>B</step>
 					<alter>0</alter>
-					<octave>5</octave>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>A</step>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -481,52 +481,9 @@
 		<measure number="4">
 			<note>
 				<pitch>
-					<step>B</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>D</step>
-					<alter>0</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>F</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>F</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
 					<step>A</step>
-					<alter>0</alter>
-					<octave>5</octave>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -536,18 +493,8 @@
 				<chord/>
 				<pitch>
 					<step>C</step>
-					<alter>0</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<alter>0</alter>
-					<octave>6</octave>
+					<alter>1</alter>
+					<octave>7</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -565,11 +512,64 @@
 				<type>quarter</type>
 			</note>
 			<note>
+				<pitch>
+					<step>E</step>
+					<alter>0</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
 				<chord/>
 				<pitch>
 					<step>G</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>B</step>
 					<alter>0</alter>
-					<octave>5</octave>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>B</step>
+					<alter>0</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>7</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -585,73 +585,9 @@
 		<measure number="5">
 			<note>
 				<pitch>
-					<step>C</step>
-					<alter>0</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>E</step>
-					<alter>0</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>G</step>
-					<alter>0</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>F</step>
-					<alter>0</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>A</step>
-					<alter>0</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>C</step>
-					<alter>0</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
 					<step>B</step>
 					<alter>0</alter>
-					<octave>5</octave>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -661,8 +597,8 @@
 				<chord/>
 				<pitch>
 					<step>D</step>
-					<alter>0</alter>
-					<octave>6</octave>
+					<alter>1</alter>
+					<octave>7</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -672,8 +608,8 @@
 				<chord/>
 				<pitch>
 					<step>F</step>
-					<alter>0</alter>
-					<octave>6</octave>
+					<alter>1</alter>
+					<octave>7</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -683,7 +619,7 @@
 				<pitch>
 					<step>E</step>
 					<alter>0</alter>
-					<octave>6</octave>
+					<octave>7</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -693,8 +629,8 @@
 				<chord/>
 				<pitch>
 					<step>G</step>
-					<alter>0</alter>
-					<octave>6</octave>
+					<alter>1</alter>
+					<octave>7</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -705,7 +641,71 @@
 				<pitch>
 					<step>B</step>
 					<alter>0</alter>
-					<octave>5</octave>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>A</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>C</step>
+					<alter>1</alter>
+					<octave>7</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>E</step>
+					<alter>0</alter>
+					<octave>7</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>7</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>7</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>A</step>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -715,73 +715,9 @@
 		<measure number="6">
 			<note>
 				<pitch>
-					<step>A</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>C</step>
-					<alter>0</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>E</step>
-					<alter>0</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>D</step>
-					<alter>0</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>F</step>
-					<alter>0</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>A</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
 					<step>G</step>
-					<alter>0</alter>
-					<octave>5</octave>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -792,7 +728,7 @@
 				<pitch>
 					<step>B</step>
 					<alter>0</alter>
-					<octave>5</octave>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -802,8 +738,8 @@
 				<chord/>
 				<pitch>
 					<step>D</step>
-					<alter>0</alter>
-					<octave>6</octave>
+					<alter>1</alter>
+					<octave>7</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -812,8 +748,8 @@
 			<note>
 				<pitch>
 					<step>C</step>
-					<alter>0</alter>
-					<octave>6</octave>
+					<alter>1</alter>
+					<octave>7</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -824,7 +760,7 @@
 				<pitch>
 					<step>E</step>
 					<alter>0</alter>
-					<octave>6</octave>
+					<octave>7</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -834,8 +770,72 @@
 				<chord/>
 				<pitch>
 					<step>G</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>A</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>C</step>
+					<alter>1</alter>
+					<octave>7</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>B</step>
 					<alter>0</alter>
-					<octave>5</octave>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>7</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -845,73 +845,9 @@
 		<measure number="7">
 			<note>
 				<pitch>
-					<step>F</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>A</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>C</step>
-					<alter>0</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>B</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>D</step>
-					<alter>0</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>F</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
 					<step>E</step>
 					<alter>0</alter>
-					<octave>5</octave>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -921,8 +857,8 @@
 				<chord/>
 				<pitch>
 					<step>G</step>
-					<alter>0</alter>
-					<octave>5</octave>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -933,7 +869,7 @@
 				<pitch>
 					<step>B</step>
 					<alter>0</alter>
-					<octave>5</octave>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -942,8 +878,8 @@
 			<note>
 				<pitch>
 					<step>A</step>
-					<alter>0</alter>
-					<octave>5</octave>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -953,8 +889,8 @@
 				<chord/>
 				<pitch>
 					<step>C</step>
-					<alter>0</alter>
-					<octave>6</octave>
+					<alter>1</alter>
+					<octave>7</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -965,7 +901,71 @@
 				<pitch>
 					<step>E</step>
 					<alter>0</alter>
-					<octave>5</octave>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>A</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>G</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>B</step>
+					<alter>0</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -975,9 +975,9 @@
 		<measure number="8">
 			<note>
 				<pitch>
-					<step>D</step>
-					<alter>0</alter>
-					<octave>5</octave>
+					<step>C</step>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -986,9 +986,30 @@
 			<note>
 				<chord/>
 				<pitch>
-					<step>F</step>
+					<step>E</step>
 					<alter>0</alter>
-					<octave>5</octave>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>G</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -998,18 +1019,8 @@
 				<chord/>
 				<pitch>
 					<step>A</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>G</step>
-					<alter>0</alter>
-					<octave>5</octave>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -1017,6 +1028,16 @@
 			</note>
 			<note>
 				<chord/>
+				<pitch>
+					<step>C</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
 				<pitch>
 					<step>B</step>
 					<alter>0</alter>
@@ -1030,18 +1051,8 @@
 				<chord/>
 				<pitch>
 					<step>D</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<alter>0</alter>
-					<octave>5</octave>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -1050,20 +1061,9 @@
 			<note>
 				<chord/>
 				<pitch>
-					<step>E</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>G</step>
-					<alter>0</alter>
-					<octave>5</octave>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -1079,7 +1079,7 @@
 		<measure number="9">
 			<note>
 				<pitch>
-					<step>C</step>
+					<step>B</step>
 					<alter>0</alter>
 					<octave>4</octave>
 				</pitch>
@@ -1089,63 +1089,10 @@
 			</note>
 			<note>
 				<chord/>
-				<pitch>
-					<step>E</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>G</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>A</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>C</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>E</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
 				<pitch>
 					<step>D</step>
-					<alter>0</alter>
-					<octave>4</octave>
+					<alter>1</alter>
+					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -1155,8 +1102,18 @@
 				<chord/>
 				<pitch>
 					<step>F</step>
-					<alter>0</alter>
-					<octave>4</octave>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>G</step>
+					<alter>1</alter>
+					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -1164,16 +1121,6 @@
 			</note>
 			<note>
 				<chord/>
-				<pitch>
-					<step>A</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
 				<pitch>
 					<step>B</step>
 					<alter>0</alter>
@@ -1187,8 +1134,18 @@
 				<chord/>
 				<pitch>
 					<step>D</step>
-					<alter>0</alter>
-					<octave>4</octave>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>C</step>
+					<alter>1</alter>
+					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -1197,9 +1154,52 @@
 			<note>
 				<chord/>
 				<pitch>
-					<step>F</step>
+					<step>E</step>
 					<alter>0</alter>
-					<octave>4</octave>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>G</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>A</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>C</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>E</step>
+					<alter>0</alter>
+					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -1209,9 +1209,73 @@
 		<measure number="10">
 			<note>
 				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>A</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>B</step>
+					<alter>0</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
 					<step>E</step>
 					<alter>0</alter>
-					<octave>4</octave>
+					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -1221,8 +1285,8 @@
 				<chord/>
 				<pitch>
 					<step>G</step>
-					<alter>0</alter>
-					<octave>4</octave>
+					<alter>1</alter>
+					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -1233,7 +1297,7 @@
 				<pitch>
 					<step>B</step>
 					<alter>0</alter>
-					<octave>4</octave>
+					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -1242,8 +1306,8 @@
 			<note>
 				<pitch>
 					<step>C</step>
-					<alter>0</alter>
-					<octave>5</octave>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -1254,7 +1318,7 @@
 				<pitch>
 					<step>E</step>
 					<alter>0</alter>
-					<octave>4</octave>
+					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -1264,72 +1328,8 @@
 				<chord/>
 				<pitch>
 					<step>G</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>F</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>A</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>C</step>
-					<alter>0</alter>
+					<alter>1</alter>
 					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>D</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>F</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>A</step>
-					<alter>0</alter>
-					<octave>4</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -1339,9 +1339,73 @@
 		<measure number="11">
 			<note>
 				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>A</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>C</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>A</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
 					<step>G</step>
-					<alter>0</alter>
-					<octave>4</octave>
+					<alter>1</alter>
+					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -1352,7 +1416,7 @@
 				<pitch>
 					<step>B</step>
 					<alter>0</alter>
-					<octave>4</octave>
+					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -1362,8 +1426,8 @@
 				<chord/>
 				<pitch>
 					<step>D</step>
-					<alter>0</alter>
-					<octave>5</octave>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -1373,7 +1437,7 @@
 				<pitch>
 					<step>E</step>
 					<alter>0</alter>
-					<octave>5</octave>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -1383,8 +1447,8 @@
 				<chord/>
 				<pitch>
 					<step>G</step>
-					<alter>0</alter>
-					<octave>4</octave>
+					<alter>1</alter>
+					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -1394,70 +1458,6 @@
 				<chord/>
 				<pitch>
 					<step>B</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>A</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>C</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>E</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>F</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>A</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>C</step>
 					<alter>0</alter>
 					<octave>5</octave>
 				</pitch>
@@ -1469,19 +1469,8 @@
 		<measure number="12">
 			<note>
 				<pitch>
-					<step>B</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>D</step>
-					<alter>0</alter>
+					<step>A</step>
+					<alter>1</alter>
 					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
@@ -1490,52 +1479,10 @@
 			</note>
 			<note>
 				<chord/>
-				<pitch>
-					<step>F</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>G</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>B</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>D</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
 				<pitch>
 					<step>C</step>
-					<alter>0</alter>
-					<octave>5</octave>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -1546,6 +1493,27 @@
 				<pitch>
 					<step>E</step>
 					<alter>0</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>A</step>
+					<alter>1</alter>
 					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
@@ -1555,9 +1523,41 @@
 			<note>
 				<chord/>
 				<pitch>
-					<step>G</step>
+					<step>C</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>B</step>
 					<alter>0</alter>
 					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -1573,29 +1573,7 @@
 		<measure number="13">
 			<note>
 				<pitch>
-					<step>C</step>
-					<alter>0</alter>
-					<octave>7</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>E</step>
-					<alter>0</alter>
-					<octave>7</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>G</step>
+					<step>B</step>
 					<alter>0</alter>
 					<octave>6</octave>
 				</pitch>
@@ -1604,9 +1582,63 @@
 				<type>quarter</type>
 			</note>
 			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>7</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>A</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>C</step>
+					<alter>1</alter>
+					<octave>7</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
 				<pitch>
 					<step>G</step>
-					<alter>0</alter>
+					<alter>1</alter>
 					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
@@ -1628,71 +1660,39 @@
 				<chord/>
 				<pitch>
 					<step>D</step>
-					<alter>0</alter>
-					<octave>7</octave>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
 				<type>quarter</type>
 			</note>
 			<note>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
 				<pitch>
 					<step>A</step>
-					<alter>0</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>C</step>
-					<alter>0</alter>
-					<octave>7</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>E</step>
-					<alter>0</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>E</step>
-					<alter>0</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>G</step>
-					<alter>0</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>B</step>
-					<alter>0</alter>
+					<alter>1</alter>
 					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
@@ -1703,30 +1703,62 @@
 		<measure number="14">
 			<note>
 				<pitch>
+					<step>E</step>
+					<alter>0</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>G</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>B</step>
+					<alter>0</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>B</step>
+					<alter>0</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
 					<step>F</step>
-					<alter>0</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>A</step>
-					<alter>0</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>C</step>
-					<alter>0</alter>
+					<alter>1</alter>
 					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
@@ -1736,7 +1768,7 @@
 			<note>
 				<pitch>
 					<step>C</step>
-					<alter>0</alter>
+					<alter>1</alter>
 					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
@@ -1758,71 +1790,39 @@
 				<chord/>
 				<pitch>
 					<step>G</step>
-					<alter>0</alter>
-					<octave>6</octave>
+					<alter>1</alter>
+					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
 				<type>quarter</type>
 			</note>
 			<note>
+				<pitch>
+					<step>G</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>B</step>
+					<alter>0</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
 				<pitch>
 					<step>D</step>
-					<alter>0</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>F</step>
-					<alter>0</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>A</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>A</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>C</step>
-					<alter>0</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>E</step>
-					<alter>0</alter>
+					<alter>1</alter>
 					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
@@ -1833,51 +1833,8 @@
 		<measure number="15">
 			<note>
 				<pitch>
-					<step>B</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>D</step>
-					<alter>0</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>F</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>F</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
 					<step>A</step>
-					<alter>0</alter>
+					<alter>1</alter>
 					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
@@ -1888,7 +1845,7 @@
 				<chord/>
 				<pitch>
 					<step>C</step>
-					<alter>0</alter>
+					<alter>1</alter>
 					<octave>6</octave>
 				</pitch>
 				<duration>4</duration>
@@ -1896,9 +1853,31 @@
 				<type>quarter</type>
 			</note>
 			<note>
+				<chord/>
+				<pitch>
+					<step>E</step>
+					<alter>0</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>E</step>
+					<alter>0</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
 				<pitch>
 					<step>G</step>
-					<alter>0</alter>
+					<alter>1</alter>
 					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
@@ -1917,31 +1896,9 @@
 				<type>quarter</type>
 			</note>
 			<note>
-				<chord/>
-				<pitch>
-					<step>D</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>D</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
 				<pitch>
 					<step>F</step>
-					<alter>0</alter>
+					<alter>1</alter>
 					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
@@ -1952,7 +1909,50 @@
 				<chord/>
 				<pitch>
 					<step>A</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>C</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>C</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>E</step>
 					<alter>0</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>G</step>
+					<alter>1</alter>
 					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
@@ -1963,31 +1963,63 @@
 		<measure number="16">
 			<note>
 				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>A</step>
+					<alter>1</alter>
+					<octave>4</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<pitch>
+					<step>A</step>
+					<alter>1</alter>
+					<octave>4</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>C</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
 					<step>E</step>
 					<alter>0</alter>
 					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>G</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>B</step>
-					<alter>0</alter>
-					<octave>4</octave>
 				</pitch>
 				<duration>4</duration>
 				<voice>1</voice>
@@ -2007,7 +2039,7 @@
 				<chord/>
 				<pitch>
 					<step>D</step>
-					<alter>0</alter>
+					<alter>1</alter>
 					<octave>5</octave>
 				</pitch>
 				<duration>4</duration>
@@ -2018,39 +2050,7 @@
 				<chord/>
 				<pitch>
 					<step>F</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>E</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>G</step>
-					<alter>0</alter>
+					<alter>1</alter>
 					<octave>4</octave>
 				</pitch>
 				<duration>4</duration>

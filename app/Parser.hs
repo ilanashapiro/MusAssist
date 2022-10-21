@@ -241,11 +241,11 @@ parseCadenceType = do
 parseHarmSeqType :: Parsec String () HarmonicSequenceType
 parseHarmSeqType = 
     let parseSeqType = 
-            (symbol "Ascending Fifths" >>: AscFifths) 
-                <|> (symbol "Descending Fifths" >>: DescFifths)
-                <|> (symbol "Ascending 5-6" >>: Asc56)
-                <|> (symbol "Descending 5-6" >>: Desc56)
-                <?> "expected harmonic sequence type"
+            try (symbol "Ascending Fifths" >>: AscFifths) -- try bc we have prefixes in the last cases
+            <|> try (symbol "Descending Fifths" >>: DescFifths)
+            <|> (symbol "Ascending 5-6" >>: Asc56)
+            <|> (symbol "Descending 5-6" >>: Desc56)
+            <?> "expected harmonic sequence type"
     in parseSeqType <* symbol "Sequence"
 
 -- betweenDelimiters :: String -> String -> Parsec String () a -> Parsec String () a -- replace a with IntermediateExpression

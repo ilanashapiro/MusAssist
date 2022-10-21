@@ -89,7 +89,6 @@ generateTriadWithinScale symbolTable tonicTone tonicQuality duration intervalVal
                 else MusAST.Minor
             _           -> error "Can't generate triad in invalid scale quality (i.e. not major or minor)"
     tone <- generateToneWithinScale tonicTone tonicQuality intervalVal specialOctaveCases octFunc
-    print (tonicTone, tone)
     triadList <- expandIntermediateExpr symbolTable (MusAST.ChordTemplate tone quality MusAST.Triad MusAST.ClosedChord inversion duration) 
     return $ head triadList
 
@@ -274,24 +273,35 @@ expandIntermediateExpr symbolTable (MusAST.HarmonicSequence harmSeqType tonicTon
                     
         -- the "index interval changes" tell you how to get to the next chord in the seq, from the current chord, via the interval separating them
         (tonicTriad, octIncVal, evenIndexIntervalChange, oddIndexIntervalChange, evenIndexInv, oddIndexInv) = case harmSeqType of 
-            MusAST.Asc56      -> (tonicRootTriad, 1, 5, -4, MusAST.First, MusAST.Root)
-            MusAST.Desc56     -> (tonicSecondInvTriad, -2, -3, 1, MusAST.Root, MusAST.Second)
             MusAST.AscFifths  -> (tonicSecondInvTriad, 1, 4, -3, MusAST.Root, MusAST.Second)
             MusAST.DescFifths -> (tonicRootTriad, -1, -4, 3, MusAST.Second, MusAST.Root)
- 
+            MusAST.Asc56      -> (tonicRootTriad, 1, 5, -4, MusAST.First, MusAST.Root)
+            MusAST.Desc56     -> (tonicSecondInvTriad, -2, -3, 1, MusAST.Root, MusAST.Second)
+            
         generateSeq 1 = return ([tonicTriad], 0, 0, initialTonicOctave) -- ([first chord], first interval from tonic, starting index in seq w/ 0-indexing, initial tonic octave)
         generateSeq n = do
             (remainingSeq, previousIntervalFromTonic, previousIndexInSeq, previousTonicOctave) <- generateSeq (n-1) 
             let nextIndexInSeq = (previousIndexInSeq + 1) `mod` 14 -- All sequences are 14 chords long
                 nextTonicOctave = if nextIndexInSeq == 0 then previousTonicOctave + octIncVal else previousTonicOctave -- the octave changes every cycle of the seq
-                nextTonicTone = MusAST.Tone tonicNoteName tonicAcc nextTonicOctave
+                nextTonicOctaveAdjustedForIndexFunc = case harmSeqType of 
+                    MusAST.AscFifths  -> if nextIndexInSeq >= 7 && odd nextIndexInSeq then succ else id
+                    MusAST.DescFifths -> if nextIndexInSeq >= 9 && odd nextIndexInSeq then pred2 
+                                         else if nextIndexInSeq > 0 then pred
+                                         else id
+                    MusAST.Asc56      -> if nextIndexInSeq `elem` [1,3] then pred else id
+                    MusAST.Desc56     -> if nextIndexInSeq `elem` [8,10,12,13] then pred2
+                                         else if nextIndexInSeq `elem` [0,1,3,5] then id 
+                                         else pred
+                nextTonicOctaveAdjustedForIndex = nextTonicOctaveAdjustedForIndexFunc nextTonicOctave
+
+                nextTonicToneAdjustedForIndex = MusAST.Tone tonicNoteName tonicAcc nextTonicOctaveAdjustedForIndex
                 
-                nextIntervalFromTonic = (previousIntervalFromTonic + (if n `mod` 2 == 0 then evenIndexIntervalChange else oddIndexIntervalChange)) `mod` 7
-                inversion = if n `mod` 2 == 0 then evenIndexInv else oddIndexInv
+                nextIntervalFromTonic = (previousIntervalFromTonic + (if even n then evenIndexIntervalChange else oddIndexIntervalChange)) `mod` 7
+                inversion = if even n then evenIndexInv else oddIndexInv
                 
                 (specialOctCasesForIndex, octFunc) = specialOctCasesFunc nextIndexInSeq nextTonicOctave
 
-            triad <- generateTriadWithinScale symbolTable nextTonicTone tonicQuality duration nextIntervalFromTonic specialOctCasesForIndex octFunc inversion
+            triad <- generateTriadWithinScale symbolTable nextTonicToneAdjustedForIndex tonicQuality duration nextIntervalFromTonic specialOctCasesForIndex octFunc inversion
             return (remainingSeq ++ [triad], nextIntervalFromTonic, nextIndexInSeq, nextTonicOctave) -- the seq cycles after 14 chords, but an octave up
         
     (finalSeq, _, _, _) <- generateSeq length
