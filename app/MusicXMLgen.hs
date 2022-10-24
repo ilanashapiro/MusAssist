@@ -144,10 +144,9 @@ generateRestCodeFromDuration state restDurationVal = do
     if restDurationVal <= remainingTimeInStrongBeat || restDurationVal <= remainingTimeInMeasure && restBeginsOnBeat
         then do 
             newMeasureCode <- updateBeat restDurationVal state -- new measure code gets generated if restDurationVal == remainingTimeInMeasure
-            currentBeatCount      <- IORef.readIORef currBeatCt
             rationalRestDivisions <- generateNoteValueRationalDivisions restDurationVal False
             rationalRestCode <- generateRestsFromDivisions rationalRestDivisions
-            return $ newMeasureCode ++ rationalRestCode
+            return $ rationalRestCode ++ newMeasureCode
 
     else do 
         -- the code for the rest that fits in the current strong beat
@@ -164,7 +163,7 @@ generateRestCodeFromDuration state restDurationVal = do
                     return $ currentStrongBeatRestCode ++ remainingMeasureRestCode
                 else return currentStrongBeatRestCode
 
-            newMeasureCode <- updateBeat remainingTimeInMeasureAfterStrongBeat state
+            newMeasureCode <- updateBeat remainingTimeInMeasure state
 
             -- the code for the rest that spills into the next measure (may be empty if rest fits exactly in measure)
             let remainingRestLength = restDurationVal - remainingTimeInMeasure
@@ -481,9 +480,9 @@ transInstrs instrs = do
                 -- finalMeasureFill <- generateRestsFromDivisions restPaddingDivisions
                 print remainingTimeInMeasure
                 finalMeasureFill <- generateRestCodeFromDuration state remainingTimeInMeasure
-                return $ instrSeqs ++ [finalMeasureFill]
+                return $ instrSeqs ++ [take (length finalMeasureFill - 2) finalMeasureFill] -- remove the hanging new measure code since we do not want it
             else do
                 let finalizedCode = init instrSeqs
-                return $ finalizedCode ++ [take ((length lastInstrSeq) - 2) lastInstrSeq] -- remove the hanging new measure code since we do not want it
+                return $ finalizedCode ++ [take (length lastInstrSeq - 2) lastInstrSeq] -- remove the hanging new measure code since we do not want it
 
         return $ concat (remainingHeaderCode:finalInstrs)
