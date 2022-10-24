@@ -29,8 +29,14 @@ type KeySignature = IORef.IORef (Int, Int) -- num sharps, num flats. at least on
 
 type State = (BeatCounter, MeasureCounter, KeySignature)
 
+globalTimePerQuarter :: Int
+globalTimePerQuarter = 4
+
 globalTimePerMeasure :: Int
 globalTimePerMeasure = 16 -- whole = 16, quarter = 4, eighth = 2, etc. absolute time per measure is set at 16, from common time
+
+globalTimePerStrongBeat :: Int
+globalTimePerStrongBeat = globalTimePerMeasure  `div` 2 -- absolute time per strong beat is set half the time per measure, from common time where beats 1 and 3 are strong
 
 globalHeaderCode :: Int -> IO [CodeLine]
 globalHeaderCode fifths = return $ 
@@ -121,6 +127,65 @@ generateRestsFromDivisions restDurationValPairs = return $
             ++ restTypeCode ++
             ["\t\t\t</note>"])
     restDurationValPairs
+ 
+-- this is used to generate rests from MusAssist programs (which is given in rational durations, e.g. dotted quarter)
+-- or rests to pad measures (which may not be given in rational durations, e.g. equivalent of quarter + sixteenth)
+generateRestCodeFromDuration :: State -> Int -> IO [String]
+generateRestCodeFromDuration state restDurationVal = do
+    let (currBeatCt, measureCt, _) = state
+    measureNum            <- IORef.readIORef measureCt
+    currentBeatCount      <- IORef.readIORef currBeatCt
+    let remainingTimeInMeasure    = globalTimePerMeasure - currentBeatCount
+        remainingTimeInStrongBeat = getRemainingTimeInStrongBeat currentBeatCount
+        isMeasureRest             = restDurationVal == globalTimePerMeasure && currentBeatCount == 0
+        restBeginsOnBeat          = currentBeatCount `mod` globalTimePerQuarter == 0
+
+    -- rest fits in strong beat, or rest begins on a beat and fits in the measure -> do not break it up
+    if restDurationVal <= remainingTimeInStrongBeat || restDurationVal <= remainingTimeInMeasure && restBeginsOnBeat
+        then do 
+            newMeasureCode <- updateBeat restDurationVal state -- new measure code gets generated if restDurationVal == remainingTimeInMeasure
+            currentBeatCount      <- IORef.readIORef currBeatCt
+            rationalRestDivisions <- generateNoteValueRationalDivisions restDurationVal False
+            rationalRestCode <- generateRestsFromDivisions rationalRestDivisions
+            return $ newMeasureCode ++ rationalRestCode
+
+    else do 
+        -- the code for the rest that fits in the current strong beat
+        currentStrongBeatRestDivisions <- generateNoteValueRationalDivisions remainingTimeInStrongBeat False
+        currentStrongBeatRestCode <- generateRestsFromDivisions currentStrongBeatRestDivisions
+        
+        if restDurationVal >= remainingTimeInMeasure then do -- rest does not fit in measure
+            let remainingTimeInMeasureAfterStrongBeat    = restDurationVal - remainingTimeInStrongBeat
+            -- add on the code for the rest that spills into the next strong beat
+            currentMeasureRestCode <- 
+                if remainingTimeInMeasureAfterStrongBeat > 0 then do
+                    remainingMeasureRestDivisions <- generateNoteValueRationalDivisions remainingTimeInMeasureAfterStrongBeat False
+                    remainingMeasureRestCode <- generateRestsFromDivisions remainingMeasureRestDivisions
+                    return $ currentStrongBeatRestCode ++ remainingMeasureRestCode
+                else return currentStrongBeatRestCode
+
+            newMeasureCode <- updateBeat remainingTimeInMeasureAfterStrongBeat state
+
+            -- the code for the rest that spills into the next measure (may be empty if rest fits exactly in measure)
+            let remainingRestLength = restDurationVal - remainingTimeInMeasure
+            spilledMeasureRestDivisions <- generateNoteValueRationalDivisions remainingRestLength True
+            spilledMeasureRestCode <- generateRestsFromDivisions spilledMeasureRestDivisions
+
+            -- no new measure code should get generated here
+            updateBeat remainingRestLength state
+
+            return $ currentMeasureRestCode ++ newMeasureCode ++ spilledMeasureRestCode
+
+        else do -- the rest fits in the current measure, but spills into the next strong beat
+            -- the code for the rest that spills into the next strong beat
+            let remainingRestLength = restDurationVal - remainingTimeInStrongBeat
+            spilledStrongBeatRestDivisions <- generateNoteValueRationalDivisions remainingRestLength True
+            spilledStrongBeatRestCode <- generateRestsFromDivisions spilledStrongBeatRestDivisions
+
+            -- with current time sig/note length setup, cannot have a tied note that fills the next measure, so NO new measure code should get generated here
+            updateBeat restDurationVal state 
+
+            return $ currentStrongBeatRestCode ++ spilledStrongBeatRestCode
 
 -- all these notes will be tied BOTH WAYS
 generateTiedNotesFromDivisions :: [[CodeLine]] -> [(MusAST.Duration, Int)] -> IO [CodeLine]
@@ -143,6 +208,13 @@ generateTiedNotesFromDivisions pitchesCode noteDurationValPairs = return $
             "\t\t\t</note>"]) pitchesCode)
         noteDurationValPairs
 
+
+getRemainingTimeInStrongBeat :: Int -> Int
+getRemainingTimeInStrongBeat currentBeatCount = 
+    let remainingTimeInStrongBeatRaw = globalTimePerStrongBeat - currentBeatCount
+    in if remainingTimeInStrongBeatRaw < 0 
+        then remainingTimeInStrongBeatRaw + globalTimePerStrongBeat 
+        else remainingTimeInStrongBeatRaw
 -----------------------------------------------------------------------------------------
 -- Code Generation for Musical Expressions
 -----------------------------------------------------------------------------------------
@@ -152,41 +224,71 @@ transExpr :: State -> MusAST.Expr -> IO [CodeLine]
 -- Rests
 ------------------------------------------------
 transExpr state (MusAST.Rest duration) = do
-    let (currBeatCt, measureCt, _) = state
-    measureNum            <- IORef.readIORef measureCt
-    currentBeatCount      <- IORef.readIORef currBeatCt
+    noteDurationVal <- Bimap.lookup duration globalDurationIntBimap 
+    generateRestCodeFromDuration state noteDurationVal
+    -- let (currBeatCt, measureCt, _) = state
+    -- measureNum            <- IORef.readIORef measureCt
+    -- currentBeatCount      <- IORef.readIORef currBeatCt
 
-    restDurationVal <- Bimap.lookup duration globalDurationIntBimap 
-    let remainingTimeInMeasure = globalTimePerMeasure - currentBeatCount
-        isMeasureRest          = restDurationVal == remainingTimeInMeasure && currentBeatCount == 0
-        restTypeCode           = if isMeasureRest then [] else durationToNoteTypeCode duration 
+    -- restDurationVal <- Bimap.lookup duration globalDurationIntBimap 
+    -- let remainingTimeInMeasure    = globalTimePerMeasure - currentBeatCount
+    --     remainingTimeInStrongBeat = getRemainingTimeInStrongBeat currentBeatCount
+    --     isMeasureRest             = restDurationVal == globalTimePerMeasure && currentBeatCount == 0
+    --     restTypeCode              = if isMeasureRest then [] else durationToNoteTypeCode duration 
+    --     restBeginsOnBeat          = currentBeatCount `mod` globalTimePerQuarter == 0
 
-    if restDurationVal <= remainingTimeInMeasure -- rest fits in measure
-        then do 
-        newMeasureCode <- updateBeat restDurationVal state -- new measure code gets generated if restDurationVal == remainingTimeInMeasure
-        return $ -- the code for the rest that fits in the current measure
-            ["\t\t\t<note>",
-            "\t\t\t\t<rest " ++ (if isMeasureRest then "measure=\"yes\"" else "") ++ "/>",
-            "\t\t\t\t<duration>" ++ show restDurationVal ++ "</duration>",
-            "\t\t\t\t<voice>1</voice>"]
-            ++ restTypeCode ++
-            ["\t\t\t</note>"]
-            ++ newMeasureCode
+    -- -- rest fits in strong beat, or rest begins on a beat and fits in the measure -> do not break it up
+    -- if restDurationVal <= remainingTimeInStrongBeat || restDurationVal <= remainingTimeInMeasure && restBeginsOnBeat
+    --     then do 
+    --         newMeasureCode <- updateBeat restDurationVal state -- new measure code gets generated if restDurationVal == remainingTimeInMeasure
+    --         currentBeatCount      <- IORef.readIORef currBeatCt
+    --         print currentBeatCount
+    --         return $ -- the code for the rest that fits in the current strong beat
+    --             ["\t\t\t<note>",
+    --             "\t\t\t\t<rest " ++ (if isMeasureRest then "measure=\"yes\"" else "") ++ "/>",
+    --             "\t\t\t\t<duration>" ++ show restDurationVal ++ "</duration>",
+    --             "\t\t\t\t<voice>1</voice>"]
+    --             ++ restTypeCode ++
+    --             ["\t\t\t</note>"]
+    --             ++ newMeasureCode
 
-    else do -- rest does not fit in measure
-        -- the code for the rest that fits in the current measure
-        initialRestDivisions <- generateNoteValueRationalDivisions remainingTimeInMeasure False
-        initialRestCode <- generateRestsFromDivisions initialRestDivisions
-            
-        newMeasureCode <- updateBeat remainingTimeInMeasure state
+    -- else do 
+    --     -- the code for the rest that fits in the current strong beat
+    --     currentStrongBeatRestDivisions <- generateNoteValueRationalDivisions remainingTimeInStrongBeat False
+    --     currentStrongBeatRestCode <- generateRestsFromDivisions currentStrongBeatRestDivisions
         
-        -- the code for the rest that spills into the next measure
-        let remainingRestLength = restDurationVal - remainingTimeInMeasure
-        spilledRestDivisions <- generateNoteValueRationalDivisions remainingRestLength True
-        spilledRestCode <- generateRestsFromDivisions spilledRestDivisions
+    --     if restDurationVal >= remainingTimeInMeasure then do -- rest does not fit in measure
+    --         let remainingTimeInMeasureAfterStrongBeat    = restDurationVal - remainingTimeInStrongBeat
+    --         -- add on the code for the rest that spills into the next strong beat
+    --         currentMeasureRestCode <- 
+    --             if remainingTimeInMeasureAfterStrongBeat > 0 then do
+    --                 remainingMeasureRestDivisions <- generateNoteValueRationalDivisions remainingTimeInMeasureAfterStrongBeat False
+    --                 remainingMeasureRestCode <- generateRestsFromDivisions remainingMeasureRestDivisions
+    --                 return $ currentStrongBeatRestCode ++ remainingMeasureRestCode
+    --             else return currentStrongBeatRestCode
 
-        updateBeat remainingRestLength state -- with current time sig/note length setup, cannot have a tied note that fills the next measure, so NO new measure code should get generated here
-        return $ initialRestCode ++ newMeasureCode ++ spilledRestCode
+    --         newMeasureCode <- updateBeat remainingTimeInMeasureAfterStrongBeat state
+
+    --         -- the code for the rest that spills into the next measure (may be empty if rest fits exactly in measure)
+    --         let remainingRestLength = restDurationVal - remainingTimeInMeasure
+    --         spilledMeasureRestDivisions <- generateNoteValueRationalDivisions remainingRestLength True
+    --         spilledMeasureRestCode <- generateRestsFromDivisions spilledMeasureRestDivisions
+
+    --         -- no new measure code should get generated here
+    --         updateBeat remainingRestLength state
+
+    --         return $ currentMeasureRestCode ++ newMeasureCode ++ spilledMeasureRestCode
+
+    --     else do -- the rest fits in the current measure, but spills into the next strong beat
+    --         -- the code for the rest that spills into the next strong beat
+    --         let remainingRestLength = restDurationVal - remainingTimeInStrongBeat
+    --         spilledStrongBeatRestDivisions <- generateNoteValueRationalDivisions remainingRestLength True
+    --         spilledStrongBeatRestCode <- generateRestsFromDivisions spilledStrongBeatRestDivisions
+
+    --         -- with current time sig/note length setup, cannot have a tied note that fills the next measure, so NO new measure code should get generated here
+    --         updateBeat restDurationVal state 
+
+    --         return $ currentStrongBeatRestCode ++ spilledStrongBeatRestCode
 
 ------------------------------------------------------------------------------------------------
 -- Chords (a Note is a single-element Chord)
@@ -219,14 +321,14 @@ transExpr state (MusAST.Chord tones duration) = do
         then do 
         newMeasureCode <- updateBeat noteDurationVal state -- new measure code gets generated if noteDurationVal == remainingTimeInMeasure
         return $ 
-            (concatMap -- the code for the note that fits in the current measure
+            concatMap -- the code for the note that fits in the current measure
             (\pitchCode ->
                 ["\t\t\t<note>"]
                 ++ pitchCode ++
                 ["\t\t\t\t<duration>" ++ show noteDurationVal ++ "</duration>",
                 "\t\t\t\t<voice>1</voice>"]
                 ++ noteTypeCode ++
-                ["\t\t\t</note>"]) pitchesCode)
+                ["\t\t\t</note>"]) pitchesCode
             ++ newMeasureCode
 
     else do -- note does not fit in measure
@@ -310,7 +412,7 @@ transInstr state (MusAST.KeySignature numSharps numFlats) =
             -- i.e. we have NOT already changed the key sig in meas 1
             -- bc if the key sig is set at beginning of piece, don't go to the next measure to do it
             -- this occurs when the first instruction in the program is a key change
-            -- notably, globalHeaderCode is the rest of the header code for the file (see CompileM.hs)
+            -- notably, globalHeaderCode is the rest of the header code for the file (see Compile.hs)
             if isStartFirstMeasure && (currentSharps == 0 && currentFlats == 0) 
             then globalHeaderCode keySigFifthsVal
             else do -- this includes if the user consecutively sets a bunch of key sigs at the beginning, each one will happen in a new measure
@@ -319,11 +421,15 @@ transInstr state (MusAST.KeySignature numSharps numFlats) =
                         "\t\t\t<fifths>" ++ show keySigFifthsVal ++ "</fifths>",
                         "\t\t</key>",
                         "\t</attributes>"]
-                restPaddingDivisions <- generateNoteValueRationalDivisions remainingTimeInMeasure False
-                measurePadding       <- generateRestsFromDivisions restPaddingDivisions
-                newMeasureCode       <- updateBeat remainingTimeInMeasure state 
+                
+                -- restPaddingDivisions <- generateNoteValueRationalDivisions remainingTimeInMeasure False
+                -- measurePadding       <- generateRestsFromDivisions restPaddingDivisions
+                -- newMeasureCode       <- updateBeat remainingTimeInMeasure state 
 
-                return $ if isStartMeasure then newKeySigCode else measurePadding ++ newMeasureCode ++ newKeySigCode
+                measurePadding <- generateRestCodeFromDuration state remainingTimeInMeasure
+
+                -- return $ if isStartMeasure then newKeySigCode else measurePadding ++ newMeasureCode ++ newKeySigCode
+                return $ if isStartMeasure then newKeySigCode else measurePadding ++ newKeySigCode
 
 transInstr state (MusAST.Write exprs)
     | exprs == [] = return []
@@ -333,10 +439,11 @@ transInstr state MusAST.NewMeasure = do
     let (currBeatCt, _, _) = state
     currentBeatCount <- IORef.readIORef currBeatCt
     let remainingTimeInMeasure = globalTimePerMeasure - currentBeatCount
-    restPaddingDivisions <- generateNoteValueRationalDivisions remainingTimeInMeasure False
-    measurePadding <- generateRestsFromDivisions restPaddingDivisions
-    newMeasureCode <- updateBeat remainingTimeInMeasure state
-    return $ measurePadding ++ newMeasureCode
+    -- restPaddingDivisions <- generateNoteValueRationalDivisions remainingTimeInMeasure False
+    -- measurePadding <- generateRestsFromDivisions restPaddingDivisions
+    -- newMeasureCode <- updateBeat remainingTimeInMeasure state
+    -- return $ measurePadding ++ newMeasureCode
+    generateRestCodeFromDuration state remainingTimeInMeasure
 
 -- Assign Label [Expr]
 transInstr _ _ = return [] -- we don't generate any code for assigning labels to exprs
@@ -370,8 +477,10 @@ transInstrs instrs = do
             if finalBeatCount > 0 || lastCodeLine == "\t</attributes>" -- we're in the middle of a measure, or we just did a key change
             then do 
                 let remainingTimeInMeasure = globalTimePerMeasure - finalBeatCount
-                restPaddingDivisions <- generateNoteValueRationalDivisions remainingTimeInMeasure False
-                finalMeasureFill <- generateRestsFromDivisions restPaddingDivisions
+                -- restPaddingDivisions <- generateNoteValueRationalDivisions remainingTimeInMeasure False
+                -- finalMeasureFill <- generateRestsFromDivisions restPaddingDivisions
+                print remainingTimeInMeasure
+                finalMeasureFill <- generateRestCodeFromDuration state remainingTimeInMeasure
                 return $ instrSeqs ++ [finalMeasureFill]
             else do
                 let finalizedCode = init instrSeqs
