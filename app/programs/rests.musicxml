@@ -91,22 +91,16 @@
 	</attributes>
 			<note>
 				<rest/>
-				<duration>2</duration>
+				<duration>3</duration>
 				<voice>1</voice>
 				<type>eighth</type>
-			</note>
-			<note>
-				<rest/>
-				<duration>6</duration>
-				<voice>1</voice>
-				<type>quarter</type>
 				<dot/>
 			</note>
 			<note>
 				<rest/>
-				<duration>2</duration>
+				<duration>1</duration>
 				<voice>1</voice>
-				<type>eighth</type>
+				<type>16th</type>
 			</note>
 			<note>
 				<rest/>
@@ -116,17 +110,30 @@
 			</note>
 			<note>
 				<rest/>
-				<duration>2</duration>
+				<duration>3</duration>
 				<voice>1</voice>
 				<type>eighth</type>
+				<dot/>
 			</note>
-		</measure>
-		<measure number="2">
+			<note>
+				<rest/>
+				<duration>4</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+			</note>
 			<note>
 				<rest/>
 				<duration>1</duration>
 				<voice>1</voice>
 				<type>16th</type>
+			</note>
+		</measure>
+		<measure number="2">
+			<note>
+				<rest/>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
 			</note>
 			<note>
 				<rest/>
@@ -134,12 +141,6 @@
 				<voice>1</voice>
 				<type>quarter</type>
 				<dot/>
-			</note>
-			<note>
-				<rest/>
-				<duration>1</duration>
-				<voice>1</voice>
-				<type>16th</type>
 			</note>
 			<note>
 				<rest/>
