@@ -1,3 +1,6 @@
-(D6 major seventh chord, root inversion, quarter)
-NEW_MEASURE
-(F#4 half diminished seventh chord, third inversion, eighth)
+// (D6 major seventh chord, root inversion, quarter)
+// NEW_MEASURE
+// (F#4 half diminished seventh chord, third inversion, eighth)
+
+(C5 major triad, root inversion, sixteenth) (C5 major triad, root inversion, half) (C5 major triad, root inversion, quarter) 
+(C5 major triad, root inversion, dotted_eighth) (C5 major triad, root inversion, dotted_quarter)
