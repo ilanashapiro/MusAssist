@@ -163,8 +163,6 @@ generateRestCodeFromDuration state restDurationVal = do
                 else return currentStrongBeatRestCode
 
             newMeasureCode <- updateBeat remainingTimeInMeasure state
-            
-            print newMeasureCode
 
             -- the code for the rest that spills into the next measure (may be empty if rest fits exactly in measure)
             let remainingRestLength = restDurationVal - remainingTimeInMeasure
@@ -358,10 +356,6 @@ transInstr state (MusAST.KeySignature numSharps numFlats) =
                         "\t\t\t<fifths>" ++ show keySigFifthsVal ++ "</fifths>",
                         "\t\t</key>",
                         "\t</attributes>"]
-                
-                -- restPaddingDivisions <- generateNoteValueRationalDivisions remainingTimeInMeasure False
-                -- measurePadding       <- generateRestsFromDivisions restPaddingDivisions
-                -- newMeasureCode       <- updateBeat remainingTimeInMeasure state 
 
                 measurePadding <- generateRestCodeFromDuration state remainingTimeInMeasure
 
@@ -376,10 +370,6 @@ transInstr state MusAST.NewMeasure = do
     let (currBeatCt, _, _) = state
     currentBeatCount <- IORef.readIORef currBeatCt
     let remainingTimeInMeasure = globalTimePerMeasure - currentBeatCount
-    -- restPaddingDivisions <- generateNoteValueRationalDivisions remainingTimeInMeasure False
-    -- measurePadding <- generateRestsFromDivisions restPaddingDivisions
-    -- newMeasureCode <- updateBeat remainingTimeInMeasure state
-    -- return $ measurePadding ++ newMeasureCode
     generateRestCodeFromDuration state remainingTimeInMeasure
 
 -- Assign Label [Expr]
@@ -414,9 +404,6 @@ transInstrs instrs = do
             if finalBeatCount > 0 || lastCodeLine == "\t</attributes>" -- we're in the middle of a measure, or we just did a key change
             then do 
                 let remainingTimeInMeasure = globalTimePerMeasure - finalBeatCount
-                -- restPaddingDivisions <- generateNoteValueRationalDivisions remainingTimeInMeasure False
-                -- finalMeasureFill <- generateRestsFromDivisions restPaddingDivisions
-                -- print remainingTimeInMeasure
                 finalMeasureFill <- generateRestCodeFromDuration state remainingTimeInMeasure
                 return $ instrSeqs ++ [take (length finalMeasureFill - 2) finalMeasureFill] -- remove the hanging new measure code since we do not want it
             else do
