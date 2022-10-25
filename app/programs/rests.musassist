@@ -1,1 +1,1 @@
-(rest eighth) (rest half) (rest quarter) (rest dotted_eighth) (rest dotted_quarter)
+(rest dotted_eighth) (rest half) (rest quarter) (rest dotted_eighth) (rest dotted_quarter)
