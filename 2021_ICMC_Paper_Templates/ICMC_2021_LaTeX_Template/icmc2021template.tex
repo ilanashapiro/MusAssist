@@ -206,19 +206,19 @@
 \capstarttrue
 %
 \begin{abstract}
-MusAssist is an external, declarative domain specific language for music notation. 
-Users can change key signatures, start a new measure, and describe musical structures 
-such as notes, rests, and custom chords in MusAssist’s straightforward syntax much in 
-the same way they would when composing. MusAssist is unique in that users can also describe 
-complex musical templates for triads and seventh chords, cadences, and the four primary 
-harmonic sequences with desired length. The level of abstraction of a MusAssist template 
-MusAssist matches that of the theoretical musical structure it describes (e.g. users can describe
- a harmonic sequence without lowering the abstraction level to chords and notes). This allows 
+MusAssist is an external, declarative domain specific language for music notation. Users can describe complex musical 
+templates for all triads and seventh chords, 
+all diatonic as well as chromatic and whole tone scales, the five primary cadences (including imperfect authentic), 
+and the four primary harmonic sequences with desired length. Uniquely, the level of abstraction of a template 
+MusAssist matches that of the theoretical musical structure it describes (e.g. users can specify
+ a harmonic sequence without manually lowering the abstraction level to chords and notes). This allows 
  users to write out specifications precisely at the conceptual levels of the musical structures 
- they would organically conceive when composing by hand. The musical expressions described by 
- the specifications are expanded out (i.e. the level of abstraction is fully lowered) by the 
- Haskell-based MusAssist compiler and are translated to MusicXML, a language accepted by most 
- major notation software, allowing for further manual editing. 
+ they would organically conceive when composing by hand. In MusAssist, users can also change key signatures, 
+ start a new measure, and describe fundamental musical objects such as notes, rests, and chords comprised of 
+ custom collections of notes. A musical expression described by a higher level template is expanded out 
+ (i.e. the level of abstraction is fully lowered to the note level) by the 
+ Haskell-based MusAssist compiler and is translated to MusicXML, a language accepted by most 
+ major music notation software, to allow for further manual editing. 
 \end{abstract}
 %
 
@@ -237,13 +237,17 @@ the MusAssist compiler writes out the music via these instructions. MusAssist's 
 paradigm was chosen to correspond with the declarative nature of handwritten music. 
 
 Fundamentally, MusAssist supports notes (including rests) and custom chords (i.e. any desired collection of notes)
-in the octave and key of choice, as well as change the key signature or start a new measure at any
-point. MusAssist is unique in that users can also write specifications for complex musical templates \textit{at the same level of abstraction
-as the musical theoretical structures they describe}. MusAssist supports \textbf{chords} (all triads and seventh chords in any inversion), \textbf{cadences}
-(perfect authentic, imperfect authentic, plagal, half, deceptive), and \textbf{harmonic sequences} (ascending
+in the octave and key of choice, as well as commands to change the key signature or start a new measure.
+ MusAssist is unique in that users can also write specifications for complex musical templates \textit{at the same level of abstraction
+as the musical theoretical structures they describe}. MusAssist supports templates for
+\textbf{chords} (all triads and seventh chords in any inversion),
+\textbf{scales} (all diatonic scales, as well as chromatic and whole tone),
+\textbf{scales} (all triad and seventh arpeggios in any inversion),
+\textbf{cadences} (perfect authentic, imperfect authentic, plagal, half, deceptive), and 
+\textbf{harmonic sequences} (ascending
 fifths, descending fifths, ascending 5-6, descending 5-6) of a desired length. The musical expression 
-described by this specification is completely expanded out (i.e. the level of abstraction is
-fully lowered) by the Haskell-based MusAssist compiler.
+described by a specification is completely expanded out (i.e. the level of abstraction is
+fully lowered to the note level) by the Haskell-based MusAssist compiler.
 
 The target language of the MusAssist compiler is MusicXML, itself a DSL that is an extension of
 XML (Extensible Markup Language). MusicXML is accepted by most major notation software programs (such as MuseScore). 
@@ -310,15 +314,15 @@ musical theoretical structures.
 
 \section{Language Features}\label{sec:language_features}
 \subsection{Low-Level Fundamentals}
-On the most basic level, MusAssist supports individual notes and rests. Rests are  
+On the most basic level, MusAssist supports individual rests and notes. Rests are  
 given a duration from sixteenth to whole note, and notes are further defined by note name (A to G), 
-accidental (from double flat to double flat), and octave (1 to 8, after the range of a piano).
+accidental (double flat to double sharp), and octave (1 to 8, after the range of a piano).
 Just as in normal notation, the absence of an accidental indicates natural quality.
 Finally, users can also define ``custom chords,'' or user-defined collections of individual notes.
 These are not considered templates as the high-level description of the chord is not given.
 
 \subsection{High-Level Templates}
-MusAssist's supports templates for chords, cadences, harmonic sequences, specified uniquely
+MusAssist supports templates for chords, scales, arpeggios, cadences, and harmonic sequences, specified uniquely
 at the abstraction level of the musical theoretical structures they represent. 
 
 Precisely as in music theory, chords are specified by root note (defined as the fundamental note is),
