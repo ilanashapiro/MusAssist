@@ -1,11 +1,39 @@
 # MusAssist
-MusAssist is an external DSL devised as a compositional aid for music notation by incorporating concepts from music theory. It attempts to organically model a composer’s flow of thought by modeling its syntax after the musical structures a composer conceives when writing. Users write out musical elements and expressions in MusAssist’s simple and straightforward syntax much in the same way they would when composing. In other words, users describe a composition in MusAssist, and MusAssist writes out the music via these instructions. Users can compose notes (including rests) and custom chords in the octave and key of choice. They can also specify templates for chords (all triads and seventh chords), harmonic sequences (chosen from Ascending Fifths, Descending Fifths, Ascending 5-6, and Descending 5-6) of a desired length, and cadences (chosen from Perfect Auth. The musical expression described by the template will then be written by the MusAssist compiler. The compiler is written in Haskell.
+When writing music, composers must manually transition from musical theoretical concepts to notes on a page.
+This process can be tedious and slow, requiring the composer to expand complex structures, such as cadences and sequences,
+by hand to the notes that they constitute. The level of abstraction of the musical theoretical structure is 
+higher than what the composer actually writes. 
 
-The target language of the MusAssist compiler is MusicXML, an internal DSL that is an extension of XML. MusicXML is interpreted by most major notation software programs (such as MuseScore). Thus, once a user has described a composition in MusAssist, they can open the resulting MusicXML file in MuseScore or another program for further customization and editing. MusAssist does not attempt to replace existing DSLs. Rather, it fills a unique niche in that it assists users in music composition by providing them with a set of easy-to-use instructions that would otherwise be tedious to write out by hand in a musical score. This is why MusAssist is compiled to MusicXML rather than an uneditable PDF format. MusAssist may also be particularly helpful to music students as an educational tool where they can easily see the relationship between a musical expression and its written form, such as a harmonic sequence template and the actual chords that result from it.
+Domain specific languages, or DSLs, 
+are programming languages highly specialized for a specific application and thus characterized by limited expressiveness.
+An $external$ $DSL$ has custom syntax that is separated from the primary language of its application. 
+MusAssist is an external, declarative domain specific language (DSL) for music notation that attempts bridge the divide between
+music theory and notation. Users describe a composition in MusAssist's straightforward syntax, and 
+the MusAssist compiler writes out the music via these instructions. MusAssist's declarative programming 
+paradigm was chosen to correspond with the declarative nature of handwritten music. 
 
-In order to use MusAssist, the user need not have any understanding of computing, though they should have a solid knowledge of music theory up through chord and cadence types, as well as harmonic sequences. In order to comprehend this paper, in addition to music theory, users should have a background in basic programming languages theory and compilers.
+Fundamentally, MusAssist supports notes (including rests) and custom chords (i.e. any desired collection of notes)
+in the octave and key of choice, as well as commands to change the key signature or start a new measure.
+ MusAssist is unique in that users can also write specifications for complex musical templates \textit{at the same level of abstraction
+as the musical theoretical structures they describe}. MusAssist supports templates for
+\textbf{chords} (all triads and seventh chords in any inversion),
+\textbf{scales} (all diatonic scales, as well as chromatic and whole tone),
+\textbf{scales} (all triad and seventh arpeggios in any inversion),
+\textbf{cadences} (perfect authentic, imperfect authentic, plagal, half, deceptive), and 
+\textbf{harmonic sequences} (ascending
+fifths, descending fifths, ascending 5-6, descending 5-6) of a desired length. The musical expression 
+described by a specification is completely expanded out (i.e. the level of abstraction is
+fully lowered to the note level) by the Haskell-based MusAssist compiler.
 
-Example program:
+The target language of the MusAssist compiler is MusicXML, itself a DSL that is an extension of
+XML (Extensible Markup Language). MusicXML is accepted by most major notation software programs (such as MuseScore). 
+Thus users can open can open the resulting MusicXML file of a compiled MusAssist composition in MuseScore or another
+program for further customization and editing, thus bypassing the need to write out complex musical templates by hand at a 
+note- and chord-level of abstraction. Beyond a professional music compositional aid, MusAssist may be particularly 
+helpful to music theory students as an educational tool, enabling them to visualize the relationship between a theortical musical structure 
+and its expanded form, such as a cadence and the chords resulting from its expansion.
+
+Example program (note how note lengths are broken up on the strong beat of the measure in addition to the barlines):
 <pre>
 SET_KEY A major
 (D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest sixteenth)           // this is a comment
