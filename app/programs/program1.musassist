@@ -1,8 +1,8 @@
 SET_KEY A major
-(D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest sixteenth)           // this is a comment
+(D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest sixteenth) // this is a comment
 notes1 = (D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest whole)  // note without b or # is considered to be natural
 chords1 = ([Bbb5, Db5, C5] half) ([C#5, E5] half) (D6 minor arpeggio, root inversion, eighth) (F#4 half diminished seventh chord, second inversion, eighth)
-(D4 whole) (F#4 quarter) (Ab4 quarter) (G##4 eighth) (rest sixteenth)  // note without b or # is considered to be natural
+(D4 whole) (F#4 quarter) (Ab4 quarter) (G##4 eighth) (rest sixteenth)  
 ([Bbb5, Db5, C5] half) ([C#5, E5] half) (C6 minor triad, first inversion, quarter) (F#4 half diminished seventh chord, second inversion, eighth) (rest quarter)
 (D#4 diminished seventh arpeggio, root inversion, quarter)
 SET_KEY D minor

@@ -16,6 +16,7 @@
 \usepackage{arydshln}
 \usepackage{caption}
 \captionsetup{skip=5pt}
+\usepackage{graphics}
 %\usepackage{cite}
 
 
@@ -206,32 +207,31 @@
 \capstarttrue
 %
 \begin{abstract}
-MusAssist is an external, declarative domain specific language for music notation. Users can describe complex musical 
+MusAssist is an external, declarative domain specific language for music notation that bridges the abstraction gap between music theory and composition. Users can describe complex musical 
 templates for all triads and seventh chords, 
 all diatonic as well as chromatic and whole tone scales, the five primary cadences (including imperfect authentic), 
 and the four primary harmonic sequences with desired length. Uniquely, the level of abstraction of a template 
 MusAssist matches that of the theoretical musical structure it describes (e.g. users can specify
- a harmonic sequence without manually lowering the abstraction level to chords and notes). This allows 
- users to write out specifications precisely at the conceptual levels of the musical structures 
+ a harmonic sequence without manually lowering the granularity to chords and notes). Thus, users can write out specifications precisely at the conceptual levels of the musical theoretical structures 
  they would organically conceive when composing by hand. In MusAssist, users can also change key signatures, 
  start a new measure, and describe fundamental musical objects such as notes, rests, and chords comprised of 
  custom collections of notes. A musical expression described by a higher level template is expanded out 
- (i.e. the level of abstraction is fully lowered to the note level) by the 
- Haskell-based MusAssist compiler and is translated to MusicXML, a language accepted by most 
- major music notation software, to allow for further manual editing. 
+ (i.e. the level of abstraction is fully lowered to notes) by the 
+ Haskell-based MusAssist compiler and is finally translated to MusicXML, a language accepted by most 
+ major music notation software, for further manual editing. 
 \end{abstract}
 %
 
 \section{Introduction}\label{sec:introduction}
 When writing music, composers must manually transition from musical theoretical concepts to notes on a page.
-This process can be tedious and slow, requiring the composer to expand complex structures, such as cadences and sequences,
-by hand to the notes that they constitute. The level of abstraction of the musical theoretical structure is 
+This process can be tedious and slow, requiring the composer to expand by hand complex structures, such as cadences and sequences,
+to the notes that they constitute. The level of abstraction of the musical theoretical structure is 
 higher than what the composer actually writes. 
 
 Domain specific languages, or DSLs, 
 are programming languages highly specialized for a specific application and thus characterized by limited expressiveness.
-An $external$ $DSL$ has custom syntax that is separated from the primary language of its application. 
-MusAssist is an external, declarative domain specific language (DSL) for music notation that attempts bridge the divide between
+An \textit{external DSL} has custom syntax that is separated from the primary language of its application. 
+MusAssist is an external, declarative DSL for music notation that bridges the divide between
 music theory and notation. Users describe a composition in MusAssist's straightforward syntax, and 
 the MusAssist compiler writes out the music via these instructions. MusAssist's declarative programming 
 paradigm was chosen to correspond with the declarative nature of handwritten music. 
@@ -242,19 +242,19 @@ in the octave and key of choice, as well as commands to change the key signature
 as the musical theoretical structures they describe}. MusAssist supports templates for
 \textbf{chords} (all triads and seventh chords in any inversion),
 \textbf{scales} (all diatonic scales, as well as chromatic and whole tone),
-\textbf{scales} (all triad and seventh arpeggios in any inversion),
+\textbf{arpeggios} (all triad and seventh arpeggios in any inversion),
 \textbf{cadences} (perfect authentic, imperfect authentic, plagal, half, deceptive), and 
 \textbf{harmonic sequences} (ascending
 fifths, descending fifths, ascending 5-6, descending 5-6) of a desired length. The musical expression 
-described by a specification is completely expanded out (i.e. the level of abstraction is
-fully lowered to the note level) by the Haskell-based MusAssist compiler.
+described by a specification is fully expanded (i.e. the abstraction level is
+fully lowered to notes) by the Haskell-based MusAssist compiler.
 
 The target language of the MusAssist compiler is MusicXML, itself a DSL that is an extension of
 XML (Extensible Markup Language). MusicXML is accepted by most major notation software programs (such as MuseScore). 
 Thus users can open can open the resulting MusicXML file of a compiled MusAssist composition in MuseScore or another
 program for further customization and editing, thus bypassing the need to write out complex musical templates by hand at a 
 note- and chord-level of abstraction. Beyond a professional music compositional aid, MusAssist may be particularly 
-helpful to music theory students as an educational tool, enabling them to visualize the relationship between a theortical musical structure 
+helpful to music theory students as an educational tool, enabling them to visualize the relationship between a theoretical musical structure 
 and its expanded form, such as a cadence and the chords resulting from its expansion.
 
 
@@ -318,28 +318,31 @@ On the most basic level, MusAssist supports individual rests and notes. Rests ar
 given a duration from sixteenth to whole note, and notes are further defined by note name (A to G), 
 accidental (double flat to double sharp), and octave (1 to 8, after the range of a piano).
 Just as in normal notation, the absence of an accidental indicates natural quality.
-Finally, users can also define ``custom chords,'' or user-defined collections of individual notes.
-These are not considered templates as the high-level description of the chord is not given.
+Finally, users can also define ``custom chords,'' or user-defined lists of individual notes.
+These are not considered templates as the high-level description of the chord is not given, and the
+granularity is at the note level.
 
 \subsection{High-Level Templates}
 MusAssist supports templates for chords, scales, arpeggios, cadences, and harmonic sequences, specified uniquely
 at the abstraction level of the musical theoretical structures they represent. 
 
-Precisely as in music theory, chords are specified by root note (defined as the fundamental note is),
+Precisely as in music theory, chords are specified by the 
+root note (defined as the fundamental MusAssist note is),
 quality (major, minor, augmented, diminished, or half diminished), 
-inversion (root, first, second, or third), and chord type (triad or seventh). 
+inversion (root, first, second, or third), and 
+chord type (triad or seventh). 
 Half diminished and third inversion options apply to seventh chords only. The root note 
 cannot have a double accidental, as this can introduce triple accidentals in the chord, which MusAssist
 does not support.
 
 Cadences are specified by cadence type (perfect or imperfect authentic, half, plagal, 
-or deceptive) and key (defined by a fundamental note and a quality, either major or minor). 
+or deceptive) and key (defined by a fundamental MusAssist note and a quality, either major or minor). 
 Currently, MusAssist only supports a single treble clef line. Thus, cadences are written out in the 
 upper voices only, in keyboard voice leading style and incorporating principles of smooth voice leading.
 
 Based on the principles of functional harmony, there are several ways to represent a cadence. 
 In MusAssist, the following representations were chosen. The major version is presented first, 
-and the minor after that, in parentheses.
+and the minor after that, in parentheses (\tabref{table:cadences}).
 
 \begin{table}[h]
   \begin{center}
@@ -352,9 +355,8 @@ Plagal & IV$^{6 \atop 4}$-I (iv$^{6 \atop 4}$-I) \\ \hline
 Deceptive & IV-V$^{6 \atop 4}$-vi$^{6 \atop 4}$ (iv-V$^{6 \atop 4}$-VI$^{6 \atop 4}$) \\ \hline
 Half & IV-ii$^6$-V (iv-ii$^{\text{o}6}$-V) \\ \hline
 \end{tabular}
-\caption{MusAssist Cadences Summary}
+\caption{MusAssist Cadences Summary}\label{table:cadences}
 \end{center}
-\label{table:cadences}
 \vspace{-7mm}
 \end{table}
 
@@ -362,7 +364,7 @@ All cadences except perfect authentic are built exclusively with triads.
 Perfect authentic cadences also double the root in the final chord to simulate the 4-5-1 bass line
 as well as to preserve the requisite 2-1 downward step in the uppermost voice. 
 This is demonstrated in \figref{fig:perfauth}, produced with the MusAssist syntax \\
-\noindent\verb.(PerfAuthCadence Eb5 min sixteenth). \\
+\noindent\verb.(Perfect Authentic Cadence, Eb5 minor, sixteenth). \\
 when compiled and loaded into MuseScore notation software.
 \begin{figure}[h!]
 \centering
@@ -384,9 +386,12 @@ The chosen chord progressions for each MusAssist sequence are summarized in \tab
 All sequences are shown in major for the sake of example, but their inverse in minor is equally supported. 
 Each consists of fourteen distinct chords before repeating in the subsequent octave. 
 
+
 \begin{table}[h!]
+
   \begin{center}
     \setlength{\maxcollen}{\widthof{vii$^{\text{o}{6 \atop 4}}$}}
+    \resizebox{\columnwidth}{!}{
   \begin{tabular}{|c|@{}c@{}|}
   \hline
   Ascending Fifths  & \renewcommand{\arraystretch}{1.5}
@@ -414,11 +419,10 @@ Each consists of fourteen distinct chords before repeating in the subsequent oct
                       V$^{6 \atop 4}$  & ii               & iii$^{6 \atop 4}$           & vii$^\text{o}$  
                     \end{tabular} \\ \hline
   \end{tabular}
+  }
   
   \caption{MusAssist Harmonic Sequences Summary\label{table:harmseq}}
-  
 \end{center}
-
 \end{table}
 
 \vspace{-8mm}
@@ -443,69 +447,24 @@ that MusAssist programs can certainly sound diatonic and pleasing to the ear.
 
 \section{Example 1}
 \begin{figure}[h!]
-\begin{verbatim}
-SET_KEY Amaj
-(D4 whole) (F#4 quarter) (Ab4 quarter) 
-      (G#4 eighth) (rest sixteenth)           
-// this is a comment
-notes1 = (D4 whole) (F#4 quarter) 
-      (Ab4 quarter) (G#4 eighth) (rest whole)  
-// note without b or # is considered 
-  to be natural chords1 = ([Bbb5, Db5, C5] half) ([C#5, E5] half) 
-      (C6 min triad inv:first quarter) 
-(F#4 halfdim seventh inv:second eighth)
-(D4 whole) (F#4 quarter) (Ab4 quarter) (G##4 eighth) (rest sixteenth)
-([Bbb5, Db5, C5] half) ([C#5, E5] half) (C6 min triad inv:first quarter) 
-(F#4 halfdim seventh inv:second eighth)
-SET_KEY Dmin
-NEW_MEASURE
-(DescFifths G5 min quarter length:15) (PerfAuthCadence Eb5 min half)
-notes1 chords1 (AscFifths G3 min quarter length:5) chords1 
-(PerfAuthCadence Eb5 min sixteenth) chords1
-\end{verbatim}
+\centering
+\includegraphics[width=0.5\textwidth]{images/example_program_code}
+\caption{Example 1}
+\label{fig:example_program}
 \caption{MusAssist Syntax}
 \end{figure}
-kjsfdh sdkhf dskhf lsakj hdfakjs,d fhkwaj,es hdfuakwj,smdh luawksj,mdh 
-kjsfdh sdkhf dskhf lsakj hdfakjs,d fhkwaj,es hdfuakwj,smdh luawksj,mdh 
-kjsfdh sdkhf dskhf lsakj hdfakjs,d fhkwaj,es hdfuakwj,smdh luawksj,mdh 
-kjsfdh sdkhf dskhf lsakj hdfakjs,d fhkwaj,es hdfuakwj,smdh luawksj,mdh 
-kjsfdh sdkhf dskhf lsakj hdfakjs,d fhkwaj,es hdfuakwj,smdh luawksj,mdh 
-kjsfdh sdkhf dskhf lsakj hdfakjs,d fhkwaj,es hdfuakwj,smdh luawksj,mdh 
-kjsfdh sdkhf dskhf lsakj hdfakjs,d fhkwaj,es hdfuakwj,smdh luawksj,mdh 
-kjsfdh sdkhf dskhf lsakj hdfakjs,d fhkwaj,es hdfuakwj,smdh luawksj,mdh 
-kjsfdh sdkhf dskhf lsakj hdfakjs,d fhkwaj,es hdfuakwj,smdh luawksj,mdh 
-kjsfdh sdkhf dskhf lsakj hdfakjs,d fhkwaj,es hdfuakwj,smdh luawksj,mdh 
-kjsfdh sdkhf dskhf lsakj hdfakjs,d fhkwaj,es hdfuakwj,smdh luawksj,mdh 
-kjsfdh sdkhf dskhf lsakj hdfakjs,d fhkwaj,es hdfuakwj,smdh luawksj,mdh 
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=\textwidth]{images/program1}
+\includegraphics[width=0.5\textwidth]{images/example_program}
 \caption{Example 1}
 \label{fig:ex1}
 \end{figure}
 
 \newpage
-
-\begin{verbatim}
-  SET_KEY Amaj
-  SET_KEY Amaj
-  (D4 eighth) (F#4 eighth) (A4 eighth) (F#4 eighth) (D4 quarter) (D4 maj triad inv:first quarter) 
-  (rest half) // comment!!!
-  notes1 = (E5 sixteenth) (B4 sixteenth) (G#4 sixteenth) (B4 sixteenth) (E5 sixteenth) 
-  notes2 = (F5 sixteenth) (E4 maj triad inv:second eighth) (DeceptiveCadence A4 maj eighth) 
-  chords1 = ([Bbb4, Db5, Fb5] dotted_quarter) (A4 maj triad inv:root eighth) 
-  chords2 = ([A4, C5, D5, F5] half) (C4 aug seventh inv:third quarter) 
-  chords3 = (C4 aug triad inv:second eighth) (B#3 maj seventh inv:third eighth)
-  chords1 chords2 chords3 (rest half) notes1 notes2 (rest eighth)
-  SET_KEY Gmin
-  (DescFifths G5 min eighth length:15) (rest quarter)
-  (rest sixteenth) (HalfCadence G4 maj half)
-  \end{verbatim}
   
-\figref{fig:ex1} sounds rather atonal when played, but is presented to demonstrated the full complexity of MusAssist's features. Notice how MusAssist automatically breaks up the tied note rationally in mm. 19-20.
+\figref{fig:ex1} demonstrates the full complexity of MusAssist's features. Notice how MusAssist automatically breaks up the tied note rationally in mm. 19-20.
 
-\figref{fig:ex2} sounds much more diatonic and pleasing to the ear, but is not as complex as \figref{fig:ex1}. Notice how the key signature at the beginning of the score does not change twice, though the command appears consecutively in the code. Also notice how  we represented the same A major triad in m. 2 in two ways: as a custom collection of enharmonic notes, and then as a chord template.
 
 
 \section{Compiler Structure}
