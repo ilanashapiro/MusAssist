@@ -7,23 +7,20 @@ In order to use MusAssist, the user need not have any understanding of computing
 
 Example program:
 <pre>
-SET_KEY Amaj
-(D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest sixteenth)
-// this is a comment
-notes1 = (D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest whole)
-// note without b or # is considered to be natural
-chords1 = ([Bbb5, Db5, C5] half) ([C#5, E5] half) (C6 min triad inv:first quarter)
-(F#4 halfdim seventh inv:second eighth)
-(D4 whole) (F#4 quarter) (Ab4 quarter) (G##4 eighth) (rest sixteenth)
-([Bbb5, Db5, C5] half) ([C#5, E5] half) (C6 min triad inv:first quarter)
-(F#4 halfdim seventh inv:second eighth)
-SET_KEY Dmin
+SET_KEY A major
+(D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest sixteenth)           // this is a comment
+notes1 = (D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest whole)  // note without b or # is considered to be natural
+chords1 = ([Bbb5, Db5, C5] half) ([C#5, E5] half) (D6 minor arpeggio, root inversion, eighth) (F#4 half diminished seventh chord, second inversion, eighth)
+(D4 whole) (F#4 quarter) (Ab4 quarter) (G##4 eighth) (rest sixteenth)  // note without b or # is considered to be natural
+([Bbb5, Db5, C5] half) ([C#5, E5] half) (C6 minor triad, first inversion, quarter) (F#4 half diminished seventh chord, second inversion, eighth) (rest quarter)
+(D#4 diminished seventh arpeggio, root inversion, quarter)
+SET_KEY D minor
 NEW_MEASURE
-(DescFifths G5 min quarter length:15) (PerfAuthCadence Eb5 min half)
-notes1 chords1 (AscFifths G3 min quarter length:5) chords1
-(PerfAuthCadence Eb5 min sixteenth) chords1
+(C harmonic minor descending scale, startNote = Eb4, quarter, length=10)
+(Descending Fifths Sequence, G5 minor, quarter, length=15) (Perfect Authentic Cadence, Eb5 minor, half)
+notes1 chords1 (Ascending Fifths Sequence, G3 minor, quarter, length=5) chords1 (Perfect Authentic Cadence, Eb5 minor, sixteenth) chords1
 </pre>
 
-<img width="513" alt="Screen Shot 2022-04-04 at 10 37 39 PM" src="https://user-images.githubusercontent.com/28958079/161685974-850be8c6-8439-4db6-81e7-79d01862409e.png">
+<img width="665" alt="image" src="https://user-images.githubusercontent.com/28958079/201023259-e3faea28-302c-4813-a75a-e405dec7bb16.png">
 
   
