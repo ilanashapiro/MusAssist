@@ -1,14 +1,13 @@
 SET_KEY A major
 SET_KEY A major
 SET_KEY G major
-(D4 whole) (F#4 quarter) (Ab4 dotted_quarter) 
-(G#4 eighth) (rest sixteenth)
+(D4 whole) (F#4 quarter) (Ab4 dotted_quarter) (G#4 eighth) (rest sixteenth)
 // note without b or # is natural
 notes1 = (D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest whole)  
-chords1 = ([Bbb5, Db5, C5] half) ([C#5, E5] half) (rest quarter)
+chords1 = ([Bbb5, Db5, C5] half) ([C#5, E5] half) 
 chord = (D6 minor arpeggio, root inversion, eighth) 
 (F#4 half diminished seventh chord, second inversion, eighth)
-(D4 whole) (F#4 quarter) (Ab4 quarter) (G##4 eighth) (rest sixteenth) 
+(D4 whole) (F#4 dotted_quarter) (Ab4 quarter) (G##4 eighth) (rest sixteenth) 
 NEW_MEASURE
 NEW_MEASURE
 ([Bbb5, Db5, C5] half) 
@@ -16,12 +15,13 @@ NEW_MEASURE
 (F#4 half diminished seventh chord, second inversion, eighth) 
 (D#4 diminished seventh arpeggio, root inversion, quarter)
 SET_KEY D minor
+SET_KEY C# major
 (C harmonic minor descending scale, startNote = Eb4, quarter, length=10)
 (Descending Fifths Sequence, G5 minor, quarter, length=15) 
-NEW_MEASURE
 (Perfect Authentic Cadence, D#5 major, half)
 notes1 chords1 (Ascending Fifths Sequence, G#3 minor, quarter, length=5) 
 chord (Perfect Authentic Cadence, Eb5 minor, sixteenth) chords1
+
 
 
 

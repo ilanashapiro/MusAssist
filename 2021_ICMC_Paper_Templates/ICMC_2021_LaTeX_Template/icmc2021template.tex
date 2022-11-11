@@ -23,6 +23,15 @@
 \usepackage{calc}
 \newlength{\maxcollen}
 
+\newcommand{\setmeter}[2]{\ensuremath{%
+  \vcenter{\offinterlineskip
+    \halign{\hfil##\hfil\cr
+            $\scriptstyle#1$\cr
+            \noalign{\vskip1pt}
+            $\scriptstyle#2$\cr}
+  }}%
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%% Some useful packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%% See related documentation %%%%%%%%%%%%%%%%%%%%%%%%%%
 %\usepackage{amsmath} % popular packages from Am. Math. Soc. Please use the 
@@ -324,7 +333,7 @@ granularity is at the note level.
 
 \subsection{High-Level Templates}
 MusAssist supports templates for chords, scales, arpeggios, cadences, and harmonic sequences, specified uniquely
-at the abstraction level of the musical theoretical structures they represent. 
+at the abstraction level of the musical theoretical structures they represent.
 
 Precisely as in music theory, chords are specified by the 
 root note (defined as the fundamental MusAssist note is),
@@ -363,29 +372,32 @@ Half & IV-ii$^6$-V (iv-ii$^{\text{o}6}$-V) \\ \hline
 All cadences except perfect authentic are built exclusively with triads.
 Perfect authentic cadences also double the root in the final chord to simulate the 4-5-1 bass line
 as well as to preserve the requisite 2-1 downward step in the uppermost voice. 
-This is demonstrated in \figref{fig:perfauth}, produced with the MusAssist syntax \\
-\noindent\verb.(Perfect Authentic Cadence, Eb5 minor, sixteenth). \\
-when compiled and loaded into MuseScore notation software.
+This is demonstrated in \figref{fig:perfauth}, produced with the MusAssist syntax
+
+\vspace{1.5mm}
+\noindent\includegraphics[width=0.45\textwidth]{images/perfauth_code}
+
+\noindent when compiled and loaded into MuseScore notation software.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.45\textwidth]{images/perfauth}
   \caption{Perfect Authentic Cadence in E\musFlat\; minor \label{fig:perfauth}}
 \end{figure}
+\vspace{-3.5mm}
 
 Finally, harmonic sequences are specified by harmonic sequence type (ascending fifths,
 descending fifths, ascending 5-6, descending 5-6), key (just as in cadences), duration of each chord,
 and length of the sequence. Since MusAssist does not yet support multi-line composition, harmonic sequences are 
-writte like cadences in keyboard-style voice leading. Though the
+written like cadences in keyboard-style voice leading. Though the
 upper-voice harmonization of a harmonic sequence need not follow the direction in the sequence’s
 name, MusAssist chooses a chord inversion and voice leading pattern such that each sequence does
-align with the direction of its name (i.e. ascending sequences will ascend directionally) 
+align with the direction of its name (i.e. ascending-named sequences will ascend directionally) 
 and also maximizes smooth voice leading.
 
 In music theory, harmonic sequences can be implemented in several ways depending on desired inversion scheme. 
 The chosen chord progressions for each MusAssist sequence are summarized in \tabref{table:harmseq}.
 All sequences are shown in major for the sake of example, but their inverse in minor is equally supported. 
 Each consists of fourteen distinct chords before repeating in the subsequent octave. 
-
 
 \begin{table}[h!]
 
@@ -421,49 +433,53 @@ Each consists of fourteen distinct chords before repeating in the subsequent oct
   \end{tabular}
   }
   
-  \caption{MusAssist Harmonic Sequences Summary\label{table:harmseq}}
+\caption{MusAssist Harmonic Sequences Summary\label{table:harmseq}}
 \end{center}
 \end{table}
 
 \vspace{-8mm}
 \subsection{Additional Features}
 Beyond compositional elements, users can set the key signature at the beginning
-of any measure up to seven sharps or flats by specificing note name, accidental, and quality (sharp or flat).
+of any measure up to seven sharps or flats by specifying note name, accidental, and quality (sharp or flat).
 Users can also start a new measure or create a blank measure. Finally,
 users can label MusAssist expressions and reuse them later in the program. MusAssist
 comments are designated with \verb!\\!.
 
-All compiled MusAssist programs adhere to standard notation style. Tied notes and rests 
-are broken up greedily into valid durations ordered either greatest to least (for tied
-notes/rests spilling into the beginnings of measures), or least to greatest in all
-other cases. The tempo for all MusAssist programs
+The tempo for all MusAssist programs
 is set at \musQuarter\;= 80bpm and cannot currently be customized or changed.
+This also apples to the time signature, which is set at \setmeter{4}{4}.
 
-\section{Sample Programs}
-The following examples present MusAssist syntax followed by the result of
- opening the compiled MusicXML code in MuseScore. 
-They demonstrate (1) the complexity that MusAssist is capable of and (2) 
-that MusAssist programs can certainly sound diatonic and pleasing to the ear.
+All compiled MusAssist programs adhere to standard notation conventions. 
+Notes and rests are broken over barlines as well as over the strong beat (beat three) of the measure.
+They are divided greedily into valid rhythmic units (i.e. from sixteenth to whole note) 
+ordered either least to greatest, or greatest to least in the case of spillage over the barline into the following measure.
 
-\section{Example 1}
+\section{Sample Program}
+The full breadth of MusAssist's syntax is demonstrated in \figref{fig:example_program_code}, and \figref{fig:example_program} is the result of opening the compiled MusicXML code from \figref{fig:example_program_code} in MuseScore. 
+
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.5\textwidth]{images/example_program_code}
-\caption{Example 1}
-\label{fig:example_program}
-\caption{MusAssist Syntax}
+\vspace{-3mm}
+\caption{MusAssist Syntax}\label{fig:example_program_code}
 \end{figure}
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.5\textwidth]{images/example_program}
-\caption{Example 1}
-\label{fig:ex1}
+\caption{Compiled MusAssist Program in MuseScore}\label{fig:example_program}
+\vspace{-4mm}
 \end{figure}
 
 \newpage
   
-\figref{fig:ex1} demonstrates the full complexity of MusAssist's features. Notice how MusAssist automatically breaks up the tied note rationally in mm. 19-20.
+Notice the following in \figref{fig:example_program_code}:
+\begin{itemize}
+\item The key signature can be changed consecutively arbitrarily many times; only the last will take effect (as seen m. 1 and m. 12).
+\item Note durations are broken both on the strong beat and on the barline (such as in mm. 2-4). 
+\item Labeled phrases are not notated until the label is referenced, rather than defined.
+\item The first \verb.NEW_MEASURE. command starts an empty measure, and subsequent commands create empty measures (e.g. mm. 4-5).
+\end{itemize}
 
 
 
@@ -473,20 +489,21 @@ The MusAssist compiler is written in Haskell. Its high-level structure is as fol
 
 \begin{enumerate}
   \item MusAssist concrete syntax is parsed into abstract syntax, represented as 
-  Haskell algebraic data types. Parser combinators were chosen for their flexibility
+  Haskell algebraic data types (ADTs). Parser combinators were chosen for their flexibility
   and easy customization. Parsec, an industrial strength parser library, is used, and 
   Parsec’s helper module Token handles lexing. The parse preserves the abstraction 
   level of all templates.
 
-  \item Templates are expanded until the abstraction level is fully lowered to notes and
-  rests. The result is abstract syntax whose low-level abstraction
+  \item All templates, now represented with ADTs, are expanded until the granularity reaches the note level. 
+  The result of the intermediate stage is abstract syntax whose abstraction level
   matches that of the target language MusicXML. 
 
   \item The low-level abstract syntax resulting from the fully expanded templates is 
-  translated to MusicXML.
+  translated to MusicXML. This step contains the temporal logic that subdivides notes and rests across
+  barlines and strong beats.
 \end{enumerate}
 
-The resulting MusicXML file can then be opened in music notation software, such as MuseScore,
+The resulting MusicXML file can then be opened in music notation software 
 for viewing and further editing. 
 
 \section{Template Expansion Logic}
@@ -494,7 +511,8 @@ MusAssist's most powerful feature is its ability to formalize musical theoretica
 to automate their expansion so the user can specify them at the elevated level of abstraction 
 of the musical structures they describe. This section summarizes the logic underlying the expansions.
 
-\subsection{Chords}
+\subsection{Chords and Arpeggios}
+\subsection{Scales}
 \subsection{Cadences}
 \subsection{Harmonic Sequences}
 
