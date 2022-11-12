@@ -14,9 +14,11 @@
 \usepackage{musicography}
 \usepackage{amsmath}
 \usepackage{arydshln}
+\usepackage{amssymb}
 \usepackage{caption}
 \captionsetup{skip=5pt}
 \usepackage{graphics}
+ \usepackage{musicography}
 %\usepackage{cite}
 
 
@@ -509,10 +511,46 @@ for viewing and further editing.
 \section{Template Expansion Logic}
 MusAssist's most powerful feature is its ability to formalize musical theoretical templates 
 to automate their expansion so the user can specify them at the elevated level of abstraction 
-of the musical structures they describe. This section summarizes the logic underlying the expansions.
+of the musical theoretical structures they describe. This section summarizes the logic underlying the expansions.
+
+\subsection{Generating Notes in a Diatonic Scale}
+Most MusAssist templates are built upon the diatonic scale. In order to formalize their expansions, we must first implement logic to generate a note in a diatonic scale given a specified ascending interval within one octave of the specified tonic. To define a note, we need note name, accidental, and octave.
+
+Given any diatonic scale, the note name and octave are simple to calculate. To determine note name, we simply transverse up the order of note names (ordered as the C major scale is) from the tonic to the target interval. The desired octave is either the same as the the tonic's, or one greater than the tonic's if the desired note name comes before the tonic note name in the C major scale. For instance, as seen in \figref{note_octaves}, the note names D, E, and F come before G in the C major scale, and the octave number of each is one higher than the tonic in a G major scale. 
+
+\vspace{-2mm}
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.3\textwidth]{images/note_octave_logic}
+\caption{\centering Octave Analysis of G Major Scale (red notes are an octave above the tonic)}
+\label{note_octaves}
+\vspace{-3mm}
+\end{figure}
+
+In any key, any perfect interval will have the same accidental as the tonic. The difficult step is determining the desired accidental if the given interval is imperfect. 
+
+To work out the logic behind this, consider \figref{maj_seconds}. Here, we consider all single-accidental key signature names (even invalid ones that contain double sharps or flats, in order to establish the pattern).  Key signature names are grouped under the accidental of the note that is the desired interval from the tonic. For instance, in the key of A\musFlat\;, the major second interval from the tonic is B\musFlat. The accidental of B\musFlat\; is \musFlat, so A\musFlat\; falls under the \musFlat\; column in \figref{maj_seconds}.
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.3\textwidth]{images/maj_seconds}
+\caption{Accidental of Major Second from Tonic per Key}
+\label{maj_seconds}
+\vspace{-7mm}
+\end{figure}
+\newpage
+
+From \figref{maj_seconds} we see that given any key, the major second above the tonic has the same accidental as the tonic, except for the any key with E or B in its name. Here, the accidental is ``lifted"   (i.e. \musFlat $\rightarrow$ \musNatural, \musNatural $\rightarrow$ \musSharp, and \musSharp $\rightarrow$ \musDoubleSharp).
+
+We can proceed in a similar fashion for all other imperfect intervals to determine their respective accidentals relative to the tonic, and we now have all the elements to generate the desired note in the diatonic scale.
+\subsection{Scales}
+The expansion of major, minor, harmonic minor, and melodic minor scales simply 
 
 \subsection{Chords and Arpeggios}
-\subsection{Scales}
+
+
+
 \subsection{Cadences}
 \subsection{Harmonic Sequences}
 
@@ -543,84 +581,6 @@ over a quarter note, or a 4:3 rhythm of four eighths over three quarter notes)
 \section{Conclusion}
 
 
-% this inserts a column-break
-%\pagebreak
-
-\subsection{Title and Authors}
-The title is 16~pt Times, bold, upper case, centered. Authors' names are centered. The lead author's name is to be listed first (left-most), and the co-authors' names after. If the addresses for all authors are the same, include the address only once, centered. If the authors have different addresses, put the addresses, evenly spaced, under each authors' name.
-
-\subsection{First Page Copyright Notice}
-Please include the copyright notice exactly as it appears here in the lower left-hand corner of the page. It is set in 8~pt Times, one column in width, and should not descend into the  page margins (i.e. it should keep clear of the 1" margin at the bottom of the page).
-
-\subsection{Page Numbering, Headers and Footers}
-Do not include headers, footers or page numbers in your submission. These will be added when the publications are assembled.
-
-\section{Headings}
-First level headings are in Times 12pt bold, centered with 1 line of space above the section head, and 1/2 space below it.  For a section header immediately followed by a subsection header, the space should be merged.
-
-\subsection{Second Level Headings}
-Second level headings are in Times 10~pt bold, flush left,
-with 1 line of space above the section head, and 1/2 space below it.
-The first letter of each significant word is capitalized.
-
-\subsubsection{Third and further Level Headings}
-Third level headings are in Times 10~pt italic, flush left, with 1/2 line of space above the section head, and 1/2 space below it. The first letter of each significant word is capitalized.
-
-Using more than three levels of headings is strongly discouraged.
-
-\pagebreak
-
-\section{Equations, Figures, Footnotes}
-
-\subsection{Equations}
-Equations should be placed on separated lines and numbered.
-The number should be on the right side, in parentheses.
-\begin{equation}
-E=mc^{2}.
-\label{eq:Emc2}
-\end{equation}
-
-\subsection{Figures, Tables and Captions}
-All artwork must be centered, neat, clean, and legible. All lines should be very dark for purposes of reproduction and artwork should not be hand-drawn. The proceedings will be distributed in electronic form only, therefore color figures are allowed. However, you may want to check that your figures are understandable even if they are printed in black-and-white.
-\begin{table}[h]
- \begin{center}
- \begin{tabular}{|l|l|}
-  \hline
-  String Value & Numeric value \\
-  \hline
-  Hello ICMC & 2021 \\
-  \hline
- \end{tabular}
-\end{center}
- \caption{Table captions should be placed below the table.}
- \label{tab:example}
-\end{table}
-
-Numbers and captions of figures and tables always appear below the figure/table. Leave 1 line space between the figure or table and the caption. Figure and tables are numbered consecutively. Captions should be Times 10~pt. Place tables/figures in text as close to the reference as possible, and preferably at the top of the page.
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.9\columnwidth]{figure.eps}
-\caption{Figure captions are placed below the figure, exactly like this.\label{fig:example}}
-\end{figure}
-
-Always refer to tables and figures in the main text, for example:
-see Figure \ref{fig:example} and \tabref{tab:example}. 
-Place Tables/Figures in text as close to the reference as possible.
-Figures and tables may extend across both columns to a maximum width of 17.2cm.
-
-Vectorial figures are preferred. 
-When using {\texttt{Matlab}}, 
-export using either Postscript or PDF format. 
-Also, in order to optimize readability, the font size of text within a figure should be at list identical to footnote font size. If bitmap figures are used, please make sure that the resolution is enough for print quality. 
-
-\subsection{Footnotes}
-Indicate footnotes with a number in the text.\footnote{This is a footnote.}
-Use 8~pt type for footnotes. Place the footnotes at the bottom of the page 
-on which they appear. 
-Precede the footnote with a 0.5~pt horizontal rule.
-
-%\newpage
 
 \section{Citations}
 All bibliographical references should be listed at the end, inside a section named ``REFERENCES''.
