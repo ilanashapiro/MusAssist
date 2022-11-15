@@ -629,9 +629,9 @@ To determine (1) and (2), consider the analysis in \figref{fig:desc_56_intervals
   \caption{Descending 5-6 Interval Analysis}\label{fig:desc_56_intervals}
 \end{figure}
 \vspace{-3mm}
-The top row is the chord index, the second row is the chord progression from \figref{table:harmseq}, the third row is the interval between each chord and the tonic, and the bottom row is the interval between each chord and the previous (modulo 7). A clear pattern for inversions (in the second row) and interval changes (in the fourth row) emerges based on the parity of the index. Identical analyses are applied to the remaining sequences to formalize their interval and inversion patterns.
+The top row is the chord index, the second row is the chord progression from \tabref{table:harmseq}, the third row is the interval between each chord and the tonic, and the bottom row is the interval between each chord and the previous (modulo 7). A clear pattern for inversions (in the second row) and interval changes (in the fourth row) emerges based on the parity of the index. Identical analyses are applied to the remaining sequences to formalize their interval and inversion patterns.
 
-Finally, we need to determine (3), the octave number of each chordal root relative to the tonic (i.e. the root of the first chord in the sequence). Consider \figref{fig:desc56-example}, an octave analysis of the descending 5-6 sequence.
+Finally, we need to determine (3), the octave number of each chordal root relative to the tonic (i.e. the root of the first chord in the sequence). Consider \figref{fig:desc56-example}, an octave analysis of the descending 5-6 sequence. 
 
 \begin{figure}[h!]
 \centering
@@ -640,15 +640,15 @@ Finally, we need to determine (3), the octave number of each chordal root relati
   \label{fig:desc56-example}
 \end{figure}
 
-By converting all chords to root position, we can easily visualize their octaves. The chordal roots in blue are an octave above the tonic, the roots in yellow are an octave below, and the root in red is two octaves below.
+All chords are converted to root position in order to visualize the octave numbers of their roots in relation to the tonic. The chordal roots in blue are an octave number above the tonic, the roots in yellow are an octave below, and the root in red is two octaves below. This same analysis is utilized to determine the octave numbers of the chords in the remaining sequence.
 
-Importantly, the interval analysis holds for any representation of these harmonic sequences, as this is what defines the sequence. However, the inversion and octave analysis holds only for MusAssist's chosen representation of the sequences, as a different inversion pattern would deeply alter both of these analyses.
+Importantly, the interval analysis in \figref{fig:desc_56_intervals} holds for any representation of a harmonic sequence, as this is what defines the musical theoretical structure. However, the inversion and octave analyses in Figures \ref{fig:desc_56_intervals} and \ref{fig:desc56-example} hold only for MusAssist's chosen representation of the sequences in \tabref{table:harmseq}, as a different inversion scheme would alter the outcome of these analyses.
 
 \section{Conclusion}
+This paper presents MusAssist, an external, declarative DSL for music notation that closes the abstraction gap between music theory and written composition. Users can uniquely write specifications in MusAssist's simple and high-level syntax for scales, chords, arpeggios, cadences, and harmonic sequences at the precisely levels of abstraction of the musical theoretical structures they describe. Fundamental musical elements such as notes, rests, custom note collections, new measures, and key signatures are also supported, along with ease-of-use language features such as reusable labeled expressions and comments. The Haskell-based compiler translates MusAssist to MusicXML so that the composition can be loaded into music notation software for further customization. 
 
-This paper presents MusAssist, is an external DSL whose Haskell-based compiler translates it to MusicXML that can be loaded into a major music notation software for further editing. Its syntax is simple and models the flow of thought a composer would have when writing music by hand. MusAssist fills a unique niche in the realm of musical DSLs by serving as a music compositional aid that allows the user to write specifications for complex musical templates at the levels of abstraction of the musical structures they describe. MusAssist is not intended to allow to the user to write a fully expressive musical piece, but rather to more easily create musical expressions that would be tedious to write by hand. For this reason, the output MusicXML file of a compiled MusAssist program is intentionally editable, rather than a static PDF format like a language such as LilyPond generates. MuseScore can be further valuable as an education tool to music theory students, allowing them to visualize musical structures from the definitions that they describe in MusAssist.
 
-Ideally, in the future MusAssist would support more complex musical states and elements including
+Ideally, in the future MusAssist would support additional and  complex musical states and elements including
 custom time signature and mid-composition time signature changes (similar to the behavior
 currently implemented for key signatures), clef changes within a part, multiple-clef parts (e.g.
 piano), multiple voicing within a part, custom parts (i.e. instruments), and multiple part compositions.
