@@ -438,7 +438,7 @@ Each consists of fourteen distinct chords before repeating in the subsequent oct
   \end{tabular}
   }
   
-\caption{MusAssist Harmonic Sequences Summary\label{table:harmseq}}
+\caption{MusAssist Harmonic Sequences Summary}\label{table:harmseq}
 \end{center}
 \end{table}
 
@@ -601,7 +601,7 @@ Recall that the chords in each cadence are defined in Section \ref{table:cadence
 
 The scale quality given to Section \ref{sec:chord_generate} to generate the chord template is generally that of the cadence. However, there are exceptions. All V chord templates are generated within a major scale, no matter the cadence quality, since cadences always have major V chords. Similarly, we want the seventh triad in the imperfect authentic cadence to be diminished  -- i.e. built on the major seventh -- no matter the local key quality (since we raise the leading tone in minor keys when moving towards the tonic), which means this chord template must also be generated within a major scale in Section \ref{sec:chord_generate}. 
 
-The tonic octave supplied for the chord template generation in Section \ref{sec:chord_generate} is also usually that of the cadence. However, in order for the cadence to follow smooth voice leading, the tonic octave given for generating all second inversion triads, which appear in all cadences except perfect authentic, must be lowered once in relation to the specified cadence octave. This is demonstrated in the B major deceptive cadence in \figref{fig:cadence_octaves}. After converting to root position for clarity, one can see how the chordal root in the cadence octave is in blue, and the roots an octave below (i.e. those of the second inversion triads) are in red.
+The tonic octave supplied for the chord template generation in Section \ref{sec:chord_generate} is also usually that of the cadence. However, in order for the cadence to follow smooth voice leading, the tonic octave given for generating all second inversion triads, which appear in all cadences except perfect authentic, must be lowered once in relation to the specified cadence octave. This is demonstrated in the B major deceptive cadence in \figref{fig:cadence_octaves}. After converting to root position for clarity, notice how the chordal root in the cadence octave is in blue, and the roots an octave below (i.e. those of the second inversion triads) are in red.
 
 \begin{figure}[h!]
 \centering
@@ -610,39 +610,39 @@ The tonic octave supplied for the chord template generation in Section \ref{sec:
 \end{figure}
 
 \subsubsection{Harmonic Sequences}
-Similar to cadences, harmonic sequences are initially expanded to the chord templates they comprise, which then undergo a second expansion to notes. In order to generate the chords in a sequence, we need to determine 
+Similar to cadences, harmonic sequences are initially expanded to the chord templates they comprise, which then undergo a second expansion to notes. Recall from \figref{table:harmseq} that each sequence consists of 14 chords, after which it cycles an octave above or below, depending on the direction of the sequence.
+
+In order to generate chord templates for a sequence, we need to determine 
+\vspace{-2mm}
 \begin{enumerate}
-\item the interval between each pair of chordal roots
+\itemsep0em 
+\item the interval between each pair of chordal roots, which dictates how to proceed from chord to the next in the sequence
 \item the inversion of the each chord
-\item the octave number of each chord.
+\item the octave number of each chord (given by the chordal root octave) relative to the tonic
 \end{enumerate}
 
-The following diagrams demonstrate the interval pattern for each sequence based on the chord index. All sequences use zero-indexing. 
+To determine (1) and (2), consider the analysis in \figref{fig:desc_56_intervals}, which determines the interval pattern for the chordal roots of the descending 5-6 sequence (as defined in \figref{table:harmseq}), given the zero-based sequence index of each chord. 
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.5\textwidth]{images/asc_fifths_intervals}
-  \caption{Ascending Fifths Interval Analysis}
+\includegraphics[width=0.5\textwidth]{images/desc_56_intervals}
+  \caption{Descending 5-6 Interval Analysis}\label{fig:desc_56_intervals}
 \end{figure}
+\vspace{-3mm}
+The top row is the chord index, the second row is the chord progression from \figref{table:harmseq}, the third row is the interval between each chord and the tonic, and the bottom row is the interval between each chord and the previous (modulo 7). A clear pattern for inversions (in the second row) and interval changes (in the fourth row) emerges based on the parity of the index. Identical analyses are applied to the remaining sequences to formalize their interval and inversion patterns.
 
-In each figure, the top row is the chord index, the second row is the chord progression, the third row is the interval of the chord from the tonic, and the bottom row is the interval of each chord from the previous (modulo 7). A clear pattern for both chord inversions and interval changes emerges for each sequence based on the index. Also, recall from Figures \ref{fig:ascfifths} -- \ref{fig:desc56} that all descending sequences are written in a descending direction, and ascending sequences are written in an ascending direction. Thus, when descending sequences repeat, their octave number decrements, and when ascending sequences repeat, their octave number increments. 
-
-The next step is to determine the octave number of each chord. Recall that the octave number of a chord in the sequence is given by the octave number of the chordal root (no matter the inversion). Also, the octave number of each chord depends only on the note name, not the accidental (since all an accidental does is alter the same note in the staff). By going through each sequence for each of the seven possible notes in a key name (i.e. CDEFFGAB), we determine the octave number of each chord relative to the octave of the first chord in the sequence. To do this, all chords were converted to root position for the sake of the analysis. For instance, consider \figref{fig:desc56-example}. 
+Finally, we need to determine (3), the octave number of each chordal root relative to the tonic (i.e. the root of the first chord in the sequence). Consider \figref{fig:desc56-example}, an octave analysis of the descending 5-6 sequence.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=1.1\textwidth]{images/desc56-example}
-  \caption{Descending 5-6 Octaves Example}
+\includegraphics[width=0.45\textwidth]{images/desc56-example}
+  \caption{Descending 5-6 Octave Analysis}
   \label{fig:desc56-example}
 \end{figure}
 
-The chordal roots in blue are an octave number above the first chord in the sequence,  the chordal roots in yellow are an octave number below, and the chordal  root in red is two octave numbers below.
+By converting all chords to root position, we can easily visualize their octaves. The chordal roots in blue are an octave above the tonic, the roots in yellow are an octave below, and the root in red is two octaves below.
 
-OCTAVE LOGIC
-
-We have thus determined how to find the interval and inversion of a chord in the sequence from the previous chord, and how to find the octave number of a chord in the sequence. Importantly, the interval analysis holds for any representation of these harmonic sequences, as this is what defines the sequence. However, the inversion and octave analysis holds only for MusAssist's chosen representation of the sequences, as a different inversion pattern would deeply alter both of these analyses.
-
-We are now ready to generate the sequences. A generic sequence-generator helper function called \verb.generateSeq n. was written that, given $n$ (the length, or number of chords) in the sequence, generates the sequence. \verb.generateSeq n. determines the next index  in the sequence (resetting to zero each  time the sequence repeats after 14 chords), either  increments or decrements the tonic octave number after each cycle, determines the note name of the next chordal root based on the interval rule from the previous chord for that sequence, and determines the inversion based on the index. The special octave cases and associated octave functions are passed in based on the previously discussed analysis. \verb.generateSeq n. now has enough information to call  \verb.generateTriadWithinScale. to generate the desired chord for that index in the sequence, and then recurses to the next chord in the sequence until $n$ goes to zero. 
+Importantly, the interval analysis holds for any representation of these harmonic sequences, as this is what defines the sequence. However, the inversion and octave analysis holds only for MusAssist's chosen representation of the sequences, as a different inversion pattern would deeply alter both of these analyses.
 
 \section{Conclusion}
 
@@ -686,7 +686,7 @@ in~\cite{Someone:09} or~\cite{Someone:04,Someone:13}.
 The reference format is the standard IEEE one. We recommend using BibTeX to create the reference list.
 
 \begin{acknowledgments}
-At the end of the Conclusions, acknowledgements to people, projects, funding agencies, etc. can be included after the second-level heading ``Acknowledgments'' (with no numbering).
+I am very grateful to Professor Ben Wiedermann of Harvey Mudd College for his invaluable mentorship throughout this project.
 \end{acknowledgments} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

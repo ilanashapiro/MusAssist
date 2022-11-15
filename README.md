@@ -1,4 +1,7 @@
 # MusAssist
+
+(NOTE: the compiler code and associated MusAssist code examples are all located in the "app" folder of this directory")
+
 When writing music, composers must manually transition from musical theoretical concepts to notes on a page.
 This process can be tedious and slow, requiring the composer to expand complex structures, such as cadences and sequences,
 by hand to the notes that they constitute. The level of abstraction of the musical theoretical structure is 
