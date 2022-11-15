@@ -608,15 +608,19 @@ The tonic octave supplied for the chord template generation in Section \ref{sec:
   \caption{Deceptive Cadence Octave Analysis}\label{fig:cadence_octaves}
 \end{figure}
 
-
 \subsubsection{Harmonic Sequences}
-Harmonic sequences were the most complex template to expand. In order to generate a harmonic sequence, three items need to be determined: (1) the interval of the next chord relative to the previous, (2) the inversion of each chord, and (3) the octave number of each chord.
+Similar to cadences, harmonic sequences are initially expanded to the chord templates they comprise, which then undergo a second expansion to notes. In order to generate the chords in a sequence, we need to determine 
+\begin{enumerate}
+\item the interval between each pair of chordal roots
+\item the inversion of the each chord
+\item the octave number of each chord.
+\end{enumerate}
 
 The following diagrams demonstrate the interval pattern for each sequence based on the chord index. All sequences use zero-indexing. 
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=\textwidth]{images/asc_fifths_intervals}
+\includegraphics[width=0.5\textwidth]{images/asc_fifths_intervals}
   \caption{Ascending Fifths Interval Analysis}
 \end{figure}
 

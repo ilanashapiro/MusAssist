@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.13)  14 NOV 2022 22:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.13)  14 NOV 2022 23:53
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -684,61 +684,64 @@ Package pdftex.def Info: images/cadence_octaves.png  used on input line 607.
 <images/asc_fifths_intervals.png, id=163, 1064.97874pt x 138.5175pt>
 File: images/asc_fifths_intervals.png Graphic file (type png)
 <use images/asc_fifths_intervals.png>
-Package pdftex.def Info: images/asc_fifths_intervals.png  used on input line 61
-9.
-(pdftex.def)             Requested size: 489.38731pt x 63.65117pt.
+Package pdftex.def Info: images/asc_fifths_intervals.png  used on input line 62
+3.
+(pdftex.def)             Requested size: 244.69365pt x 31.82452pt.
 
-Overfull \hbox (256.0748pt too wide) in paragraph at lines 619--620
+Overfull \hbox (11.38113pt too wide) in paragraph at lines 623--624
  [][] 
  []
 
 
-LaTeX Warning: Reference `fig:ascfifths' on page 5 undefined on input line 623.
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: Reference `fig:ascfifths' on page 5 undefined on input line 627.
 
 
 
-LaTeX Warning: Reference `fig:desc56' on page 5 undefined on input line 623.
+LaTeX Warning: Reference `fig:desc56' on page 5 undefined on input line 627.
 
 [5 <./images/chromatic.png> <./images/whole_tone.png> <./images/cadence_octaves
-.png> <./images/asc_fifths_intervals.png>]
-<images/desc56-example.png, id=179, 1213.53375pt x 90.3375pt>
+.png>]
+<images/desc56-example.png, id=180, 1213.53375pt x 90.3375pt>
 File: images/desc56-example.png Graphic file (type png)
 <use images/desc56-example.png>
-Package pdftex.def Info: images/desc56-example.png  used on input line 629.
+Package pdftex.def Info: images/desc56-example.png  used on input line 633.
 (pdftex.def)             Requested size: 538.32903pt x 40.07391pt.
 
-Overfull \hbox (305.01651pt too wide) in paragraph at lines 629--630
+Overfull \hbox (305.01651pt too wide) in paragraph at lines 633--634
  [][] 
  []
 
 
-Overfull \hbox (12.22585pt too wide) in paragraph at lines 640--641
+Overfull \hbox (12.22585pt too wide) in paragraph at lines 644--645
 \OT1/ptm/m/n/10 sequence-generator helper func-tion called [][]\OT1/pcr/m/n/10 
 generateSeq n
  []
 
 
-Overfull \hbox (5.48598pt too wide) in paragraph at lines 640--641
+Overfull \hbox (5.48598pt too wide) in paragraph at lines 644--645
 \OT1/ptm/m/n/10 in the se-quence, gen-er-ates the se-quence. [][]\OT1/pcr/m/n/1
 0 generateSeq n
  []
 
 
-Overfull \hbox (1.03654pt too wide) in paragraph at lines 640--641
+Overfull \hbox (1.03654pt too wide) in paragraph at lines 644--645
 [][]\OT1/pcr/m/n/10 generateTriadWithinScale []\OT1/ptm/m/n/10 to gen-er-ate th
 e de-sired
  []
 
 
-Overfull \hbox (5.28467pt too wide) in paragraph at lines 646--668
+Overfull \hbox (5.28467pt too wide) in paragraph at lines 650--672
 \OT1/ptm/m/n/10 sig-na-ture and mid-composition time sig-na-ture changes (sim-
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 1024) has occurred while \output is active []
 
- [6 <./images/desc56-example.png>]
-Overfull \hbox (2.37593pt too wide) in paragraph at lines 678--680
+ [6 <./images/asc_fifths_intervals.png> <./images/desc56-example.png>]
+Overfull \hbox (2.37593pt too wide) in paragraph at lines 682--684
 []\OT1/ptm/m/n/10 Reference num-bers in the text should ap-pear within square
  []
 
@@ -755,8 +758,8 @@ Package rerunfilecheck Info: File `icmc2021template.out' has not changed.
 (rerunfilecheck)             Checksum: D3C616ED6FB30836F598AA9A6BCA5E78;3429.
  ) 
 Here is how much of TeX's memory you used:
- 13795 strings out of 478268
- 224695 string characters out of 5846346
+ 13798 strings out of 478268
+ 224713 string characters out of 5846346
  542200 words of memory out of 5000000
  31741 multiletter control sequences out of 15000+600000
  486266 words of font info for 61 fonts, out of 8000000 for 9000
@@ -773,10 +776,10 @@ live/2022/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/202
 2/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2022/texmf-di
 st/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/t
 ype1/urw/times/utmri8a.pfb>
-Output written on icmc2021template.pdf (7 pages, 939063 bytes).
+Output written on icmc2021template.pdf (7 pages, 939230 bytes).
 PDF statistics:
- 255 PDF objects out of 1000 (max. 8388607)
- 201 compressed objects within 3 object streams
- 46 named destinations out of 1000 (max. 500000)
+ 259 PDF objects out of 1000 (max. 8388607)
+ 205 compressed objects within 3 object streams
+ 49 named destinations out of 1000 (max. 500000)
  216 words of extra memory for PDF output out of 10000 (max. 10000000)
 
