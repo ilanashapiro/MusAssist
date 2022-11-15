@@ -515,7 +515,8 @@ MusAssist's most powerful feature is its ability to formalize musical theoretica
 to automate their expansion so the user can specify them at the elevated level of abstraction 
 of the musical theoretical structures they describe. This section summarizes the logic underlying the expansions.
 
-\subsection{Generating Notes in a Diatonic Scale}
+\subsection{Backbone Logic}
+\subsubsection{Generating Notes in a Diatonic Scale}
 \label{sec:note_generate}
 Most MusAssist templates are built upon the diatonic scale. In order to formalize their expansions, we must first implement logic to generate a note in a diatonic scale of specified quality (major or minor), given a positive interval within one octave of the specified tonic. To define the note, we need the note name, octave, and accidental.
 
@@ -546,7 +547,14 @@ From \figref{maj_seconds} we see that given any key, the major second above the 
 
 A similar pattern emerges for minor thirds, major sixths, and minor sevenths. Using the result of this analysis, we can determine the accidentals of the inverse qualities (i.e. major $\leftrightarrow$ minor) of the imperfect intervals by either lowering the computed accidental when going from major to minor, or lifting it otherwise.  %We now have all the elements to generate the desired note in the diatonic scale.
 
-\subsection{Scales}
+\subsubsection{Generating Triads in a Diatonic Scale}
+\label{sec:chord_generate}
+Generating triads in a diatonic scale becomes relevant for the highest level templates that are conceptualized in music theory with chords rather than notes (namely, cadences and harmonic sequences). Note that these generated triads are still themselves chord templates, albeit at one abstraction level lower than the original musical theoretical structure, and thus require further expansion at a later step. The goal here is simply to automate the generation of chord templates for triads in a diatonic scale given a specified tonic tone and quality (major or minor), inversion, and positive interval within one octave of the tonic for the chordal root. 
+
+In order to complete the chord template definition from the supplied information, we simply need to determine the chord quality. Music theory dictates that the major diatonic scale contains the triads I-ii-iii-IV-V-vi-vii$^\text{o}$, and the minor diatonic scale contains the triads i-ii$^\text{o}$-III-iv-v-VI-VII. Using this, we can thus compute the triad quality from the tonic quality and the supplied interval between tonic and chordal root.
+
+\subsection{Template Expansions}
+\subsubsection{Scales}
 The expansion of all major and natural/harmonic/melodic minor scales is derived from the logic in Section \ref{sec:note_generate}. The scale is thus generated in relation to the tonic, rather than the specified start note. The tonic is always set below the start note so that the initial interval is positive, with the interval then increasing for ascending scales and descending otherwise until the desired scale length is reached. If the tonic is reached in the scale generation, we reset the tonic to be one octave higher or lower (depending on the scale direction), so that the interval of the next note in the scale is always positive and within one octave of the current tonic. Finally, note that all minor scales are treated as natural; the sixth and/or seventh scale degree is raised appropriately for harmonic and melodic minor after the note is generated. 
 
 For the nondiatonic scales (chromatic and whole tone), C is set as the "tonic" for the purposes of determining the octave. Just like diatonic scales, the octave is shifted appropriately if we pass it during the scale generation.
@@ -575,7 +583,7 @@ Whole tone scales form a similar paradigm. As seen in \figref{chromatic}, the as
 
 To determine the next note name, we thus simply traverse up or down the C major scale, excluding the appropriate ``skip" note. The accidental changes for both scales are bounded on one end by their respective ``skip" notes; the other ends are bounded by E in the ascending scale and F in the descending scale. To determine the next accidental, we thus appropriately lift or lower the current accidental at these boundaries, otherwise leaving it unchanged.
 
-\subsection{Chords and Arpeggios}
+\subsubsection{Chords and Arpeggios}
 \label{sec:chord_expansion}
 Each note in the chord or arpeggio is generated with the logic from Section \ref{sec:note_generate} based on their respective intervals from the tonic (i.e. the chordal root). Chordal thirds, fifths, and sevenths have respective intervals of 2, 4, and 6 from the tonic. 
 
@@ -585,21 +593,23 @@ To handle inversions, recall that the chord (whether triad or seventh) starts ou
 
 If the chord is an arpeggio, we simply return a series of individual notes, rather than a simultaneous cluster.
 
-\subsection{Cadences}
-A cadence is expanded to the lists of chords it comprises using the logic from Section \ref{sec:chord_expansion}.
+\subsubsection{Cadences}
+A cadence is expanded to the lists of chords it comprises. Thus, two levels of expansion occur here: an intermediate step from cadences to chord templates, and the final step from chord templates to notes.
 
-To do this, a helper function called \verb.generateTriadWithinScale. was created. This function, given the tonic tone and quality (either major or minor), will generate the triad within that diatonic scale given the desired inversion and interval from the tonic (must be between 0 and 6, i.e. within one octave of the tonic) and inversion. Given the tonic quality (i.e. the quality of the scale), \verb.generateTriadWithinScale. first determines the quality of the desired chord. From music theory, it is known that major keys contain the following chords: I-ii-iii-IV-V-vi-vii$^\text{o}$, and minor keys contain the following chords: i-ii$^\text{o}$-III-iv-v-VI-VII. Thus, depending on whether the tonic quality is major or minor, the quality of the triad is computed based on this information.
+Recall that the chords in each cadence are defined in Section \ref{table:cadences}, which reveal the interval of each chordal root from the tonic. Using this, for each chord in the cadence, we first employ the logic from Section \ref{sec:note_generate} to generate the root note of each chord. Then, we use the logic in Section \ref{sec:chord_generate} to generate a template for each chord, which undergo a second expansion in Section \ref{sec:chord_expansion}. 
 
-After this, \verb.generateToneWithinScale. is called to  generate the root of the chord. Following this, a chord template for the triad is created, and passed into \verb.expandIntermediateExpr. to get expanded into a \verb.Chord. containing the list of tones and durations. The result of this is the desired triad.
+The scale quality given to Section \ref{sec:chord_generate} to generate the chord template is generally that of the cadence. However, there are exceptions. All V chord templates are generated within a major scale, no matter the cadence quality, since cadences always have major V chords. Similarly, we want the seventh triad in the imperfect authentic cadence to be diminished  -- i.e. built on the major seventh -- no matter the local key quality (since we raise the leading tone in minor keys when moving towards the tonic), which means this chord template must also be generated within a major scale in Section \ref{sec:chord_generate}. 
 
-Returning to cadence template expansion, \verb.generateTriadWithinScale. is used to create each triad in  the cadence. Notably, none of the cadences in MusAssist utilize seventh chords. 
-\\\verb.generateTriadWithinScale. is thus called to generate the chords for the given cadence type based on MusAssist's cadence representations from \figref{table:cadences}. 
+The tonic octave supplied for the chord template generation in Section \ref{sec:chord_generate} is also usually that of the cadence. However, in order for the cadence to follow smooth voice leading, the tonic octave given for generating all second inversion triads, which appear in all cadences except perfect authentic, must be lowered once in relation to the specified cadence octave. This is demonstrated in the B major deceptive cadence in \figref{fig:cadence_octaves}. After converting to root position for clarity, one can see how the chordal root in the cadence octave is in blue, and the roots an octave below (i.e. those of the second inversion triads) are in red.
 
-A notable edge case that occurred was when creating the V$^{6 \atop 4}$ chord for deceptive cadences. In order for the cadence to render appropriately, the root of the V$^{6 \atop 4}$ needs to be an octave number $below$ the tonic of the scale. Hence, the special octave cases are \verb!(enumFromTo MusAST.C MusAST.E)! (i.e. C,D, and E, the keys whose  fifth scale degree would normally be the $same$ octave number as the tonic), and the octave function for these cases is  \verb.pred.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.18\textwidth]{images/cadence_octaves}
+  \caption{Deceptive Cadence Octave Analysis}\label{fig:cadence_octaves}
+\end{figure}
 
-Other edge cases included making sure that all V chords were major when calling \\\verb.generateTriadWithinScale., no matter the local key quality, since in a cadence, the five chord is always major. Similarly, we want the diminished seventh triad vii$^\text{o}$ in the imperfect authentic cadence no matter the local key quality (since we raise the leading tone in minor keys when moving towards the tonic). This means that  we also to pass major as the quality parameter to \verb.generateTriadWithinScale. here, in order for this chord to be built off the major seven scale degree.
 
-\subsection{Harmonic Sequences}
+\subsubsection{Harmonic Sequences}
 Harmonic sequences were the most complex template to expand. In order to generate a harmonic sequence, three items need to be determined: (1) the interval of the next chord relative to the previous, (2) the inversion of each chord, and (3) the octave number of each chord.
 
 The following diagrams demonstrate the interval pattern for each sequence based on the chord index. All sequences use zero-indexing. 

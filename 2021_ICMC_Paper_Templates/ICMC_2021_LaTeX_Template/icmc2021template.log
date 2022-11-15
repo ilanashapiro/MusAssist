@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.13)  14 NOV 2022 12:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.13)  14 NOV 2022 22:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -577,12 +577,12 @@ Overfull \hbox (0.26564pt too wide) in paragraph at lines 376--380
 ively
  []
 
-<images/perfauth_code.png, id=86, 425.59pt x 20.075pt>
+<images/perfauth_code.png, id=98, 425.59pt x 20.075pt>
 File: images/perfauth_code.png Graphic file (type png)
 <use images/perfauth_code.png>
 Package pdftex.def Info: images/perfauth_code.png  used on input line 382.
 (pdftex.def)             Requested size: 220.2228pt x 10.3879pt.
-<images/perfauth.png, id=88, 880.28876pt x 118.4425pt>
+<images/perfauth.png, id=100, 880.28876pt x 118.4425pt>
 File: images/perfauth.png Graphic file (type png)
 <use images/perfauth.png>
 Package pdftex.def Info: images/perfauth.png  used on input line 388.
@@ -592,7 +592,7 @@ Overfull \hbox (5.48529pt too wide) in paragraph at lines 402--406
 \OT1/ptm/m/n/10 The cho-sen chord pro-gres-sions for each MusAs-sist se-quence
  []
 
-<images/example_program_code.png, id=101, 659.46375pt x 493.845pt>
+<images/example_program_code.png, id=113, 659.46375pt x 493.845pt>
 File: images/example_program_code.png Graphic file (type png)
 <use images/example_program_code.png>
 Package pdftex.def Info: images/example_program_code.png  used on input line 46
@@ -603,7 +603,7 @@ Overfull \hbox (11.38113pt too wide) in paragraph at lines 467--469
  [][] 
  []
 
-<images/example_program.png, id=102, 651.43375pt x 542.025pt>
+<images/example_program.png, id=114, 651.43375pt x 542.025pt>
 File: images/example_program.png Graphic file (type png)
 <use images/example_program.png>
 Package pdftex.def Info: images/example_program.png  used on input line 474.
@@ -645,142 +645,106 @@ Overfull \hbox (0.835pt too wide) in paragraph at lines 505--508
  []
 
 
-Overfull \hbox (0.28442pt too wide) in paragraph at lines 520--521
+Overfull \hbox (0.28442pt too wide) in paragraph at lines 521--522
 \OT1/ptm/m/n/10 Most MusAs-sist tem-plates are built upon the di-a-tonic scale.
 
  []
 
-<images/note_octave_logic.png, id=118, 634.37pt x 75.28125pt>
+<images/note_octave_logic.png, id=130, 634.37pt x 75.28125pt>
 File: images/note_octave_logic.png Graphic file (type png)
 <use images/note_octave_logic.png>
-Package pdftex.def Info: images/note_octave_logic.png  used on input line 529.
+Package pdftex.def Info: images/note_octave_logic.png  used on input line 530.
 (pdftex.def)             Requested size: 146.81767pt x 17.42229pt.
 
-Overfull \hbox (1.73491pt too wide) in paragraph at lines 535--536
+Overfull \hbox (1.73491pt too wide) in paragraph at lines 536--537
 \OT1/ptm/m/n/10 Here, we con-sider all single-accidental key sig-na-ture names
  []
 
-<images/maj_seconds.png, id=121, 403.5075pt x 216.81pt>
+<images/maj_seconds.png, id=133, 403.5075pt x 216.81pt>
 File: images/maj_seconds.png Graphic file (type png)
 <use images/maj_seconds.png>
-Package pdftex.def Info: images/maj_seconds.png  used on input line 539.
+Package pdftex.def Info: images/maj_seconds.png  used on input line 540.
 (pdftex.def)             Requested size: 146.81767pt x 78.88521pt.
-<images/chromatic.png, id=126, 470.75874pt x 133.49875pt>
+[4 <./images/note_octave_logic.png> <./images/maj_seconds.png>]
+<images/chromatic.png, id=150, 470.75874pt x 133.49875pt>
 File: images/chromatic.png Graphic file (type png)
 <use images/chromatic.png>
-Package pdftex.def Info: images/chromatic.png  used on input line 558.
+Package pdftex.def Info: images/chromatic.png  used on input line 566.
 (pdftex.def)             Requested size: 195.75194pt x 55.51093pt.
-<images/whole_tone.png, id=128, 480.79625pt x 229.85875pt>
+<images/whole_tone.png, id=152, 480.79625pt x 229.85875pt>
 File: images/whole_tone.png Graphic file (type png)
 <use images/whole_tone.png>
-Package pdftex.def Info: images/whole_tone.png  used on input line 570.
+Package pdftex.def Info: images/whole_tone.png  used on input line 578.
 (pdftex.def)             Requested size: 122.34682pt x 58.49219pt.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[4 <./images/note_octave_logic.png> <./images/maj_seconds.png> <./images/chroma
-tic.png>]
-Overfull \hbox (53.69687pt too wide) in paragraph at lines 591--592
-[]\OT1/ptm/m/n/10 To do this, a helper func-tion called [][]\OT1/pcr/m/n/10 gen
-erateTriadWithinScale
- []
-
-
-Overfull \hbox (72.25558pt too wide) in paragraph at lines 593--594
-\OT1/ptm/m/n/10 plate for the triad is cre-ated, and passed into [][]\OT1/pcr/m
-/n/10 expandIntermediateExpr
- []
-
-
-Overfull \hbox (83.3165pt too wide) in paragraph at lines 595--597
-[]\OT1/ptm/m/n/10 Returning to ca-dence tem-plate ex-pan-sion, [][]\OT1/pcr/m/n
-/10 generateTriadWithinScale
- []
-
-
-Overfull \hbox (4.10562pt too wide) in paragraph at lines 595--597
-\OT1/ptm/m/n/10 er-ate the chords for the given ca-dence type based on MusAs-
- []
-
-
-Overfull \hbox (27.78656pt too wide) in paragraph at lines 598--599
-\OT1/ptm/m/n/10 cial oc-tave cases are [][]\OT1/pcr/m/n/10 (enumFromTo MusAST.C
- MusAST.E)
- []
-
-
-Overfull \hbox (4.20667pt too wide) in paragraph at lines 600--601
-[][]\OT1/pcr/m/n/10 generateTriadWithinScale[]\OT1/ptm/m/n/10 , no mat-ter the 
-lo-cal key
- []
-
-
-Overfull \hbox (29.28612pt too wide) in paragraph at lines 600--601
-\OT1/ptm/m/n/10 jor as the qual-ity pa-ram-e-ter to [][]\OT1/pcr/m/n/10 generat
-eTriadWithinScale
- []
-
-<images/asc_fifths_intervals.png, id=147, 1064.97874pt x 138.5175pt>
+<images/cadence_octaves.png, id=162, 315.1775pt x 240.9pt>
+File: images/cadence_octaves.png Graphic file (type png)
+<use images/cadence_octaves.png>
+Package pdftex.def Info: images/cadence_octaves.png  used on input line 607.
+(pdftex.def)             Requested size: 88.08612pt x 67.32655pt.
+<images/asc_fifths_intervals.png, id=163, 1064.97874pt x 138.5175pt>
 File: images/asc_fifths_intervals.png Graphic file (type png)
 <use images/asc_fifths_intervals.png>
-Package pdftex.def Info: images/asc_fifths_intervals.png  used on input line 60
+Package pdftex.def Info: images/asc_fifths_intervals.png  used on input line 61
 9.
 (pdftex.def)             Requested size: 489.38731pt x 63.65117pt.
 
-Overfull \hbox (256.0748pt too wide) in paragraph at lines 609--610
+Overfull \hbox (256.0748pt too wide) in paragraph at lines 619--620
  [][] 
  []
 
 
-LaTeX Warning: Reference `fig:ascfifths' on page 5 undefined on input line 613.
+LaTeX Warning: Reference `fig:ascfifths' on page 5 undefined on input line 623.
 
 
 
-LaTeX Warning: Reference `fig:desc56' on page 5 undefined on input line 613.
+LaTeX Warning: Reference `fig:desc56' on page 5 undefined on input line 623.
 
-[5 <./images/whole_tone.png> <./images/asc_fifths_intervals.png>]
-<images/desc56-example.png, id=157, 1213.53375pt x 90.3375pt>
+[5 <./images/chromatic.png> <./images/whole_tone.png> <./images/cadence_octaves
+.png> <./images/asc_fifths_intervals.png>]
+<images/desc56-example.png, id=179, 1213.53375pt x 90.3375pt>
 File: images/desc56-example.png Graphic file (type png)
 <use images/desc56-example.png>
-Package pdftex.def Info: images/desc56-example.png  used on input line 619.
+Package pdftex.def Info: images/desc56-example.png  used on input line 629.
 (pdftex.def)             Requested size: 538.32903pt x 40.07391pt.
 
-Overfull \hbox (305.01651pt too wide) in paragraph at lines 619--620
+Overfull \hbox (305.01651pt too wide) in paragraph at lines 629--630
  [][] 
  []
 
 
-Overfull \hbox (12.22585pt too wide) in paragraph at lines 630--631
+Overfull \hbox (12.22585pt too wide) in paragraph at lines 640--641
 \OT1/ptm/m/n/10 sequence-generator helper func-tion called [][]\OT1/pcr/m/n/10 
 generateSeq n
  []
 
 
-Overfull \hbox (5.48598pt too wide) in paragraph at lines 630--631
+Overfull \hbox (5.48598pt too wide) in paragraph at lines 640--641
 \OT1/ptm/m/n/10 in the se-quence, gen-er-ates the se-quence. [][]\OT1/pcr/m/n/1
 0 generateSeq n
  []
 
 
-Overfull \hbox (1.03654pt too wide) in paragraph at lines 630--631
+Overfull \hbox (1.03654pt too wide) in paragraph at lines 640--641
 [][]\OT1/pcr/m/n/10 generateTriadWithinScale []\OT1/ptm/m/n/10 to gen-er-ate th
 e de-sired
  []
 
 
-Overfull \hbox (5.28467pt too wide) in paragraph at lines 636--658
+Overfull \hbox (5.28467pt too wide) in paragraph at lines 646--668
 \OT1/ptm/m/n/10 sig-na-ture and mid-composition time sig-na-ture changes (sim-
  []
 
 
-Overfull \hbox (2.37593pt too wide) in paragraph at lines 668--670
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [6 <./images/desc56-example.png>]
+Overfull \hbox (2.37593pt too wide) in paragraph at lines 678--680
 []\OT1/ptm/m/n/10 Reference num-bers in the text should ap-pear within square
  []
 
-(./icmc2021template.bbl [6 <./images/desc56-example.png>]) [7
+(./icmc2021template.bbl) [7
 
-]
-(./icmc2021template.aux)
+] (./icmc2021template.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -788,16 +752,16 @@ LaTeX Warning: There were undefined references.
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `icmc2021template.out' has not changed.
-(rerunfilecheck)             Checksum: 11095187B594717DAC458ACC61BEE29C;2695.
+(rerunfilecheck)             Checksum: D3C616ED6FB30836F598AA9A6BCA5E78;3429.
  ) 
 Here is how much of TeX's memory you used:
- 13773 strings out of 478268
- 224095 string characters out of 5846346
- 542040 words of memory out of 5000000
- 31724 multiletter control sequences out of 15000+600000
+ 13795 strings out of 478268
+ 224695 string characters out of 5846346
+ 542200 words of memory out of 5000000
+ 31741 multiletter control sequences out of 15000+600000
  486266 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 68i,23n,77p,1111b,480s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 68i,23n,77p,1111b,464s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/te
 xlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texli
@@ -809,10 +773,10 @@ live/2022/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/202
 2/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2022/texmf-di
 st/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/t
 ype1/urw/times/utmri8a.pfb>
-Output written on icmc2021template.pdf (7 pages, 913515 bytes).
+Output written on icmc2021template.pdf (7 pages, 939063 bytes).
 PDF statistics:
- 232 PDF objects out of 1000 (max. 8388607)
- 181 compressed objects within 2 object streams
- 42 named destinations out of 1000 (max. 500000)
- 187 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 255 PDF objects out of 1000 (max. 8388607)
+ 201 compressed objects within 3 object streams
+ 46 named destinations out of 1000 (max. 500000)
+ 216 words of extra memory for PDF output out of 10000 (max. 10000000)
 

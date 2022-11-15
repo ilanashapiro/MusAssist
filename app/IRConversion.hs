@@ -153,7 +153,6 @@ expandIntermediateExpr _ (MusAST.ChordTemplate (MusAST.Tone rootNoteName rootAcc
             return $ getChordInForm invertedSeventhTones
        
 -- | Quality is major/minor ONLY. tone+quality determines the start note and key of the cadence
--- **CADENCES WORK WITH NEW OCTAVE LOGIC, READY TO CONVERT
 expandIntermediateExpr symbolTable (MusAST.Cadence cadenceType (MusAST.Tone tonicNoteName tonicAccidental tonicOctave) quality duration) = 
     if quality `notElem` globalValidKeyQualities then return $ error "Cadence quality must be major or minor only"
     else do
@@ -187,11 +186,11 @@ expandIntermediateExpr symbolTable (MusAST.Cadence cadenceType (MusAST.Tone toni
                 
                 if cadenceType == MusAST.ImperfAuth then return [fourthRootTriad, majSeventhSecondInvDimTriad, tonicFirstInvTriad] 
                 else do
-                    -- tonic octave is lowered here bc we always want the root of the 6th chord in the imperf auth cadence
+                    -- tonic octave is lowered here bc we always want the root of the 6th chord in the deceptive cadence
                     -- to occur below the tonic in the scale in order for the cadence to make sense with voice leading
                     sixthSecondInvTriad <- generateTriadWithinScale symbolTable tonicRootToneOctBelow quality duration 5 MusAST.Second
                     
-                    -- tonic octave is lowered here bc we always want the root of the 5th chord in the imperf auth or half cadence
+                    -- tonic octave is lowered here bc we always want the root of the 5th chord in the deceptive or half cadence
                     -- to occur below the tonic in the scale in order for the cadence to make sense with voice leading
                     fifthSecondInvTriad <- generateTriadWithinScale symbolTable tonicRootToneOctBelow quality duration 4 MusAST.Second
 
