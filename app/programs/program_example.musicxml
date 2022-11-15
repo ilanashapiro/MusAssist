@@ -1980,7 +1980,7 @@
 				<chord/>
 				<pitch>
 					<step>D</step>
-					<alter>0</alter>
+					<alter>-1</alter>
 					<octave>6</octave>
 				</pitch>
 				<duration>1</duration>
@@ -1992,7 +1992,7 @@
 				<pitch>
 					<step>F</step>
 					<alter>0</alter>
-					<octave>6</octave>
+					<octave>5</octave>
 				</pitch>
 				<duration>1</duration>
 				<voice>1</voice>
@@ -2000,9 +2000,20 @@
 			</note>
 			<note>
 				<pitch>
+					<step>C</step>
+					<alter>-1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>1</duration>
+				<voice>1</voice>
+				<type>16th</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
 					<step>E</step>
 					<alter>-1</alter>
-					<octave>5</octave>
+					<octave>6</octave>
 				</pitch>
 				<duration>1</duration>
 				<voice>1</voice>
@@ -2014,28 +2025,6 @@
 					<step>G</step>
 					<alter>-1</alter>
 					<octave>5</octave>
-				</pitch>
-				<duration>1</duration>
-				<voice>1</voice>
-				<type>16th</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>B</step>
-					<alter>-1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>1</duration>
-				<voice>1</voice>
-				<type>16th</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>E</step>
-					<alter>-1</alter>
-					<octave>6</octave>
 				</pitch>
 				<duration>1</duration>
 				<voice>1</voice>

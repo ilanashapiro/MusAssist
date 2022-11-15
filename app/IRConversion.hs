@@ -157,20 +157,21 @@ expandIntermediateExpr symbolTable (MusAST.Cadence cadenceType (MusAST.Tone toni
     if quality `notElem` globalValidKeyQualities then return $ error "Cadence quality must be major or minor only"
     else do
         let tonicRootTone = MusAST.Tone tonicNoteName tonicAccidental tonicOctave
-            tonicRootToneOctAbove = MusAST.Tone tonicNoteName tonicAccidental (succ tonicOctave)
             tonicRootToneOctBelow = MusAST.Tone tonicNoteName tonicAccidental (pred tonicOctave)
         tonicRootTriadList <- expandIntermediateExpr symbolTable (MusAST.ChordTemplate tonicRootTone quality MusAST.Triad MusAST.ClosedChord MusAST.Root duration)
         let tonicRootTriad = head tonicRootTriadList
-            generateTriad = generateTriadWithinScale symbolTable tonicRootTone quality duration 
+            generateRootTriad interval = generateTriadWithinScale symbolTable tonicRootTone quality duration interval MusAST.Root
+            generateSecondInvTriad interval = generateTriadWithinScale symbolTable tonicRootToneOctBelow quality duration interval MusAST.Second
 
         -- tonic octave is lowered here bc we always want the root of the 4th chord in the plagal cadence
         -- to occur below the tonic in the scale in order for the cadence to make sense with voice leading
-        fourthSecondInvTriad <- generateTriadWithinScale symbolTable tonicRootToneOctBelow quality duration 3 MusAST.Second
+        fourthSecondInvTriad <- generateSecondInvTriad 3 
 
-        if cadenceType == MusAST.Plagal then return $ [fourthSecondInvTriad, tonicRootTriad] 
+        if cadenceType == MusAST.Plagal then return [fourthSecondInvTriad, tonicRootTriad] 
         else do
-            fourthRootTriad <- generateTriad 3 MusAST.Root
-            fifthRootTriad <- generateTriadWithinScale symbolTable tonicRootTone MusAST.Major duration 4 MusAST.Root-- can't use generateTriad since V chord is always major no matter the key, in a cadence
+            fourthRootTriad <- generateRootTriad 3 
+            -- can't use generateRootTriad since V chord is always major no matter the key, in a cadence
+            fifthRootTriad <- generateTriadWithinScale symbolTable tonicRootTone MusAST.Major duration 4 MusAST.Root
             let tonicDoubledRootChord = MusAST.Chord (tonicRootTriadTones ++ doubledRootTone) duration
                         where (MusAST.Chord tonicRootTriadTones _) = tonicRootTriad
                               doubledRootTone = [MusAST.Tone tonicNoteName tonicAccidental (succ tonicOctave)]
@@ -182,21 +183,22 @@ expandIntermediateExpr symbolTable (MusAST.Cadence cadenceType (MusAST.Tone toni
 
                 -- tonic octave is lowered here bc we always want the root of the maj7th chord in the imperf auth cadence
                 -- to occur below the tonic in the scale in order for the cadence to make sense with voice leading
-                majSeventhSecondInvDimTriad <- generateTriadWithinScale symbolTable tonicRootToneOctBelow quality duration 6 MusAST.Second
+                -- also, can't use generateSecondInvTriad since vii chord is always dim (i.e. built on maj7 scale deg) no matter the key, in a cadence
+                majSeventhSecondInvDimTriad <- generateTriadWithinScale symbolTable tonicRootToneOctBelow MusAST.Major duration 6 MusAST.Second
                 
                 if cadenceType == MusAST.ImperfAuth then return [fourthRootTriad, majSeventhSecondInvDimTriad, tonicFirstInvTriad] 
                 else do
                     -- tonic octave is lowered here bc we always want the root of the 6th chord in the deceptive cadence
                     -- to occur below the tonic in the scale in order for the cadence to make sense with voice leading
-                    sixthSecondInvTriad <- generateTriadWithinScale symbolTable tonicRootToneOctBelow quality duration 5 MusAST.Second
+                    sixthSecondInvTriad <- generateSecondInvTriad 5 
                     
                     -- tonic octave is lowered here bc we always want the root of the 5th chord in the deceptive or half cadence
                     -- to occur below the tonic in the scale in order for the cadence to make sense with voice leading
-                    fifthSecondInvTriad <- generateTriadWithinScale symbolTable tonicRootToneOctBelow quality duration 4 MusAST.Second
+                    fifthSecondInvTriad <- generateSecondInvTriad 4
 
                     if cadenceType == MusAST.Deceptive then return [fourthRootTriad, fifthSecondInvTriad, sixthSecondInvTriad] 
                     else do
-                        secondFirstInvTriad <- generateTriad 1 MusAST.First
+                        secondFirstInvTriad <- generateTriadWithinScale symbolTable tonicRootTone quality duration 1 MusAST.First
                         return [fourthRootTriad, secondFirstInvTriad, fifthRootTriad] -- Half Cadence
 
 -- | Quality is major/minor ONLY. tone+quality determines the start note and key of the harmseq
