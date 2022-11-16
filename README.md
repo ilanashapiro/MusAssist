@@ -64,3 +64,10 @@ chord (Deceptive Cadence, Eb5 minor, sixteenth) chords1
 </pre>
 
 ![image](https://user-images.githubusercontent.com/28958079/202308303-2c0ef145-49a1-4bdf-acba-ec94817bd3f2.png)
+
+Notice the following:
+<ul>
+  <li>The key signature can be changed consecutively arbitrarily many times; only the last will take effect (as seen m. 1 and m. 12)</li>
+  <li>Note durations are broken both on the strong beat and on the barline (such as in mm. 2-4)</li>
+  <li>Labeled phrases are not notated until the label is referenced, rather than defined</li>
+</ul>
