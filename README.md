@@ -17,13 +17,13 @@ paradigm was chosen to correspond with the declarative nature of handwritten mus
 
 Fundamentally, MusAssist supports notes (including rests) and custom chords (i.e. any desired collection of notes)
 in the octave and key of choice, as well as commands to change the key signature or start a new measure.
- MusAssist is unique in that users can also write specifications for complex musical templates \textit{at the same level of abstraction
-as the musical theoretical structures they describe}. MusAssist supports templates for
-\textbf{chords} (all triads and seventh chords in any inversion),
-\textbf{scales} (all diatonic scales, as well as chromatic and whole tone),
-\textbf{scales} (all triad and seventh arpeggios in any inversion),
-\textbf{cadences} (perfect authentic, imperfect authentic, plagal, half, deceptive), and 
-\textbf{harmonic sequences} (ascending
+ MusAssist is unique in that users can also write specifications for complex musical templates <em>at the same level of abstraction
+as the musical theoretical structures they describe</em>. MusAssist supports templates for
+<b>chords</b> (all triads and seventh chords in any inversion),
+<b>scales</b> (all diatonic scales, as well as chromatic and whole tone),
+<b>scales</b> (all triad and seventh arpeggios in any inversion),
+<b>cadences</b> (perfect authentic, imperfect authentic, plagal, half, deceptive), and 
+<b>harmonic sequences</b> (ascending
 fifths, descending fifths, ascending 5-6, descending 5-6) of a desired length. The musical expression 
 described by a specification is completely expanded out (i.e. the level of abstraction is
 fully lowered to the note level) by the Haskell-based MusAssist compiler.
