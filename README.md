@@ -1,6 +1,6 @@
 # MusAssist
 
-(NOTE: the compiler code and associated MusAssist code examples are all located in the "app" folder of this directory")
+(NOTE: the compiler code and associated MusAssist code examples are all located in the "app" folder of this directory. Instructions for running programs are in app/Compile.hs)
 
 When writing music, composers must manually transition from musical theoretical concepts to notes on a page.
 This process can be tedious and slow, requiring the composer to expand complex structures, such as cadences and sequences,
