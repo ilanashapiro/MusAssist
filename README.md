@@ -39,19 +39,28 @@ and its expanded form, such as a cadence and the chords resulting from its expan
 Example program (note how note lengths are broken up on the strong beat of the measure in addition to the barlines):
 <pre>
 SET_KEY A major
-(D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest sixteenth)           // this is a comment
-notes1 = (D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest whole)  // note without b or # is considered to be natural
-chords1 = ([Bbb5, Db5, C5] half) ([C#5, E5] half) (D6 minor arpeggio, root inversion, eighth) (F#4 half diminished seventh chord, second inversion, eighth)
-(D4 whole) (F#4 quarter) (Ab4 quarter) (G##4 eighth) (rest sixteenth)  // note without b or # is considered to be natural
-([Bbb5, Db5, C5] half) ([C#5, E5] half) (C6 minor triad, first inversion, quarter) (F#4 half diminished seventh chord, second inversion, eighth) (rest quarter)
+SET_KEY A major
+SET_KEY G major
+(D4 whole) (F#4 quarter) (Ab4 dotted_quarter) (G#4 eighth) (rest sixteenth)
+// note without b or # is natural
+notes1 = (D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest whole)  
+chords1 = ([Bbb5, Db5, C5] half) ([C#5, E5] half) 
+chord = (D6 minor arpeggio, root inversion, eighth) 
+(F#4 half diminished seventh chord, second inversion, eighth)
+(D4 whole) (F#4 dotted_quarter) (Ab4 quarter) (G##4 eighth) (rest sixteenth) 
+NEW_MEASURE
+NEW_MEASURE
+([Bbb5, Db5, C5] half) 
+([C#5, E5] half) (C6 minor triad, first inversion, dotted_eighth) 
+(F#4 half diminished seventh chord, second inversion, eighth) 
 (D#4 diminished seventh arpeggio, root inversion, quarter)
 SET_KEY D minor
-NEW_MEASURE
+SET_KEY C# major
 (C harmonic minor descending scale, startNote = Eb4, quarter, length=10)
-(Descending Fifths Sequence, G5 minor, quarter, length=15) (Perfect Authentic Cadence, Eb5 minor, half)
-notes1 chords1 (Ascending Fifths Sequence, G3 minor, quarter, length=5) chords1 (Perfect Authentic Cadence, Eb5 minor, sixteenth) chords1
+(Descending Fifths Sequence, G5 minor, quarter, length=15) 
+(Perfect Authentic Cadence, D#5 major, half)
+notes1 chords1 (Ascending Fifths Sequence, G#3 minor, quarter, length=5) 
+chord (Deceptive Cadence, Eb5 minor, sixteenth) chords1
 </pre>
 
-<img width="665" alt="image" src="https://user-images.githubusercontent.com/28958079/201023259-e3faea28-302c-4813-a75a-e405dec7bb16.png">
-
-  
+![image](https://user-images.githubusercontent.com/28958079/202308303-2c0ef145-49a1-4bdf-acba-ec94817bd3f2.png)
