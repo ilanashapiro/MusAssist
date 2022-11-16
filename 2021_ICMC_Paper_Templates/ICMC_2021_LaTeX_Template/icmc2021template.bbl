@@ -21,17 +21,38 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{Someone:09}
-A.~Someone, B.~Someone, and C.~Someone, ``The Title of the Journal Paper,''
-  \emph{J. New Music Research}, vol.~12, no.~2, pp. 111--222, 2009.
+\bibitem{wang_2008}
+\BIBentryALTinterwordspacing
+G.~Wang, ``The Chuck Audio Programming Language: “A Strongly-timed and
+  On-the-fly Environ/mentality”,'' 2008. [Online]. Available:
+  \url{https://www.cs.princeton.edu/~gewang/thesis.html}
+\BIBentrySTDinterwordspacing
 
-\bibitem{Someone:04}
-X.~Someone and Y.~Someone, \emph{The Title of the Book}.\hskip 1em plus 0.5em
-  minus 0.4em\relax Springer-Verlag, 2004.
+\bibitem{good_2013}
+\BIBentryALTinterwordspacing
+M.~Good, ``MusicXML: Introduction,'' Apr 2013. [Online]. Available:
+  \url{https://www.musicxml.com/publications/makemusic-recordare/notation-and-analysis/introduction/}
+\BIBentrySTDinterwordspacing
 
-\bibitem{Someone:13}
-A.~Someone, B.~Someone, and C.~Someone, ``The Title of the Conference Paper,''
-  in \emph{Proceedings of the 2005 International Computer Music Conference},
-  Barcelona, 2005, pp. 213--218.
+\bibitem{good_2001}
+\BIBentryALTinterwordspacing
+------, \emph{MusicXML: An Internet-Friendly Format for Sheet Music}, Dec 2001.
+  [Online]. Available:
+  \url{https://michaelgood.info/publications/music/musicxml-an-internet-friendly-format-for-sheet-music/}
+\BIBentrySTDinterwordspacing
+
+\bibitem{nienhuys_nieuwenhuizen_2003}
+\BIBentryALTinterwordspacing
+H.-W. Nienhuys and J.~Nieuwenhuizen, \emph{LilyPond, A System for Automated
+  Music Engraving}, May 2003. [Online]. Available:
+  \url{https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.100.6160&amp;rep=rep1&amp;type=pdf}
+\BIBentrySTDinterwordspacing
+
+\bibitem{simic_bal_dejanovic_vaderna}
+\BIBentryALTinterwordspacing
+M.~Simić, Z.~Bal, I.~Dejanovic, and R.~Vaderna, ``PyTabs: A {DSL} for
+  simplified music notation,'' \emph{ResearchGate}, 2015. [Online]. Available:
+  \url{https://www.researchgate.net/publication/312607043_PyTabs_A_DSL_for_simplified_music_notation}
+\BIBentrySTDinterwordspacing
 
 \end{thebibliography}

@@ -231,7 +231,7 @@ MusAssist matches that of the theoretical musical structure it describes (e.g. u
  Haskell-based MusAssist compiler and is finally translated to MusicXML, a language accepted by most 
  major music notation software, for further manual editing. 
 \end{abstract}
-%
+
 
 \section{Introduction}\label{sec:introduction}
 When writing music, composers must manually transition from musical theoretical concepts to notes on a page.
@@ -274,7 +274,7 @@ spans the application domains of ``methods for sound synthesis, physical modelin
 musical instruments, environmental sounds), analysis and information retrieval of sound and music, to 
 mapping and crafting of new controllers and interfaces (both software and physical) for music, 
 algorithmic/generative processes for automated or semi-automatic composition and accompaniment, [and] 
-real-time music performance." %\citeparen{wang_2008}. 
+real-time music performance." \cite{wang_2008}. 
 Since then, researchers have taken advantage of the increased flexibility afforded to DSLs via their limited expressiveness to create
 music DSLs tailored towards notation, algorithmic composition, signal processing, live coding with music performance, and more. In the 
  notation domain, MusicXML, LilyPond, and PyTabs stand out.
@@ -282,7 +282,7 @@ music DSLs tailored towards notation, algorithmic composition, signal processing
 Michael Good's MusicXML is an Internet-friendly, XML-based, declarative DSL capable of representing Western music 
 notation and sheet music since c. 1600. 
 It acts as an "interchange format for applications in music notation, music analysis, music information retrieval, 
-and musical performance," thus supporting sharing between specialized applications. %\cite{good_2013}
+and musical performance," thus supporting sharing between specialized applications. \cite{good_2013}
 
 MusicXML attempts to emulate for online sheet music and music software what the popular MIDI format 
 did for electronic instruments. It is derived from XML in order to help solve the music 
@@ -290,7 +290,7 @@ interchange problem: to create a standardized method to represent complex, struc
 smooth interchange between "musical notation, performance, analysis, and retrieval applications." XML has the 
 desired qualities of "straightforward usability over the Internet, ease of creating documents, and human readability" 
 that translate directly into the musical domain, and it is more powerful and expressive 
-than MIDI. %\cite{good_2001}
+than MIDI. \cite{good_2001}
 
 MusicXML is more expressive than MusAssist, but the
 level of abstraction of all musical elements is extremely low (i.e. chords must be written out 
@@ -302,7 +302,7 @@ LilyPond, an external declarative DSL created by Han-Wen Nienhuys and
 Jan Nieuwenhuizen, is similar to MusAssist. It features a "modular, extensible and programmable 
 compiler" written in Scheme to generate Western music notation of excellent quality and supports the mixing of text and music elements. 
 Text-based \textit{musical expressions}, or fragments of music with 
-set durations, are compiled to an aesthetically formatted score.
+set durations, are compiled to an aesthetically formatted score.\cite{nienhuys_nieuwenhuizen_2003}
 
 LilyPond and MusAssist are both music notation DSLs tailored to non-programming audiences. However, 
 they differ in two fundamental areas: 
@@ -311,7 +311,7 @@ musical structures they represent, whereas LilyPond only supports
 more granular, low level composition of individual notes and chords, and (2) the output of the MusAssist compiler is intentionally editable via
 notation software, unlike LilyPond's compiler, which produces a static, printable PostScript or PDF file by 
 taking in a file with a formal representation of the desired music.
-%\cite{nienhuys_nieuwenhuizen_2003}.
+\cite{nienhuys_nieuwenhuizen_2003}.
 
 Simic et al.'s external, declarative DSL PyTabs similarly is geared toward music notation, but in a different
 domain than MusAssist. Specifically, 
@@ -319,7 +319,7 @@ the authors attempt to solve visual problem of  tablature  notation,
 and the lack of standardization of how  to specify note duration in this format, by consolidating 
 these issues into a formal language. Tablature notation is outside the scope of MusAssist's focus on Western 
 musical theoretical structures.
- % \citeparen{simic_bal_dejanovic_vaderna}.
+ \cite{simic_bal_dejanovic_vaderna}.
 
 \section{Language Features}\label{sec:language_features}
 \subsection{Low-Level Fundamentals}
@@ -645,45 +645,10 @@ All chords are converted to root position in order to visualize the octave numbe
 Importantly, the interval analysis in \figref{fig:desc_56_intervals} holds for any representation of a harmonic sequence, as this is what defines the musical theoretical structure. However, the inversion and octave analyses in Figures \ref{fig:desc_56_intervals} and \ref{fig:desc56-example} hold only for MusAssist's chosen representation of the sequences in \tabref{table:harmseq}, as a different inversion scheme would alter the outcome of these analyses.
 
 \section{Conclusion}
-This paper presents MusAssist, an external, declarative DSL for music notation that closes the abstraction gap between music theory and written composition. Users can uniquely write specifications in MusAssist's simple and high-level syntax for scales, chords, arpeggios, cadences, and harmonic sequences at the precisely levels of abstraction of the musical theoretical structures they describe. Fundamental musical elements such as notes, rests, custom note collections, new measures, and key signatures are also supported, along with ease-of-use language features such as reusable labeled expressions and comments. The Haskell-based compiler translates MusAssist to MusicXML so that the composition can be loaded into music notation software for further customization. 
+This paper presents MusAssist, an external, declarative DSL for music notation that closes the abstraction gap between music theory and written composition. Users can uniquely write specifications in MusAssist's simple and high-level syntax for scales, chords, arpeggios, cadences, and harmonic sequences at the precisely levels of abstraction of the musical theoretical structures they describe. Fundamental musical elements such as notes, rests, custom note collections, new measures, and key signatures are also supported, along the ability to reuse labeled expressions and indicate comments. MusAssist programs are translated by its Haskell-based compiler to MusicXML so that the composition can be loaded into notation software for further manual editing. 
 
 
-Ideally, in the future MusAssist would support additional and  complex musical states and elements including
-custom time signature and mid-composition time signature changes (similar to the behavior
-currently implemented for key signatures), clef changes within a part, multiple-clef parts (e.g.
-piano), multiple voicing within a part, custom parts (i.e. instruments), and multiple part compositions.
-Custom and changeable time signature would allow for the users to experiment with metric modulation,
-something that is currently impossible with the fixed common time setup. Clef changes within a
-part, both manual and automatic when a note extends too many ledger lines beyond a clef, would
-allow the score to be more aesthetically formatted and readable for the user. Support for two-clef piano
-would allow the MusAssist compiler to successfully modify how it generates cadences and harmonic
-sequences to include the essential baseline, in addition to the harmonization already implemented.
-Multiple voicing would allow for the user to create more complex musical lines, particularly with
-counterpoint. The latter two goals (custom parts and multiple parts) are somewhat outside MusAs-
-sist’s goal as a music compositional aid, as this extends beyond the realm of music theory. However,
-users may enjoy this increased flexibility when composing. Furthermore, in line with its goal of
-offering the user complex musical templates, it would be ideal for MusAssist to provide support for
-key modulation; e.g. generating a sequence of chords that successfully modulates from one key to
-another key. More complex/non-classical chords, such as all flavors of suspended, ninth, eleventh,
-and thirteen chords (often seen in jazz) are a future goal as well. It would also be ideal for MusAssist
-to be able to generate scales in any key, of any type (i.e. major, harmonic minor, octatonic etc),
-and of any length. Finally, MusAssist would in the future support more complex rhythms where
-any number of notes could be grouped over any number of beats (i.e. triplet, which is three eighths
-over a quarter note, or a 4:3 rhythm of four eighths over three quarter notes)
-
-
-
-
-
-\section{Citations}
-All bibliographical references should be listed at the end, inside a section named ``REFERENCES''.
-
-References must be numbered {\ul {in order of appearance}}, {\em not} alphabetically. Please avoid listing references that do not appear in the text.
-
-Reference numbers in the text should appear within square brackets, such as 
-in~\cite{Someone:09} or~\cite{Someone:04,Someone:13}.
-
-The reference format is the standard IEEE one. We recommend using BibTeX to create the reference list.
+Ideally, in the future MusAssist would support additional templates, as well as increase the customizability of existing templates that are not fully expressive.  Support for complex or non-classical chords, such as all flavors of suspended, ninth, eleventh, and thirteen chords (often seen in jazz), is planned, as well as templates for key modulations; i.e. specifications for generating a sequence of chords that successfully modulates from one key to another. Furthermore, the current MusAssist template expansions for cadences and harmonic sequences are limited to the representation schemes outlined in Tables \ref{table:cadences} and \ref{table:harmseq}. In order for MusAssist to fully close the abstraction gap between the musical theoretical structures it formalizes and their low-level notational forms, all theoretical variations of the structures, beyond the current patterns, should be supported. Support for two-clef composition (as opposed to the current single-clef system) would also allow for cadences and harmonic sequences, as well as future complex templates like key modulations, to better align with their musical theoretical definitions by including the essential baseline. Finally, user studies of MusAssist would give further insight into potential improvements for language design. 
 
 \begin{acknowledgments}
 I am very grateful to Professor Ben Wiedermann of Harvey Mudd College for his invaluable mentorship throughout this project.
