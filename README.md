@@ -1,6 +1,6 @@
 # MusAssist
 
-(NOTE: the compiler code and associated MusAssist code examples are all located in the "app" folder of this directory. Instructions for running programs are in app/Compile.hs)
+(NOTE: the compiler code and associated MusAssist code examples are all located in the "app" folder of this directory. Instructions for running programs are in app/Compile.hs. Conference paper in submission can be accessed <a href="https://github.com/ilanashapiro/MusAssist/blob/main/2021_ICMC_Paper_Templates/ICMC_2021_LaTeX_Template/icmc2021template.pdf">HERE</a>)
 
 When writing music, composers must manually transition from musical theoretical concepts to notes on a page.
 This process can be tedious and slow, requiring the composer to expand complex structures, such as cadences and sequences,
