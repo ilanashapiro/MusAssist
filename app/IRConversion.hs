@@ -44,7 +44,7 @@ incrementFirstNElems n l = map succ left ++ right
                         -- quality that the computed accidentals are valid for).
 globalStepsFromTonicToAccInfoMap :: Map Int ([MusAST.NoteName], MusAST.Accidental -> MusAST.Accidental, Maybe MusAST.Quality)
 globalStepsFromTonicToAccInfoMap = Map.fromList
-    [(0, ([], (succ . pred), Nothing)),                            -- root
+    [(0, ([], succ . pred, Nothing)),                            -- root
      (1, (drop 5 globalOrderOfSharps, succ, Nothing)),             -- seconds
      (2, (take 3 globalOrderOfSharps, pred, Just MusAST.Minor)),   -- thirds
      (3, ([MusAST.F], pred, Nothing)),                             -- fourths
@@ -102,13 +102,13 @@ expandIntermediateExpr _ (MusAST.Note tone duration) = return [MusAST.Chord [ton
 -- | Predefined chords
 expandIntermediateExpr _ (MusAST.ChordTemplate (MusAST.Tone rootNoteName rootAccidental rootOctave) quality chordType chordForm inversion duration) 
     | rootAccidental == MusAST.DoubleFlat || rootAccidental == MusAST.DoubleSharp = return [error "Cannot build chord on a double flat or sharp"]
-    | chordType == MusAST.Triad && quality == MusAST.HalfDiminished = return [error "Cannot have a half diminished triad"]
+    | chordType == MusAST.Triad && quality `elem` [MusAST.Dominant, MusAST.HalfDiminished] = return [error $ "Cannot have a " ++ show quality ++ " triad"]
     | otherwise = do
         let tonicTone = MusAST.Tone rootNoteName rootAccidental rootOctave
-            toneQualityWithinScale = case quality of -- can only get tones within a valid (i.e. major/minor) scale
-                MusAST.Major     -> MusAST.Major
-                MusAST.Augmented -> MusAST.Major
-                _                -> MusAST.Minor
+            toneQualityWithinScale = -- can only get tones within a valid (i.e. major/minor) scale
+                if quality `elem` [MusAST.Major, MusAST.Augmented, MusAST.Dominant] 
+                    then MusAST.Major
+                else MusAST.Minor
             generateToneFromTonic = generateToneWithinScale tonicTone toneQualityWithinScale
 
         (MusAST.Tone thirdNoteName thirdAccidental thirdOctave) <- generateToneFromTonic 2
@@ -134,18 +134,18 @@ expandIntermediateExpr _ (MusAST.ChordTemplate (MusAST.Tone rootNoteName rootAcc
                 let invertedTriadOctaves = incrementFirstNElems inversionVal triadOctaves
                     -- NOTE: musescore doesn't care which note is on "top" of the chord in the musicXML: only that the correct notes are in the chord
                     -- thus, we don't need to rotate the array of triad tones to fit the inversion in the musicXML code
-                    invertedTriadTones = zipWith3 (\noteName accidental octave -> MusAST.Tone noteName accidental octave) triadNoteNames triadAccidentals invertedTriadOctaves
+                    invertedTriadTones = zipWith3 MusAST.Tone triadNoteNames triadAccidentals invertedTriadOctaves
                 in return $ getChordInForm invertedTriadTones
         else do
             (MusAST.Tone seventhNoteName seventhAccidental seventhOctave) <- generateToneFromTonic 6
-            let adjustedSeventhAcc = case quality of
-                    MusAST.Augmented  -> pred seventhAccidental -- since augmented is generated w.r.t. major key
-                    MusAST.Diminished -> pred seventhAccidental -- since dim is generated w.r.t. minor key
-                    _                 -> seventhAccidental 
-                
+            let adjustedSeventhAcc =
+                    -- since augmented and dominant are generated w.r.t. major key, and dim is generated w.r.t. minor key
+                    if quality `elem` [MusAST.Dominant, MusAST.Augmented, MusAST.Diminished] 
+                        then pred seventhAccidental
+                    else seventhAccidental
                 invertedSeventhOctaves = incrementFirstNElems inversionVal (triadOctaves ++ [seventhOctave])
                 invertedSeventhTones   = 
-                    zipWith3 (\noteName accidental octave -> MusAST.Tone noteName accidental octave) 
+                    zipWith3 MusAST.Tone
                         (triadNoteNames ++ [seventhNoteName])
                         (triadAccidentals ++ [adjustedSeventhAcc])
                         invertedSeventhOctaves

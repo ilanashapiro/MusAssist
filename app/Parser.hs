@@ -205,7 +205,8 @@ parseQuality =
   try (symbol "major"           >>: Major) -- have to "try" here bc "m" is prefix of both maj and min
   <|> (symbol "minor"           >>: Minor)
   <|> (symbol "augmented"       >>: Augmented)
-  <|> (symbol "diminished"      >>: Diminished)
+  <|> try (symbol "dominant"      >>: Dominant) -- have to "try" here bc "d" is prefix of both maj and min
+  <|> (symbol "dominant"      >>: Diminished)
   <|> (symbol "half diminished" >>: HalfDiminished)
   <?> "expected quality"
 

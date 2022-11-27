@@ -53,11 +53,6 @@
 %user defined variables
 \def\papertitle{MusAssist: A Domain Specific Language for Music Notation}
 \def\firstauthor{Ilana Shapiro}
-\def\secondauthor{Second Author}
-\def\thirdauthor{Third Author}
-\def\fourthauthor{Fourth Author}
-\def\fifthauthor{Fifth Author}
-\def\sixthauthor{Sixth Author}
 
 % adds the automatic
 % Saves a lot of output space in PDF... after conversion with the distiller
@@ -77,7 +72,7 @@
 \ifpdf % compiling with pdflatex
   \usepackage[pdftex,
     pdftitle={\papertitle},
-    pdfauthor={\firstauthor, \secondauthor, \thirdauthor},
+    pdfauthor={\firstauthor},
     bookmarksnumbered, % use section numbers with bookmarks
     pdfstartview=XYZ % start with zoom=100% instead of full screen; 
                      % especially useful if working with a big screen :-)
@@ -218,12 +213,12 @@
 \capstarttrue
 %
 \begin{abstract}
-MusAssist is an external, declarative domain specific language for music notation that bridges the abstraction gap between music theory and composition. Users can describe complex musical 
+MusAssist is an external, declarative domain specific language for music notation that bridges the abstraction gap between music theory and composition. Users can describe  
 templates for all triads and seventh chords, 
 all diatonic as well as chromatic and whole tone scales, the five primary cadences (including imperfect authentic), 
-and the four primary harmonic sequences with desired length. Uniquely, the level of abstraction of a template 
-MusAssist matches that of the theoretical musical structure it describes (e.g. users can specify
- a harmonic sequence without manually lowering the granularity to chords and notes). Thus, users can write out specifications precisely at the conceptual levels of the musical theoretical structures 
+and the four primary harmonic sequences with desired length. Uniquely, the level of abstraction of a MusAssist template 
+ matches that of the theoretical musical structure it describes (e.g. users can specify
+ a harmonic sequence without manually lowering the granularity to chords and notes). Thus, users  write out specifications precisely at the conceptual levels of the musical theoretical structures 
  they would organically conceive when composing by hand. In MusAssist, users can also change key signatures, 
  start a new measure, and describe fundamental musical objects such as notes, rests, and chords comprised of 
  custom collections of notes. A musical expression described by a higher level template is expanded  
@@ -235,7 +230,7 @@ MusAssist matches that of the theoretical musical structure it describes (e.g. u
 
 \section{Introduction}\label{sec:introduction}
 When writing music, composers must manually transition from musical theoretical concepts to notes on a page.
-This process can be tedious and slow, requiring the composer to expand by hand complex structures, such as cadences and sequences,
+This process can be tedious and slow, requiring the composer to manually expand complex structures, such as cadences and sequences, 
 to the notes they constitute. The level of abstraction of the musical theoretical structure is 
 higher than what the composer actually writes. 
 
@@ -528,7 +523,7 @@ Most MusAssist templates are built upon the diatonic scale. In order to formaliz
 
 To determine note name, we simply transverse up the order of note names (ordered as the C major scale is) from the tonic to the target interval. 
 
-The desired octave is either the same as the the tonic's, or one greater than the tonic's if the desired note name comes before the tonic note name in the C major scale. For instance, as seen in \figref{note_octaves}, the red note names D, E, and F come before G in the C major scale, and the octave number of each is one higher than the tonic in a G major scale. 
+The desired octave is either the same as the tonic's, or one greater than the tonic's if the desired note name comes before the tonic note name in the C major scale. For instance, as seen in \figref{note_octaves}, the red note names D, E, and F come before G in the C major scale, and the octave number of each is one higher than the tonic in a G major scale. 
 
 \vspace{-2mm}
 \begin{figure}[h!]
@@ -622,7 +617,7 @@ In order to generate chord templates for a sequence, we need to determine
 \begin{enumerate}
 \itemsep0em 
 \item the interval between each pair of chordal roots, which dictates how to proceed from one chord to the next in the sequence
-\item the inversion of the each chord
+\item the inversion of each chord
 \item the octave number of each chord (given by the chordal root octave) relative to the tonic
 \end{enumerate}
 
@@ -656,7 +651,7 @@ Importantly, the interval analysis in \figref{fig:desc_56_intervals} holds for a
 This paper presents MusAssist, an external, declarative DSL for music notation that closes the abstraction gap between music theory and written composition. Users can uniquely write specifications in MusAssist's simple and high-level syntax for scales, chords, arpeggios, cadences, and harmonic sequences at the precisely levels of abstraction of the musical theoretical structures they describe. Fundamental musical elements such as notes, rests, custom note collections, new measures, and key signatures are also supported, along the ability to reuse labeled expressions and indicate comments. MusAssist programs are translated by its Haskell-based compiler to MusicXML so that the composition can be loaded into notation software for further manual editing. 
 
 
-Optimally, in the future MusAssist would support templates for additional non-diatonic structures like octatonic and penatotic scales, as well as all flavors of suspended, ninth, eleventh, and thirteen chords (often seen in jazz). Templates for key modulations (i.e. specifications for generating a sequence of chords that successfully modulates from one key to another) are also planned. Furthermore, MusAssist would ideally increase the customizability of existing templates that are not fully expressive.  The current MusAssist template expansions for cadences and harmonic sequences are limited to the representation schemes outlined in Tables \ref{table:cadences} and \ref{table:harmseq}. In order for MusAssist to fully close the abstraction gap between the musical theoretical structures it formalizes and their low-level notational forms, all theoretical variations of the structures within the principles of functional harmony should be supported. Support for two-clef composition (as opposed to the current single-clef system) would allow for cadences and harmonic sequences, as well as future complex templates like key modulations, to better align with their musical theoretical definitions by including the essential baseline. Finally, user studies of MusAssist would give  insight into potential improvements for language design. 
+Optimally, in the future MusAssist would support templates for additional non-diatonic structures like octatonic and pentatonic scales, as well as all flavors of suspended, ninth, eleventh, and thirteen chords (often seen in jazz). Templates for key modulations (i.e. specifications for generating a sequence of chords that successfully modulates from one key to another) are also planned. Furthermore, MusAssist would ideally increase the customizability of existing templates that are not fully expressive.  The current MusAssist template expansions for cadences and harmonic sequences are limited to the representation schemes outlined in Tables \ref{table:cadences} and \ref{table:harmseq}. In order for MusAssist to fully close the abstraction gap between the musical theoretical structures it formalizes and their low-level notational forms, all theoretical variations of the structures within the principles of functional harmony should be supported. Support for two-clef composition (as opposed to the current single-clef system) would allow for cadences and harmonic sequences, as well as future complex templates like key modulations, to better align with their musical theoretical definitions by including the essential baseline. Finally, user studies of MusAssist would give insight into potential improvements for language design. 
 
 \begin{acknowledgments}
 I am very grateful to Professor Ben Wiedermann of Harvey Mudd College for his invaluable mentorship throughout this project.

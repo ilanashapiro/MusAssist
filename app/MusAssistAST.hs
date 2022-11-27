@@ -82,6 +82,7 @@ data Quality =
     | Minor
     | Augmented      -- chords only
     | Diminished     -- chords only
+    | Dominant       -- chords only
     | HalfDiminished -- seventh chords only
   deriving (Eq, Show, Read)
 
