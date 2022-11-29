@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.13)  29 NOV 2022 15:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.13)  29 NOV 2022 15:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -677,8 +677,8 @@ Overfull \hbox (5.30568pt too wide) in paragraph at lines 521--522
 
 [5 <./images/chromatic.png> <./images/whole_tone.png> <./images/cadence_octaves
 .png>]
-Overfull \hbox (5.19633pt too wide) in paragraph at lines 523--524
-[]\OT1/ptm/m/n/10 Tje oc-tave num-ber of each chord (given by the chordal
+Overfull \hbox (7.41644pt too wide) in paragraph at lines 523--524
+[]\OT1/ptm/m/n/10 The oc-tave num-ber of each chord (given by the chordal
  []
 
 
@@ -759,7 +759,7 @@ ve/2022/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2022/
 texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2022/texmf-dist
 /fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/typ
 e1/urw/times/utmri8a.pfb>
-Output written on icmc2021template.pdf (6 pages, 1206170 bytes).
+Output written on icmc2021template.pdf (6 pages, 1206168 bytes).
 PDF statistics:
  285 PDF objects out of 1000 (max. 8388607)
  230 compressed objects within 3 object streams
