@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.13)  29 NOV 2022 14:48
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.13)  29 NOV 2022 15:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -521,18 +521,6 @@ LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 2
 (/usr/local/texlive/2022/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-Overfull \hbox (45.19478pt too wide) in paragraph at lines 228--233
-\OT1/ptm/m/n/10 enth chords in any in-ver-sion), \OT1/ptm/b/n/10 scales \OT1/pt
-m/m/n/10 (ma-jor, nat-u-ral/harmonic/melodic
- []
-
-
-Overfull \hbox (1.84558pt too wide) in paragraph at lines 228--233
-\OT1/ptm/m/n/10 as-cend-ing 5-6, de-scend-ing 5-6) of a de-sired length. MusAs-
-
- []
-
-
 Overfull \hbox (4.72495pt too wide) in paragraph at lines 243--244
 \OT1/ptm/m/n/10 ChucK au-dio pro-cess-ing lan-guage for sound syn-the-sis. With
 
@@ -754,7 +742,7 @@ Package rerunfilecheck Info: File `icmc2021template.out' has not changed.
 Here is how much of TeX's memory you used:
  13799 strings out of 478268
  224810 string characters out of 5846346
- 542237 words of memory out of 5000000
+ 543237 words of memory out of 5000000
  31742 multiletter control sequences out of 15000+600000
  486266 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -771,7 +759,7 @@ ve/2022/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2022/
 texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2022/texmf-dist
 /fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/typ
 e1/urw/times/utmri8a.pfb>
-Output written on icmc2021template.pdf (6 pages, 1206150 bytes).
+Output written on icmc2021template.pdf (6 pages, 1206170 bytes).
 PDF statistics:
  285 PDF objects out of 1000 (max. 8388607)
  230 compressed objects within 3 object streams
