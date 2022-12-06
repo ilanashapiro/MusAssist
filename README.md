@@ -67,7 +67,8 @@ chord (Deceptive Cadence, Eb5 minor, sixteenth) chords1
 
 Notice the following:
 <ul>
-  <li>The key signature can be changed consecutively arbitrarily many times; only the last will take effect (as seen m. 1 and m. 12)</li>
-  <li>Note durations are broken both on the strong beat and on the barline (such as in mm. 2-4)</li>
-  <li>Labeled phrases are not notated until the label is referenced, rather than defined</li>
+  <li>The key signature can be changed consecutively as many times as desired, but only the last will take effect (as seen m. 1 and m. 12 of the bottom figure). Changing the key signature triggers a new measure.</li>
+  <li>Note durations are automatically broken by the compiler both on the strong beat and on the barline (such as in mm. 2-4 of the bottom figure).</li>
+  <li>Labeled phrases are not notated until the label is referenced, rather than defined.</li>
+  <li>The difference between a customized chord and a chord template is exemplified on line 14 of the top figure.</li>
 </ul>
