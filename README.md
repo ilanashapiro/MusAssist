@@ -46,14 +46,14 @@ SET_KEY G major
 notes1 = (D4 whole) (F#4 quarter) (Ab4 quarter) (G#4 eighth) (rest whole)  
 chords1 = ([Bbb5, Db5, C5] half) ([C#5, E5] half) 
 chord = (D6 minor arpeggio, root inversion, eighth) 
-(F#4 half diminished seventh chord, second inversion, eighth)
+(F#4 dominant seventh chord, third inversion, eighth)
 (D4 whole) (F#4 dotted_quarter) (Ab4 quarter) (G##4 eighth) (rest sixteenth) 
 NEW_MEASURE
 NEW_MEASURE
 ([Bbb5, Db5, C5] half) 
 ([C#5, E5] half) (C6 minor triad, first inversion, dotted_eighth) 
 (F#4 half diminished seventh chord, second inversion, eighth) 
-(D#4 diminished seventh arpeggio, root inversion, quarter)
+(D#4 augmented seventh arpeggio, root inversion, quarter)
 SET_KEY D minor
 SET_KEY C# major
 (C harmonic minor descending scale, startNote = Eb4, quarter, length=10)
@@ -63,7 +63,7 @@ notes1 chords1 (Ascending Fifths Sequence, G#3 minor, quarter, length=5)
 chord (Deceptive Cadence, Eb5 minor, sixteenth) chords1
 </pre>
 
-![image](https://user-images.githubusercontent.com/28958079/202308303-2c0ef145-49a1-4bdf-acba-ec94817bd3f2.png)
+![image](https://user-images.githubusercontent.com/28958079/205985367-090d2348-7a72-4b11-a38c-37e1979a8983.png)
 
 Notice the following:
 <ul>
