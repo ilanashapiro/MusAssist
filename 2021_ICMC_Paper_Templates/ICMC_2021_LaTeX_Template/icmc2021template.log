@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.13)  14 JAN 2023 12:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.13)  14 JAN 2023 15:05
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -565,6 +565,9 @@ Overfull \hbox (5.89522pt too wide) in paragraph at lines 253--254
  []
 
 
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 Overfull \hbox (1.20468pt too wide) in paragraph at lines 268--269
 \OT1/ptm/m/n/10 MusAssist sup-ports tem-plates for chords, arpeg-gios, scales,
  []
@@ -598,17 +601,18 @@ Overfull \hbox (0.26564pt too wide) in paragraph at lines 299--300
 ively
  []
 
-<images/perfauth_code.png, id=101, 425.59pt x 20.075pt>
+[2]
+<images/perfauth_code.png, id=112, 425.59pt x 20.075pt>
 File: images/perfauth_code.png Graphic file (type png)
 <use images/perfauth_code.png>
 Package pdftex.def Info: images/perfauth_code.png  used on input line 302.
 (pdftex.def)             Requested size: 220.2228pt x 10.3879pt.
-<images/perfauth.png, id=103, 880.28876pt x 118.4425pt>
+<images/perfauth.png, id=114, 880.28876pt x 118.4425pt>
 File: images/perfauth.png Graphic file (type png)
 <use images/perfauth.png>
 Package pdftex.def Info: images/perfauth.png  used on input line 308.
 (pdftex.def)             Requested size: 220.2228pt x 29.63042pt.
-[2]
+
 Overfull \hbox (4.87544pt too wide) in paragraph at lines 315--316
 \OT1/ptm/m/n/10 quence need not fol-low the di-rec-tion in the se-quence's name
 ,
@@ -625,7 +629,7 @@ Overfull \hbox (8.99507pt too wide) in paragraph at lines 317--357
 rds
  []
 
-<images/example_program_code.png, id=119, 598.235pt x 434.62375pt>
+<images/example_program_code.png, id=118, 598.235pt x 434.62375pt>
 File: images/example_program_code.png Graphic file (type png)
 <use images/example_program_code.png>
 Package pdftex.def Info: images/example_program_code.png  used on input line 37
@@ -636,7 +640,7 @@ Overfull \hbox (11.38113pt too wide) in paragraph at lines 373--375
  [][] 
  []
 
-<images/example_program.png, id=120, 727.71875pt x 613.29124pt>
+<images/example_program.png, id=119, 727.71875pt x 613.29124pt>
 File: images/example_program.png Graphic file (type png)
 <use images/example_program.png>
 Package pdftex.def Info: images/example_program.png  used on input line 380.
@@ -758,7 +762,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 53--57
 7043[]
  []
 
-) [6 <./images/desc_56_intervals.png> <./images/desc56-example.png>] [7
+[6 <./images/desc_56_intervals.png> <./images/desc56-example.png>]) [7
 
 ]
 (./icmc2021template.aux)
@@ -772,7 +776,7 @@ Here is how much of TeX's memory you used:
  31742 multiletter control sequences out of 15000+600000
  486266 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 68i,24n,77p,1308b,466s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 68i,24n,77p,1308b,487s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/te
 xlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texli
@@ -785,7 +789,7 @@ ve/2022/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2022/
 texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2022/texmf-dist
 /fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/typ
 e1/urw/times/utmri8a.pfb>
-Output written on icmc2021template.pdf (7 pages, 1206519 bytes).
+Output written on icmc2021template.pdf (7 pages, 1206487 bytes).
 PDF statistics:
  291 PDF objects out of 1000 (max. 8388607)
  235 compressed objects within 3 object streams
