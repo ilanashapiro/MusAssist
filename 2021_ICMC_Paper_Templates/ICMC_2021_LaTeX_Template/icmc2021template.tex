@@ -227,7 +227,7 @@ constituent notes. MusAssist’s declarative programming paradigm was chosen to 
 
 MusAssist is unique in that users can encode specifications for complex musical templates at the same level of abstraction as the theoretical musical structures they describe. Specifically,  users can specify high-level templates for 
 \textbf{chords} and \textbf{arpeggios} (major, minor, dominant, augmented, half diminished, and diminished triads and seventh chords in any inversion), 
-\textbf{scales} (major, natural/harm- onic/melodic minor, chromatic, and whole tone), 
+\textbf{scales} (major, natural/harmonic/ melodic minor, chromatic, and whole tone), 
 \textbf{cadences} (perfect authentic, imperfect authentic, plagal, half, deceptive), and 
 \textbf{harmonic sequences} (ascending fifths, descending fifths, ascending 5-6, descending 5-6) of a desired length. MusAssist also supports individual notes, rests, and customized chords consisting of user-defined collections of notes, and enables the user to change the key signature or start a new measure. All high-level templates are expanded, lowering the abstraction level to notes, by the Haskell-based MusAssist compiler.
 
@@ -244,13 +244,13 @@ The era of music DSLs began in 2008 with Ge Wang’s ChucK audio processing lang
 
 Since then, computer scientists have taken advantage of the increased flexibility afforded to DSLs via their limited expressiveness to create music DSLs tailored towards notation, algorithmic composition, signal processing, live coding with music performance, and more. Aside from MusAssist, MusicXML, LilyPond, and PyTabs are commonly used music DSLs also specializing in notation.
 
-Michael Good’s MusicXML is an Internet-friendly, XML- based, declarative DSL that represents standard Western music notation and scoring practices. Similar to how the popular MIDI format helped create a standardized format for electronic instruments, MusicXML provides a standardized format for online sheet music in order to create a standardized method for representing complex, structured musical data to support smooth interchange between musical applications specializing in notation, performance, analysis, music information retrieval, and more.\cite{good_2013}
+Michael Good’s MusicXML is an Internet-friendly, XML-based, declarative DSL that represents standard Western music notation and scoring practices. Similar to how the popular MIDI format helped create a standardized format for electronic instruments, MusicXML provides a standardized format for online sheet music in order to create a standardized method for representing complex, structured musical data to support smooth interchange between musical applications specializing in notation, performance, analysis, music information retrieval, and more.\cite{good_2013}
 
 To achieve this, Good derives MusicXML from XML due to its Internet-friendly nature, straightforward use in document creation, and human readability. In contrast, MIDI is very difficult to read and write, and is also less powerful and expressive than XML  \cite{good_2001}
 
 MusicXML is more expressive than MusAssist, but the abstraction level of all musical elements is extremely low (i.e. chords must be written out as individual notes) and though easily readable, its syntax is cumbersome and tedious to write by hand. However, its enhanced expressiveness makes MusicXML an excellent target compilation language for MusAssist’s user-friendly syntax and high-level theoretical musical templates.
 
-LilyPond, an external declarative DSL created by Han- Wen Nienhuys and Jan Nieuwenhuizen, is similar to MusAssist. It features a “modular, extensible and programmable compiler” written in Scheme to generate Western music notation of excellent quality, and supports the mixing of text and music elements. Text-based musical expressions, or fragments of music with set durations, are compiled to an aesthetically formatted score \cite{nienhuys_nieuwenhuizen_2003}
+LilyPond, an external declarative DSL created by Han-Wen Nienhuys and Jan Nieuwenhuizen, is similar to MusAssist. It features a “modular, extensible and programmable compiler” written in Scheme to generate Western music notation of excellent quality, and supports the mixing of text and music elements. Text-based musical expressions, or fragments of music with set durations, are compiled to an aesthetically formatted score \cite{nienhuys_nieuwenhuizen_2003}
 
 LilyPond and MusAssist are both music notation DSLs tailored to non-programming audiences. However, they differ in two fundamental areas: (1) MusAssist supports complex music templates at the levels of abstraction of the musical structures they represent, whereas LilyPond only supports granular, low level composition of individual notes and chords, and (2) the output of the MusAssist compiler is intentionally editable via notation software, unlike LilyPond’s compiler, which produces a static, printable PostScript or PDF file by taking in a file with a formal representation of the desired music. 
 \cite{nienhuys_nieuwenhuizen_2003}
@@ -310,12 +310,12 @@ All cadences except perfect authentic are built exclusively with triads. Perfect
   \vspace{-3mm}
 \end{figure}
 
-Finally, harmonic sequences are specified by harmonic sequence type (ascending fifths, descending fifths, ascending 5-6, or descending 5-6), key, duration of each chord, and length of the sequence. Since MusAssist does not yet support multi-line composition, harmonic sequences are written like cadences in keyboard- style voice leading.
+Finally, harmonic sequences are specified by harmonic sequence type (ascending fifths, descending fifths, ascending 5-6, or descending 5-6), key, duration of each chord, and length of the sequence. Since MusAssist does not yet support multi-line composition, harmonic sequences are written like cadences in keyboard-style voice leading.
 
 In music theory, harmonic sequences can be implemented in several ways depending on the desired inversion scheme. Though the upper-voice harmonization of a harmonic sequence need not follow the direction in the sequence’s name, MusAssist chooses a chord inversion and voice leading pattern such that each sequence does so. For instance, the Ascending Fifths sequence will ascend, and the Descending 5-6 sequence will descend. Each pattern also maximizes smooth voice leading. 
 
 The chosen patterns for each MusAssist sequence are summarized in  \tabref{table:harmseq}.
-All sequences are shown in major in this demonstration, but their minor counterparts are also supported. Each consists of fourteen distinct chords before repeating in the subsequent octave. 
+All sequences are shown in major in this demonstration, but their minor counterparts are also supported. Each sequence consists of fourteen distinct chords before repeating in the subsequent octave. 
 \vspace{-2mm}
 \begin{table}[h!]
 
@@ -357,16 +357,16 @@ All sequences are shown in major in this demonstration, but their minor counterp
 
 \vspace{-8mm}
 \subsection{Additional Features}
-Beyond compositional elements, users can set the key sig- nature at the beginning of any measure up to seven sharps or flats by specifying note name, accidental, and quality (sharp or flat). Users can also start a new measure or create a blank measure. Finally, users can assign MusAssist expressions to string labels and reuse them later in the program (the labels are syntactic sugar for the expressions). MusAssist comments are designated with \verb!//!.
+Beyond compositional elements, users can set the key signature at the beginning of any measure up to seven sharps or flats by specifying note name, accidental, and quality (sharp or flat). Users can also start a new measure or create a blank measure. Finally, users can assign MusAssist expressions to string labels and reuse them later in the program (the labels are syntactic sugar for the expressions). MusAssist comments are designated with \verb!//!.
 
 The tempo for all MusAssist programs
-is set at \musQuarter\;= 80bpm and cannot currently be changed.
-This also apples to the time signature, which is set at \setmeter{4}{4}.
+is set to \musQuarter\;= 80bpm and cannot currently be changed.
+This also apples to the time signature, which is set to \setmeter{4}{4}.
 
 All compiled MusAssist programs adhere to standard notation conventions. Notes and rests are broken over barlines as well as over the strong beat (beat three) of the measure. They are divided greedily into valid rhythmic units (from sixteenth to whole note) ordered either least to greatest, or greatest to least in the case of spillage over the barline into the following measure.
 %-----------------------------------------------------------------------------------------------------------------------------------------------------
 \section{Sample Program}\label{sec:sample_program}
-The full breadth of MusAssist's syntax is demonstrated in \figref{fig:example_program_code}, and \figref{fig:example_program} presents the result of opening the compiled MusicXML code in MuseScore. 
+The full breadth of MusAssist's syntax is demonstrated in \figref{fig:example_program_code}, and \figref{fig:example_program} presents the resulting compiled MusicXML code when opened in MuseScore. 
 
 \begin{figure}[h!]
 \centering
@@ -455,10 +455,9 @@ In order to complete the triad template definition from the supplied information
 
 \subsection{Template Expansions}
 \subsubsection{Scales}
-The expansion of all major and natural/harmonic/melodic minor scales is derived from the logic in Section \ref{sec:note_generate}. The scale is generated in relation to its tonic, rather than the specified starting note. The tonic octave is always set so that the tonic falls below the start note. This ensures that the initial interval between tonic and start note is positive, with the interval then increasing for ascending scales and decreasing for descending scales until the desired scale length is reached. If the tonic is reached in the scale generation, we reset the tonic to be one octave higher or lower (depending on the scale direction) so that the 
-generating their notes. If needed, the notes are modified afterwards in order to appropriately raise the sixth and/or seventh scale degree(s) for harmonic and melodic minor scales. For the non-diatonic scales (chromatic and whole tone), C is set as the “tonic” for the purposes of determining the octave. As with diatonic scales, the tonic octave is shifted appropriately if it is passed during the scale generation.
+The expansion of all major and natural/harmonic/melodic minor scales is derived from the logic in Section \ref{sec:note_generate}. The scale is generated in relation to its tonic, rather than the specified starting note. The tonic octave is always set so that the tonic falls below the start note. This ensures that the initial interval between tonic and start note is positive, with the interval then increasing for ascending scales and decreasing for descending scales until the desired scale length is reached. If the tonic is reached in the scale generation, we reset the tonic to be one octave higher or lower (depending on the scale direction) so that the interval between the next note in the scale and the current tonic is always positive and within a single octave. Finally, consider that all minor scales are treated as natural when generating their notes. If needed, the notes are modified afterwards in order to appropriately raise the sixth and/or seventh scale degree(s) for harmonic and melodic minor scales. For the non-diatonic scales (chromatic and whole tone), C is set as the “tonic” for the purposes of determining the octave. As with diatonic scales, the tonic octave is shifted appropriately if it is passed during the scale generation.
 
-As seen in \figref{chromatic}, for 10 of the 12 tones, chromatic scales “double” the note name, with the directional accidental (sharp for ascending, flat for descending) falling on the second occurrence. The two exceptions marked in red in \figref{chromatic} are E and B in the ascending version and C and F for the descending version.
+As seen in \figref{chromatic}, for 10 of the 12 tones, chromatic scales “double” the note name, with the directional accidental (sharp for ascending, flat for descending) falling on the second occurrence. The two exceptions marked in red in \figref{chromatic} are E and B in the ascending version and C and F in the descending version.
 \vspace{-2mm}
 \begin{figure}[h!]
 \centering

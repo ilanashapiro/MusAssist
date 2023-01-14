@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.13)  14 JAN 2023 11:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.13)  14 JAN 2023 12:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -535,7 +535,27 @@ File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 1
 59.
 
-(/usr/local/texlive
+(/usr/local/texlive/2022/texmf-dist/tex/latex/psnfss/ts1ptm.fd
+File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
+)
+Overfull \hbox (6.62506pt too wide) in paragraph at lines 174--179
+\OT1/ptm/m/n/10 monic/melodic mi-nor, chro-matic, and whole tone), \OT1/ptm/b/n
+/10 ca-dences
+ []
+
+
+Overfull \hbox (4.72487pt too wide) in paragraph at lines 189--190
+\OT1/ptm/m/n/10 ChucK au-dio pro-cess-ing lan-guage for sound syn-the-sis. With
+
+ []
+
+[1{/usr/local/texlive/2022/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+
+
+
+]
+Overfull \hbox (2.37515pt too wide) in paragraph at lines 193--194
+[]\OT1/ptm/m/n/10 Michael Good's Mu-sicXML is an Internet-friendly, XML-
  []
 
 
@@ -545,24 +565,9 @@ Overfull \hbox (1.62428pt too wide) in paragraph at lines 193--194
  []
 
 
-LaTeX Warning: Citation `good_2001' on page 2 undefined on input line 195.
-
-
-LaTeX Warning: Citation `nienhuys_nieuwenhuizen_2003' on page 2 undefined on in
-put line 199.
-
-
 Overfull \hbox (5.89514pt too wide) in paragraph at lines 199--200
 \OT1/ptm/m/n/10 Wen Nien-huys and Jan Nieuwen-huizen, is sim-i-lar to MusAs-
  []
-
-
-LaTeX Warning: Citation `nienhuys_nieuwenhuizen_2003' on page 2 undefined on in
-put line 202.
-
-
-LaTeX Warning: Citation `simic_bal_dejanovic_vaderna' on page 2 undefined on in
-put line 205.
 
 
 Overfull \hbox (1.2046pt too wide) in paragraph at lines 214--215
@@ -595,7 +600,7 @@ Package amsmath Warning: Foreign command \atop;
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-
+[2]
 Overfull \hbox (0.26556pt too wide) in paragraph at lines 245--247
 []\OT1/ptm/m/n/10 All ca-dences ex-cept per-fect au-then-tic are built ex-clu-s
 ively
@@ -607,46 +612,53 @@ Overfull \hbox (2.14696pt too wide) in paragraph at lines 245--247
 d
  []
 
-[2]
+<images/perfauth.png, id=109, 880.28876pt x 118.4425pt>
+File: images/perfauth.png Graphic file (type png)
+<use images/perfauth.png>
+Package pdftex.def Info: images/perfauth.png  used on input line 255.
+(pdftex.def)             Requested size: 220.22282pt x 29.63042pt.
 
-! LaTeX Error: File `images/perfauth' not found.
+Overfull \hbox (4.87537pt too wide) in paragraph at lines 262--263
+\OT1/ptm/m/n/10 quence need not fol-low the di-rec-tion in the se-quence's name
+,
+ []
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.255 ...cs[width=0.45\textwidth]{images/perfauth}
-                                                  
-? :1
-Type <return> to proceed, S to scroll future error messages,
-R to run without stopping, Q to run quietly,
-I to insert something, E to edit your file,
-1 or ... or 9 to ignore the next 1 to 9 tokens of input,
-H for help, X to quit.
-? :Q
-Type <return> to proceed, S to scroll future error messages,
-R to run without stopping, Q to run quietly,
-I to insert something, E to edit your file,
-1 or ... or 9 to ignore the next 1 to 9 tokens of input,
-H for help, X to quit.
-? :wq
-Type <return> to proceed, S to scroll future error messages,
-R to run without stopping, Q to run quietly,
-I to insert something, E to edit your file,
-1 or ... or 9 to ignore the next 1 to 9 tokens of input,
-H for help, X to quit.
-? x
- 
-Here is how much of TeX's memory you used:
- 13709 strings out of 478269
- 220267 string characters out of 5846372
- 549862 words of memory out of 5000000
- 31724 multiletter control sequences out of 15000+600000
- 476878 words of font info for 50 fonts, out of 8000000 for 9000
- 1141 hyphenation exceptions out of 8191
- 70i,17n,77p,1229b,463s stack positions out of 10000i,1000n,20000p,200000b,200000s
-Output written on tenor-template.dvi (2 pages, 24576 bytes).
-mages/perfauth.png> <./images/example_program_code.png>]
+
+Overfull \hbox (3.62555pt too wide) in paragraph at lines 264--266
+[]\OT1/ptm/m/n/10 The cho-sen pat-terns for each MusAs-sist se-quence are sum-
+ []
+
+
+Overfull \hbox (8.995pt too wide) in paragraph at lines 264--266
+\OT1/ptm/m/n/10 sup-ported. Each se-quence con-sists of four-teen dis-tinct cho
+rds
+ []
+
+<images/example_program_code.png, id=114, 598.235pt x 434.62375pt>
+File: images/example_program_code.png Graphic file (type png)
+<use images/example_program_code.png>
+Package pdftex.def Info: images/example_program_code.png  used on input line 32
+0.
+(pdftex.def)             Requested size: 244.6937pt x 177.77245pt.
+
+Overfull \hbox (11.3811pt too wide) in paragraph at lines 320--322
+ [][] 
+ []
+
+<images/example_program.png, id=115, 727.71875pt x 613.29124pt>
+File: images/example_program.png Graphic file (type png)
+<use images/example_program.png>
+Package pdftex.def Info: images/example_program.png  used on input line 327.
+(pdftex.def)             Requested size: 244.6937pt x 206.21417pt.
+
+Overfull \hbox (11.3811pt too wide) in paragraph at lines 327--328
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[3 <./images/perfauth.png> <./images/example_program_code.png>]
 Overfull \hbox (0.41515pt too wide) in paragraph at lines 352--353
 []\OT1/ptm/m/n/10 The low-level ab-stract syn-tax re-sult-ing from the fully
  []
@@ -682,12 +694,12 @@ j_seconds.png>]
 <images/chromatic.png, id=158, 470.75874pt x 133.49875pt>
 File: images/chromatic.png Graphic file (type png)
 <use images/chromatic.png>
-Package pdftex.def Info: images/chromatic.png  used on input line 410.
+Package pdftex.def Info: images/chromatic.png  used on input line 409.
 (pdftex.def)             Requested size: 195.75197pt x 55.51093pt.
 <images/whole_tone.png, id=160, 581.17125pt x 266.9975pt>
 File: images/whole_tone.png Graphic file (type png)
 <use images/whole_tone.png>
-Package pdftex.def Info: images/whole_tone.png  used on input line 423.
+Package pdftex.def Info: images/whole_tone.png  used on input line 422.
 (pdftex.def)             Requested size: 122.34685pt x 56.20557pt.
 
 
@@ -697,43 +709,43 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <images/cadence_octaves.png, id=180, 315.1775pt x 240.9pt>
 File: images/cadence_octaves.png Graphic file (type png)
 <use images/cadence_octaves.png>
-Package pdftex.def Info: images/cadence_octaves.png  used on input line 453.
+Package pdftex.def Info: images/cadence_octaves.png  used on input line 452.
 (pdftex.def)             Requested size: 88.08614pt x 67.32655pt.
 
-Overfull \hbox (5.3056pt too wide) in paragraph at lines 466--467
+Overfull \hbox (5.3056pt too wide) in paragraph at lines 465--466
 []\OT1/ptm/m/n/10 The in-ter-val be-tween each pair of chordal roots, which
  []
 
 
-Overfull \hbox (7.41637pt too wide) in paragraph at lines 468--469
+Overfull \hbox (7.41637pt too wide) in paragraph at lines 467--468
 []\OT1/ptm/m/n/10 The oc-tave num-ber of each chord (given by the chordal
  []
 
 
-Overfull \hbox (2.36595pt too wide) in paragraph at lines 472--473
+Overfull \hbox (2.36595pt too wide) in paragraph at lines 471--472
 []\OT1/ptm/m/n/10 To de-ter-mine (1) and (2), con-sider the anal-y-sis in [],
  []
 
 <images/desc_56_intervals.png, id=184, 1064.97874pt x 138.5175pt>
 File: images/desc_56_intervals.png Graphic file (type png)
 <use images/desc_56_intervals.png>
-Package pdftex.def Info: images/desc_56_intervals.png  used on input line 476.
+Package pdftex.def Info: images/desc_56_intervals.png  used on input line 475.
 (pdftex.def)             Requested size: 244.6937pt x 31.82452pt.
 
-Overfull \hbox (11.3811pt too wide) in paragraph at lines 476--477
+Overfull \hbox (11.3811pt too wide) in paragraph at lines 475--476
  [][] 
  []
 
 <images/desc56-example.png, id=187, 703.62875pt x 215.80624pt>
 File: images/desc56-example.png Graphic file (type png)
 <use images/desc56-example.png>
-Package pdftex.def Info: images/desc56-example.png  used on input line 488.
+Package pdftex.def Info: images/desc56-example.png  used on input line 487.
 (pdftex.def)             Requested size: 220.22282pt x 67.54135pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Overfull \hbox (4.07484pt too wide) in paragraph at lines 500--501
+Overfull \hbox (4.07484pt too wide) in paragraph at lines 499--500
 \OT1/ptm/m/n/10 This pa-per presents MusAs-sist, an ex-ter-nal, declar-a-tive D
 SL
  []
@@ -782,7 +794,7 @@ Here is how much of TeX's memory you used:
  32228 multiletter control sequences out of 15000+600000
  484133 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 68i,23n,77p,1233b,464s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 68i,23n,77p,1306b,464s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/texlive/2022/tex
 mf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2022/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2022/texmf-dist/fonts/ty
@@ -795,7 +807,7 @@ blic/musixtex-fonts/musix16.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1
 /urw/courier/ucrr8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/tim
 es/utmb8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.
 pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on tenor-template.pdf (7 pages, 1200116 bytes).
+Output written on tenor-template.pdf (7 pages, 1200225 bytes).
 PDF statistics:
  288 PDF objects out of 1000 (max. 8388607)
  234 compressed objects within 3 object streams
