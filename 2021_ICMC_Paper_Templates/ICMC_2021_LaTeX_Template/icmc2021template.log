@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.13)  14 JAN 2023 15:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.13)  14 JAN 2023 17:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -686,51 +686,51 @@ Package pdftex.def Info: images/maj_seconds.png  used on input line 438.
 <images/chromatic.png, id=162, 470.75874pt x 133.49875pt>
 File: images/chromatic.png Graphic file (type png)
 <use images/chromatic.png>
-Package pdftex.def Info: images/chromatic.png  used on input line 464.
+Package pdftex.def Info: images/chromatic.png  used on input line 466.
 (pdftex.def)             Requested size: 195.75194pt x 55.51093pt.
 <images/whole_tone.png, id=164, 581.17125pt x 266.9975pt>
 File: images/whole_tone.png Graphic file (type png)
 <use images/whole_tone.png>
-Package pdftex.def Info: images/whole_tone.png  used on input line 477.
+Package pdftex.def Info: images/whole_tone.png  used on input line 479.
 (pdftex.def)             Requested size: 122.34682pt x 56.20557pt.
 <images/cadence_octaves.png, id=175, 315.1775pt x 240.9pt>
 File: images/cadence_octaves.png Graphic file (type png)
 <use images/cadence_octaves.png>
-Package pdftex.def Info: images/cadence_octaves.png  used on input line 507.
+Package pdftex.def Info: images/cadence_octaves.png  used on input line 509.
 (pdftex.def)             Requested size: 88.08612pt x 67.32655pt.
  [5 <./images/chromatic.png> <./images/whole_tone.png> <./images/cadence_octave
 s.png>]
-Overfull \hbox (5.30568pt too wide) in paragraph at lines 520--521
+Overfull \hbox (5.30568pt too wide) in paragraph at lines 522--523
 []\OT1/ptm/m/n/10 The in-ter-val be-tween each pair of chordal roots, which
  []
 
 
-Overfull \hbox (7.41644pt too wide) in paragraph at lines 522--523
+Overfull \hbox (7.41644pt too wide) in paragraph at lines 524--525
 []\OT1/ptm/m/n/10 The oc-tave num-ber of each chord (given by the chordal
  []
 
 
-Overfull \hbox (2.36603pt too wide) in paragraph at lines 526--527
+Overfull \hbox (2.36603pt too wide) in paragraph at lines 528--529
 []\OT1/ptm/m/n/10 To de-ter-mine (1) and (2), con-sider the anal-y-sis in [],
  []
 
 <images/desc_56_intervals.png, id=189, 1064.97874pt x 138.5175pt>
 File: images/desc_56_intervals.png Graphic file (type png)
 <use images/desc_56_intervals.png>
-Package pdftex.def Info: images/desc_56_intervals.png  used on input line 530.
+Package pdftex.def Info: images/desc_56_intervals.png  used on input line 532.
 (pdftex.def)             Requested size: 244.69365pt x 31.82452pt.
 
-Overfull \hbox (11.38113pt too wide) in paragraph at lines 530--531
+Overfull \hbox (11.38113pt too wide) in paragraph at lines 532--533
  [][] 
  []
 
-<images/desc56-example.png, id=192, 703.62875pt x 215.80624pt>
+<images/desc56-example.png, id=193, 703.62875pt x 215.80624pt>
 File: images/desc56-example.png Graphic file (type png)
 <use images/desc56-example.png>
-Package pdftex.def Info: images/desc56-example.png  used on input line 542.
+Package pdftex.def Info: images/desc56-example.png  used on input line 544.
 (pdftex.def)             Requested size: 220.2228pt x 67.54135pt.
 
-Overfull \hbox (4.07492pt too wide) in paragraph at lines 555--556
+Overfull \hbox (4.07492pt too wide) in paragraph at lines 557--558
 \OT1/ptm/m/n/10 This pa-per presents MusAs-sist, an ex-ter-nal, declar-a-tive D
 SL
  []
@@ -776,7 +776,7 @@ Here is how much of TeX's memory you used:
  31742 multiletter control sequences out of 15000+600000
  486266 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 68i,24n,77p,1308b,487s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 68i,24n,77p,1248b,487s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
 exlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/te
 xlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texli
@@ -789,10 +789,10 @@ ve/2022/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2022/
 texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2022/texmf-dist
 /fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/typ
 e1/urw/times/utmri8a.pfb>
-Output written on icmc2021template.pdf (7 pages, 1206487 bytes).
+Output written on icmc2021template.pdf (7 pages, 1206544 bytes).
 PDF statistics:
- 291 PDF objects out of 1000 (max. 8388607)
- 235 compressed objects within 3 object streams
+ 292 PDF objects out of 1000 (max. 8388607)
+ 236 compressed objects within 3 object streams
  50 named destinations out of 1000 (max. 500000)
  208 words of extra memory for PDF output out of 10000 (max. 10000000)
 
