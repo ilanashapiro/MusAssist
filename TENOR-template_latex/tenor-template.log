@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.13)  14 JAN 2023 20:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.13)  14 JAN 2023 20:39
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -766,7 +766,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 53--57
 7043[]
  []
 
-) [7] (./tenor-template.aux)
+)
+Overfull \vbox (2.13991pt too high) has occurred while \output is active []
+
+
+[7] (./tenor-template.aux)
 Package rerunfilecheck Info: File `tenor-template.out' has not changed.
 (rerunfilecheck)             Checksum: 9160D4DA99FF1266DF8EA55E799641E2;3362.
  )
@@ -791,7 +795,7 @@ blic/musixtex-fonts/musix16.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1
 /urw/courier/ucrr8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/tim
 es/utmb8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.
 pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on tenor-template.pdf (7 pages, 1200068 bytes).
+Output written on tenor-template.pdf (7 pages, 1200149 bytes).
 PDF statistics:
  290 PDF objects out of 1000 (max. 8388607)
  236 compressed objects within 3 object streams

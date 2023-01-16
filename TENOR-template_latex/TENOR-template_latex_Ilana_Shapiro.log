@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.13)  14 JAN 2023 20:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.13)  14 JAN 2023 21:21
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**icmc2021template.tex
-(./icmc2021template.tex
+**TENOR-template_latex_Ilana_Shapiro.tex
+(./TENOR-template_latex_Ilana_Shapiro.tex
 LaTeX2e <2021-11-15> patch level 1
 L3 programming layer <2022-02-24>
 (/usr/local/texlive/2022/texmf-dist/tex/latex/base/article.cls
@@ -23,17 +23,7 @@ File: size10.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
 \abovecaptionskip=\skip47
 \belowcaptionskip=\skip48
 \bibindent=\dimen138
-)
-(./icmc2021template.sty)
-(/usr/local/texlive/2022/texmf-dist/tex/latex/psnfss/times.sty
-Package: times 2020/03/25 PSNFSS-v9.3 (SPQR) 
-)
-(/usr/local/texlive/2022/texmf-dist/tex/generic/iftex/ifpdf.sty
-Package: ifpdf 2019/10/25 v3.4 ifpdf legacy package. Use iftex instead.
-
-(/usr/local/texlive/2022/texmf-dist/tex/generic/iftex/iftex.sty
-Package: iftex 2022/02/03 v1.0f TeX engine tests
-))
+) (./tenor.sty
 (/usr/local/texlive/2022/texmf-dist/tex/generic/soul/soul.sty
 Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
 \SOUL@word=\toks16
@@ -46,6 +36,37 @@ Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
 \SOUL@uldp=\dimen140
 \SOUL@ulht=\dimen141
 )
+(/usr/local/texlive/2022/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2021/10/31 v2.13 LaTeX color extensions (UK)
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Package option `usenames' ignored on input line 218.
+Package xcolor Info: Driver file: pdftex.def on input line 227.
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1352.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1356.
+Package xcolor Info: Model `RGB' extended on input line 1368.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1370.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1371.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1372.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1373.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1374.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
+
+(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics/dvipsnam.def
+File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
+)))
+(/usr/local/texlive/2022/texmf-dist/tex/generic/iftex/ifpdf.sty
+Package: ifpdf 2019/10/25 v3.4 ifpdf legacy package. Use iftex instead.
+
+(/usr/local/texlive/2022/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+))
 (/usr/local/texlive/2022/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2022/02/26 3.73 The Babel package
 \babel@savecnt=\count193
@@ -65,11 +86,15 @@ Package babel Info: Hyphen rules for 'australian' set to \l@ukenglish
 Package babel Info: Hyphen rules for 'newzealand' set to \l@ukenglish
 (babel)             (\language21). Reported on input line 108.
 ))
+(/usr/local/texlive/2022/texmf-dist/tex/latex/preprint/balance.sty
+Package: balance 1999/02/23 4.3 (PWD)
+\oldvsize=\dimen143
+)
 (/usr/local/texlive/2022/texmf-dist/tex/latex/enumitem/enumitem.sty
 Package: enumitem 2019/06/20 v3.9 Customized lists
 \enitkv@toks@=\toks21
 \labelindent=\skip50
-\enit@outerparindent=\dimen143
+\enit@outerparindent=\dimen144
 \enit@toks=\toks22
 \enit@inbox=\box50
 \enit@count@id=\count195
@@ -108,8 +133,8 @@ sep char (CT)
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Acount=\count267
 \calc@Bcount=\count268
-\calc@Adimen=\dimen144
-\calc@Bdimen=\dimen145
+\calc@Adimen=\dimen145
+\calc@Bdimen=\dimen146
 \calc@Askip=\skip51
 \calc@Bskip=\skip52
 LaTeX Info: Redefining \setlength on input line 80.
@@ -141,11 +166,11 @@ Package: amstext 2021/08/26 v2.01 AMS text
 (/usr/local/texlive/2022/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks23
-\ex@=\dimen146
+\ex@=\dimen147
 ))
 (/usr/local/texlive/2022/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen147
+\pmbraise@=\dimen148
 )
 (/usr/local/texlive/2022/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2021/08/26 v2.02 operator names
@@ -162,7 +187,7 @@ LaTeX Info: Redefining \dots on input line 499.
 LaTeX Info: Redefining \cdots on input line 620.
 \Mathstrutbox@=\box58
 \strutbox@=\box59
-\big@size=\dimen148
+\big@size=\dimen149
 LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
 \macc@depth=\count277
@@ -175,12 +200,12 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
 \column@=\count282
 \maxfields@=\count283
 \andhelp@=\toks25
-\eqnshift@=\dimen149
-\alignsep@=\dimen150
-\tagshift@=\dimen151
-\tagwidth@=\dimen152
-\totwidth@=\dimen153
-\lineht@=\dimen154
+\eqnshift@=\dimen150
+\alignsep@=\dimen151
+\tagshift@=\dimen152
+\tagwidth@=\dimen153
+\totwidth@=\dimen154
+\lineht@=\dimen155
 \@envbody=\toks26
 \multlinegap=\skip59
 \multlinetaggap=\skip60
@@ -190,14 +215,14 @@ LaTeX Info: Redefining \] on input line 2939.
 )
 (/usr/local/texlive/2022/texmf-dist/tex/latex/arydshln/arydshln.sty
 Package: arydshln 2019/02/21 v1.76 
-\dashlinedash=\dimen155
-\dashlinegap=\dimen156
+\dashlinedash=\dimen156
+\dashlinegap=\dimen157
 \adl@box=\box60
-\adl@height=\dimen157
-\adl@heightsave=\dimen158
-\adl@depth=\dimen159
-\adl@depthsave=\dimen160
-\adl@finaldepth=\dimen161
+\adl@height=\dimen158
+\adl@heightsave=\dimen159
+\adl@depth=\dimen160
+\adl@depthsave=\dimen161
+\adl@finaldepth=\dimen162
 \adl@columns=\count284
 \adl@ncol=\count285
 \adl@currentcolumn=\count286
@@ -209,7 +234,7 @@ Package: arydshln 2019/02/21 v1.76
 \adl@cla=\count292
 \adl@clb=\count293
 \adl@everyvbox=\toks28
-\adl@LTpagetotal=\dimen162
+\adl@LTpagetotal=\dimen163
 )
 (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
@@ -232,14 +257,14 @@ Package: caption3 2022/03/17 v2.3b caption3 kernel (AR)
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks29
 )
-\caption@tempdima=\dimen163
-\captionmargin=\dimen164
-\caption@leftmargin=\dimen165
-\caption@rightmargin=\dimen166
-\caption@width=\dimen167
-\caption@indent=\dimen168
-\caption@parindent=\dimen169
-\caption@hangindent=\dimen170
+\caption@tempdima=\dimen164
+\captionmargin=\dimen165
+\caption@leftmargin=\dimen166
+\caption@rightmargin=\dimen167
+\caption@width=\dimen168
+\caption@indent=\dimen169
+\caption@parindent=\dimen170
+\caption@hangindent=\dimen171
 Package caption Info: Unknown document class (or package),
 (caption)             standard defaults will be used.
 Package caption Info: \@makecaption = \long macro:#1#2-> \vskip 10pt \setbox \@
@@ -263,10 +288,10 @@ Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
-
-(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics-def/pdftex.def
-File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
-))
+)
+(/usr/local/texlive/2022/texmf-dist/tex/latex/spverbatim/spverbatim.sty
+Package: spverbatim 2009/08/10 v1.0 Verbatim with breakable spaces
+)
 \maxcollen=\skip61
 
 (/usr/local/texlive/2022/texmf-dist/tex/latex/hyperref/hyperref.sty
@@ -307,7 +332,7 @@ Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
 (/usr/local/texlive/2022/texmf-dist/tex/latex/kvoptions/kvoptions.sty
 Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
 )
-\@linkdim=\dimen171
+\@linkdim=\dimen172
 \Hy@linkcounter=\count296
 \Hy@pagecounter=\count297
 
@@ -345,7 +370,7 @@ Package hyperref Info: Bookmarks ON on input line 4390.
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4749.
-\XeTeXLinkMargin=\dimen172
+\XeTeXLinkMargin=\dimen173
 
 (/usr/local/texlive/2022/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
@@ -355,8 +380,8 @@ Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
 \Fld@menulength=\count300
-\Field@Width=\dimen173
-\Fld@charsize=\dimen174
+\Field@Width=\dimen174
+\Fld@charsize=\dimen175
 Package hyperref Info: Hyper figures OFF on input line 6027.
 Package hyperref Info: Link nesting OFF on input line 6032.
 Package hyperref Info: Hyper index ON on input line 6035.
@@ -400,55 +425,51 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 \Hy@SectionHShift=\skip62
 ) (/usr/local/texlive/2022/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
-\Gin@req@height=\dimen175
-\Gin@req@width=\dimen176
+\Gin@req@height=\dimen176
+\Gin@req@width=\dimen177
 )
 (/usr/local/texlive/2022/texmf-dist/tex/latex/oberdiek/hypcap.sty
 Package: hypcap 2016/05/16 v1.12 Adjusting the anchors of captions (HO)
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 112.
-LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 2
-09.
+Package hyperref Info: Option `colorlinks' set `true' on input line 117.
+LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 1
+55.
 
 (/usr/local/texlive/2022/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
-(./icmc2021template.aux)
-\openout1 = `icmc2021template.aux'.
+(./TENOR-template_latex_Ilana_Shapiro.aux)
+\openout1 = `TENOR-template_latex_Ilana_Shapiro.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 209.
-LaTeX Font Info:    ... okay on input line 209.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 209.
-LaTeX Font Info:    ... okay on input line 209.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 209.
-LaTeX Font Info:    ... okay on input line 209.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 209.
-LaTeX Font Info:    ... okay on input line 209.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 209.
-LaTeX Font Info:    ... okay on input line 209.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 209.
-LaTeX Font Info:    ... okay on input line 209.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 209.
-LaTeX Font Info:    ... okay on input line 209.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 209.
-LaTeX Font Info:    ... okay on input line 209.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 209.
-LaTeX Font Info:    ... okay on input line 209.
-Package caption Info: Begin \AtBeginDocument code.
-Package caption Info: hyperref package is loaded.
-Package caption Info: hypcap package is loaded.
-Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 155.
+LaTeX Font Info:    ... okay on input line 155.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 155.
+LaTeX Font Info:    ... okay on input line 155.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 155.
+LaTeX Font Info:    ... okay on input line 155.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 155.
+LaTeX Font Info:    ... okay on input line 155.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 155.
+LaTeX Font Info:    ... okay on input line 155.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 155.
+LaTeX Font Info:    ... okay on input line 155.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 155.
+LaTeX Font Info:    ... okay on input line 155.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 155.
+LaTeX Font Info:    ... okay on input line 155.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 155.
+LaTeX Font Info:    ... okay on input line 155.
 
 (/usr/local/texlive/2022/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count306
-\scratchdimen=\dimen177
+\scratchdimen=\dimen178
 \scratchbox=\box61
 \nofMPsegments=\count307
 \nofMParguments=\count308
 \everyMPshowfont=\toks30
 \MPscratchCnt=\count309
-\MPscratchDim=\dimen178
+\MPscratchDim=\dimen179
 \MPnumerator=\count310
 \makeMPintoPDFobject=\count311
 \everyMPtoPDFconversion=\toks31
@@ -468,15 +489,11 @@ Package grfext Info: Graphics extension search list:
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics/color.sty
-Package: color 2021/12/07 v1.3c Standard LaTeX Color (DPC)
-
-(/usr/local/texlive/2022/texmf-dist/tex/latex/graphics-cfg/color.cfg
-File: color.cfg 2016/01/02 v1.6 sample color configuration
-)
-Package color Info: Driver file: pdftex.def on input line 149.
-)
-Package hyperref Info: Link coloring ON on input line 209.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: hyperref package is loaded.
+Package caption Info: hypcap package is loaded.
+Package caption Info: End \AtBeginDocument code.
+Package hyperref Info: Link coloring ON on input line 155.
 
 (/usr/local/texlive/2022/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
@@ -490,74 +507,56 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count312
 )
-LaTeX Info: Redefining \ref on input line 209.
-LaTeX Info: Redefining \pageref on input line 209.
-LaTeX Info: Redefining \nameref on input line 209.
- (./icmc2021template.out) (./icmc2021template.out)
+LaTeX Info: Redefining \ref on input line 155.
+LaTeX Info: Redefining \pageref on input line 155.
+LaTeX Info: Redefining \nameref on input line 155.
+ (./TENOR-template_latex_Ilana_Shapiro.out)
+(./TENOR-template_latex_Ilana_Shapiro.out)
 \@outlinefile=\write3
-\openout3 = `icmc2021template.out'.
+\openout3 = `TENOR-template_latex_Ilana_Shapiro.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 213
+LaTeX Font Info:    Trying to load font information for U+msa on input line 159
 .
 
 (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 213
+LaTeX Font Info:    Trying to load font information for U+msb on input line 159
 .
 
 (/usr/local/texlive/2022/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 2
-13.
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 1
+59.
 
 (/usr/local/texlive/2022/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 2
-13.
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 1
+59.
 
 (/usr/local/texlive/2022/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-Overfull \hbox (1.83482pt too wide) in paragraph at lines 216--217
-\OT1/ptm/m/it/10 at the con-cep-tual lev-els of the mu-si-cal struc-tures they 
-would
+Overfull \hbox (1.98491pt too wide) in paragraph at lines 162--163
+\OT1/ptm/m/n/10 at the con-cep-tual lev-els of the mu-si-cal struc-tures they w
+ould
  []
 
 
-Overfull \hbox (2.71477pt too wide) in paragraph at lines 216--217
-\OT1/ptm/m/it/10 MusAs-sist com-piler ex-pands high-level tem-plates (thus low-
-
+Overfull \hbox (5.04462pt too wide) in paragraph at lines 162--163
+\OT1/ptm/m/n/10 MusAs-sist com-piler ex-pands high-level tem-plates (thus low-
  []
 
 
-Overfull \hbox (0.55518pt too wide) in paragraph at lines 216--217
-\OT1/ptm/m/it/10 er-ing the level of ab-strac-tion to in-di-vid-ual notes) and 
-trans-
- []
-
-
-Overfull \hbox (12.97522pt too wide) in paragraph at lines 228--233
-\OT1/ptm/m/n/10 enth chords in any in-ver-sion), \OT1/ptm/b/n/10 scales \OT1/pt
-m/m/n/10 (ma-jor, nat-u-ral/harmonic/
- []
-
-
-Overfull \hbox (10.40506pt too wide) in paragraph at lines 228--233
-\OT1/ptm/m/n/10 and \OT1/ptm/b/n/10 har-monic se-quences \OT1/ptm/m/n/10 (as-ce
-nd-ing fifths, de-scend-ing fifths,
- []
-
-
-Overfull \hbox (1.84558pt too wide) in paragraph at lines 228--233
-\OT1/ptm/m/n/10 as-cend-ing 5-6, de-scend-ing 5-6) of a de-sired length. MusAs-
+Overfull \hbox (0.74532pt too wide) in paragraph at lines 174--179
+\OT1/ptm/m/n/10 enth chords in any in-ver-sion), scales (ma-jor, natural/harmo-
 
  []
 
 
-Overfull \hbox (4.72495pt too wide) in paragraph at lines 243--244
+Overfull \hbox (4.72487pt too wide) in paragraph at lines 189--190
 \OT1/ptm/m/n/10 ChucK au-dio pro-cess-ing lan-guage for sound syn-the-sis. With
 
  []
@@ -567,43 +566,40 @@ Overfull \hbox (4.72495pt too wide) in paragraph at lines 243--244
 
 
 ]
-Overfull \hbox (2.37523pt too wide) in paragraph at lines 247--248
+Overfull \hbox (2.37515pt too wide) in paragraph at lines 193--194
 []\OT1/ptm/m/n/10 Michael Good's Mu-sicXML is an Internet-friendly, XML-
  []
 
 
-Overfull \hbox (1.62436pt too wide) in paragraph at lines 247--248
+Overfull \hbox (1.62428pt too wide) in paragraph at lines 193--194
 \OT1/ptm/m/n/10 for elec-tronic in-stru-ments, Mu-sicXML pro-vides a stan-dard-
 
  []
 
 
-Overfull \hbox (5.89522pt too wide) in paragraph at lines 253--254
+Overfull \hbox (5.89514pt too wide) in paragraph at lines 199--200
 \OT1/ptm/m/n/10 Wen Nien-huys and Jan Nieuwen-huizen, is sim-i-lar to MusAs-
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (1.20468pt too wide) in paragraph at lines 268--269
+Overfull \hbox (1.2046pt too wide) in paragraph at lines 214--215
 \OT1/ptm/m/n/10 MusAssist sup-ports tem-plates for chords, arpeg-gios, scales,
  []
 
 
-Overfull \hbox (12.38559pt too wide) in paragraph at lines 272--273
+Overfull \hbox (1.27565pt too wide) in paragraph at lines 218--219
 []\OT1/ptm/m/n/10 Arpeggios are de-fined with the same spec-i-fi-ca-tion as Mus
-As-
+-
  []
 
 
-Overfull \hbox (4.29485pt too wide) in paragraph at lines 274--275
+Overfull \hbox (4.29477pt too wide) in paragraph at lines 220--221
 \OT1/ptm/m/n/10 scales are sim-ply spec-i-fied by their type (chro-matic or who
 le
  []
 
 
-Overfull \hbox (1.46556pt too wide) in paragraph at lines 276--277
+Overfull \hbox (1.46548pt too wide) in paragraph at lines 222--223
 []\OT1/ptm/m/n/10 Cadences are spec-i-fied by ca-dence type (per-fect/imperfect
 
  []
@@ -611,149 +607,151 @@ Overfull \hbox (1.46556pt too wide) in paragraph at lines 276--277
 
 Package amsmath Warning: Foreign command \atop;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 289.
+(amsmath)                 on input line 234.
 
 
-Overfull \hbox (0.26564pt too wide) in paragraph at lines 299--300
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Overfull \hbox (0.26556pt too wide) in paragraph at lines 243--249
 []\OT1/ptm/m/n/10 All ca-dences ex-cept per-fect au-then-tic are built ex-clu-s
 ively
  []
 
+
+Overfull \hbox (2.14696pt too wide) in paragraph at lines 243--249
+[]\OT1/pcr/m/n/10 Cadence, Eb5 minor, sixteenth) []\OT1/ptm/m/n/10 com-piled an
+d
+ []
+
 [2]
-<images/perfauth_code.png, id=112, 425.59pt x 20.075pt>
-File: images/perfauth_code.png Graphic file (type png)
-<use images/perfauth_code.png>
-Package pdftex.def Info: images/perfauth_code.png  used on input line 302.
-(pdftex.def)             Requested size: 220.2228pt x 10.3879pt.
-<images/perfauth.png, id=114, 880.28876pt x 118.4425pt>
+<images/perfauth.png, id=111, 880.28876pt x 118.4425pt>
 File: images/perfauth.png Graphic file (type png)
 <use images/perfauth.png>
-Package pdftex.def Info: images/perfauth.png  used on input line 308.
-(pdftex.def)             Requested size: 220.2228pt x 29.63042pt.
+Package pdftex.def Info: images/perfauth.png  used on input line 252.
+(pdftex.def)             Requested size: 220.22282pt x 29.63042pt.
 
-Overfull \hbox (4.87544pt too wide) in paragraph at lines 315--316
+Overfull \hbox (4.87537pt too wide) in paragraph at lines 259--260
 \OT1/ptm/m/n/10 quence need not fol-low the di-rec-tion in the se-quence's name
 ,
  []
 
 
-Overfull \hbox (3.62563pt too wide) in paragraph at lines 317--357
+Overfull \hbox (3.62555pt too wide) in paragraph at lines 261--263
 []\OT1/ptm/m/n/10 The cho-sen pat-terns for each MusAs-sist se-quence are sum-
  []
 
 
-Overfull \hbox (8.99507pt too wide) in paragraph at lines 317--357
+Overfull \hbox (8.995pt too wide) in paragraph at lines 261--263
 \OT1/ptm/m/n/10 sup-ported. Each se-quence con-sists of four-teen dis-tinct cho
 rds
  []
 
-<images/example_program_code.png, id=118, 598.235pt x 434.62375pt>
+
+Underfull \vbox (badness 2042) has occurred while \output is active []
+
+<images/example_program_code.png, id=116, 598.235pt x 434.62375pt>
 File: images/example_program_code.png Graphic file (type png)
 <use images/example_program_code.png>
-Package pdftex.def Info: images/example_program_code.png  used on input line 37
-3.
-(pdftex.def)             Requested size: 244.69365pt x 177.77245pt.
+Package pdftex.def Info: images/example_program_code.png  used on input line 31
+7.
+(pdftex.def)             Requested size: 244.6937pt x 177.77245pt.
 
-Overfull \hbox (11.38113pt too wide) in paragraph at lines 373--375
+Overfull \hbox (11.3811pt too wide) in paragraph at lines 317--318
  [][] 
  []
 
-<images/example_program.png, id=119, 727.71875pt x 613.29124pt>
+<images/example_program.png, id=117, 727.71875pt x 613.29124pt>
 File: images/example_program.png Graphic file (type png)
 <use images/example_program.png>
-Package pdftex.def Info: images/example_program.png  used on input line 380.
-(pdftex.def)             Requested size: 244.69365pt x 206.21417pt.
-
-Overfull \hbox (11.38113pt too wide) in paragraph at lines 380--381
- [][] 
- []
-
-[3 <./images/perfauth_code.png> <./images/perfauth.png> <./images/example_progr
-am_code.png> <./images/example_program.png>]
-Overfull \hbox (0.41522pt too wide) in paragraph at lines 407--408
+Package pdftex.def Info: images/example_program.png  used on input line 322.
+(pdftex.def)             Requested size: 195.75197pt x 164.9732pt.
+[3 <./images/perfauth.png> <./images/example_program_code.png> <./images/exampl
+e_program.png>]
+Overfull \hbox (0.41515pt too wide) in paragraph at lines 347--348
 []\OT1/ptm/m/n/10 The low-level ab-stract syn-tax re-sult-ing from the fully
  []
 
 
-Overfull \hbox (0.41513pt too wide) in paragraph at lines 407--408
+Overfull \hbox (0.41505pt too wide) in paragraph at lines 347--348
 \OT1/ptm/m/n/10 ex-panded tem-plates is trans-lated to Mu-sicXML. This
  []
 
 
-Overfull \hbox (0.835pt too wide) in paragraph at lines 407--408
+Overfull \hbox (0.83493pt too wide) in paragraph at lines 347--348
 \OT1/ptm/m/n/10 step con-tains the tem-po-ral logic that sub-di-vides notes
  []
 
 
-Overfull \hbox (0.28442pt too wide) in paragraph at lines 421--422
+Overfull \hbox (0.28435pt too wide) in paragraph at lines 361--362
 \OT1/ptm/m/n/10 Most MusAs-sist tem-plates are built upon the di-a-tonic scale.
 
  []
 
-<images/note_octave_logic.png, id=140, 634.37pt x 75.28125pt>
+<images/note_octave_logic.png, id=138, 634.37pt x 75.28125pt>
 File: images/note_octave_logic.png Graphic file (type png)
 <use images/note_octave_logic.png>
-Package pdftex.def Info: images/note_octave_logic.png  used on input line 428.
-(pdftex.def)             Requested size: 146.81767pt x 17.42229pt.
-<images/maj_seconds.png, id=143, 403.5075pt x 216.81pt>
+Package pdftex.def Info: images/note_octave_logic.png  used on input line 368.
+(pdftex.def)             Requested size: 171.28856pt x 20.3262pt.
+<images/maj_seconds.png, id=141, 403.5075pt x 216.81pt>
 File: images/maj_seconds.png Graphic file (type png)
 <use images/maj_seconds.png>
-Package pdftex.def Info: images/maj_seconds.png  used on input line 438.
-(pdftex.def)             Requested size: 146.81767pt x 78.88521pt.
+Package pdftex.def Info: images/maj_seconds.png  used on input line 378.
+(pdftex.def)             Requested size: 171.28856pt x 92.0355pt.
 [4 <./images/note_octave_logic.png> <./images/maj_seconds.png>]
-<images/chromatic.png, id=162, 470.75874pt x 133.49875pt>
+<images/chromatic.png, id=159, 470.75874pt x 133.49875pt>
 File: images/chromatic.png Graphic file (type png)
 <use images/chromatic.png>
-Package pdftex.def Info: images/chromatic.png  used on input line 466.
-(pdftex.def)             Requested size: 195.75194pt x 55.51093pt.
-<images/whole_tone.png, id=164, 581.17125pt x 266.9975pt>
+Package pdftex.def Info: images/chromatic.png  used on input line 406.
+(pdftex.def)             Requested size: 195.75197pt x 55.51093pt.
+<images/whole_tone.png, id=161, 581.17125pt x 266.9975pt>
 File: images/whole_tone.png Graphic file (type png)
 <use images/whole_tone.png>
-Package pdftex.def Info: images/whole_tone.png  used on input line 479.
-(pdftex.def)             Requested size: 122.34682pt x 56.20557pt.
-<images/cadence_octaves.png, id=175, 315.1775pt x 240.9pt>
+Package pdftex.def Info: images/whole_tone.png  used on input line 417.
+(pdftex.def)             Requested size: 122.34685pt x 56.20557pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[5 <./images/chromatic.png> <./images/whole_tone.png>]
+<images/cadence_octaves.png, id=181, 315.1775pt x 240.9pt>
 File: images/cadence_octaves.png Graphic file (type png)
 <use images/cadence_octaves.png>
-Package pdftex.def Info: images/cadence_octaves.png  used on input line 509.
-(pdftex.def)             Requested size: 88.08612pt x 67.32655pt.
- [5 <./images/chromatic.png> <./images/whole_tone.png> <./images/cadence_octave
-s.png>]
-Overfull \hbox (5.30568pt too wide) in paragraph at lines 522--523
+Package pdftex.def Info: images/cadence_octaves.png  used on input line 446.
+(pdftex.def)             Requested size: 73.40512pt x 56.10423pt.
+
+Overfull \hbox (5.3056pt too wide) in paragraph at lines 458--459
 []\OT1/ptm/m/n/10 The in-ter-val be-tween each pair of chordal roots, which
  []
 
 
-Overfull \hbox (7.41644pt too wide) in paragraph at lines 524--525
+Overfull \hbox (7.41637pt too wide) in paragraph at lines 460--461
 []\OT1/ptm/m/n/10 The oc-tave num-ber of each chord (given by the chordal
  []
 
 
-Overfull \hbox (2.36603pt too wide) in paragraph at lines 528--529
+Overfull \hbox (2.36595pt too wide) in paragraph at lines 464--465
 []\OT1/ptm/m/n/10 To de-ter-mine (1) and (2), con-sider the anal-y-sis in [],
  []
 
-<images/desc_56_intervals.png, id=189, 1064.97874pt x 138.5175pt>
+<images/desc_56_intervals.png, id=185, 1064.97874pt x 138.5175pt>
 File: images/desc_56_intervals.png Graphic file (type png)
 <use images/desc_56_intervals.png>
-Package pdftex.def Info: images/desc_56_intervals.png  used on input line 532.
-(pdftex.def)             Requested size: 244.69365pt x 31.82452pt.
-
-Overfull \hbox (11.38113pt too wide) in paragraph at lines 532--533
- [][] 
- []
-
-<images/desc56-example.png, id=193, 703.62875pt x 215.80624pt>
+Package pdftex.def Info: images/desc_56_intervals.png  used on input line 469.
+(pdftex.def)             Requested size: 230.01266pt x 29.91594pt.
+<images/desc56-example.png, id=189, 703.62875pt x 215.80624pt>
 File: images/desc56-example.png Graphic file (type png)
 <use images/desc56-example.png>
-Package pdftex.def Info: images/desc56-example.png  used on input line 544.
-(pdftex.def)             Requested size: 220.2228pt x 67.54135pt.
+Package pdftex.def Info: images/desc56-example.png  used on input line 480.
+(pdftex.def)             Requested size: 220.22282pt x 67.54135pt.
 
-Overfull \hbox (4.07492pt too wide) in paragraph at lines 557--558
+Overfull \hbox (4.07484pt too wide) in paragraph at lines 492--493
 \OT1/ptm/m/n/10 This pa-per presents MusAs-sist, an ex-ter-nal, declar-a-tive D
 SL
  []
 
-(./icmc2021template.bbl
+[6 <./images/cadence_octaves.png> <./images/desc_56_intervals.png> <./images/de
+sc56-example.png>] (./TENOR-template_latex_Ilana_Shapiro.bbl
 Underfull \hbox (badness 1509) in paragraph at lines 33--36
 \OT1/ptm/m/n/10 2013. [On-line]. Avail-able: [][]$https : / / www .
  []
@@ -764,7 +762,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 33--36
  []
 
 
-Overfull \hbox (4.93445pt too wide) in paragraph at lines 39--43
+Overfull \hbox (4.93437pt too wide) in paragraph at lines 39--43
 \OT1/ptm/m/n/10 musicxml-[]an-[]internet-[]friendly-[]format-[]for-[]sheet-[]mu
 sic/$[][] 
  []
@@ -780,37 +778,37 @@ Underfull \hbox (badness 10000) in paragraph at lines 53--57
 7043[]
  []
 
-[6 <./images/desc_56_intervals.png> <./images/desc56-example.png>]) [7
-
-]
-(./icmc2021template.aux)
-Package rerunfilecheck Info: File `icmc2021template.out' has not changed.
+) [7] (./TENOR-template_latex_Ilana_Shapiro.aux)
+Package rerunfilecheck Info: File `TENOR-template_latex_Ilana_Shapiro.out' has 
+not changed.
 (rerunfilecheck)             Checksum: 9160D4DA99FF1266DF8EA55E799641E2;3362.
- ) 
+ )
+(\end occurred when \ifx on line 69 was incomplete) 
 Here is how much of TeX's memory you used:
- 13800 strings out of 478268
- 224816 string characters out of 5846346
- 542231 words of memory out of 5000000
- 31742 multiletter control sequences out of 15000+600000
- 486266 words of font info for 61 fonts, out of 8000000 for 9000
+ 14297 strings out of 478268
+ 231238 string characters out of 5846346
+ 558251 words of memory out of 5000000
+ 32228 multiletter control sequences out of 15000+600000
+ 484133 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 68i,24n,77p,1262b,487s stack positions out of 10000i,1000n,20000p,200000b,200000s
-{/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/t
-exlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/te
-xlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texli
-ve/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/
-2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2
-022/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/202
-2/texmf-dist/fonts/type1/public/musixtex-fonts/musix11.pfb></usr/local/texlive/
-2022/texmf-dist/fonts/type1/public/musixtex-fonts/musix16.pfb></usr/local/texli
-ve/2022/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/local/texlive/2022/
-texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2022/texmf-dist
-/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/typ
-e1/urw/times/utmri8a.pfb>
-Output written on icmc2021template.pdf (7 pages, 1206521 bytes).
+ 68i,23n,77p,1280b,462s stack positions out of 10000i,1000n,20000p,200000b,200000s
+{/usr/local/texlive/2022/tex
+mf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2022/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2022/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/publi
+c/musixtex-fonts/musix11.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/pu
+blic/musixtex-fonts/musix16.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1
+/urw/courier/ucrr8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/tim
+es/utmb8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.
+pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on TENOR-template_latex_Ilana_Shapiro.pdf (7 pages, 1200043 byte
+s).
 PDF statistics:
- 292 PDF objects out of 1000 (max. 8388607)
+ 290 PDF objects out of 1000 (max. 8388607)
  236 compressed objects within 3 object streams
  50 named destinations out of 1000 (max. 500000)
- 208 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 203 words of extra memory for PDF output out of 10000 (max. 10000000)
 
