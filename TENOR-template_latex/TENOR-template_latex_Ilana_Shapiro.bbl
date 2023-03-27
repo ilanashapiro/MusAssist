@@ -21,11 +21,11 @@
 \providecommand{\BIBdecl}{\relax}
 \BIBdecl
 
-\bibitem{wang_2008}
+\bibitem{mathews_1957}
 \BIBentryALTinterwordspacing
-G.~Wang, ``The chuck audio programming language: “a strongly-timed and
-  on-the-fly environ/mentality”,'' 2008. [Online]. Available:
-  \url{https://www.cs.princeton.edu/~gewang/thesis.html}
+C.~Roads and M.~Mathews, ``Interview with max mathews,'' \emph{Computer Music
+  Journal}, vol.~4, no.~4, pp. 15--22, 1980. [Online]. Available:
+  \url{http://www.jstor.org/stable/3679463}
 \BIBentrySTDinterwordspacing
 
 \bibitem{good_2013}
@@ -50,7 +50,7 @@ H.-W. Nienhuys and J.~Nieuwenhuizen, \emph{LilyPond, A System for Automated
 
 \bibitem{simic_bal_dejanovic_vaderna}
 \BIBentryALTinterwordspacing
-M.~Simić, Z.~Bal, I.~Dejanovic, and R.~Vaderna, ``Pytabs: A {DSL} for
+M.~Simi{\'c}, Z.~Bal, I.~Dejanovic, and R.~Vaderna, ``Pytabs: A {DSL} for
   simplified music notation,'' \emph{ResearchGate}, 2015. [Online]. Available:
   \url{https://www.researchgate.net/publication/312607043_PyTabs_A_DSL_for_simplified_music_notation}
 \BIBentrySTDinterwordspacing
