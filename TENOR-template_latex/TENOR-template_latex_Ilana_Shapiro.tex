@@ -188,13 +188,13 @@ This paper first summarizes related work in music notation DSLs. Then, features 
 
 \section{Related Work}\label{sec:related_work}
 
-The era of music programming languages began in 1957 with Max Mathews' machine-dependent MUSIC-N languages at Bell Labs. The first of these languages, Music I, generated a single, equilateral, triangular waveform with identical rise and decay characteristics. It was capable of playing melody only; the user specified pitch, amplitude, and duration for individual notes. This evolved into Music II, which supported four independent voices of sound and a choice of 16 waveforms, and into Music III, which introduced the concept of the $unit$-$generator$, the building block for sound synthesis programming languages that corresponds to the functions of analog synthesizers. Music IV was a more computationally sophisticated version of Music III, and finally Music V was developed to be machine-independent, the first music programming language to be released into the world in 1966 \cite{mathews_1957}.
+The era of music programming languages began in 1957 with Max Mathews' MUSIC-N languages at Bell Labs, developed on individual IBM mainframes. The first of these languages, Music I, generated a single, equilateral, triangular waveform with identical rise and decay characteristics. It was capable of playing melody only; the user specified pitch, amplitude, and duration for individual notes. Music II supported four independent voices of sound and a choice of 16 waveforms, and Music III introduced the concept of the $unit$-$generator$, the building block for sound synthesis programming languages that corresponds to the functions of analog synthesizers. Music IV was a more computationally sophisticated version of Music III, and machine independence was finally reached in 1966 with Music V, which became the first publicly distributed music programming language \cite{mathews_1957}.
 
  %began in 2008 with Ge Wang’s ChucK audio processing language for sound synthesis. With ChucK, Wang introduced the notion of ``strongly-timed” programming, in which users control the flow of time in their programs to arbitrarily fine granularities. ChucK also supports ``on-the-fly” programming, often referred to as live coding, where users can modify programs while they run. Together, these features allow ChucK to accurately and expressively simulate music performance and creation \cite{wang_2008}. 
 
-Since then, computer scientists have taken advantage of the increased flexibility afforded to DSLs via their limited expressiveness to create music DSLs tailored towards notation, algorithmic composition, signal processing, live coding with music performance, and more. Aside from MusAssist, MusicXML, LilyPond, and PyTabs are commonly used music DSLs also specializing in notation.
+Since then, computer scientists have taken advantage of the increased flexibility afforded to DSLs via their limited expressiveness to create music DSLs tailored towards notation, algorithmic composition, sound synthesis, live coding with music performance, and more. Aside from MusAssist, MusicXML, LilyPond, and PyTabs are commonly used music DSLs also specializing in notation.
 
-Michael Good’s MusicXML is an Internet-friendly, XML-based, declarative DSL that represents standard Western music notation and scoring practices. Similar to how the popular MIDI format helped create a standardized format for electronic instruments, MusicXML provides a standardized format for online sheet music in order to create a standardized method for representing complex, structured musical data to support smooth interchange between musical applications specializing in notation, performance, analysis, music information retrieval, and more \cite{good_2013}.
+Michael Good’s MusicXML is an Internet-friendly, XML-based, declarative DSL that represents standard Western music notation and scoring practices. Similar to how the popular MIDI format helped create a standardized format for electronic instruments, MusicXML provides a standardized format for online sheet music to create a consistent method for representing complex, structured musical data. MusicXML thus introduces smooth interchange between musical applications specializing in notation, performance, analysis, music information retrieval, and more \cite{good_2013}.
 
 To achieve this, Good derives MusicXML from XML due to its Internet-friendly nature, straightforward use in document creation, and human readability. In contrast, MIDI is very difficult to read and write, and is also less powerful and expressive than XML \cite{good_2001}.
 
@@ -205,19 +205,19 @@ LilyPond, an external, declarative DSL created by Han-Wen Nienhuys and Jan Nieuw
 LilyPond and MusAssist are both music notation DSLs tailored to non-programming audiences. However, they differ in two fundamental areas: (1) MusAssist supports complex music templates at the levels of abstraction of the musical structures they represent, whereas LilyPond only supports granular, low level composition of individual notes and chords, and (2) the output of the MusAssist compiler is intentionally editable via notation software, unlike LilyPond’s compiler, which produces a static, printable PostScript or PDF file by taking in a file with a formal representation of the desired music 
 \cite{nienhuys_nieuwenhuizen_2003}.
 
-Simic et al.’s external, declarative DSL PyTabs similarly is geared toward music notation, but in a different domain than MusAssist. Specifically, the authors attempt to solve visual problem of tablature notation and the lack of standardization of how to specify note duration in this format by consolidating these issues into a formal language. Tablature notation is outside the scope of MusAssist’s focus on Western musical theoretical structures 
+Simic et al.’s external, declarative DSL PyTabs is also geared toward music notation, but in a different domain than MusAssist. Specifically, the authors attempt to solve the visual problem of tablature notation and the lack of standardization in specifying tablature-based note durations by consolidating these issues into a formal language. Tablature notation is outside the scope of MusAssist's focus on text-based Western musical theoretical structures 
  \cite{simic_bal_dejanovic_vaderna}.
 
 %-----------------------------------------------------------------------------------------------------------------------------------------------------
 
 \section{Language Features}\label{sec:language_features}
 \subsection{Low-Level Fundamentals}
-On the most basic level, MusAssist supports individual rests and notes. Rests are given a duration from sixteenth to whole note, and notes are further defined by note name (A to G), accidental (double flat to double sharp), and octave (1 to 8, after the range of a piano). Just as in normal notation, the absence of an accidental indicates natural quality. Users can also define customized chords, or user-defined lists of individual notes. These are not considered templates as the high-level description of the chord is not given, and the granularity is at the note level.
+On the most basic level, MusAssist supports individual rests and notes. Rests are given a duration from sixteenth to whole note, and notes are further defined by note name (A to G), accidental (double flat to double sharp), and octave (1 to 8, after the range of a piano). Just as in traditional Western notation, the absence of an accidental indicates natural quality. Users can also define customized chords, or user-defined lists of individual notes. These are not considered templates as the high-level description of the chord is not given, and the granularity is at the note level.
 
 \subsection{High-Level Templates}
-MusAssist supports templates for chords, arpeggios, scales, cadences, and harmonic sequences, specified uniquely at the abstraction level of the Western theoretical musical structures they represent.
+MusAssist supports templates for chords, arpeggios, scales, cadences, and harmonic sequences, specified uniquely at the abstraction levels of the Western theoretical musical structures they represent.
 
-Following the principles of Western music theory, chords are specified by their root note, quality (major, minor, augmented, dominant, diminished, or half diminished), inversion (root, first, second, or third), and chord type (triad or seventh). Half diminished, dominant, and third inversion options are only applicable for seventh chords. The root note cannot have a double accidental, as this can introduce triple accidentals in the chord, which MusAssist does not support.
+Following the principles of Western music theory, chords are specified by their root note, quality (major, minor, augmented, dominant, diminished, or half diminished), inversion (root, first, second, or third), and chord type (triad or seventh). Half diminished, dominant, and third inversion options can only apply to seventh chords. The root note cannot have a double accidental, as this can introduce triple accidentals in the chord, which MusAssist does not support.
 
 Arpeggios are defined with the same specification as Mus-Assist chords, since according to Western music theory, an arpeggio is simply the notes of a chord played individually in sequence.
 
@@ -227,7 +227,7 @@ Cadences are specified by cadence type (perfect/imperfect authentic, half, plaga
 
 Currently, MusAssist only supports a single treble clef line. Thus, cadences are written out in the upper voices only, in keyboard voice leading style, and incorporating principles of smooth voice leading.
 
-Based on the principles of functional harmony, there are several ways to represent a cadence. In MusAssist, the representations in \tabref{table:cadences} were chosen. In each row of \tabref{table:cadences}, the major version is presented first, with the minor version following in parentheses.
+Based on the principles of Western functional harmony, there are several ways to represent a cadence. In MusAssist, the representations in \tabref{table:cadences} were chosen. In each row of \tabref{table:cadences}, the major version is presented first, with the minor version following in parentheses.
 
 \begin{table}[h!]
 \centering
@@ -241,7 +241,7 @@ Deceptive & IV-V$^{6 \atop 4}$-vi$^{6 \atop 4}$ (iv-V$^{6 \atop 4}$-VI$^{6 \atop
 Half & IV-ii$^6$-V (iv-ii$^{\text{o}6}$-V) \\ \hline
 \end{tabular}
 \caption{MusAssist Cadences Summary}\label{table:cadences}
-\vspace{-5mm}
+\vspace{-3mm}
 \end{table}
 
 All cadences except perfect authentic are built exclusively with triads. Perfect authentic cadences also double the root in the final chord to simulate the 4-5-1 bass line as well as to preserve the requisite 2-1 downward step in the uppermost voice. This is demonstrated in \figref{fig:perfauth}, produced with the MusAssist syntax
@@ -300,6 +300,7 @@ All sequences are shown in major in this demonstration, but their minor counterp
   }
   
 \caption{MusAssist Harmonic Sequences Summary}\label{table:harmseq}
+\vspace{-8mm}
 \end{center}
 \end{table}
 
@@ -326,11 +327,10 @@ The full breadth of MusAssist's syntax is demonstrated in \figref{fig:example_pr
 \includegraphics[width=0.4\textwidth]{images/example_program}
 \caption{Compiled MusAssist Program in MuseScore}\label{fig:example_program}
 \end{figure}
-  
-Several features of MusAssist are clarified in Figures \ref{fig:example_program_code} and \ref{fig:example_program}:
 
+Several features of MusAssist are clarified in Figures \ref{fig:example_program_code} and \ref{fig:example_program}:
 \begin{itemize}\itemsep0pt
-\item The key signature can be changed consecutively as many times as desired, but only the last will take effect (as seen m. 1 and m. 12 of \figref{fig:example_program}). Changing the key signature triggers a new measure.
+\item The key signature can be changed consecutively as many times as desired, but only the last will take effect (as seen m. 1 and m. 12 of \figref{fig:example_program}). Changing the key signature also triggers a new measure.
 \item Note durations are automatically broken by the compiler both on the strong beat and on the barline (such as in mm. 2-4 of \figref{fig:example_program}).
 \item Labeled phrases are not notated until the label is referenced, rather than defined.
 \item The difference between a customized chord and a chord template is exemplified on line 14 of \figref{fig:example_program_code}.
@@ -375,7 +375,7 @@ The desired octave is either the same as that of the tonic, or one greater if th
 \vspace{-2mm}
 \end{figure}
 
-To determine the desired accidental, first realize that in any key, a perfect interval will generally have the same accidental as the tonic, with two exceptions: the perfect fifth above B is F\musSharp, and the perfect fourth above F is B\musFlat. To work out the logic behind the accidental of a desired imperfect interval, consider \figref{maj_seconds}. Here, we consider all single-accidental key signature names (even invalid ones that contain double sharps or flats) in order to establish the pattern. Key signature names are grouped under the accidental of the note that is the desired interval from the tonic. For instance, in the key of A\musFlat\;, the major second interval from the tonic is B\musFlat. The accidental of B\musFlat\; is \musFlat, so A\musFlat\; falls under the \musFlat\; column in \figref{maj_seconds}.
+To determine the desired accidental, first realize that in any key, a perfect interval will generally have the same accidental as the tonic, with two exceptions: the perfect fifth above B is F\musSharp, and the perfect fourth above F is B\musFlat. To work out the logic behind the accidental of a desired imperfect interval, consider \figref{maj_seconds}. Here, we enumerate all single-accidental key signature names (even invalid ones that contain double sharps or flats) in order to establish the pattern. Key signature names are grouped under the accidental of the note that is the desired interval from the tonic. For instance, in the key of A\musFlat\;, the major second interval from the tonic is B\musFlat. The accidental of B\musFlat\; is \musFlat, so A\musFlat\; falls under the \musFlat\; column in \figref{maj_seconds}.
 
 \begin{figure}[h!]
 \centering
@@ -399,9 +399,9 @@ In order to complete the triad template definition from the supplied information
 
 \subsection{Template Expansions}
 \subsubsection{Scales}
-The expansion of all major and natural/harmonic/melodic minor scales is derived from the logic in Section \ref{sec:note_generate}. The scale is generated in relation to its tonic, rather than the specified starting note. The tonic octave is always set so that the tonic  falls below the start note. This ensures that the initial interval between tonic and start note is positive, with the interval then increasing for ascending scales and decreasing for descending scales until the desired scale length is reached. If the tonic  is reached in the scale generation, we reset the tonic to be one octave higher or lower (depending on the scale direction) so that the interval between the next note in the scale and the current tonic is always positive and within a single octave. Finally, consider that all minor scales are treated as natural when generating their notes. If needed, the notes are modified afterwards in order to appropriately raise the sixth and/or seventh scale degree(s) for harmonic and melodic minor scales. 
+The expansion of all major and natural/harmonic/melodic minor scales is derived from the logic in Section \ref{sec:note_generate}. The scale is generated in relation to its tonic, rather than the specified starting note. The tonic octave is always set so that the tonic  falls below the start note. This ensures that the initial interval between tonic and start note is positive, with the interval then increasing for ascending scales and decreasing for descending scales until the desired scale length is reached. If the tonic  is reached in the scale generation, we reset the tonic to be one octave higher or lower (corresponding to scale direction) so that the interval between the next note in the scale and the current tonic is always positive and within a single octave. Finally, consider that all minor scales are treated as natural when generating their notes. If needed, the notes are modified afterwards in order to appropriately raise the sixth and/or seventh scale degree(s) for harmonic and melodic minor scales. 
 
-For the non-diatonic scales (chromatic and whole tone), C is set as the “tonic” for the purposes of determining the octave. As with diatonic scales, the tonic octave is appropriately shifted one octave higher or lower based on scale direction if it is reached during the scale generation.
+For the non-diatonic scales (chromatic and whole tone), the C below the start note is set as the “tonic” in order to determine the octave of each note in the scale generation. As with diatonic scales, the tonic octave is appropriately shifted one octave higher or lower, corresponding to scale direction, if it is reached during the scale generation.
 
 As seen in \figref{chromatic}, for 10 of the 12 tones, chromatic scales “double” the note name, with the directional accidental (sharp for ascending, flat for descending) falling on the second occurrence. The two exceptions marked in red in \figref{chromatic} are E and B in the ascending version, and C and F in the descending version.
 
@@ -410,6 +410,7 @@ As seen in \figref{chromatic}, for 10 of the 12 tones, chromatic scales “doubl
 \includegraphics[width=0.4\textwidth]{images/chromatic}
 \caption{Chromatic Scales}
 \label{chromatic}
+\vspace{-5mm}
 \end{figure}
 
 If we are on a single note, we simply move up the scale. Otherwise, we repeat it and insert an accidental on the second occurrence.
@@ -421,7 +422,7 @@ Whole tone scales are constructed with a similar model. As seen in \figref{whole
 \includegraphics[width=0.25\textwidth]{images/whole_tone}
 \caption{Whole Tone Scales}
 \label{whole_tone}
-\vspace{-5mm}
+\vspace{-2mm}
 \end{figure}
 
 To determine the next note name, we thus simply traverse up or down the C major scale, excluding the appropriate tone. To determine the next accidental, we appropriately lift or lower the current accidental if we reach one of the red boundaries in \figref{whole_tone}, otherwise leaving it unchanged.
@@ -432,14 +433,14 @@ Each note in a chord or arpeggio is generated with the logic from Section \ref{s
 
 The imperfect chordal intervals are initially set to major for major, dominant, and augmented chords, and to minor for minor, half diminished, and fully diminished chords. Thus, after the note is generated, for augmented chords the chordal fifth accidental must be lifted, and the seventh must be lowered. For dominant seventh chords, the seventh must be lowered. Finally, for diminished chords, the fifth and seventh must be lowered, and for half diminished seventh chords, the fifth alone must be lowered.
 
-To handle inversions, recall that the chord (whether triad or seventh) starts out in root position. Let $n$ be the desired inversion value (0 for root, 1 for first inversion, 2 for second, and 3 or third). By incrementing the octaves of the first $n$ tones of the chord in root position, we obtain the correct inversion.
+To handle inversions, recall that the generated chord (whether triad or seventh) starts out in root position. Let $n$ be the desired inversion value (0 for root, 1 for first inversion, 2 for second, and 3 or third). By incrementing the octaves of the first $n$ tones of the chord in root position, we obtain the correct inversion.
 
 If the chord is specified as an arpeggio, we simply return the chord as a series of individual notes, rather than a simultaneous cluster.
 
 \subsubsection{Cadences}
 A cadence must undergo two levels of expansion: an intermediate step from the cadence to the list of chord templates it defines, and a final step from chord templates to notes.
 
-Recall that the chords in each cadence are defined in Section \ref{table:cadences}, which reveal the interval of each chordal root from the tonic. Using this, for each chord in the cadence, we first employ the logic from Section \ref{sec:note_generate} to generate the root note of each chord. Then, we use the logic in Section \ref{sec:chord_generate} to generate a template for each chord, which undergoes a second expansion in Section \ref{sec:chord_expansion}.
+Recall that the chosen chords for each MusAssist cadence are defined in Table \ref{table:cadences}, which reveal the interval of each chordal root from the tonic. Using this, for each chord in the cadence, we first employ the logic from Section \ref{sec:note_generate} to generate the root note of each chord. Then, we use the logic in Section \ref{sec:chord_generate} to generate a template for each chord, which undergoes a second expansion in Section \ref{sec:chord_expansion}.
 
 The scale quality given in Section \ref{sec:chord_generate} to generate the chord template is generally that of the cadence. However, there are exceptions. All V chord templates are generated within a major scale, no matter the cadence quality, since cadences always have major V chords. Similarly, we want the seventh triad in the imperfect authentic cadence to be diminished – i.e. built on the major seventh scale degree – no matter the local key quality, since we raise the leading tone in minor keys when moving towards the tonic. Thus, this chord template must also be generated within a major scale in Section \ref{sec:chord_generate}.
 
