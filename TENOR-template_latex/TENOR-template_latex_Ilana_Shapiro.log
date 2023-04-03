@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.13)  31 MAR 2023 00:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.13)  31 MAR 2023 19:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -798,7 +798,7 @@ not changed.
 Here is how much of TeX's memory you used:
  14298 strings out of 478268
  231256 string characters out of 5846346
- 561266 words of memory out of 5000000
+ 562266 words of memory out of 5000000
  32229 multiletter control sequences out of 15000+600000
  484133 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -815,7 +815,7 @@ blic/musixtex-fonts/musix16.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1
 /urw/courier/ucrr8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/tim
 es/utmb8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.
 pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on TENOR-template_latex_Ilana_Shapiro.pdf (7 pages, 1203629 byte
+Output written on TENOR-template_latex_Ilana_Shapiro.pdf (7 pages, 1203627 byte
 s).
 PDF statistics:
  290 PDF objects out of 1000 (max. 8388607)
