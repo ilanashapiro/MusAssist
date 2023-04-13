@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.13)  31 MAR 2023 19:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.13)  13 APR 2023 00:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -545,12 +545,6 @@ l mu-
  []
 
 
-Overfull \hbox (1.25504pt too wide) in paragraph at lines 176--181
-\OT1/ptm/m/n/10 rests, and cus-tomized chords con-sist-ing of user-defined col-
-
- []
-
-
 Overfull \hbox (10.07477pt too wide) in paragraph at lines 184--185
 \OT1/ptm/m/n/10 logic be-hind its au-to-mated tem-plate ex-pan-sions are de-scr
 ibed. 
@@ -617,12 +611,6 @@ Overfull \hbox (0.26556pt too wide) in paragraph at lines 247--253
 ively
  []
 
-
-Overfull \hbox (2.14696pt too wide) in paragraph at lines 247--253
-[]\OT1/pcr/m/n/10 Cadence, Eb5 minor, sixteenth) []\OT1/ptm/m/n/10 com-piled an
-d
- []
-
 <images/perfauth.png, id=110, 880.28876pt x 118.4425pt>
 File: images/perfauth.png Graphic file (type png)
 <use images/perfauth.png>
@@ -642,6 +630,9 @@ rds
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
+
+Underfull \vbox (badness 4819) has occurred while \output is active []
+
 <images/example_program_code.png, id=115, 598.235pt x 434.62375pt>
 File: images/example_program_code.png Graphic file (type png)
 <use images/example_program_code.png>
@@ -653,6 +644,9 @@ Overfull \hbox (11.3811pt too wide) in paragraph at lines 322--323
  [][] 
  []
 
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
 <images/example_program.png, id=116, 727.71875pt x 613.29124pt>
 File: images/example_program.png Graphic file (type png)
 <use images/example_program.png>
@@ -661,7 +655,7 @@ Package pdftex.def Info: images/example_program.png  used on input line 327.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[3 <./images/perfauth.png> <./images/example_program_code.png>]
+[3 <./images/perfauth.png>]
 Overfull \hbox (0.41515pt too wide) in paragraph at lines 351--352
 []\OT1/ptm/m/n/10 The low-level ab-stract syn-tax re-sult-ing from the fully
  []
@@ -682,35 +676,31 @@ Overfull \hbox (0.28435pt too wide) in paragraph at lines 365--366
 
  []
 
-<images/note_octave_logic.png, id=138, 634.37pt x 75.28125pt>
+<images/note_octave_logic.png, id=137, 634.37pt x 75.28125pt>
 File: images/note_octave_logic.png Graphic file (type png)
 <use images/note_octave_logic.png>
 Package pdftex.def Info: images/note_octave_logic.png  used on input line 372.
 (pdftex.def)             Requested size: 171.28856pt x 20.3262pt.
-<images/maj_seconds.png, id=141, 403.5075pt x 216.81pt>
+<images/maj_seconds.png, id=140, 403.5075pt x 216.81pt>
 File: images/maj_seconds.png Graphic file (type png)
 <use images/maj_seconds.png>
 Package pdftex.def Info: images/maj_seconds.png  used on input line 382.
 (pdftex.def)             Requested size: 171.28856pt x 92.0355pt.
-[4 <./images/example_program.png> <./images/note_octave_logic.png> <./images/ma
-j_seconds.png>]
+[4 <./images/example_program_code.png> <./images/example_program.png> <./images
+/note_octave_logic.png> <./images/maj_seconds.png>]
 <images/chromatic.png, id=159, 470.75874pt x 133.49875pt>
 File: images/chromatic.png Graphic file (type png)
 <use images/chromatic.png>
 Package pdftex.def Info: images/chromatic.png  used on input line 410.
 (pdftex.def)             Requested size: 195.75197pt x 55.51093pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
 <images/whole_tone.png, id=161, 581.17125pt x 266.9975pt>
 File: images/whole_tone.png Graphic file (type png)
 <use images/whole_tone.png>
 Package pdftex.def Info: images/whole_tone.png  used on input line 422.
 (pdftex.def)             Requested size: 122.34685pt x 56.20557pt.
 
-Overfull \hbox (14.33589pt too wide) in paragraph at lines 436--437
-[]\OT1/ptm/m/n/10 To han-dle in-ver-sions, re-call that the gen-er-ated chord (
+Overfull \hbox (16.566pt too wide) in paragraph at lines 436--437
+[]\OT1/ptm/m/n/10 To han-dle in-ver-sions, no-tice that the gen-er-ated chord (
 whether
  []
 
@@ -743,21 +733,16 @@ Package pdftex.def Info: images/desc_56_intervals.png  used on input line 474.
 <images/desc56-example.png, id=189, 703.62875pt x 215.80624pt>
 File: images/desc56-example.png Graphic file (type png)
 <use images/desc56-example.png>
-Package pdftex.def Info: images/desc56-example.png  used on input line 485.
+Package pdftex.def Info: images/desc56-example.png  used on input line 486.
 (pdftex.def)             Requested size: 220.22282pt x 67.54135pt.
 
-Overfull \hbox (4.07484pt too wide) in paragraph at lines 497--498
+Overfull \hbox (4.07484pt too wide) in paragraph at lines 498--499
 \OT1/ptm/m/n/10 This pa-per presents MusAs-sist, an ex-ter-nal, declar-a-tive D
 SL
  []
 
 
-Overfull \hbox (0.12459pt too wide) in paragraph at lines 497--498
-\OT1/ptm/m/n/10 are trans-lated by its Haskell-based com-piler to Mu-sicXML,
- []
-
-
-Overfull \hbox (6.18542pt too wide) in paragraph at lines 497--498
+Overfull \hbox (6.18542pt too wide) in paragraph at lines 498--499
 \OT1/ptm/m/n/10 ware for fur-ther man-ual edit-ing and play-back. Thus, MusAs-
  []
 
@@ -798,11 +783,11 @@ not changed.
 Here is how much of TeX's memory you used:
  14298 strings out of 478268
  231256 string characters out of 5846346
- 562266 words of memory out of 5000000
+ 564266 words of memory out of 5000000
  32229 multiletter control sequences out of 15000+600000
  484133 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 68i,23n,77p,1289b,462s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 68i,23n,77p,1287b,462s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/texlive/2022/tex
 mf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2022/texmf-dist/fonts/t
 ype1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2022/texmf-dist/fonts/ty
@@ -815,7 +800,7 @@ blic/musixtex-fonts/musix16.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1
 /urw/courier/ucrr8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/tim
 es/utmb8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.
 pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on TENOR-template_latex_Ilana_Shapiro.pdf (7 pages, 1203627 byte
+Output written on TENOR-template_latex_Ilana_Shapiro.pdf (7 pages, 1203738 byte
 s).
 PDF statistics:
  290 PDF objects out of 1000 (max. 8388607)
