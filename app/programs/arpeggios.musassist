@@ -3,3 +3,7 @@
 NEW_MEASURE
 (F#4 half diminished seventh arpeggio ascending, third inversion, eighth)
 (F#4 half diminished seventh arpeggio descending, third inversion, eighth)
+NEW_MEASURE
+(C5 major arpeggio descending, root inversion, sixteenth)
+(C5 major arpeggio descending, first inversion, sixteenth)
+(C5 major arpeggio descending, second inversion, sixteenth)

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.13)  14 APR 2023 14:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.10.13)  14 APR 2023 14:52
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -582,9 +582,9 @@ Overfull \hbox (1.2046pt too wide) in paragraph at lines 218--219
  []
 
 
-Overfull \hbox (1.27565pt too wide) in paragraph at lines 222--223
-[]\OT1/ptm/m/n/10 Arpeggios are de-fined with the same spec-i-fi-ca-tion as Mus
--
+Overfull \hbox (0.1755pt too wide) in paragraph at lines 222--223
+[]\OT1/ptm/m/n/10 Arpeggios are de-fined with a sim-i-lar spec-i-fi-ca-tion to 
+Mus-
  []
 
 
@@ -780,7 +780,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 53--57
 7043[]
  []
 
-) [7] (./TENOR-template_latex_Ilana_Shapiro.aux)
+)
+Overfull \vbox (1.74744pt too high) has occurred while \output is active []
+
+
+[7] (./TENOR-template_latex_Ilana_Shapiro.aux)
 Package rerunfilecheck Info: File `TENOR-template_latex_Ilana_Shapiro.out' has 
 not changed.
 (rerunfilecheck)             Checksum: 9160D4DA99FF1266DF8EA55E799641E2;3362.
@@ -806,7 +810,7 @@ blic/musixtex-fonts/musix16.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1
 /urw/courier/ucrr8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/tim
 es/utmb8a.pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/times/utmr8a.
 pfb></usr/local/texlive/2022/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on TENOR-template_latex_Ilana_Shapiro.pdf (7 pages, 1242528 byte
+Output written on TENOR-template_latex_Ilana_Shapiro.pdf (7 pages, 1242687 byte
 s).
 PDF statistics:
  294 PDF objects out of 1000 (max. 8388607)

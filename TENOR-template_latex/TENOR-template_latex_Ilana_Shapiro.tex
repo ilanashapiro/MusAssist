@@ -442,7 +442,7 @@ To handle inversions, notice that the generated chord (whether triad or seventh)
   \vspace{-3mm}
 \end{figure}
 
-If we instead have an arpeggio, we first generate the notes in the underlying chord using the above logic. If the arpeggio is specified as a triad, we then double the root an octave up in order to have a complete arpeggio. Finally, we sort the tones in the arpeggio so that they strictly ascend or descend depending on the specified arpeggio direction, and return them as a list of individual tones, rather than a simultaneous cluster as in a chord.
+If we instead have an arpeggio, we first generate the notes in the underlying chord using the above logic. If the arpeggio is specified as a triad, we then double the first note of the arpeggio (which is determined by the inversion) an octave higher or lower, according to the specified direction, in order to have a complete arpeggio. For instance, a C5 major descending arpeggio in first inversion would have E6 as its first note and E5 as its last note. Finally, we sort the tones in the arpeggio so that they strictly ascend or descend depending on the specified arpeggio direction, and return them as a list of individual tones, rather than a simultaneous cluster as in a chord.
 
 \subsubsection{Cadences}
 A cadence must undergo two levels of expansion: an intermediate step from the cadence to the list of chord templates it defines, and a final step from chord templates to notes.
