@@ -105,11 +105,6 @@ data ChordType =
      | Seventh
   deriving (Eq, Show, Read)
 
-data ChordForm = 
-     ClosedChord 
-     | Arpeggio
-  deriving (Eq, Show, Read)
-
 -- all resulting chords in root position
 data CadenceType = 
   PerfAuth 
@@ -150,7 +145,8 @@ data Instr =
 -- templates to get expanded: these are the direct results of the parse
 data IntermediateExpr = 
   Note Tone Duration -- these get expanded to become single-element chords
-  | ChordTemplate Tone Quality ChordType ChordForm Inversion Duration -- Predefined chords: these all happen in root position
+  | ChordTemplate Tone Quality ChordType Inversion Duration -- Predefined chords
+  | Arpeggio Tone Quality ChordType Direction Inversion Duration -- Predefined chords
   | Cadence CadenceType Tone Quality Duration -- quality is major/minor ONLY. det the start note and key of the cadence
   | HarmonicSequence HarmonicSequenceType Tone Quality Duration Length -- quality is major/minor ONLY. det the start note and key of the seq
   | Scale NoteName Accidental ScaleType Direction Tone Duration Length

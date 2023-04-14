@@ -93,6 +93,7 @@ parseExpr =
   try parseLabel
   <|> parens
     (try parseChordTemplate -- overlapping prefixes means we need to use "try"
+      <|> try parseArpeggioTemplate
       <|> try parseNote
       <|> try parseCadence
       <|> try parseScale
@@ -102,8 +103,13 @@ parseExpr =
 
 parseChordTemplate :: Parsec String () IntermediateExpr
 parseChordTemplate = 
-    ChordTemplate <$> parseTone <*> parseQuality <*> parseChordTypeBeforeForm <*> parseChordFormAfterType <* comma 
-                                <*> parseInversion <* symbol "inversion" <* comma <*> parseDuration <* spaces 
+    ChordTemplate <$> parseTone <*> parseQuality <*> parseChordType <* comma 
+                                <*> parseInversion <* symbol "inversion" <* comma <*> parseDuration <* spaces
+                                
+parseArpeggioTemplate :: Parsec String () IntermediateExpr
+parseArpeggioTemplate =
+  Arpeggio <$> parseTone <*> parseQuality <*> parseArpeggioType <*> parseDirection <* comma 
+                                <*> parseInversion <* symbol "inversion" <* comma <*> parseDuration <* spaces
 
 parseScale :: Parsec String () IntermediateExpr
 parseScale = Scale <$> parseScaleNoteName <*> parseScaleAccidental <*> parseScaleType 
@@ -216,19 +222,17 @@ parseInversion =  do
   let ast = read inversionStr :: Inversion
   return ast
 
-parseChordTypeBeforeForm :: Parsec String () ChordType
-parseChordTypeBeforeForm = do 
-        (lookAhead $ symbol "triad" >>: Triad)
-    <|> (lookAhead $ symbol "seventh" >>: choice (map (lookAhead . symbol) ["chord", "arpeggio"]) >>: Seventh)
-    <|> (lookAhead $ symbol "arpeggio" >>: Triad)
-    <?> "expecting chord type before form"
+parseChordType :: Parsec String () ChordType
+parseChordType = do 
+        symbol "triad" >>: Triad
+    <|> (symbol "seventh" >> symbol "chord" >>: Seventh)
+    <?> "expecting chord type"
 
-parseChordFormAfterType :: Parsec String () ChordForm
-parseChordFormAfterType = do 
-        (symbol "triad" >>: ClosedChord)
-    <|> (symbol "seventh" >> ((symbol "chord" >>: ClosedChord) <|> (symbol "arpeggio" >>: Arpeggio))) -- >> doesn't lift to monad (otherwise we lift twice bc <<: lifts)
-    <|> (symbol "arpeggio" >>: Arpeggio)
-    <?> "expecting chord form after type"
+parseArpeggioType :: Parsec String () ChordType
+parseArpeggioType = do 
+        symbol "arpeggio" >>: Triad
+    <|> (symbol "seventh" >> symbol "arpeggio" >>: Seventh)
+    <?> "expecting arpeggio (chord) type"
 
 parseCadenceType :: Parsec String () CadenceType
 parseCadenceType = do
