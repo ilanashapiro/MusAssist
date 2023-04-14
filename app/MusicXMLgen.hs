@@ -254,7 +254,7 @@ transExpr state (MusAST.Chord tones duration) = do
                 "\t\t\t\t\t<octave>" ++ show octave ++ "</octave>",
                 "\t\t\t\t</pitch>"]) [0..] tones)
     
-    -- note fits in strong beat, or rest begins on a beat and fits in the measure -> do not break it up
+    -- note fits in strong beat, or note begins on a beat and fits in the measure -> do not break it up
     if noteDurationVal <= remainingTimeInStrongBeat || noteDurationVal <= remainingTimeInMeasure && noteBeginsOnBeat
         then do 
             newMeasureCode <- updateBeat noteDurationVal state -- new measure code gets generated if noteDurationVal == remainingTimeInMeasure

@@ -317,24 +317,25 @@ All compiled MusAssist programs adhere to standard notation conventions. Notes a
 \section{Sample Program}\label{sec:sample_program}
 The full breadth of MusAssist's syntax is demonstrated in \figref{fig:example_program_code}, and \figref{fig:example_program} presents the resulting compiled MusicXML code when opened in MuseScore. 
 
+Several features of MusAssist are clarified in Figures \ref{fig:example_program_code} and \ref{fig:example_program}:
+\begin{itemize}\itemsep0pt
+\item The key signature can be changed consecutively as many times as desired, but only the last will take effect (as seen m. 1 and m. 5 of \figref{fig:example_program}). Changing the key signature also triggers a new measure.
+\item Note and rest durations less than are automatically broken by the compiler both on the strong beat and on the barline (such as in mm. 1-2 of \figref{fig:example_program}). However, following standard Western notation convention, notes and rests that begin on a beat and fit in the rest of the measure are not broken on the strong beat (such as in m. 9 of \figref{fig:example_program}).
+\item Labeled phrases are not notated until the label is referenced, rather than defined.
+\item The difference between a customized chord and a chord template is exemplified on lines 7 and 11 of \figref{fig:example_program_code}.
+\end{itemize}
+\vspace{-2mm}
 \begin{figure}[h!]
 \centering
-\includegraphics[width=0.5\textwidth]{images/example_program_code}
+\includegraphics[width=0.46\textwidth]{images/example_program_code}
 \caption{MusAssist Syntax}\label{fig:example_program_code}
 \end{figure}
+\vspace{-3mm}
 \begin{figure}[h!]
 \centering
 \includegraphics[width=0.4\textwidth]{images/example_program}
 \caption{Compiled MusAssist Program in MuseScore}\label{fig:example_program}
 \end{figure}
-
-Several features of MusAssist are clarified in Figures \ref{fig:example_program_code} and \ref{fig:example_program}:
-\begin{itemize}\itemsep0pt
-\item The key signature can be changed consecutively as many times as desired, but only the last will take effect (as seen m. 1 and m. 12 of \figref{fig:example_program}). Changing the key signature also triggers a new measure.
-\item Note durations are automatically broken by the compiler both on the strong beat and on the barline (such as in mm. 2-4 of \figref{fig:example_program}).
-\item Labeled phrases are not notated until the label is referenced, rather than defined.
-\item The difference between a customized chord and a chord template is exemplified on line 14 of \figref{fig:example_program_code}.
-\end{itemize}
 
 %-----------------------------------------------------------------------------------------------------------------------------------------------------
 

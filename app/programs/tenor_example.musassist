@@ -2,28 +2,28 @@ SET_KEY A major
 SET_KEY A major
 SET_KEY G major
 (D4 sixteenth) (F#4 sixteenth) (A4 eighth) 
-(D#4 eighth) (F##4 eighth) (A#4 quarter) 
-(rest sixteenth)
-notes = (E3 dotted_eighth) (G4 dotted_eighth) (F3 dotted_eighth) (Ab4 dotted_eighth)
-custom_chords = ([Bbb5, Db6, Fb6] dotted_quarter) ([G#5, C#6, E#6] dotted_quarter) 
+(D#4 eighth) (F##4 eighth) (A#4 quarter) (rest sixteenth)
+notes = (E3 dotted_eighth) (G4 dotted_eighth) 
+custom_chords = ([Bbb5, Db6, Fb6] half) ([G#5, C#6, E#6] quarter)
 (Descending Fifths Sequence, G5 minor, eighth, length=7) 
 NEW_MEASURE
 NEW_MEASURE
+(Eb4 diminished seventh chord, first inversion, quarter)
 SET_KEY D minor
 SET_KEY C# major
 (C# harmonic minor descending scale, startNote = E6, sixteenth, length=10)
-(D#4 major triad, first inversion, dotted_quarter)
-(rest eighth)
-(E4 major triad, first inversion, eighth) (B4 dotted_eighth) (C5 dotted_eighth) 
-(rest sixteenth) (rest sixteenth) (rest eighth)
+(D#4 major triad, first inversion, dotted_quarter) (rest eighth)
+(E4 major triad, first inversion, eighth) (B4 dotted_eighth) 
+(C5 dotted_eighth) (rest sixteenth) (rest sixteenth) (rest eighth)
 ([B4, A4] eighth) (C5 dotted_eighth) ([G#4, B4] dotted_eighth) 
-(rest eighth)
-(Perfect Authentic Cadence, D#5 major, dotted_eighth) (rest sixteenth) 
-notes (F#3 dotted_eighth) (A4 dotted_eighth) custom_chords 
-(Ascending Fifths Sequence, C#4 major, eighth, length=8) 
+(rest eighth) (Perfect Authentic Cadence, D#5 major, dotted_eighth)
+(rest sixteenth) notes (F3 dotted_eighth) (Ab4 dotted_eighth)
+(F#3 dotted_eighth) (A4 dotted_eighth) 
+custom_chords (Ascending Fifths Sequence, C#4 major, eighth, length=8) 
 (G#5 minor arpeggio ascending, root inversion, sixteenth) 
 (C#5 augmented arpeggio descending, second inversion, sixteenth) 
-(Deceptive Cadence, Eb5 minor, eighth) (rest quarter) custom_chords
+(Deceptive Cadence, Eb5 minor, eighth) (rest quarter) custom_chords 
+
 
 
 
