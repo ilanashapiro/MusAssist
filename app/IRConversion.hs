@@ -154,7 +154,8 @@ expandIntermediateExpr symbolTable (MusAST.Arpeggio tone quality chordType direc
     let (MusAST.Tone rootNoteName rootAccidental rootOctave) = tone
         -- if the arpeggio is of type triad, double the root an octave up to have complete arpreggio
         arpeggioTones = if chordType == MusAST.Triad then tones ++ [MusAST.Tone rootNoteName rootAccidental (succ rootOctave)] else tones
-    return $ map (\tone -> MusAST.Chord [tone] duration) (if direction == MusAST.Ascending then arpeggioTones else reverse arpeggioTones)
+    let sortedTones = sortOn (\(MusAST.Tone _ _ octave) -> octave) (sortOn (\(MusAST.Tone noteName _ _) -> fromEnum noteName) arpeggioTones)
+    return $ map (\tone -> MusAST.Chord [tone] duration) (if direction == MusAST.Ascending then sortedTones else reverse sortedTones)
 
 -- | Quality is major/minor ONLY. tone+quality determines the start note and key of the cadence
 expandIntermediateExpr symbolTable (MusAST.Cadence cadenceType (MusAST.Tone tonicNoteName tonicAccidental tonicOctave) quality duration) = 

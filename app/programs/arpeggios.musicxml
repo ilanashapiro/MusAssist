@@ -182,6 +182,16 @@
 		<measure number="4">
 			<note>
 				<pitch>
+					<step>E</step>
+					<alter>0</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<pitch>
 					<step>F</step>
 					<alter>1</alter>
 					<octave>5</octave>
@@ -212,26 +222,6 @@
 			</note>
 			<note>
 				<pitch>
-					<step>E</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>2</duration>
-				<voice>1</voice>
-				<type>eighth</type>
-			</note>
-			<note>
-				<pitch>
-					<step>E</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>2</duration>
-				<voice>1</voice>
-				<type>eighth</type>
-			</note>
-			<note>
-				<pitch>
 					<step>C</step>
 					<alter>0</alter>
 					<octave>6</octave>
@@ -254,6 +244,16 @@
 				<pitch>
 					<step>F</step>
 					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<pitch>
+					<step>E</step>
+					<alter>0</alter>
 					<octave>5</octave>
 				</pitch>
 				<duration>2</duration>
