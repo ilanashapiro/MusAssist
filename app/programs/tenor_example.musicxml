@@ -674,39 +674,6 @@
 			</note>
 			<note>
 				<pitch>
-					<step>F</step>
-					<alter>1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>2</duration>
-				<voice>1</voice>
-				<type>eighth</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>A</step>
-					<alter>1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>2</duration>
-				<voice>1</voice>
-				<type>eighth</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>C</step>
-					<alter>1</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>2</duration>
-				<voice>1</voice>
-				<type>eighth</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
 					<step>E</step>
 					<alter>0</alter>
 					<octave>5</octave>
@@ -716,76 +683,99 @@
 				<type>eighth</type>
 			</note>
 			<note>
+				<chord/>
 				<pitch>
-					<step>D</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<tie type="start"/>
-				<voice>1</voice>
-				<type>quarter</type>
-				<notations>
-					<tied type="start"/>
-				</notations>
-			</note>
-			<note>
-				<pitch>
-					<step>D</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>8</duration>
-				<tie type="start"/>
-				<tie type="stop"/>
-				<voice>1</voice>
-				<type>half</type>
-				<notations>
-					<tied type="start"/>
-					<tied type="stop"/>
-				</notations>
-			</note>
-		</measure>
-		<measure number="9">
-			<note>
-				<pitch>
-					<step>D</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<tie type="stop"/>
-				<voice>1</voice>
-				<type>quarter</type>
-				<notations>
-					<tied type="stop"/>
-				</notations>
-			</note>
-			<note>
-				<pitch>
-					<step>F</step>
+					<step>G</step>
 					<alter>1</alter>
 					<octave>4</octave>
 				</pitch>
-				<duration>6</duration>
+				<duration>2</duration>
 				<voice>1</voice>
-				<type>quarter</type>
+				<type>eighth</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>B</step>
+					<alter>0</alter>
+					<octave>4</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<pitch>
+					<step>B</step>
+					<alter>0</alter>
+					<octave>4</octave>
+				</pitch>
+				<duration>3</duration>
+				<voice>1</voice>
+				<type>eighth</type>
 				<dot/>
 			</note>
 			<note>
 				<pitch>
-					<step>A</step>
-					<alter>-1</alter>
-					<octave>4</octave>
+					<step>C</step>
+					<alter>0</alter>
+					<octave>5</octave>
 				</pitch>
-				<duration>4</duration>
+				<duration>1</duration>
+				<tie type="start"/>
 				<voice>1</voice>
-				<type>quarter</type>
+				<type>16th</type>
+				<notations>
+					<tied type="start"/>
+				</notations>
 			</note>
 			<note>
 				<pitch>
-					<step>G</step>
-					<alter>2</alter>
+					<step>C</step>
+					<alter>0</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>2</duration>
+				<tie type="stop"/>
+				<voice>1</voice>
+				<type>eighth</type>
+				<notations>
+					<tied type="stop"/>
+				</notations>
+			</note>
+			<note>
+				<rest/>
+				<duration>1</duration>
+				<voice>1</voice>
+				<type>16th</type>
+			</note>
+			<note>
+				<rest/>
+				<duration>1</duration>
+				<voice>1</voice>
+				<type>16th</type>
+			</note>
+			<note>
+				<rest/>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<pitch>
+					<step>B</step>
+					<alter>0</alter>
+					<octave>4</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>A</step>
+					<alter>0</alter>
 					<octave>4</octave>
 				</pitch>
 				<duration>2</duration>
@@ -793,7 +783,237 @@
 				<type>eighth</type>
 			</note>
 		</measure>
+		<measure number="9">
+			<note>
+				<pitch>
+					<step>C</step>
+					<alter>0</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>3</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+				<dot/>
+			</note>
+			<note>
+				<pitch>
+					<step>G</step>
+					<alter>1</alter>
+					<octave>4</octave>
+				</pitch>
+				<duration>3</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+				<dot/>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>B</step>
+					<alter>0</alter>
+					<octave>4</octave>
+				</pitch>
+				<duration>3</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+				<dot/>
+			</note>
+			<note>
+				<rest/>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<pitch>
+					<step>G</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>3</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+				<dot/>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>B</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>3</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+				<dot/>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>3</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+				<dot/>
+			</note>
+			<note>
+				<pitch>
+					<step>A</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>3</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+				<dot/>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>C</step>
+					<alter>2</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>3</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+				<dot/>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>E</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>3</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+				<dot/>
+			</note>
+			<note>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>2</duration>
+				<tie type="start"/>
+				<voice>1</voice>
+				<type>eighth</type>
+				<notations>
+					<tied type="start"/>
+				</notations>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>F</step>
+					<alter>2</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>2</duration>
+				<tie type="start"/>
+				<voice>1</voice>
+				<type>eighth</type>
+				<notations>
+					<tied type="start"/>
+				</notations>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>A</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>2</duration>
+				<tie type="start"/>
+				<voice>1</voice>
+				<type>eighth</type>
+				<notations>
+					<tied type="start"/>
+				</notations>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>2</duration>
+				<tie type="start"/>
+				<voice>1</voice>
+				<type>eighth</type>
+				<notations>
+					<tied type="start"/>
+				</notations>
+			</note>
+		</measure>
 		<measure number="10">
+			<note>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>1</duration>
+				<tie type="stop"/>
+				<voice>1</voice>
+				<type>16th</type>
+				<notations>
+					<tied type="stop"/>
+				</notations>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>F</step>
+					<alter>2</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>1</duration>
+				<tie type="stop"/>
+				<voice>1</voice>
+				<type>16th</type>
+				<notations>
+					<tied type="stop"/>
+				</notations>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>A</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>1</duration>
+				<tie type="stop"/>
+				<voice>1</voice>
+				<type>16th</type>
+				<notations>
+					<tied type="stop"/>
+				</notations>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>1</duration>
+				<tie type="stop"/>
+				<voice>1</voice>
+				<type>16th</type>
+				<notations>
+					<tied type="stop"/>
+				</notations>
+			</note>
 			<note>
 				<rest/>
 				<duration>1</duration>
@@ -802,231 +1022,69 @@
 			</note>
 			<note>
 				<pitch>
-					<step>B</step>
-					<alter>-2</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>1</duration>
-				<tie type="start"/>
-				<voice>1</voice>
-				<type>16th</type>
-				<notations>
-					<tied type="start"/>
-				</notations>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>D</step>
-					<alter>-1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>1</duration>
-				<tie type="start"/>
-				<voice>1</voice>
-				<type>16th</type>
-				<notations>
-					<tied type="start"/>
-				</notations>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>C</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>1</duration>
-				<tie type="start"/>
-				<voice>1</voice>
-				<type>16th</type>
-				<notations>
-					<tied type="start"/>
-				</notations>
-			</note>
-			<note>
-				<pitch>
-					<step>B</step>
-					<alter>-2</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>6</duration>
-				<tie type="start"/>
-				<tie type="stop"/>
-				<voice>1</voice>
-				<type>quarter</type>
-				<dot/>
-				<notations>
-					<tied type="start"/>
-					<tied type="stop"/>
-				</notations>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>D</step>
-					<alter>-1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>6</duration>
-				<tie type="start"/>
-				<tie type="stop"/>
-				<voice>1</voice>
-				<type>quarter</type>
-				<dot/>
-				<notations>
-					<tied type="start"/>
-					<tied type="stop"/>
-				</notations>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>C</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>6</duration>
-				<tie type="start"/>
-				<tie type="stop"/>
-				<voice>1</voice>
-				<type>quarter</type>
-				<dot/>
-				<notations>
-					<tied type="start"/>
-					<tied type="stop"/>
-				</notations>
-			</note>
-			<note>
-				<pitch>
-					<step>B</step>
-					<alter>-2</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>1</duration>
-				<tie type="stop"/>
-				<voice>1</voice>
-				<type>16th</type>
-				<notations>
-					<tied type="stop"/>
-				</notations>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>D</step>
-					<alter>-1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>1</duration>
-				<tie type="stop"/>
-				<voice>1</voice>
-				<type>16th</type>
-				<notations>
-					<tied type="stop"/>
-				</notations>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>C</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>1</duration>
-				<tie type="stop"/>
-				<voice>1</voice>
-				<type>16th</type>
-				<notations>
-					<tied type="stop"/>
-				</notations>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<alter>1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>1</duration>
-				<tie type="start"/>
-				<voice>1</voice>
-				<type>16th</type>
-				<notations>
-					<tied type="start"/>
-				</notations>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
 					<step>E</step>
 					<alter>0</alter>
-					<octave>5</octave>
+					<octave>3</octave>
 				</pitch>
-				<duration>1</duration>
-				<tie type="start"/>
+				<duration>3</duration>
 				<voice>1</voice>
-				<type>16th</type>
-				<notations>
-					<tied type="start"/>
-				</notations>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<alter>1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>6</duration>
-				<tie type="start"/>
-				<tie type="stop"/>
-				<voice>1</voice>
-				<type>quarter</type>
+				<type>eighth</type>
 				<dot/>
-				<notations>
-					<tied type="start"/>
-					<tied type="stop"/>
-				</notations>
 			</note>
 			<note>
-				<chord/>
 				<pitch>
-					<step>E</step>
+					<step>G</step>
 					<alter>0</alter>
-					<octave>5</octave>
+					<octave>4</octave>
 				</pitch>
-				<duration>6</duration>
-				<tie type="start"/>
-				<tie type="stop"/>
+				<duration>3</duration>
 				<voice>1</voice>
-				<type>quarter</type>
+				<type>eighth</type>
 				<dot/>
+			</note>
+			<note>
+				<pitch>
+					<step>F</step>
+					<alter>0</alter>
+					<octave>3</octave>
+				</pitch>
+				<duration>3</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+				<dot/>
+			</note>
+			<note>
+				<pitch>
+					<step>A</step>
+					<alter>-1</alter>
+					<octave>4</octave>
+				</pitch>
+				<duration>3</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+				<dot/>
+			</note>
+			<note>
+				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>3</octave>
+				</pitch>
+				<duration>2</duration>
+				<tie type="start"/>
+				<voice>1</voice>
+				<type>eighth</type>
 				<notations>
 					<tied type="start"/>
-					<tied type="stop"/>
 				</notations>
 			</note>
 		</measure>
 		<measure number="11">
 			<note>
 				<pitch>
-					<step>C</step>
+					<step>F</step>
 					<alter>1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>1</duration>
-				<tie type="stop"/>
-				<voice>1</voice>
-				<type>16th</type>
-				<notations>
-					<tied type="stop"/>
-				</notations>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>E</step>
-					<alter>0</alter>
-					<octave>5</octave>
+					<octave>3</octave>
 				</pitch>
 				<duration>1</duration>
 				<tie type="stop"/>
@@ -1038,9 +1096,9 @@
 			</note>
 			<note>
 				<pitch>
-					<step>C</step>
+					<step>A</step>
 					<alter>0</alter>
-					<octave>7</octave>
+					<octave>4</octave>
 				</pitch>
 				<duration>3</duration>
 				<voice>1</voice>
@@ -1048,1039 +1106,600 @@
 				<dot/>
 			</note>
 			<note>
+				<pitch>
+					<step>B</step>
+					<alter>-2</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>6</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<dot/>
+			</note>
+			<note>
 				<chord/>
 				<pitch>
-					<step>E</step>
+					<step>D</step>
 					<alter>-1</alter>
 					<octave>6</octave>
 				</pitch>
-				<duration>3</duration>
+				<duration>6</duration>
 				<voice>1</voice>
-				<type>eighth</type>
+				<type>quarter</type>
 				<dot/>
 			</note>
 			<note>
 				<chord/>
 				<pitch>
-					<step>G</step>
-					<alter>0</alter>
+					<step>F</step>
+					<alter>-1</alter>
 					<octave>6</octave>
 				</pitch>
-				<duration>3</duration>
+				<duration>6</duration>
 				<voice>1</voice>
-				<type>eighth</type>
+				<type>quarter</type>
 				<dot/>
 			</note>
 			<note>
 				<pitch>
-					<step>F</step>
+					<step>G</step>
 					<alter>1</alter>
 					<octave>5</octave>
 				</pitch>
-				<duration>2</duration>
+				<duration>6</duration>
 				<voice>1</voice>
-				<type>eighth</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>A</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>2</duration>
-				<voice>1</voice>
-				<type>eighth</type>
+				<type>quarter</type>
+				<dot/>
 			</note>
 			<note>
 				<chord/>
 				<pitch>
 					<step>C</step>
-					<alter>0</alter>
-					<octave>5</octave>
+					<alter>1</alter>
+					<octave>6</octave>
 				</pitch>
-				<duration>2</duration>
+				<duration>6</duration>
 				<voice>1</voice>
-				<type>eighth</type>
+				<type>quarter</type>
+				<dot/>
 			</note>
 			<note>
 				<chord/>
 				<pitch>
 					<step>E</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>2</duration>
-				<voice>1</voice>
-				<type>eighth</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
 					<alter>1</alter>
-					<octave>5</octave>
+					<octave>6</octave>
 				</pitch>
-				<duration>2</duration>
-				<tie type="start"/>
-				<voice>1</voice>
-				<type>eighth</type>
-				<notations>
-					<tied type="start"/>
-				</notations>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<alter>1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>2</duration>
-				<tie type="stop"/>
-				<voice>1</voice>
-				<type>eighth</type>
-				<notations>
-					<tied type="stop"/>
-				</notations>
-			</note>
-			<note>
-				<pitch>
-					<step>A</step>
-					<alter>2</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
+				<duration>6</duration>
 				<voice>1</voice>
 				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>F</step>
-					<alter>2</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>2</duration>
-				<tie type="start"/>
-				<voice>1</voice>
-				<type>eighth</type>
-				<notations>
-					<tied type="start"/>
-				</notations>
+				<dot/>
 			</note>
 		</measure>
 		<measure number="12">
 			<note>
 				<pitch>
-					<step>F</step>
-					<alter>2</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>2</duration>
-				<tie type="stop"/>
-				<voice>1</voice>
-				<type>eighth</type>
-				<notations>
-					<tied type="stop"/>
-				</notations>
-			</note>
-			<note>
-				<pitch>
-					<step>D</step>
-					<alter>1</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>G</step>
-					<alter>1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>2</duration>
-				<tie type="start"/>
-				<voice>1</voice>
-				<type>eighth</type>
-				<notations>
-					<tied type="start"/>
-				</notations>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>B</step>
-					<alter>1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>2</duration>
-				<tie type="start"/>
-				<voice>1</voice>
-				<type>eighth</type>
-				<notations>
-					<tied type="start"/>
-				</notations>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>D</step>
-					<alter>1</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>2</duration>
-				<tie type="start"/>
-				<voice>1</voice>
-				<type>eighth</type>
-				<notations>
-					<tied type="start"/>
-				</notations>
-			</note>
-			<note>
-				<pitch>
-					<step>G</step>
-					<alter>1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>6</duration>
-				<tie type="stop"/>
-				<voice>1</voice>
-				<type>quarter</type>
-				<dot/>
-				<notations>
-					<tied type="stop"/>
-				</notations>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>B</step>
-					<alter>1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>6</duration>
-				<tie type="stop"/>
-				<voice>1</voice>
-				<type>quarter</type>
-				<dot/>
-				<notations>
-					<tied type="stop"/>
-				</notations>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>D</step>
-					<alter>1</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>6</duration>
-				<tie type="stop"/>
-				<voice>1</voice>
-				<type>quarter</type>
-				<dot/>
-				<notations>
-					<tied type="stop"/>
-				</notations>
-			</note>
-			<note>
-				<pitch>
-					<step>A</step>
-					<alter>1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>2</duration>
-				<tie type="start"/>
-				<voice>1</voice>
-				<type>eighth</type>
-				<notations>
-					<tied type="start"/>
-				</notations>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
 					<step>C</step>
-					<alter>2</alter>
-					<octave>6</octave>
+					<alter>1</alter>
+					<octave>5</octave>
 				</pitch>
 				<duration>2</duration>
-				<tie type="start"/>
 				<voice>1</voice>
 				<type>eighth</type>
-				<notations>
-					<tied type="start"/>
-				</notations>
 			</note>
 			<note>
 				<chord/>
 				<pitch>
 					<step>E</step>
 					<alter>1</alter>
-					<octave>6</octave>
+					<octave>5</octave>
 				</pitch>
 				<duration>2</duration>
-				<tie type="start"/>
 				<voice>1</voice>
 				<type>eighth</type>
-				<notations>
-					<tied type="start"/>
-				</notations>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>G</step>
+					<alter>1</alter>
+					<octave>4</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<pitch>
+					<step>G</step>
+					<alter>1</alter>
+					<octave>4</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>B</step>
+					<alter>1</alter>
+					<octave>4</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>A</step>
+					<alter>1</alter>
+					<octave>4</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<pitch>
+					<step>A</step>
+					<alter>1</alter>
+					<octave>4</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>C</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>E</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<pitch>
+					<step>E</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>G</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>B</step>
+					<alter>1</alter>
+					<octave>4</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<pitch>
+					<step>B</step>
+					<alter>1</alter>
+					<octave>4</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<pitch>
+					<step>F</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>A</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>C</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<pitch>
+					<step>C</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>E</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>G</step>
+					<alter>1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
 			</note>
 		</measure>
 		<measure number="13">
 			<note>
 				<pitch>
-					<step>A</step>
+					<step>G</step>
 					<alter>1</alter>
 					<octave>5</octave>
 				</pitch>
-				<duration>6</duration>
-				<tie type="stop"/>
+				<duration>1</duration>
 				<voice>1</voice>
-				<type>quarter</type>
-				<dot/>
-				<notations>
-					<tied type="stop"/>
-				</notations>
+				<type>16th</type>
 			</note>
 			<note>
-				<chord/>
 				<pitch>
-					<step>C</step>
+					<step>B</step>
+					<alter>0</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>1</duration>
+				<voice>1</voice>
+				<type>16th</type>
+			</note>
+			<note>
+				<pitch>
+					<step>D</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>1</duration>
+				<voice>1</voice>
+				<type>16th</type>
+			</note>
+			<note>
+				<pitch>
+					<step>G</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>1</duration>
+				<voice>1</voice>
+				<type>16th</type>
+			</note>
+			<note>
+				<pitch>
+					<step>G</step>
 					<alter>2</alter>
 					<octave>6</octave>
 				</pitch>
-				<duration>6</duration>
-				<tie type="stop"/>
+				<duration>1</duration>
 				<voice>1</voice>
-				<type>quarter</type>
-				<dot/>
-				<notations>
-					<tied type="stop"/>
-				</notations>
+				<type>16th</type>
 			</note>
 			<note>
-				<chord/>
 				<pitch>
 					<step>E</step>
 					<alter>1</alter>
 					<octave>6</octave>
 				</pitch>
-				<duration>6</duration>
-				<tie type="stop"/>
+				<duration>1</duration>
 				<voice>1</voice>
-				<type>quarter</type>
-				<dot/>
-				<notations>
-					<tied type="stop"/>
-				</notations>
+				<type>16th</type>
 			</note>
 			<note>
 				<pitch>
-					<step>D</step>
+					<step>C</step>
 					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>1</duration>
+				<voice>1</voice>
+				<type>16th</type>
+			</note>
+			<note>
+				<pitch>
+					<step>G</step>
+					<alter>2</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>1</duration>
+				<voice>1</voice>
+				<type>16th</type>
+			</note>
+			<note>
+				<pitch>
+					<step>A</step>
+					<alter>-1</alter>
 					<octave>5</octave>
 				</pitch>
 				<duration>2</duration>
-				<tie type="start"/>
 				<voice>1</voice>
 				<type>eighth</type>
-				<notations>
-					<tied type="start"/>
-				</notations>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>C</step>
+					<alter>-1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>E</step>
+					<alter>-1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<pitch>
+					<step>B</step>
+					<alter>-1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>D</step>
+					<alter>-1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
 			</note>
 			<note>
 				<chord/>
 				<pitch>
 					<step>F</step>
-					<alter>2</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>2</duration>
-				<tie type="start"/>
-				<voice>1</voice>
-				<type>eighth</type>
-				<notations>
-					<tied type="start"/>
-				</notations>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>A</step>
-					<alter>1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>2</duration>
-				<tie type="start"/>
-				<voice>1</voice>
-				<type>eighth</type>
-				<notations>
-					<tied type="start"/>
-				</notations>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>D</step>
-					<alter>1</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>2</duration>
-				<tie type="start"/>
-				<voice>1</voice>
-				<type>eighth</type>
-				<notations>
-					<tied type="start"/>
-				</notations>
-			</note>
-			<note>
-				<pitch>
-					<step>D</step>
-					<alter>1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>6</duration>
-				<tie type="stop"/>
-				<voice>1</voice>
-				<type>quarter</type>
-				<dot/>
-				<notations>
-					<tied type="stop"/>
-				</notations>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>F</step>
-					<alter>2</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>6</duration>
-				<tie type="stop"/>
-				<voice>1</voice>
-				<type>quarter</type>
-				<dot/>
-				<notations>
-					<tied type="stop"/>
-				</notations>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>A</step>
-					<alter>1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>6</duration>
-				<tie type="stop"/>
-				<voice>1</voice>
-				<type>quarter</type>
-				<dot/>
-				<notations>
-					<tied type="stop"/>
-				</notations>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>D</step>
-					<alter>1</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>6</duration>
-				<tie type="stop"/>
-				<voice>1</voice>
-				<type>quarter</type>
-				<dot/>
-				<notations>
-					<tied type="stop"/>
-				</notations>
-			</note>
-			<note>
-				<pitch>
-					<step>D</step>
 					<alter>0</alter>
-					<octave>3</octave>
+					<octave>5</octave>
 				</pitch>
 				<duration>2</duration>
-				<tie type="start"/>
 				<voice>1</voice>
 				<type>eighth</type>
-				<notations>
-					<tied type="start"/>
-				</notations>
+			</note>
+			<note>
+				<pitch>
+					<step>C</step>
+					<alter>-1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>E</step>
+					<alter>-1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>G</step>
+					<alter>-1</alter>
+					<octave>5</octave>
+				</pitch>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
+			</note>
+			<note>
+				<rest/>
+				<duration>2</duration>
+				<voice>1</voice>
+				<type>eighth</type>
 			</note>
 		</measure>
 		<measure number="14">
 			<note>
-				<pitch>
-					<step>D</step>
-					<alter>0</alter>
-					<octave>3</octave>
-				</pitch>
-				<duration>1</duration>
-				<tie type="stop"/>
-				<voice>1</voice>
-				<type>16th</type>
-				<notations>
-					<tied type="stop"/>
-				</notations>
-			</note>
-			<note>
-				<pitch>
-					<step>F</step>
-					<alter>1</alter>
-					<octave>3</octave>
-				</pitch>
-				<duration>3</duration>
-				<voice>1</voice>
-				<type>eighth</type>
-				<dot/>
-			</note>
-			<note>
-				<pitch>
-					<step>E</step>
-					<alter>-1</alter>
-					<octave>3</octave>
-				</pitch>
-				<duration>3</duration>
-				<voice>1</voice>
-				<type>eighth</type>
-				<dot/>
-			</note>
-			<note>
-				<pitch>
-					<step>G</step>
-					<alter>-1</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>1</duration>
-				<tie type="start"/>
-				<voice>1</voice>
-				<type>16th</type>
-				<notations>
-					<tied type="start"/>
-				</notations>
-			</note>
-			<note>
-				<pitch>
-					<step>G</step>
-					<alter>-1</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>2</duration>
-				<tie type="stop"/>
-				<voice>1</voice>
-				<type>eighth</type>
-				<notations>
-					<tied type="stop"/>
-				</notations>
-			</note>
-			<note>
-				<pitch>
-					<step>E</step>
-					<alter>0</alter>
-					<octave>3</octave>
-				</pitch>
-				<duration>3</duration>
-				<voice>1</voice>
-				<type>eighth</type>
-				<dot/>
-			</note>
-			<note>
-				<pitch>
-					<step>G</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>3</duration>
-				<voice>1</voice>
-				<type>eighth</type>
-				<dot/>
-			</note>
-		</measure>
-		<measure number="15">
-			<note>
-				<pitch>
-					<step>B</step>
-					<alter>-2</alter>
-					<octave>4</octave>
-				</pitch>
+				<rest/>
 				<duration>2</duration>
 				<voice>1</voice>
 				<type>eighth</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>C</step>
-					<alter>-2</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>2</duration>
-				<voice>1</voice>
-				<type>eighth</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>F</step>
-					<alter>-1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>2</duration>
-				<voice>1</voice>
-				<type>eighth</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<alter>1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>2</duration>
-				<voice>1</voice>
-				<type>eighth</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>E</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>2</duration>
-				<voice>1</voice>
-				<type>eighth</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>G</step>
-					<alter>1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>2</duration>
-				<voice>1</voice>
-				<type>eighth</type>
-			</note>
-			<note>
-				<pitch>
-					<step>G</step>
-					<alter>1</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>B</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>D</step>
-					<alter>1</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>D</step>
-					<alter>1</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>F</step>
-					<alter>1</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>A</step>
-					<alter>1</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>A</step>
-					<alter>1</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>C</step>
-					<alter>1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>E</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-		</measure>
-		<measure number="16">
-			<note>
-				<pitch>
-					<step>E</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>G</step>
-					<alter>1</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>B</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>B</step>
-					<alter>0</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>D</step>
-					<alter>1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>F</step>
-					<alter>1</alter>
-					<octave>4</octave>
-				</pitch>
-				<duration>4</duration>
-				<voice>1</voice>
-				<type>quarter</type>
-			</note>
-			<note>
-				<pitch>
-					<step>G</step>
-					<alter>1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>1</duration>
-				<voice>1</voice>
-				<type>16th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>B</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>1</duration>
-				<voice>1</voice>
-				<type>16th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>D</step>
-					<alter>1</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>1</duration>
-				<voice>1</voice>
-				<type>16th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>G</step>
-					<alter>1</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>1</duration>
-				<voice>1</voice>
-				<type>16th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>E</step>
-					<alter>1</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>1</duration>
-				<voice>1</voice>
-				<type>16th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<alter>1</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>1</duration>
-				<voice>1</voice>
-				<type>16th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<alter>1</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>1</duration>
-				<voice>1</voice>
-				<type>16th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>G</step>
-					<alter>2</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>1</duration>
-				<voice>1</voice>
-				<type>16th</type>
-			</note>
-		</measure>
-		<measure number="17">
-			<note>
-				<pitch>
-					<step>A</step>
-					<alter>-1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>1</duration>
-				<voice>1</voice>
-				<type>16th</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>C</step>
-					<alter>-1</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>1</duration>
-				<voice>1</voice>
-				<type>16th</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>E</step>
-					<alter>-1</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>1</duration>
-				<voice>1</voice>
-				<type>16th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>B</step>
-					<alter>-1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>1</duration>
-				<voice>1</voice>
-				<type>16th</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>D</step>
-					<alter>-1</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>1</duration>
-				<voice>1</voice>
-				<type>16th</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>F</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>1</duration>
-				<voice>1</voice>
-				<type>16th</type>
-			</note>
-			<note>
-				<pitch>
-					<step>C</step>
-					<alter>-1</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>1</duration>
-				<voice>1</voice>
-				<type>16th</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>E</step>
-					<alter>-1</alter>
-					<octave>6</octave>
-				</pitch>
-				<duration>1</duration>
-				<voice>1</voice>
-				<type>16th</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>G</step>
-					<alter>-1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>1</duration>
-				<voice>1</voice>
-				<type>16th</type>
 			</note>
 			<note>
 				<pitch>
 					<step>B</step>
 					<alter>-2</alter>
-					<octave>4</octave>
+					<octave>5</octave>
 				</pitch>
-				<duration>2</duration>
+				<duration>6</duration>
 				<voice>1</voice>
-				<type>eighth</type>
+				<type>quarter</type>
+				<dot/>
 			</note>
 			<note>
 				<chord/>
 				<pitch>
-					<step>C</step>
-					<alter>-2</alter>
-					<octave>5</octave>
+					<step>D</step>
+					<alter>-1</alter>
+					<octave>6</octave>
 				</pitch>
-				<duration>2</duration>
+				<duration>6</duration>
 				<voice>1</voice>
-				<type>eighth</type>
+				<type>quarter</type>
+				<dot/>
 			</note>
 			<note>
 				<chord/>
 				<pitch>
 					<step>F</step>
 					<alter>-1</alter>
-					<octave>5</octave>
+					<octave>6</octave>
 				</pitch>
-				<duration>2</duration>
+				<duration>6</duration>
 				<voice>1</voice>
-				<type>eighth</type>
+				<type>quarter</type>
+				<dot/>
 			</note>
 			<note>
-				<pitch>
-					<step>C</step>
-					<alter>1</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>2</duration>
-				<voice>1</voice>
-				<type>eighth</type>
-			</note>
-			<note>
-				<chord/>
-				<pitch>
-					<step>E</step>
-					<alter>0</alter>
-					<octave>5</octave>
-				</pitch>
-				<duration>2</duration>
-				<voice>1</voice>
-				<type>eighth</type>
-			</note>
-			<note>
-				<chord/>
 				<pitch>
 					<step>G</step>
 					<alter>1</alter>
 					<octave>5</octave>
 				</pitch>
-				<duration>2</duration>
+				<duration>6</duration>
 				<voice>1</voice>
-				<type>eighth</type>
+				<type>quarter</type>
+				<dot/>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>C</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>6</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<dot/>
+			</note>
+			<note>
+				<chord/>
+				<pitch>
+					<step>E</step>
+					<alter>1</alter>
+					<octave>6</octave>
+				</pitch>
+				<duration>6</duration>
+				<voice>1</voice>
+				<type>quarter</type>
+				<dot/>
 			</note>
 			<note>
 				<rest/>
-				<duration>1</duration>
+				<duration>2</duration>
 				<voice>1</voice>
-				<type>16th</type>
-			</note>
-			<note>
-				<rest/>
-				<duration>8</duration>
-				<voice>1</voice>
-				<type>half</type>
+				<type>eighth</type>
 			</note>
 			<barline location="right">
 					<bar-style>light-heavy</bar-style>
