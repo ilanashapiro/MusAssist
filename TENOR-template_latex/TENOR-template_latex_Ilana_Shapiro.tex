@@ -219,7 +219,7 @@ MusAssist supports templates for chords, arpeggios, scales, cadences, and harmon
 
 Following the principles of Western music theory, chords are specified by their root note, quality (major, minor, augmented, dominant, diminished, or half diminished), inversion (root, first, second, or third), and chord type (triad or seventh). Half diminished, dominant, and third inversion options can only apply to seventh chords. The root note cannot have a double accidental, as this can introduce triple accidentals in the chord, which MusAssist does not support.
 
-Arpeggios are defined with the same specification as Mus-Assist chords, since according to Western music theory, an arpeggio is simply the notes of a chord played individually in sequence.
+Arpeggios are defined with a similar specification to Mus-Assist chords, since according to Western music theory, an arpeggio is simply the notes of a chord played individually in sequence. However, unlike with chords, for arpeggios the user also supplies direction (ascending or descending).
 
 Diatonic scales are given by scale type (major or natural/harmonic/melodic minor) and key, while non-diatonic scales are simply specified by their type (chromatic or whole tone). A scale is either ascending or descending, must be given a length, and does not necessarily begin on the tonic – a start note must be supplied. Following convention, chromatic scales are notated with sharps when ascending and flats when descending.
 
@@ -433,9 +433,16 @@ Each note in a chord or arpeggio is generated with the logic from Section \ref{s
 
 The imperfect chordal intervals are initially set to major for major, dominant, and augmented chords, and to minor for minor, half diminished, and fully diminished chords. Thus, after the note is generated, for augmented chords the chordal fifth accidental must be lifted, and the seventh must be lowered. For dominant seventh chords, the seventh must be lowered. Finally, for diminished chords, the fifth and seventh must be lowered, and for half diminished seventh chords, the fifth alone must be lowered.
 
-To handle inversions, notice that the generated chord (whether triad or seventh) starts out in root position. Let $n$ be the desired inversion value (0 for root, 1 for first inversion, 2 for second, and 3 or third). By incrementing the octaves of the first $n$ tones of the chord in root position, we obtain the correct inversion.
+To handle inversions, notice that the generated chord (whether triad or seventh) starts out in root position. Let $n$ be the desired inversion value (0 for root, 1 for first inversion, 2 for second, and 3 or third). By incrementing the octaves of the first $n$ tones of the chord in root position, we obtain the correct inversion. This process is demonstrated in Figure \ref{fig:chord_inversions} with a C dominant seventh chord in third inversion. 
 
-If the chord is specified as an arpeggio, we simply return the chord as a series of individual notes, rather than a simultaneous cluster.
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.2\textwidth]{images/chord_inversions}
+  \caption{Chord Inversion Analysis}\label{fig:chord_inversions}
+  \vspace{-3mm}
+\end{figure}
+
+If we instead have an arpeggio, we first generate the notes in the underlying chord using the above logic. If the arpeggio is specified as a triad, we then double the root an octave up in order to have a complete arpeggio. Finally, we sort the tones in the arpeggio so that they strictly ascend or descend depending on the specified arpeggio direction, and return them as a list of individual tones, rather than a simultaneous cluster as in a chord.
 
 \subsubsection{Cadences}
 A cadence must undergo two levels of expansion: an intermediate step from the cadence to the list of chord templates it defines, and a final step from chord templates to notes.
