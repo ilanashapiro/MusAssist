@@ -321,7 +321,7 @@ Several features of MusAssist are clarified in Figures \ref{fig:example_program_
 \begin{itemize}\itemsep0pt
 \item The key signature can be changed consecutively as many times as desired, but only the last will take effect (as seen m. 1 and m. 5 of \figref{fig:example_program}). Changing the key signature also triggers a new measure.
 \item Empty measures can be created by consecutively applying the \verb!NEW_MEASURE! command (as seen m. 3 of \figref{fig:example_program}).
-\item Note and rest durations are automatically broken by the compiler both on the strong beat and on the barline (such as in mm. 1-2 of \figref{fig:example_program}). However, following standard Western notation convention, notes and rests that begin on a beat and fit in the rest of the measure are not broken on the strong beat (such as in m. 9 of \figref{fig:example_program}).
+\item Note and rest durations are automatically broken by the compiler both on the strong beat and on the barline (such as in mm. 1-2 of \figref{fig:example_program}). However, following standard Western notation convention, notes and rests that begin on a beat and fit in the remainder of the measure are not broken on the strong beat (such as in m. 9 of \figref{fig:example_program}).
 \item Labeled phrases are not notated until the label is referenced, rather than defined.
 \item The difference between a customized chord and a chord template is exemplified on lines 7 and 11 of \figref{fig:example_program_code}.
 \end{itemize}
@@ -435,7 +435,7 @@ Each note in a chord or arpeggio is generated with the logic from Section \ref{s
 
 The imperfect chordal intervals are initially set to major for major, dominant, and augmented chords, and to minor for minor, half diminished, and fully diminished chords. Thus, after the note is generated, for augmented chords the chordal fifth accidental must be lifted, and the seventh must be lowered. For dominant seventh chords, the seventh must be lowered. Finally, for diminished chords, the fifth and seventh must be lowered, and for half diminished seventh chords, the fifth alone must be lowered.
 
-To handle inversions, notice that the generated chord (whether triad or seventh) starts out in root position. Let $n$ be the desired inversion value (0 for root, 1 for first inversion, 2 for second, and 3 or third). By incrementing the octaves of the first $n$ tones of the chord in root position, we obtain the correct inversion. This process is demonstrated in Figure \ref{fig:chord_inversions} with a C dominant seventh chord in third inversion. 
+To handle inversions, notice that the generated chord (wh-ether triad or seventh) starts out in root position. Let $n$ be the desired inversion value (0 for root, 1 for first inversion, 2 for second, and 3 or third). By incrementing the octaves of the first $n$ tones of the chord in root position, we obtain the correct inversion. This process is demonstrated in Figure \ref{fig:chord_inversions} with a C dominant seventh chord in third inversion. 
 
 \begin{figure}[h!]
 \centering
