@@ -1,6 +1,6 @@
 # MusAssist
 
-(NOTE: the compiler code and associated MusAssist code examples are all located in the "app" folder of this directory. Instructions for running programs are in app/Compile.hs. Conference paper in submission can be accessed <a href="https://github.com/ilanashapiro/MusAssist/blob/main/2021_ICMC_Paper_Templates/ICMC_2021_LaTeX_Template/icmc2021template.pdf">HERE</a>)
+(NOTE: the compiler code and associated MusAssist code examples are all located in the "app" folder of this directory. Instructions for running programs are in app/Compile.hs. The published paper at TENOR'23 can be accessed <a href="https://www.tenor-conference.org/proceedings/2023/11-TENOR_BOSTON_2023_paper_9804Shapiro.pdf">HERE</a>)
 
 When writing music, composers must manually transition from theoretical musical concepts to notes on a page. This process can be tedious and slow, requiring the composer to expand complex musical structures by hand, such as cadences and harmonic sequences, to the individual notes they define. Therefore, the level of abstraction of the musical structure is higher than what the composer writes. 
 
